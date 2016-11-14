@@ -4,6 +4,9 @@ library("readxl", lib.loc="~/R/win-library/3.3")
 library("tidyr", lib.loc="~/R/win-library/3.3")
 library("dplyr", lib.loc="~/R/win-library/3.3")
 library("prettyR", lib.loc="~/R/win-library/3.3")
+library("ggplot2", lib.loc="~/R/win-library/3.3")
+
+.pardefault <- par(no.readonly = T)
 
 iga <- read_excel("~/IRC/dataIgA/donnes patients IgA.xlsx", 
                   col_types = c("text", "text", "text", 
@@ -67,7 +70,8 @@ iga$AUTCOMOR2_COD<-as.factor(iga$AUTCOMOR2_COD)
 iga$AUTCOMOR1_LIB<-as.factor(iga$AUTCOMOR1_LIB)
 iga$AUTCOMOR1_COD<-as.factor(iga$AUTCOMOR1_COD)
 iga$HB<-as.numeric(iga$HB)
-iga$ALB_MTH<-as.factor(iga$ALB_MTH)
+iga$ALBI_MTH<-factor(iga$ALBI_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
+iga$ALB_MTH<-factor(iga$ALB_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
 iga$ALB<-as.numeric(iga$ALB)
 iga$PDS<-as.numeric(iga$PDS)
 iga$nephgp<-NULL # N'a que le facteur "gnc" et pas de donnée manquante
@@ -178,3 +182,181 @@ plot(survfit(Surv(greffe$kmdelaidc/365.25,greffe$kmdc)~1),
 table(greffe$NOUV1) # Nouveaux évènements (moins de décès)
 
 #-------------------------------------------------Fichier patients IgA------------------------------------------------------------------------------
+## Fichier avec tous les patients ayant une IgA
+table(duplicated(iga)) # Pas de doublons donc 3249 patients avec une néphropathie à dépôts d'IgA
+## _Région, départements----
+sort(table(iga$EQD_REG_LIB), decreasing = T) # Répartition par régions
+par(mar=c(5,12,5,12))
+barplot(sort(table(iga$EQD_REG_LIB)),
+        horiz = T,
+        las = 1,
+        xlab = "Effectif",
+        main = "IRC par dépôts d'IgA selon la région",
+        col = "darkturquoise")
+par(.pardefault)
+
+sort(table(iga$EQD_DEP_LIB), decreasing = T) # Répartition par départements
+par(mar=c(5,8,2,8))
+barplot(sort(table(iga$EQD_DEP_LIB)),
+        horiz = T,
+        las = 1,
+        xlim = c(0,200),
+        xlab = "Effectif",
+        main = "IRC par dépôts d'IgA selon la région",
+        cex.names = 0.7)
+par(.pardefault)
+
+## _Types de néphropathie à IgA----
+sort(table(iga$NEPH_LIB, useNA = "always")) 
+round(sort(prop.table(table(iga$NEPH_LIB))*100),1)
+
+## _Sexe----
+table(iga$sex,useNA = "always")
+round(prop.table(table(iga$sex))*100,1)
+pie(table(iga$sex),
+    col = c("cadetblue1","indianred1"),
+    labels = c("Hommes","Femmes"))
+
+## _Poids, taille----
+table(iga$PDS, useNA = "always")
+iga[iga$PDS<35 & !is.na(iga$PDS),] # On regarde les patients avec un poids faible
+hist(iga$TAIL,
+     las = 1,
+     xlim = c(100,200),
+     xlab = "Taille",
+     ylab = "Fréquence",
+     main = "Répartition des tailles")
+table(iga$bmi, useNA = "always")
+iga$gr_bmi<-cut(iga$bmi, 
+                breaks = c(min(iga$bmi,na.rm = T),18.5,25,30,35,40,max(iga$bmi,na.rm = T)+1), 
+                right = F, 
+                labels = c("<18.5","18.5-24.9","25-29.9","30-34.9","35-39.9",">40"))
+barplot(prop.table(table(iga$gr_bmi))*100,
+        las = 1,
+        xlab = "IMC",
+        ylab = "Proportion",
+        main = "Répartition des IMC")
+
+
+## _Néphropathies associées----
+summary(iga$CAUSENEPH1_LIB) # Trop de données manquantes
+
+## _Créatininémie initiale----
+summary(iga$CREATINI)
+hist(iga$CREATINI)
+
+## _Albuminémie----
+summary(iga$ALBINI) # Albuminémie initiale (g/L)
+hist(iga$ALBINI)
+summary(iga$ALBI_MTH) # Méthode de mesure de l'albumine initiale
+barplot(table(iga$ALBI_MTH))
+
+summary(iga$ALB) # Albuminémie (g/L)
+hist(iga$ALB)
+summary(iga$ALB_MTH) # Méthode de mesure de l'albumine
+barplot(table(iga$ALB_MTH))
+
+## _Hémoglobinémie----
+summary(iga$HBINI) # Hémoglobinémie initiale
+hist(iga$HBINI)
+boxplot(iga$HBINI~iga$sex)
+abline(h = 13, col = "blue") # Limite anémie hommes
+abline(h = 12, col = "red") # Limite anémie femmes
+
+ifelse(iga$sex==1, 
+       iga$gr_HBINI[iga$sex==1]<-cut(iga$HBINI[iga$sex==1], breaks = c(0,13,max(iga$HBINI, na.rm = T)+1), right = F, labels = c("Anémique","Non anémique")), 
+       iga$gr_HBINI[iga$sex==2]<-cut(iga$HBINI[iga$sex==2], breaks = c(0,12,max(iga$HBINI, na.rm = T)+1), right = F, labels = c("Anémique","Non anémique")))
+
+table(iga$gr_HBINI)
+round(prop.table(table(iga$gr_HBINI))*100,1) # Nombre d'anémiques
+
+table(iga$sex,iga$gr_HBINI) # Nombre d'anémiques selon le sexe
+round(prop.table(table(iga$sex,iga$gr_HBINI, deparse.level = 1),1)*100,1)
+chisq.test(table(iga$sex,iga$gr_HBINI),correct = F) # Chi2 test
+
+
+summary(iga$HB) # Hémoglobinémie
+hist(iga$HB)
+
+## _Nombre de consultation néphrologique dans l'année précédente----
+summary(iga$NBCS)
+table(iga$NBCS)
+plot(as.factor(iga$NBCS))
+
+## _Premier traitement en urgence----
+summary(iga$URGn)
+table(iga$URGn)
+round(prop.table(table(iga$URGn))*100,1)
+pie(table(iga$URGn), col = c("lightblue","pink"))
+
+## _Traitement par Erythropoïétine----
+summary(iga$EPOINIn)
+table(iga$EPOINIn)
+round(prop.table(table(iga$EPOINIn))*100,1)
+pie(table(iga$EPOINIn), col = c("lightblue","pink"))
+
+## _Premier traitement en réa----
+summary(iga$REAn)
+table(iga$REAn)
+round(prop.table(table(iga$REAn))*100,1)
+pie(table(iga$REAn), col = c("lightblue","pink"))
+
+## _Ponction Biopsie rénale----
+summary(iga$PBRn)
+table(iga$PBRn)
+round(prop.table(table(iga$PBRn))*100,1)
+pie(table(iga$PBRn), col = c("lightblue","pink"))
+
+## _Activité au début de l'IRT----
+summary(iga$ACTIVn)
+iga$ACTIVn<-factor(iga$ACTIVn, labels = c("Actif temps plein","Actif temps partiel","Actif en milieu protégé","Retraité","Au chômage","Au foyer","Scolarisé, étudiant","Arrêt longue maladie","Inactif en invalidité","Inactif autre"))
+round(prop.table(table(iga$ACTIVn))*100,1)
+par(mar=c(5,10,5,3))
+barplot(sort(table(iga$ACTIVn)),
+        las = 1,
+        horiz = T,
+        xlab = "Fréquence",
+        main = "Activité au début de l'IRT")
+par(.pardefault)
+
+## _Nombre de séances d'hémodialyse----
+summary(iga$NBSCEAN)
+table(iga$NBSCEAN)
+round(prop.table(table(iga$NBSCEAN))*100,1)
+barplot(table(iga$NBSCEAN), las = 1)
+
+## _Volume de liquide infusée par jour pour effectuer la dialyse péritonéale----
+summary(iga$VOLDP)
+table(iga$VOLDP)
+round(prop.table(table(iga$VOLDP))*100,1)
+barplot(table(iga$VOLDP), las = 1)
+
+## _Type de traitement de l'IRCT----
+summary(iga$METHOn)
+table(iga$METHOn)
+iga$METHOn<-factor(iga$METHOn, labels = c("Hémodialyse","Dialyse péritonéale","Greffe"))
+round(prop.table(table(iga$METHOn))*100,1)
+barplot(table(iga$METHOn), las = 1)
+
+## _Voie d'abord vasculaire----
+# NA = zéro abord ? 
+summary(iga$VAVn)
+table(iga$VAVn)
+round(prop.table(table(iga$VAVn))*100,1)
+barplot(table(iga$VAVn), las = 1)
+
+## _Traitement (concaténation TECHN et MODAL)----
+summary(iga$traitement)
+table(iga$traitement)
+round(prop.table(table(iga$traitement))*100,1)
+barplot(table(iga$traitement), las = 1)
+
+## _Durée séance d'hémodialyse en minutes----
+describe(iga$DRSCmin, num.desc = c("min","mean","median","max","sd","valid.n"))
+table(iga$DRSCmin)
+barplot(table(iga$DRSCmin), las = 1)
+
+## _Assistance par infirmière diplômée d'Etat----
+table(iga$IDEn)
+round(prop.table(table(iga$IDEn))*100,1)
+pie(table(iga$IDEn),col = c("lightblue","pink"))
