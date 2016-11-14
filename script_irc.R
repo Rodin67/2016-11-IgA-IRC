@@ -1,0 +1,6 @@
+library("readxl", lib.loc="~/R/win-library/3.3")
+iga <- read_excel("~/IRC/dataIgA/donnes patients IgA.xlsx")
+gnc <- read_excel("~/IRC/dataIgA/donnees GNC.xlsx")
+diab <- read_excel("~/IRC/dataIgA/donneesdiabete.xlsx")
+pkrd <- read_excel("~/IRC/dataIgA/donneesPKRD.xlsx")
+greffe <- read_excel("~/IRC/dataIgA/greffe IgA.xlsx")
