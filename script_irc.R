@@ -4,6 +4,9 @@ library("readxl", lib.loc="~/R/win-library/3.3")
 library("tidyr", lib.loc="~/R/win-library/3.3")
 library("dplyr", lib.loc="~/R/win-library/3.3")
 library("prettyR", lib.loc="~/R/win-library/3.3")
+library("ggplot2", lib.loc="~/R/win-library/3.3")
+
+.pardefault <- par(no.readonly = T)
 
 iga <- read_excel("~/IRC/dataIgA/donnes patients IgA.xlsx", 
                   col_types = c("text", "text", "text", 
@@ -178,3 +181,29 @@ plot(survfit(Surv(greffe$kmdelaidc/365.25,greffe$kmdc)~1),
 table(greffe$NOUV1) # Nouveaux évènements (moins de décès)
 
 #-------------------------------------------------Fichier patients IgA------------------------------------------------------------------------------
+## Fichier avec tous les patients ayant une IgA
+table(duplicated(iga)) # Pas de doublons donc 3249 patients avec une néphropathie à dépôts d'IgA
+
+## Socio-démographie
+sort(table(iga$EQD_REG_LIB), decreasing = T) # Répartition par régions
+par(mar=c(5,12,5,12))
+barplot(sort(table(iga$EQD_REG_LIB)),
+        horiz = T,
+        las = 1,
+        xlab = "Effectif",
+        main = "IRC par dépôts d'IgA selon la région",
+        col = "darkturquoise")
+par(.pardefault)
+
+sort(table(iga$EQD_DEP_LIB), decreasing = T) # Répartition par départements
+par(mar=c(5,8,2,8))
+barplot(sort(table(iga$EQD_DEP_LIB)),
+        horiz = T,
+        las = 1,
+        xlim = c(0,200),
+        xlab = "Effectif",
+        main = "IRC par dépôts d'IgA selon la région",
+        cex.names = 0.7)
+par(.pardefault)
+
+## Année de démarrage du 1er traitement de suppléance
