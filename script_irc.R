@@ -1,4 +1,4 @@
-#-------------------------------------------------Data------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------Data-----------------------------------------------------
 library("survival", lib.loc="C:/Program Files/R/R-3.3.2/library")
 library("readxl", lib.loc="~/R/win-library/3.3")
 library("tidyr", lib.loc="~/R/win-library/3.3")
@@ -35,13 +35,14 @@ iga <- read_excel("~/IRC/dataIgA/donnes patients IgA.xlsx",
                                 "numeric", "numeric", "numeric", 
                                 "numeric", "numeric", "numeric", 
                                 "numeric", "text", "text", "text", 
-                                "text", "numeric", "numeric", "numeric", 
+                                "text", "text", "text", "numeric", 
                                 "numeric", "text", "text", "text", 
                                 "text", "numeric", "text", "text", 
                                 "numeric", "numeric", "text", "text", 
                                 "text", "text", "date", "date", "date", 
                                 "date", "date", "date", "date", 
                                 "date", "date", "date"))
+iga$patient<-c(1:nrow(iga)) # On met un numéro par patient
 iga$DATE_EVT<-as.Date(iga$DATE_EVT, origin = "1899-12-30")
 iga$FAV_DATE<-as.Date(iga$FAV_DATE, origin = "1899-12-30")
 iga$DDIRT<-as.Date(iga$DDIRT, origin = "1899-12-30")
@@ -63,13 +64,15 @@ iga$age<-as.numeric(iga$age)
 iga$classage<-as.factor(iga$classage)
 iga$agegp<-as.factor(iga$agegp)
 iga$anirt<-as.factor(iga$anirt)
-iga$AUTCOMOR3_LIB<-NULL # Vide
-iga$AUTCOMOR3_COD<-NULL # Vide
+iga$AUTCOMOR3_LIB<-as.factor(iga$AUTCOMOR3_LIB)
+iga$AUTCOMOR3_COD<-as.factor(iga$AUTCOMOR3_COD)
 iga$AUTCOMOR2_LIB<-as.factor(iga$AUTCOMOR2_LIB)
 iga$AUTCOMOR2_COD<-as.factor(iga$AUTCOMOR2_COD)
 iga$AUTCOMOR1_LIB<-as.factor(iga$AUTCOMOR1_LIB)
 iga$AUTCOMOR1_COD<-as.factor(iga$AUTCOMOR1_COD)
 iga$HB<-as.numeric(iga$HB)
+iga$gr_HBINI[iga$sex==1]<-cut(iga$HBINI[iga$sex==1], breaks = c(0,13,max(iga$HBINI, na.rm = T)+1), right = F, labels = c("Anémique","Non anémique"))
+iga$gr_HBINI[iga$sex==2]<-cut(iga$HBINI[iga$sex==2], breaks = c(0,12,max(iga$HBINI, na.rm = T)+1), right = F, labels = c("Anémique","Non anémique"))
 iga$ALBI_MTH<-factor(iga$ALBI_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
 iga$ALB_MTH<-factor(iga$ALB_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
 iga$ALB<-as.numeric(iga$ALB)
@@ -101,8 +104,8 @@ diab <- read_excel("~/IRC/dataIgA/donneesdiabete.xlsx")
 pkrd <- read_excel("~/IRC/dataIgA/donneesPKRD.xlsx")
 
 greffe <- read_excel("~/IRC/dataIgA/greffe IgA.xlsx", col_types = c("numeric", "text", "date", "date", "date", "date", "date", "numeric", "numeric",
-                                                                        "date", "date", "text", "text", "numeric", "text", "text", "text", "numeric",
-                                                                        "text", "text", "numeric"))
+                                                                    "date", "date", "text", "text", "numeric", "text", "text", "text", "numeric",
+                                                                    "text", "text", "numeric"))
 greffe$ARF1<-as.Date(greffe$ARF1, origin = "1899-12-30")
 greffe$ARF2<-as.Date(greffe$ARF2, origin = "1899-12-30")
 greffe$GRF1<-as.Date(greffe$GRF1, origin = "1899-12-30")
@@ -125,7 +128,7 @@ greffe$NOUV2<-factor(greffe$NOUV2)
 greffe$kmdc<-ifelse(is.na(greffe$DECES1),0,1) # Pour faire un Kaplan-Meier
 greffe$kmdelaidc<- ifelse(is.na(greffe$DECES1),as.Date(c("2016-11-01"), origin = "1899-12-30")-greffe$GRF1,greffe$DECES1-greffe$GRF1) # Pour faire un Kaplan-Meier : délai avant évènement (ou suivi jusqu'au 1-11-2016)
 
-#-------------------------------------------------Fichier greffe------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------Fichier greffe-------------------------------------------
 # Les points "." ont été gérés comme une donnée manquante "NA" en attedant de savoir à quoi cela correspond
 
 greffe$NEFG[duplicated(greffe[,c("NEFG")])]
@@ -181,7 +184,7 @@ plot(survfit(Surv(greffe$kmdelaidc/365.25,greffe$kmdc)~1),
 
 table(greffe$NOUV1) # Nouveaux évènements (moins de décès)
 
-#-------------------------------------------------Fichier patients IgA------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------Fichier patients IgA-----------------------------------------
 ## Fichier avec tous les patients ayant une IgA
 table(duplicated(iga)) # Pas de doublons donc 3249 patients avec une néphropathie à dépôts d'IgA
 ## _Région, départements----
@@ -217,7 +220,7 @@ pie(table(iga$sex),
     col = c("cadetblue1","indianred1"),
     labels = c("Hommes","Femmes"))
 
-## _Poids, taille----
+## _Poids, taille, bmi----
 table(iga$PDS, useNA = "always")
 iga[iga$PDS<35 & !is.na(iga$PDS),] # On regarde les patients avec un poids faible
 hist(iga$TAIL,
@@ -263,10 +266,6 @@ boxplot(iga$HBINI~iga$sex)
 abline(h = 13, col = "blue") # Limite anémie hommes
 abline(h = 12, col = "red") # Limite anémie femmes
 
-ifelse(iga$sex==1, 
-       iga$gr_HBINI[iga$sex==1]<-cut(iga$HBINI[iga$sex==1], breaks = c(0,13,max(iga$HBINI, na.rm = T)+1), right = F, labels = c("Anémique","Non anémique")), 
-       iga$gr_HBINI[iga$sex==2]<-cut(iga$HBINI[iga$sex==2], breaks = c(0,12,max(iga$HBINI, na.rm = T)+1), right = F, labels = c("Anémique","Non anémique")))
-
 table(iga$gr_HBINI)
 round(prop.table(table(iga$gr_HBINI))*100,1) # Nombre d'anémiques
 
@@ -289,8 +288,12 @@ table(iga$URGn)
 round(prop.table(table(iga$URGn))*100,1)
 pie(table(iga$URGn), col = c("lightblue","pink"))
 
-## _Traitement par Erythropoïétine----
-summary(iga$EPOINIn)
+## _Erythropoïétine----
+table(iga$EPOn,useNA = "always")
+round(prop.table(table(iga$EPOn))*100,1)
+pie(table(iga$EPOn),col = c("lightblue","pink"))
+
+summary(iga$EPOINIn) # Traitement par Erythropoïétine
 table(iga$EPOINIn)
 round(prop.table(table(iga$EPOINIn))*100,1)
 pie(table(iga$EPOINIn), col = c("lightblue","pink"))
@@ -357,6 +360,256 @@ table(iga$DRSCmin)
 barplot(table(iga$DRSCmin), las = 1)
 
 ## _Assistance par infirmière diplômée d'Etat----
-table(iga$IDEn)
+table(iga$IDEn,useNA = "always")
 round(prop.table(table(iga$IDEn))*100,1)
 pie(table(iga$IDEn),col = c("lightblue","pink"))
+
+## _Diabète----
+table(iga$DIABn,useNA = "always")
+round(prop.table(table(iga$DIABn))*100,1)
+pie(table(iga$DIABn),col = c("lightblue","pink"))
+
+table(iga$TYPDIABn,useNA = "always") # Type de diabète
+round(prop.table(table(iga$TYPDIABn[!iga$TYPDIABn==0]))*100,1)
+pie(table(iga$TYPDIABn[!iga$TYPDIABn==0]))
+
+## _Insuline----
+table(iga$INSULn,useNA = "always")
+round(prop.table(table(iga$INSULn))*100,1)
+pie(table(iga$INSULn))
+
+## _Insuffisance respiratoire chronique----
+table(iga$IRCn,useNA = "always")
+round(prop.table(table(iga$IRCn))*100,1)
+pie(table(iga$IRCn))
+
+## _Oxygénothérapie----
+table(iga$O2n,useNA = "always")
+round(prop.table(table(iga$O2n))*100,1)
+pie(table(iga$O2n))
+
+## _Insuffisance cardiaque----
+table(iga$ICn,useNA = "always")
+round(prop.table(table(iga$ICn))*100,1)
+pie(table(iga$ICn))
+
+## _Stade de l'insuffisance cardiaque ???----
+table(iga$STADICn,useNA = "always")
+round(prop.table(table(iga$STADICn))*100,1)
+pie(table(iga$STADICn))
+
+## _Insuffisance coronarienne----
+table(iga$ICOROn,useNA = "always")
+round(prop.table(table(iga$ICOROn))*100,1)
+pie(table(iga$ICOROn))
+
+## _Infarctus du myocarde----
+table(iga$IDMn,useNA = "always")
+round(prop.table(table(iga$IDMn))*100,1)
+pie(table(iga$IDMn))
+
+## _Troubles du rythme----
+table(iga$RYTHMn,useNA = "always")
+round(prop.table(table(iga$RYTHMn))*100,1)
+pie(table(iga$RYTHMn))
+
+## _Anevrysme de l'aorte abdominale----
+table(iga$ANEVn,useNA = "always")
+round(prop.table(table(iga$ANEVn))*100,1)
+pie(table(iga$ANEVn))
+
+## _Artérite des membres inférieurs----
+table(iga$AMIn,useNA = "always")
+round(prop.table(table(iga$AMIn))*100,1)
+pie(table(iga$AMIn))
+
+## _Stade de l'artérite des membres inférieurs----
+table(iga$STDAMIn, useNA = "always")
+round(prop.table(table(iga$STDAMIn))*100,1)
+pie(table(iga$STDAMIn))
+
+## _Accident vasculaire cérébral----
+table(iga$AVCn,useNA = "always")
+round(prop.table(table(iga$AVCn))*100,1)
+pie(table(iga$AVCn))
+
+## _Accident ischémique transitoire----
+table(iga$AITn,useNA = "always")
+round(prop.table(table(iga$AITn))*100,1)
+pie(table(iga$AITn))
+
+## _Variable composite de AVC et AIT----
+table(iga$AVCAITn,useNA = "always")
+round(prop.table(table(iga$AVCAITn))*100,1)
+pie(table(iga$AVCAITn))
+
+table(iga$AVCn, iga$AITn, useNA = "always", deparse.level = 2) # Ne correspond pas exactement
+
+## _Cancer évolutif----
+table(iga$KCn,useNA = "always")
+round(prop.table(table(iga$KCn))*100,1)
+pie(table(iga$KCn))
+
+## _Ag HBS positif----
+table(iga$VHBn,useNA = "always")
+round(prop.table(table(iga$VHBn))*100,1)
+pie(table(iga$VHBn))
+
+## _PCR VHC positif----
+table(iga$VHCn,useNA = "always")
+round(prop.table(table(iga$VHCn))*100,1)
+pie(table(iga$VHCn))
+
+## _Cirrhose----
+table(iga$CIRHn,useNA = "always")
+round(prop.table(table(iga$CIRHn))*100,1)
+pie(table(iga$CIRHn))
+
+## _Stade de la cirrhose----
+table(iga$STDCIRHn, useNA = "always")
+round(prop.table(table(iga$STDCIRHn))*100,1)
+pie(table(iga$STDCIRHn))
+
+## _VIH----
+table(iga$VIHn,useNA = "always")
+round(prop.table(table(iga$VIHn))*100,1)
+pie(table(iga$VIHn))
+
+## _SIDA----
+table(iga$SIDAn, useNA = "always")
+round(prop.table(table(iga$SIDAn))*100,1)
+pie(table(iga$SIDAn))
+
+## _Transplantation autre que rein----
+table(iga$TX_AUTRE, useNA = "always")
+round(prop.table(table(iga$TX_AUTRE))*100,1)
+pie(table(iga$TX_AUTRE))
+
+par(mfrow = c(3,3))
+for (i in c( "ORG_Cn", "ORG_CPn","ORG_Pn","ORG_Fn","ORG_PAn","ORG_ILn","ORG_In","ORG_MOn")) 
+{
+  print(i)
+  print(table(iga[,i], useNA = "always"))
+  print(round(prop.table(table(iga[,i]))*100,1))
+  barplot(table(iga[,i]), main = i, xlab = paste("0 =",table(iga[,i])[1],";", "1 =",table(iga[,i])[2]))
+  
+}
+par(mfrow = c(1,1))
+
+## _Au moins un handicap----
+table(iga$HANDn, useNA = "always")
+round(prop.table(table(iga$HANDn))*100,1)
+pie(table(iga$HANDn))
+
+## _Amputation membres inférieurs----
+table(iga$AMPn, useNA = "always")
+round(prop.table(table(iga$AMPn))*100,1)
+pie(table(iga$AMPn))
+
+## _Paraplégie/Hémiplégie----
+table(iga$PLEGn, useNA = "always")
+round(prop.table(table(iga$PLEGn))*100,1)
+pie(table(iga$PLEGn))
+
+## _Cécité----
+table(iga$CECITEn, useNA = "always")
+round(prop.table(table(iga$CECITEn))*100,1)
+pie(table(iga$CECITEn))
+
+## _Troubles du comportement----
+table(iga$COMPORTn, useNA = "always")
+round(prop.table(table(iga$COMPORTn))*100,1)
+pie(table(iga$COMPORTn))
+
+## _Inscription sur liste d'attente (selon REIN)----
+table(iga$INSCn, useNA = "always")
+round(prop.table(table(iga$INSCn))*100,1)
+pie(table(iga$INSCn), col = c("lightblue","pink"))
+
+## _Motif de non inscription sur liste d'attente de greffe----
+table(iga$NOINSCn, useNA = "always")
+round(prop.table(table(iga$NOINSCn))*100,1)
+barplot(table(iga$NOINSCn))
+
+## _Statut tabagique----
+table(iga$TABACn, useNA = "always")
+round(prop.table(table(iga$TABACn))*100,1)
+pie(table(iga$TABACn))
+
+## _Marche----
+table(iga$MARCHn, useNA = "always")
+round(prop.table(table(iga$MARCHn))*100,1)
+pie(table(iga$MARCHn))
+
+## _Autres comorbidités----
+sort(table(iga$AUTCOMOR1_LIB, useNA = "always"))
+round(prop.table(sort(table(iga$AUTCOMOR1_LIB)))*100,1)
+
+sort(table(iga$AUTCOMOR2_LIB, useNA = "always"))
+round(prop.table(sort(table(iga$AUTCOMOR2_LIB)))*100,1)
+
+sort(table(iga$AUTCOMOR3_LIB, useNA = "always"))
+round(prop.table(sort(table(iga$AUTCOMOR3_LIB)))*100,1)
+
+autcomor_lib<-gather(iga[,c("patient","AUTCOMOR1_LIB","AUTCOMOR2_LIB","AUTCOMOR3_LIB")], "num_comor", "autcomor", 2:4)
+sort(table(autcomor_lib$autcomor, useNA = "always"))
+round(prop.table(sort(table(autcomor_lib$autcomor)))*100,1)
+
+## _Année de démarrage du 1er traitement de suppléance----
+table(iga$anirt, useNA = "always")
+round(prop.table(table(iga$anirt))*100,1)
+barplot(table(iga$anirt))
+
+## _Age à l'initiation du traitement de suppléance----
+table(iga$age, useNA = "always")
+summary(iga$age)
+hist(iga$age,
+     las = 1,
+     xlab = "Age",
+     ylab = "Fréquence",
+     main = "Age à l'initiation du traitement de suppléance")
+
+table(iga$agegp, useNA = "always")
+round(prop.table(table(iga$agegp))*100,1)
+barplot(table(iga$agegp),
+     las = 1,
+     xlab = "Age",
+     ylab = "Fréquence",
+     main = "Age à l'initiation du traitement de suppléance")
+
+table(iga$classage, useNA = "always") # Il y a deux classes aberrantes (étaient sous forme de date dans le fichier Excel)
+View(iga[iga$classage==c("41913","42618"), c("age","agegp","classage")]) # Correspodent à des enfants de moins de 15 ans
+iga$classage<-cut(iga$age, breaks = c(seq(5,95,5)), right = F)
+round(prop.table(table(iga$classage))*100,1)
+barplot(table(iga$classage),
+        las = 1,
+        xlab = "Age",
+        ylab = "Fréquence",
+        main = "Age à l'initiation du traitement de suppléance")
+
+## _Décès----
+table(iga$dc, useNA = "always")
+round(prop.table(table(iga$dc))*100,1)
+pie(table(iga$dc), col = c("lightblue","pink"))
+
+summary(iga$delaidc) # Délai entre 1er tt et décès
+hist(iga$delaidc)
+nrow(iga[iga$dc==0 & !is.na(iga$delaidc),c("dc","delaidc")]) # On a des patients qui sont noté comme non DCD alors qu'ils ont un délai avant décès
+
+## _Greffé----
+table(iga$tx, useNA = "always")
+round(prop.table(table(iga$tx))*100,1)
+pie(table(iga$tx))
+
+summary(iga$delaitx) # Délai entre 1er tt et greffe
+hist(iga$delaitx)
+nrow(iga[iga$tx==0 & !is.na(iga$delaitx),c("tx","delaitx")]) # On a des patients qui sont noté comme non greffé alors qu'ils ont un délai avant greffe
+
+
+
+
+
+
+
+
+
