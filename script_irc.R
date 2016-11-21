@@ -363,6 +363,7 @@ barplot(table(iga$DRSCmin), las = 1)
 table(iga$IDEn,useNA = "always")
 round(prop.table(table(iga$IDEn))*100,1)
 pie(table(iga$IDEn),col = c("lightblue","pink"))
+<<<<<<< HEAD
 
 ## _Diabète----
 table(iga$DIABn,useNA = "always")
@@ -604,12 +605,4 @@ pie(table(iga$tx))
 summary(iga$delaitx) # Délai entre 1er tt et greffe
 hist(iga$delaitx)
 nrow(iga[iga$tx==0 & !is.na(iga$delaitx),c("tx","delaitx")]) # On a des patients qui sont noté comme non greffé alors qu'ils ont un délai avant greffe
-
-
-
-
-
-
-
-
 
