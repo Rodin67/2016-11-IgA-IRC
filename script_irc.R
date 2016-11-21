@@ -101,8 +101,8 @@ diab <- read_excel("~/IRC/dataIgA/donneesdiabete.xlsx")
 pkrd <- read_excel("~/IRC/dataIgA/donneesPKRD.xlsx")
 
 greffe <- read_excel("~/IRC/dataIgA/greffe IgA.xlsx", col_types = c("numeric", "text", "date", "date", "date", "date", "date", "numeric", "numeric",
-                                                                        "date", "date", "text", "text", "numeric", "text", "text", "text", "numeric",
-                                                                        "text", "text", "numeric"))
+                                                                    "date", "date", "text", "text", "numeric", "text", "text", "text", "numeric",
+                                                                    "text", "text", "numeric"))
 greffe$ARF1<-as.Date(greffe$ARF1, origin = "1899-12-30")
 greffe$ARF2<-as.Date(greffe$ARF2, origin = "1899-12-30")
 greffe$GRF1<-as.Date(greffe$GRF1, origin = "1899-12-30")
