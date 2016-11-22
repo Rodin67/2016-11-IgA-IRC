@@ -77,9 +77,9 @@ iga$HB<-as.numeric(iga$HB)
 iga$HBINI<-as.numeric(iga$HBINI)
 iga$gr_HBINI<-NA
 ifelse(iga$sex==1,
-  iga$gr_HBINI[iga$sex==1]<-cut(iga$HBINI[iga$sex==1], breaks = c(0,13,max(iga$HBINI, na.rm = T)+1), right = F),
-  iga$gr_HBINI[iga$sex==2]<-cut(iga$HBINI[iga$sex==2], breaks = c(0,12,max(iga$HBINI, na.rm = T)+1), right = F)
-      )
+       iga$gr_HBINI[iga$sex==1]<-cut(iga$HBINI[iga$sex==1], breaks = c(0,13,max(iga$HBINI, na.rm = T)+1), right = F),
+       iga$gr_HBINI[iga$sex==2]<-cut(iga$HBINI[iga$sex==2], breaks = c(0,12,max(iga$HBINI, na.rm = T)+1), right = F)
+)
 iga$gr_HBINI<-factor(iga$gr_HBINI, levels = c(1,2), labels = c(1,0))
 table(iga$gr_HBINI, useNA = "always")
 iga$ALBI_MTH<-factor(iga$ALBI_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
@@ -234,39 +234,39 @@ gnc$CAUSEDCP_A_COD<-as.factor(gnc$CAUSEDCP_A_COD)
 
 ## _diab----
 diab <- read_excel("~/IRC/dataIgA/donneesdiabete.xlsx", 
-                  col_types = c("text", "text", "text", 
-                                "text", "numeric", "text", "numeric", 
-                                "text", "text", "numeric", "text", 
-                                "text", "text", "text", "text", "text", 
-                                "numeric", "text", "text", "text", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "text", "text", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "text", "numeric", "text", "text", 
-                                "text", "text", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "text", "text", "text", 
-                                "text", "text", "text", "numeric", 
-                                "numeric", "text", "text", "text", 
-                                "text", "numeric", "text", "text", 
-                                "numeric", "numeric", "text", "text", 
-                                "text", "text", "date", "date", "date", 
-                                "date", "date", "date", "date", 
-                                "date", "date", "date"))
+                   col_types = c("text", "text", "text", 
+                                 "text", "numeric", "text", "numeric", 
+                                 "text", "text", "numeric", "text", 
+                                 "text", "text", "text", "text", "text", 
+                                 "numeric", "text", "text", "text", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "text", "text", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "text", "numeric", "text", "text", 
+                                 "text", "text", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "text", "text", "text", 
+                                 "text", "text", "text", "numeric", 
+                                 "numeric", "text", "text", "text", 
+                                 "text", "numeric", "text", "text", 
+                                 "numeric", "numeric", "text", "text", 
+                                 "text", "text", "date", "date", "date", 
+                                 "date", "date", "date", "date", 
+                                 "date", "date", "date"))
 diab$patient<-c(1:nrow(diab)) # On met un numéro par patient
 diab$DATE_EVT<-as.Date(diab$DATE_EVT, origin = "1899-12-30")
 diab$FAV_DATE<-as.Date(diab$FAV_DATE, origin = "1899-12-30")
@@ -331,39 +331,39 @@ diab$CAUSEDCP_A_COD<-as.factor(diab$CAUSEDCP_A_COD)
 ## _/!\ pkrd----
 # /!\ On a environ 70 lignes déaclées !!!
 pkrd <- read_excel("~/IRC/dataIgA/donneesPKRD.xlsx", 
-                  col_types = c("text", "text", "text", 
-                                "text", "numeric", "text", "numeric", 
-                                "text", "text", "numeric", "text", 
-                                "text", "text", "text", "text", "text", 
-                                "numeric", "text", "text", "text", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "text", "text", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "text", "numeric", "text", "text", 
-                                "text", "text", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "numeric", "numeric", 
-                                "numeric", "text", "text", "text", 
-                                "text", "text", "text", "numeric", 
-                                "numeric", "text", "text", "text", 
-                                "text", "numeric", "text", "text", 
-                                "numeric", "numeric", "text", "text", 
-                                "text", "text", "date", "date", "date", 
-                                "date", "date", "date", "date", 
-                                "date", "date", "date"))
+                   col_types = c("text", "text", "text", 
+                                 "text", "numeric", "text", "numeric", 
+                                 "text", "text", "numeric", "text", 
+                                 "text", "text", "text", "text", "text", 
+                                 "numeric", "text", "text", "text", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "text", "text", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "text", "numeric", "text", "text", 
+                                 "text", "text", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "text", "text", "text", 
+                                 "text", "text", "text", "numeric", 
+                                 "numeric", "text", "text", "text", 
+                                 "text", "numeric", "text", "text", 
+                                 "numeric", "numeric", "text", "text", 
+                                 "text", "text", "date", "date", "date", 
+                                 "date", "date", "date", "date", 
+                                 "date", "date", "date"))
 pkrd$patient<-c(1:nrow(pkrd)) # On met un numéro par patient
 pkrd$DATE_EVT<-as.Date(pkrd$DATE_EVT, origin = "1899-12-30")
 pkrd$FAV_DATE<-as.Date(pkrd$FAV_DATE, origin = "1899-12-30")
@@ -950,10 +950,10 @@ hist(iga$age,
 table(iga$agegp, useNA = "always")
 round(prop.table(table(iga$agegp))*100,1)
 barplot(table(iga$agegp),
-     las = 1,
-     xlab = "Age",
-     ylab = "Fréquence",
-     main = "Age à l'initiation du traitement de suppléance")
+        las = 1,
+        xlab = "Age",
+        ylab = "Fréquence",
+        main = "Age à l'initiation du traitement de suppléance")
 
 table(iga$classage, useNA = "always") # Il y a deux classes aberrantes (étaient sous forme de date dans le fichier Excel)
 View(iga[iga$classage==c("41913","42618"), c("age","agegp","classage")]) # Correspodent à des enfants de moins de 15 ans
@@ -1046,43 +1046,7 @@ summary(iga$DATE_DERNOUV)
 table(iga$DATE_DERNOUV, useNA = "always") # Majorité des PDV le 01-12-2014
 barplot(table(iga$DATE_DERNOUV))
 
-#
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #------------------------------------------------------------------Interaction entre les variables--------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
