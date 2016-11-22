@@ -425,7 +425,6 @@ pkrd$CAUSEDCP_A_COD<-as.factor(pkrd$CAUSEDCP_A_COD)
 ## _global----
 # On créé un fichier contenant les tableaux iga, diab et gnc (greffe est à part et pkrd n'est pas exploitable en l'état)
 global<-bind_rows(iga, gnc, diab)
-warnings()
 global$patient<-NULL # On enlève le numéro par patient
 global$patient<-c(1:nrow(global)) # On met un numéro par patient
 global$DATE_EVT<-as.Date(global$DATE_EVT, origin = "1899-12-30")
@@ -716,7 +715,7 @@ barplot(table(iga$VOLDP), las = 1)
 summary(iga$METHOn)
 table(iga$METHOn)
 iga$METHOn<-factor(iga$METHOn, labels = c("Hémodialyse","Dialyse péritonéale","Greffe"))
-round(prop.table(table(iga$METHOn))*100,1)
+round(prop.table(table(iga$METHOn))*100,1) # Greffe = greffé sans être passé par la dialyse
 barplot(table(iga$METHOn), las = 1)
 
 ## _Voie d'abord vasculaire----
@@ -1046,10 +1045,7 @@ summary(iga$DATE_DERNOUV)
 table(iga$DATE_DERNOUV, useNA = "always") # Majorité des PDV le 01-12-2014
 barplot(table(iga$DATE_DERNOUV))
 
-#------------------------------------------------------------------Interaction entre les variables--------------------------
-
-
-
+#------------------------------------------------------------------Statistique de base--------------------------
 
 
 
