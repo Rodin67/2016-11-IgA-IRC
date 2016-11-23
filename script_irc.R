@@ -6,6 +6,7 @@ library("dplyr", lib.loc="~/R/win-library/3.3")
 library("prettyR", lib.loc="~/R/win-library/3.3")
 library("ggplot2", lib.loc="~/R/win-library/3.3")
 library("corrplot", lib.loc="~/R/win-library/3.3")
+library("epitools", lib.loc="~/R/win-library/3.3")
 
 .pardefault <- par(no.readonly = T)
 options(max.print = 99999999)
@@ -45,6 +46,7 @@ iga <- read_excel("~/IRC/dataIgA/donnes patients IgA.xlsx",
                                 "text", "text", "date", "date", "date", 
                                 "date", "date", "date", "date", 
                                 "date", "date", "date"))
+iga<-iga[!iga$age<16,] # On supprime les patients inf à 16 ans
 iga$patient<-c(1:nrow(iga)) # On met un numéro par patient
 iga$DATE_EVT<-as.Date(iga$DATE_EVT, origin = "1899-12-30")
 iga$FAV_DATE<-as.Date(iga$FAV_DATE, origin = "1899-12-30")
@@ -65,6 +67,7 @@ iga$RES_REG_LIB<-as.factor(iga$RES_REG_LIB)
 iga$bmi<-as.numeric(iga$bmi)
 iga$age<-as.numeric(iga$age)
 iga$classage<-as.factor(iga$classage)
+iga$classage<-cut(iga$age, breaks = c(16,seq(20,95,5)), right = F)
 iga$agegp<-as.factor(iga$agegp)
 iga$anirt<-as.factor(iga$anirt)
 iga$AUTCOMOR3_LIB<-as.factor(iga$AUTCOMOR3_LIB)
@@ -1045,10 +1048,75 @@ summary(iga$DATE_DERNOUV)
 table(iga$DATE_DERNOUV, useNA = "always") # Majorité des PDV le 01-12-2014
 barplot(table(iga$DATE_DERNOUV))
 
-#------------------------------------------------------------------Statistique de base--------------------------
+#---------------------------------------------------------------Données d'incidence--------------------------
+
+## Tableaux du nombre de cas d'IgA par âge et sexe selon la région
+nbev_iga_region<-iga[,c("sex","classage","RES_REG_LIB")]
+nbev_iga_region<-unite(nbev_iga_region, "sex_age", 1:2, sep = "-")
+nbev_iga_region<-as.data.frame.matrix(table(nbev_iga_region$sex_age,nbev_iga_region$RES_REG_LIB))
+nbev_iga_region$ETRANGER<-NULL 
+nbev_iga_region$`POLYNESIE FRANCAISE`<-NULL # Suppression de la Polynésie française qui n'est pas dans les statistiques de l'INSEE
+nbev_iga_region$Mayotte<-NULL
+
+## Tableaux de l'effectif par région, pour la catégorie d'âge 16-19 ans, les données INSEE étant de 15 à 19 ans, muliplié par 0.8
+eff_region <- read.csv2("~/IRC/data/eff_region.csv", header = T, ";")
+nbev_iga_region<-data.frame(eff_region[,1],nbev_iga_region)
+colnames(nbev_iga_region)[1]<-"classage"
+
+## Tableaux de l'effectif en France
+eff_france <- read.csv2("~/IRC/data/eff_france.csv", header = T,";")
+eff_france$age<-cut(eff_france$age, breaks = c(16, seq(20,95,5)), right = F, include.lowest = T)
+eff_france<-gather(eff_france, "sex","effectif", 2:3)
+eff_france$sex<-factor(eff_france$sex, levels = c("h","f"), labels = c(1,2))
+eff_france<-unite(eff_france, "classage", 2:1, sep = "-")
+eff_france$classage<-factor(eff_france$classage)
+
+## Calcul par standardisation directe sur l'âge et le sexe pour 100 000 habitants
+standdirect<-matrix(nrow = 4, ncol = 25, dimnames = list(c("Ratio brut","Ratio ajusté","IC inf","IC sup"), c(colnames(nbev_iga_region[,-1]))))
+for (i in nomcol) standdirect[,i]<-as.matrix(round(ageadjust.direct(nbev_iga_region[,i], eff_region[,i], stdpop = eff_france[,2])*10^5,1))
+standdirect<-t(standdirect)
+standdirect<-data.frame(standdirect)
+standdirect[order(standdirect$Ratio.ajusté, decreasing = T),]
+
+
+
+
+uu <- data.frame(t(sapply(
+  nomcol,
+  function (i) {
+    ageadjust.direct(nbev_iga_region[,i], eff_region[,i], stdpop = eff_france[,2])*10^5
+  }
+)))
+
+uu <- lapply(
+  nomcol,
+  function (i) {
+    ageadjust.direct(nbev_iga_region[,i], eff_region[,i], stdpop = eff_france[,2])*10^5
+  }
+)
+names(uu) <- nomcol
+vv <-data.frame( do.call(rbind, uu))
+
+test <- function(i) ageadjust.direct(nbev_iga_region[,i], eff_region[,i], stdpop = eff_france[,2])*10^5
+
+
+
+myfunc <- function(a, b) {
+  x <- 2*a
+  y <- b + 2
+  return(x * y)
+}
+
+myfunc(a = 2, b = 3)
 
 
 
 
 
 
+standdirect[order(standdirect$Ratio.ajusté), ]
+standdirect %>% arrange(Ratio.ajusté)
+
+
+uu <- c(1, 3, 2, 6, 4)
+sort(uu)
