@@ -1,0 +1,201 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+\usepackage[frenchb]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{threeparttable}
+\usepackage[top=2cm,bottom=2cm,right=2cm,left=2cm]{geometry}
+
+\author{Nathanael Lapidus, Rodolphe JANTZEN}
+\title{Etude IRC - bases}
+
+\begin{document}
+\maketitle
+
+<<options, echo=FALSE, message=FALSE>>=
+opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, comment = "")
+@
+
+<<data>>=
+library("survival", lib.loc="C:/Program Files/R/R-3.3.2/library")
+library("readxl", lib.loc="~/R/win-library/3.3")
+library("tidyr", lib.loc="~/R/win-library/3.3")
+library("dplyr", lib.loc="~/R/win-library/3.3")
+library("prettyR", lib.loc="~/R/win-library/3.3")
+library("ggplot2", lib.loc="~/R/win-library/3.3")
+library("corrplot", lib.loc="~/R/win-library/3.3")
+library("epitools", lib.loc="~/R/win-library/3.3")
+
+## _iga----
+iga <- read_excel("~/IRC/dataIgA/donnes patients IgA.xlsx", 
+                  col_types = c("text", "text", "text", 
+                                "text", "numeric", "text", "numeric", 
+                                "text", "text", "numeric", "text", 
+                                "text", "text", "text", "text", "text", 
+                                "numeric", "text", "text", "text", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "text", "text", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "text", "numeric", "text", "text", 
+                                "text", "text", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "text", "text", "text", 
+                                "text", "text", "text", "numeric", 
+                                "numeric", "text", "text", "text", 
+                                "text", "numeric", "text", "text", 
+                                "numeric", "numeric", "text", "text", 
+                                "text", "text", "date", "date", "date", 
+                                "date", "date", "date", "date", 
+                                "date", "date", "date"))
+iga<-iga[!iga$anirt<2010,] # On supprime les patientsqui ont eu une leur 1er ttt de supppléance avant 2010
+iga$anirt<-as.factor(iga$anirt)
+iga$age<-as.numeric(iga$age)
+iga<-iga[!iga$age<16,] # On supprime les patients inf à 16 ans
+iga$patient<-c(1:nrow(iga)) # On met un numéro par patient
+iga$DATE_EVT<-as.Date(iga$DATE_EVT, origin = "1899-12-30")
+iga$FAV_DATE<-as.Date(iga$FAV_DATE, origin = "1899-12-30")
+iga$DDIRT<-as.Date(iga$DDIRT, origin = "1899-12-30")
+iga$DNAIS<-as.Date(iga$DNAIS, origin = "1899-12-30")
+iga$DINSCMED<-as.Date(iga$DINSCMED, origin = "1899-12-30")
+iga$dgrf<-as.Date(iga$dgrf, origin = "1899-12-30")
+iga$dsvr<-as.Date(iga$dsvr, origin = "1899-12-30")
+iga$ddc<-as.Date(iga$ddc, origin = "1899-12-30")
+iga$dpdv<-as.Date(iga$dpdv, origin = "1899-12-30")
+iga$DATE_DERNOUV<-as.Date(iga$DATE_DERNOUV, origin = "1899-12-30")
+iga$delai_dernouv<-as.numeric(iga$delai_dernouv)
+iga$delailna<-as.numeric(iga$delailna)
+iga$delaitx<-as.numeric(iga$delaitx)
+iga$delaidc<-as.numeric(iga$delaidc)
+iga$RES_DEP_LIB<-as.factor(iga$RES_DEP_LIB)
+iga$RES_REG_LIB<-as.factor(iga$RES_REG_LIB)
+iga$bmi<-as.numeric(iga$bmi)
+iga$classage<-as.factor(iga$classage)
+iga$classage<-cut(iga$age, breaks = c(16,seq(20,95,5)), right = F)
+iga$agegp<-as.factor(iga$agegp)
+iga$AUTCOMOR3_LIB<-as.factor(iga$AUTCOMOR3_LIB)
+iga$AUTCOMOR3_COD<-as.factor(iga$AUTCOMOR3_COD)
+iga$AUTCOMOR2_LIB<-as.factor(iga$AUTCOMOR2_LIB)
+iga$AUTCOMOR2_COD<-as.factor(iga$AUTCOMOR2_COD)
+iga$AUTCOMOR1_LIB<-as.factor(iga$AUTCOMOR1_LIB)
+iga$AUTCOMOR1_COD<-as.factor(iga$AUTCOMOR1_COD)
+iga$HB<-as.numeric(iga$HB)
+iga$HBINI<-as.numeric(iga$HBINI)
+iga$gr_HBINI<-NA
+#ifelse(iga$sex==1,
+#       iga$gr_HBINI[iga$sex==1]<-cut(iga$HBINI[iga$sex==1], breaks = c(0,13,max(iga$HBINI, na.rm = T)+1), right = F),
+#       iga$gr_HBINI[iga$sex==2]<-cut(iga$HBINI[iga$sex==2], breaks = c(0,12,max(iga$HBINI, na.rm = T)+1), right = F)
+#)
+#iga$gr_HBINI<-factor(iga$gr_HBINI, levels = c(1,2), labels = c(1,0))
+#table(iga$gr_HBINI, useNA = "always")
+iga$ALBI_MTH<-factor(iga$ALBI_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
+iga$ALB_MTH<-factor(iga$ALB_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
+iga$ALB<-as.numeric(iga$ALB)
+iga$PDS<-as.numeric(iga$PDS)
+
+#iga$nephgp<-NULL # N'a que le facteur "gnc" et pas de donnée manquante
+#iga$liste_longue<-NULL # N'a que le facteur "Néphropathie à dépôts d'IgA" et pas de donnée manquante
+iga$ALBI_MTH<-as.factor(iga$ALBI_MTH)
+iga$ALBINI<-as.numeric(iga$ALBINI)
+iga$CAUSENEPH2_LIB<-as.factor(iga$CAUSENEPH2_LIB)
+iga$CAUSENEPH2_COD<-as.factor(iga$CAUSENEPH2_COD)
+iga$CAUSENEPH1_LIB<-as.factor(iga$CAUSENEPH1_LIB)
+iga$CAUSENEPH1_COD<-as.factor(iga$CAUSENEPH1_COD)
+iga$NEPH_LIB<-as.factor(iga$NEPH_LIB)
+iga$NEPH_COD<-as.factor(iga$NEPH_COD)
+iga$EQD_REG_COD<-as.factor(iga$EQD_REG_COD)
+#iga$EQD_PAYS_LIB<-NULL # N'a que le facteur "France" et pas de donnée manquante
+iga$EQD_DEP_LIB<-as.factor(iga$EQD_DEP_LIB)
+iga$EQD_DEP_COD<-as.factor(iga$EQD_DEP_COD)
+iga$EQD_REG_LIB<-as.factor(iga$EQD_REG_LIB)
+iga$RREC_COD<-as.factor(iga$RREC_COD)
+iga$CAUSDCP_LIB<-as.factor(iga$CAUSDCP_LIB)
+iga$CAUSDCP_COD<-as.factor(iga$CAUSDCP_COD)
+iga$CAUSEDCP_A_LIB<-as.factor(iga$CAUSEDCP_A_LIB)
+iga$CAUSEDCP_A_COD<-as.factor(iga$CAUSEDCP_A_COD)
+@
+
+\section{Incidence maladie de Berger}
+<<data_incid_temp>>=
+## Tableaux du nombre de cas d'IgA par âge et sexe selon la région
+nbev_iga_region<-iga[,c("sex","classage","RES_REG_LIB")]
+nbev_iga_region<-unite(nbev_iga_region, "sex_age", 1:2, sep = "-")
+nbev_iga_region<-as.data.frame.matrix(table(nbev_iga_region$sex_age,nbev_iga_region$RES_REG_LIB))
+nbev_iga_region$ETRANGER<-NULL 
+nbev_iga_region$`POLYNESIE FRANCAISE`<-NULL # Suppression de la Polynésie française qui n'est pas dans les statistiques de l'INSEE
+nbev_iga_region$Mayotte<-NULL
+## Tableaux de l'effectif par région, pour la catégorie d'âge 16-19 ans, les données INSEE étant de 15 à 19 ans, muliplié par 0.8
+eff_region <- read.csv2("~/IRC/data/eff_region.csv", header = T, ";")
+nbev_iga_region<-data.frame(eff_region[,1],nbev_iga_region)
+colnames(nbev_iga_region)[1]<-"classage"
+
+## Tableaux de l'effectif en France
+eff_france <- read.csv2("~/IRC/data/eff_france.csv", header = T,";")
+eff_france$age<-cut(eff_france$age, breaks = c(16, seq(20,95,5)), right = F, include.lowest = T)
+eff_france<-gather(eff_france, "sex","effectif", 2:3)
+eff_france$sex<-factor(eff_france$sex, levels = c("h","f"), labels = c(1,2))
+eff_france<-unite(eff_france, "classage", 2:1, sep = "-")
+eff_france$classage<-factor(eff_france$classage)
+
+## Calcul par standardisation directe sur l'âge et le sexe pour 100 000 habitants
+standdirect<-matrix(nrow = 4, ncol = 25, dimnames = list(c("Ratio brut","Ratio ajuste","IC inf","IC sup"), c(colnames(nbev_iga_region[,-1]))))
+for (i in colnames(eff_region[,-1])) standdirect[,i]<-as.matrix(round(ageadjust.direct(nbev_iga_region[,i], eff_region[,i], stdpop = eff_france[,2])*10^5,1))
+standdirect<-t(standdirect)
+standdirect<-data.frame(standdirect)
+@
+On a de 2010 à 2014 \Sexpr{nrow(iga)} patients qui ont eu une première suppléance. L'incidence était de \Sexpr{round(sum(nrow(iga))/sum(eff_france$effectif)*100000,1)} cas pour 100 000 habitants.
+
+  \subsection{Incidence spatiale}
+
+Tableau d'incidence selon la région par standardisation directe pour 100 000 habitants de 2010 à 2014 (selon l'effectif français de 2013) :
+<<>>=
+standdirect[order(standdirect$Ratio.ajuste, decreasing = T),]
+@
+
+  \subsection{Incidence temporelle}
+
+<<>>=
+table(iga$anirt, useNA = "always")
+round(prop.table(table(iga$anirt))*100,1)
+@
+
+\section{Etude des caractéristiques cliniques et du devenir de ces patients}
+
+  \subsection{Caractéristiques cliniques des patients au stade d’IRCT}
+  
+  Age moyen au stade d’IRCT : 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
