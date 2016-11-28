@@ -46,9 +46,14 @@ iga <- read_excel("~/IRC/dataIgA/donnes patients IgA.xlsx",
                                 "text", "text", "date", "date", "date", 
                                 "date", "date", "date", "date", 
                                 "date", "date", "date"))
-iga<-iga[!iga$age<16,] # On supprime les patients inf à 16 ans
-iga$patient<-c(1:nrow(iga)) # On met un numéro par patient
+iga<-iga[!iga$anirt<2010,] # On supprime les patientsqui ont eu une leur 1er ttt de supppléance avant 2010
+iga$anirt<-as.factor(iga$anirt)
 iga$DATE_EVT<-as.Date(iga$DATE_EVT, origin = "1899-12-30")
+iga$gr_DATE_EVT <- cut(iga$DATE_EVT, 
+                       breaks = as.Date(c("2010-01-01","2011-01-01","2012-01-01","2013-01-01","2014-01-01","2015-01-01","2016-01-01")),
+                       labels = c("2010","2011","2012","2013","2014","2015"))
+iga$age<-as.numeric(iga$age)
+iga<-iga[!iga$age<16,] # On supprime les patients inf à 16 ans
 iga$FAV_DATE<-as.Date(iga$FAV_DATE, origin = "1899-12-30")
 iga$DDIRT<-as.Date(iga$DDIRT, origin = "1899-12-30")
 iga$DNAIS<-as.Date(iga$DNAIS, origin = "1899-12-30")
@@ -65,11 +70,9 @@ iga$delaidc<-as.numeric(iga$delaidc)
 iga$RES_DEP_LIB<-as.factor(iga$RES_DEP_LIB)
 iga$RES_REG_LIB<-as.factor(iga$RES_REG_LIB)
 iga$bmi<-as.numeric(iga$bmi)
-iga$age<-as.numeric(iga$age)
 iga$classage<-as.factor(iga$classage)
 iga$classage<-cut(iga$age, breaks = c(16,seq(20,95,5)), right = F)
 iga$agegp<-as.factor(iga$agegp)
-iga$anirt<-as.factor(iga$anirt)
 iga$AUTCOMOR3_LIB<-as.factor(iga$AUTCOMOR3_LIB)
 iga$AUTCOMOR3_COD<-as.factor(iga$AUTCOMOR3_COD)
 iga$AUTCOMOR2_LIB<-as.factor(iga$AUTCOMOR2_LIB)
@@ -79,12 +82,12 @@ iga$AUTCOMOR1_COD<-as.factor(iga$AUTCOMOR1_COD)
 iga$HB<-as.numeric(iga$HB)
 iga$HBINI<-as.numeric(iga$HBINI)
 iga$gr_HBINI<-NA
-ifelse(iga$sex==1,
-       iga$gr_HBINI[iga$sex==1]<-cut(iga$HBINI[iga$sex==1], breaks = c(0,13,max(iga$HBINI, na.rm = T)+1), right = F),
-       iga$gr_HBINI[iga$sex==2]<-cut(iga$HBINI[iga$sex==2], breaks = c(0,12,max(iga$HBINI, na.rm = T)+1), right = F)
-)
-iga$gr_HBINI<-factor(iga$gr_HBINI, levels = c(1,2), labels = c(1,0))
-table(iga$gr_HBINI, useNA = "always")
+#ifelse(iga$sex==1,
+#       iga$gr_HBINI[iga$sex==1]<-cut(iga$HBINI[iga$sex==1], breaks = c(0,13,max(iga$HBINI, na.rm = T)+1), right = F),
+#       iga$gr_HBINI[iga$sex==2]<-cut(iga$HBINI[iga$sex==2], breaks = c(0,12,max(iga$HBINI, na.rm = T)+1), right = F)
+#)
+#iga$gr_HBINI<-factor(iga$gr_HBINI, levels = c(1,2), labels = c(1,0))
+#table(iga$gr_HBINI, useNA = "always")
 iga$ALBI_MTH<-factor(iga$ALBI_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
 iga$ALB_MTH<-factor(iga$ALB_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
 iga$ALB<-as.numeric(iga$ALB)
@@ -479,7 +482,7 @@ global$EQD_REG_COD<-as.factor(global$EQD_REG_COD)
 global$EQD_DEP_LIB<-as.factor(global$EQD_DEP_LIB)
 global$EQD_DEP_COD<-as.factor(global$EQD_DEP_COD)
 global$EQD_REG_LIB<-as.factor(global$EQD_REG_LIB)
-global$RREC_COD<-as.factor(global$RREC_COD)
+global$RREC_COD<-as.factor(glOobal$RREC_COD)
 global$CAUSDCP_LIB<-as.factor(global$CAUSDCP_LIB)
 global$CAUSDCP_COD<-as.factor(global$CAUSDCP_COD)
 global$CAUSEDCP_A_LIB<-as.factor(global$CAUSEDCP_A_LIB)
@@ -939,6 +942,7 @@ round(prop.table(sort(table(autcomor_lib$autcomor)))*100,1)
 table(iga$anirt, useNA = "always")
 round(prop.table(table(iga$anirt))*100,1)
 barplot(table(iga$anirt))
+table(iga$RES_REG_LIB,iga$anirt) # Par région
 
 ## _Age à l'initiation du traitement de suppléance----
 table(iga$age, useNA = "always")
@@ -1010,9 +1014,9 @@ table(iga$delai_dernouv, useNA = "always")
 hist(iga$delai_dernouv)
 
 ## _Date Inclusion dans REIN----
-summary(iga$DATE_EVT)
-table(iga$DATE_EVT, useNA = "always")
-barplot(table(iga$DATE_EVT))
+summary(iga$gr_DATE_EVT)
+table(iga$gr_DATE_EVT, useNA = "always")
+barplot(table(iga$gr_DATE_EVT))
 
 ## _Date Fistule Artério veineuse----
 summary(iga$FAV_DATE)
@@ -1023,6 +1027,7 @@ barplot(table(iga$FAV_DATE))
 summary(iga$DDIRT)
 table(iga$DDIRT, useNA = "always")
 barplot(table(iga$DDIRT))
+table(iga$)
 
 ## _Date de naissance----
 summary(iga$DNAIS)
@@ -1048,7 +1053,7 @@ summary(iga$DATE_DERNOUV)
 table(iga$DATE_DERNOUV, useNA = "always") # Majorité des PDV le 01-12-2014
 barplot(table(iga$DATE_DERNOUV))
 
-#---------------------------------------------------------------Données d'incidence--------------------------
+#--------------------------------------------------------------- Incidence spatiale --------------------------
 
 ## Tableaux du nombre de cas d'IgA par âge et sexe selon la région
 nbev_iga_region<-iga[,c("sex","classage","RES_REG_LIB")]
@@ -1072,51 +1077,29 @@ eff_france<-unite(eff_france, "classage", 2:1, sep = "-")
 eff_france$classage<-factor(eff_france$classage)
 
 ## Calcul par standardisation directe sur l'âge et le sexe pour 100 000 habitants
-standdirect<-matrix(nrow = 4, ncol = 25, dimnames = list(c("Ratio brut","Ratio ajusté","IC inf","IC sup"), c(colnames(nbev_iga_region[,-1]))))
-for (i in nomcol) standdirect[,i]<-as.matrix(round(ageadjust.direct(nbev_iga_region[,i], eff_region[,i], stdpop = eff_france[,2])*10^5,1))
+standdirect<-matrix(nrow = 4, ncol = 25, dimnames = list(c("Ratio brut","Ratio ajuste","IC inf","IC sup"), c(colnames(nbev_iga_region[,-1]))))
+for (i in colnames(eff_region[,-1])) standdirect[,i]<-as.matrix(round(ageadjust.direct(nbev_iga_region[,i], eff_region[,i], stdpop = eff_france[,2])*10^5,1))
 standdirect<-t(standdirect)
 standdirect<-data.frame(standdirect)
-standdirect[order(standdirect$Ratio.ajusté, decreasing = T),]
+standdirect[order(standdirect$Ratio.ajuste, decreasing = T),]
 
+#--------------------------------------------------------------- incidence temporelle --------------------------
 
-
-
-uu <- data.frame(t(sapply(
-  nomcol,
-  function (i) {
-    ageadjust.direct(nbev_iga_region[,i], eff_region[,i], stdpop = eff_france[,2])*10^5
-  }
-)))
-
-uu <- lapply(
-  nomcol,
-  function (i) {
-    ageadjust.direct(nbev_iga_region[,i], eff_region[,i], stdpop = eff_france[,2])*10^5
-  }
-)
-names(uu) <- nomcol
-vv <-data.frame( do.call(rbind, uu))
-
-test <- function(i) ageadjust.direct(nbev_iga_region[,i], eff_region[,i], stdpop = eff_france[,2])*10^5
-
-
-
-myfunc <- function(a, b) {
-  x <- 2*a
-  y <- b + 2
-  return(x * y)
-}
-
-myfunc(a = 2, b = 3)
+table(iga$anirt, useNA = "always")
+round(prop.table(table(iga$anirt))*100,1)
+addmargins(table(iga$RES_REG_LIB,iga$anirt)) # Par région
+sum(nbev_iga_region$Alsace)
+round(prop.table(table(iga$RES_REG_LIB,iga$anirt),1)*100,0)
 
 
 
 
 
 
-standdirect[order(standdirect$Ratio.ajusté), ]
-standdirect %>% arrange(Ratio.ajusté)
 
 
-uu <- c(1, 3, 2, 6, 4)
-sort(uu)
+
+
+
+
+
