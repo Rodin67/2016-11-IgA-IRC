@@ -60,8 +60,8 @@
 \usepackage{threeparttable}
 \usepackage[top=2cm,bottom=2cm,right=2cm,left=2cm]{geometry}
 
-\author{Nathanael Lapidus, Rodolphe JANTZEN}
-\title{Etude IRC - bases}
+\author{Nathanael LAPIDUS, Rodolphe JANTZEN}
+\title{Etude IRC à IgA 2010-2014}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 \maketitle
@@ -70,9 +70,13 @@
 
 
 
+La table "globale" 17311 patients différents ayant une IRCT avec maladie de Berger (1720), une néphropathie diabétique (11174) ou une glomérulonéphrite chronique (4417).
+
+La table "greffe" contient 1984 patients, dont 958 (48.3\%) qui sont en commun avec la table "globale". 9 patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
+
 \section{Incidence maladie de Berger}
 
-On a de 2010 à 2014 1720 patients qui ont eu une première suppléance. L'incidence était de 3.4 cas pour 100 000 habitants.
+On a 1720 patients qui ont eu une première suppléance. L'incidence était de 3.4 cas pour 100 000 habitants.
 
   \subsection{Incidence spatiale}
 
@@ -124,6 +128,387 @@ Martinique                        0.7          0.7    0.1    3.0
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
+
+\section{Etude des caractéristiques cliniques et du devenir de ces patients}
+
+  \subsection{Caractéristiques cliniques des patients au stade d’IRCT}
+  
+    \subsubsection{Age au stade d’IRCT (1ère suppléance) de 2010 à 2014 puis par années}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  16.30   40.40   53.85   53.27   65.60   93.50 
+$`2010`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  17.20   39.72   52.05   52.28   63.27   91.10 
+
+$`2011`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  16.30   36.90   54.20   51.74   65.25   90.00 
+
+$`2012`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  18.40   40.90   52.85   53.52   64.68   88.20 
+
+$`2013`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  19.40   40.90   55.45   54.59   67.03   90.30 
+
+$`2014`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  17.90   41.40   54.30   54.13   65.90   93.50 
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+    \subsubsection{Taille, poids et BMI}
+  
+  Taille lors de l'IRCT :
+  
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  131.0   165.0   171.0   170.5   176.0   196.0     420 
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Poids :
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  11.50   63.50   72.00   74.01   83.00  164.00     294 
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+BMI :
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+
+    <18.5 18.5-24.9   25-29.9   30-34.9   35-39.9       >40      <NA> 
+       59       618       403       132        50        15       443 
+
+    <18.5 18.5-24.9   25-29.9   30-34.9   35-39.9       >40 
+      4.6      48.4      31.6      10.3       3.9       1.2 
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+      \subsubsection{Ponction Biopsie Rénale}
+
+1199 (81.6\%) NA = 250
+
+      \subsubsection{Co-morbidités}
+
+
+
+Diabète : 193 (11.3\%) NA = 15
+
+Type de diabète :
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+
+  1   2 
+  9 179 
+
+   1    2 
+ 4.8 95.2 
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Cirrhose : 98 (6.5\%) NA = 208
+
+Stade de la cirrhose :
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+
+   0    1    2 <NA> 
+1414   30   49  227 
+
+   0    1    2 
+94.7  2.0  3.3 
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Insuffisance cardiaque : 149 (9.8\%) NA = 206
+
+stade de l’IC :
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+
+   0    1    2 <NA> 
+1365   99   39  217 
+
+   0    1    2 
+90.8  6.6  2.6 
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Infarctus du myocarde : 60 (4\%) NA = 207
+~\\
+
+Artériopathie des membres inférieurs : 112 (7.4\%) NA = 212
+~\\
+
+Stade de l’AOMI : 
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+
+   0    1    2 <NA> 
+1396   71   34  219 
+
+   0    1    2 
+93.0  4.7  2.3 
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Amputation : 9 (0.6\%) NA = 247
+~\\
+
+Accident vasculaire cérébrale (AVC et AIT) :
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+        iga$AITn
+iga$AVCn    0    1 <NA>  Sum
+    0    1418   15    6 1439
+    1      39    8    1   48
+    <NA>    2    0  231  233
+    Sum  1459   23  238 1720
+        iga$AITn
+iga$AVCn    0    1
+       0 95.8  1.0
+       1  2.6  0.5
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+VIH : 13 (0.9\%)
+
+Dont stade SIDA : 1 (7.7\%)
+~\\
+
+Ag HBS positif : 12 (0.8\%) NA = 217
+~\\
+
+PCR VHC positif : 11 (0.7\%) NA = 224
+
+
+    \subsubsection{Statut Tabagique}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+
+       NF    Fumeur EX Fumeur      <NA> 
+      755       243       327       395 
+
+       NF    Fumeur EX Fumeur 
+     57.0      18.3      24.7 
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+    \subsubsection{Créatinine, albumine et hémoglobine}
+
+Créatininémie initiale :
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+   46.0   513.2   650.0   719.5   841.8  2793.0     526 
+\end{verbatim}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-9-1} 
+
+\end{knitrout}
+
+Albuminémie initiale :
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+   9.00   30.00   34.60   34.05   38.60   58.00     707 
+\end{verbatim}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-10-1} 
+
+\end{knitrout}
+
+Méthode de mesure de l'albumine initiale :
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+
+       Automate  Electrophorèse              ND   Néphélémétrie 
+            141              87              64             293 
+Colorimétrique             <NA> 
+            125            1010 
+
+       Automate  Electrophorèse              ND   Néphélémétrie 
+           19.9            12.3             9.0            41.3 
+Colorimétrique  
+           17.6 
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Hémoglobine :
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+   4.70    9.10   10.30   10.26   11.40   17.60     400 
+\end{verbatim}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-12-1} 
+
+\end{knitrout}
+
+Nombres d'anémiques :
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+       iga$gr_HBINI
+iga$sex 1 0 Sum
+    1   0 0   0
+    2   0 0   0
+    Sum 0 0   0
+       iga$gr_HBINI
+iga$sex 1 0
+      1    
+      2    
+\end{verbatim}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{Error in chisq.test(table(iga\$sex, iga\$gr\_HBINI), correct = F): at least one entry of 'x' must be positive}}\end{kframe}
+\end{knitrout}
+
+
+    \subsubsection{Traitement de suppléance}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+
+        Hémodialyse Dialyse péritonéale              Greffe 
+               1257                 296                 167 
+               <NA> 
+                  0 
+
+        Hémodialyse Dialyse péritonéale              Greffe 
+               73.1                17.2                 9.7 
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+
+    \subsubsection{Contexte de démarrage de dialyse}
+    
+Premier traitement en urgence :  322 (21.9\%) NA = 249
+~\\
+
+Premier traitement en réanimation :  85 (5.9\%) NA = 273
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+        iga$REAn
+iga$URGn    0    1 <NA>
+    0    1111   12   26
+    1     233   71   18
+    <NA>   18    2  229
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Voie d’abord :
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+
+        FAV native Cathéter tunnélisé            Pontage 
+               715                405                  7 
+             Autre               <NA> 
+                69                524 
+
+        FAV native Cathéter tunnélisé            Pontage 
+              59.8               33.9                0.6 
+             Autre 
+               5.8 
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+    \subsubsection{Activité}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+
+                   <NA>                Retraité       Actif temps plein 
+                    495                     458                     449 
+          Inactif autre   Inactif en invalidité     Actif temps partiel 
+                     69                      55                      48 
+             Au chômage    Arrêt longue maladie                Au foyer 
+                     46                      45                      32 
+    Scolarisé, étudiant Actif en milieu protégé 
+                     18                       5 
+
+               Retraité       Actif temps plein           Inactif autre 
+                   37.4                    36.7                     5.6 
+  Inactif en invalidité     Actif temps partiel              Au chômage 
+                    4.5                     3.9                     3.8 
+   Arrêt longue maladie                Au foyer     Scolarisé, étudiant 
+                    3.7                     2.6                     1.5 
+Actif en milieu protégé 
+                    0.4 
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+  \subsection{Devenir des patients après la mise en dialyse}
+  
+  \subsection{Analyse de la survie patient avec comme outcome le décès}
+  
+  On a 168 (9.8\%) patients qui sont décédés. On a al date de décès pour 238 (13.8\%) patients.
+  
+  \subsection{Recherche d’un lien entre les évènements infectieux saisonniers et la mise en route de la dialyse}
+  
+\section{Divers}
+
+
+
+
+
+
+
+
 
 
 

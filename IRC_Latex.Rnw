@@ -10,26 +10,23 @@
 \usepackage{threeparttable}
 \usepackage[top=2cm,bottom=2cm,right=2cm,left=2cm]{geometry}
 
-\author{Nathanael Lapidus, Rodolphe JANTZEN}
-\title{Etude IRC - bases}
+\author{Nathanael LAPIDUS, Rodolphe JANTZEN}
+\title{Etude IRC à IgA 2010-2014}
 
 \begin{document}
 \maketitle
 
-<<options, echo=FALSE, message=FALSE>>=
+<<options et library, echo=FALSE, message=FALSE>>=
 opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, comment = "")
-@
-
-<<data>>=
 library("survival", lib.loc="C:/Program Files/R/R-3.3.2/library")
 library("readxl", lib.loc="~/R/win-library/3.3")
 library("tidyr", lib.loc="~/R/win-library/3.3")
 library("dplyr", lib.loc="~/R/win-library/3.3")
-library("prettyR", lib.loc="~/R/win-library/3.3")
-library("ggplot2", lib.loc="~/R/win-library/3.3")
 library("corrplot", lib.loc="~/R/win-library/3.3")
 library("epitools", lib.loc="~/R/win-library/3.3")
+@
 
+<<data, cache=TRUE>>=
 ## _iga----
 iga <- read_excel("~/IRC/dataIgA/donnes patients IgA.xlsx", 
                   col_types = c("text", "text", "text", 
@@ -69,7 +66,6 @@ iga<-iga[!iga$anirt<2010,] # On supprime les patientsqui ont eu une leur 1er ttt
 iga$anirt<-as.factor(iga$anirt)
 iga$age<-as.numeric(iga$age)
 iga<-iga[!iga$age<16,] # On supprime les patients inf à 16 ans
-iga$patient<-c(1:nrow(iga)) # On met un numéro par patient
 iga$DATE_EVT<-as.Date(iga$DATE_EVT, origin = "1899-12-30")
 iga$FAV_DATE<-as.Date(iga$FAV_DATE, origin = "1899-12-30")
 iga$DDIRT<-as.Date(iga$DDIRT, origin = "1899-12-30")
@@ -99,17 +95,14 @@ iga$AUTCOMOR1_COD<-as.factor(iga$AUTCOMOR1_COD)
 iga$HB<-as.numeric(iga$HB)
 iga$HBINI<-as.numeric(iga$HBINI)
 iga$gr_HBINI<-NA
-#ifelse(iga$sex==1,
-#       iga$gr_HBINI[iga$sex==1]<-cut(iga$HBINI[iga$sex==1], breaks = c(0,13,max(iga$HBINI, na.rm = T)+1), right = F),
-#       iga$gr_HBINI[iga$sex==2]<-cut(iga$HBINI[iga$sex==2], breaks = c(0,12,max(iga$HBINI, na.rm = T)+1), right = F)
-#)
-#iga$gr_HBINI<-factor(iga$gr_HBINI, levels = c(1,2), labels = c(1,0))
-#table(iga$gr_HBINI, useNA = "always")
+iga$gr_HBINI[iga$sex==1]<-cut(iga$HBINI[iga$sex==1], breaks = c(0,13,max(iga$HBINI, na.rm = T)+1), right = F)
+iga$gr_HBINI[iga$sex==2]<-cut(iga$HBINI[iga$sex==2], breaks = c(0,12,max(iga$HBINI, na.rm = T)+1), right = F)
+iga$gr_HBINI<-factor(iga$gr_HBINI, levels = c(1,2), labels = c(1,0))
 iga$ALBI_MTH<-factor(iga$ALBI_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
 iga$ALB_MTH<-factor(iga$ALB_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
 iga$ALB<-as.numeric(iga$ALB)
 iga$PDS<-as.numeric(iga$PDS)
-
+iga$METHOn<-factor(iga$METHOn, labels = c("Hémodialyse","Dialyse péritonéale","Greffe"))
 #iga$nephgp<-NULL # N'a que le facteur "gnc" et pas de donnée manquante
 #iga$liste_longue<-NULL # N'a que le facteur "Néphropathie à dépôts d'IgA" et pas de donnée manquante
 iga$ALBI_MTH<-as.factor(iga$ALBI_MTH)
@@ -130,7 +123,299 @@ iga$CAUSDCP_LIB<-as.factor(iga$CAUSDCP_LIB)
 iga$CAUSDCP_COD<-as.factor(iga$CAUSDCP_COD)
 iga$CAUSEDCP_A_LIB<-as.factor(iga$CAUSEDCP_A_LIB)
 iga$CAUSEDCP_A_COD<-as.factor(iga$CAUSEDCP_A_COD)
+iga$TABACn <- factor(iga$TABACn, labels = c("NF","Fumeur","EX Fumeur"))
+iga$METHOn<-factor(iga$METHOn, labels = c("Hémodialyse","Dialyse péritonéale","Greffe"))
+iga$VAVn <- factor(iga$VAVn, labels = c("FAV native","Cathéter tunnélisé","Pontage","Autre"))
+iga$ACTIVn<-factor(iga$ACTIVn, labels = c("Actif temps plein","Actif temps partiel","Actif en milieu protégé","Retraité","Au chômage","Au foyer","Scolarisé, étudiant","Arrêt longue maladie","Inactif en invalidité","Inactif autre"))
+
+## _greffe----
+greffe <- read_excel("~/IRC/dataIgA/greffe IgA.xlsx", col_types = c("numeric", "text", "date", "date", "date", "date", "date", "numeric", "numeric",
+                                                                    "date", "date", "text", "text", "numeric", "text", "text", "text", "text",
+                                                                    "text", "text", "numeric"))
+greffe$ARF1<-as.Date(greffe$ARF1, origin = "1899-12-30")
+greffe$ARF2<-as.Date(greffe$ARF2, origin = "1899-12-30")
+greffe$GRF1<-as.Date(greffe$GRF1, origin = "1899-12-30")
+greffe$GRF2<-as.Date(greffe$GRF2, origin = "1899-12-30")
+greffe$GRF3<-as.Date(greffe$GRF3, origin = "1899-12-30")
+greffe$DECES1<-as.Date(greffe$DECES1, origin = "1899-12-30")
+greffe$DECES2<-as.Date(greffe$DECES2, origin = "1899-12-30")
+greffe$NEFG<-factor(greffe$NEFG)
+greffe$LMALADI<-factor(greffe$LMALADI)
+greffe$DELAINOUV3<-NULL # Ne comporte aucune donnée
+greffe$NOUV3<-NULL # Ne comporte aucune donnée
+greffe$DELAINOUV1<-as.numeric(greffe$DELAINOUV1)
+greffe$DELAINOUV2<-as.numeric(greffe$DELAINOUV2)
+greffe$DELAIARF1<-as.numeric(greffe$DELAIARF1)
+greffe$DELAIARF2<-as.numeric(greffe$DELAIARF2)
+greffe$DELAIDC1<-as.numeric(greffe$DELAIDC1)
+greffe$DELAIDC2<-as.numeric(greffe$DELAIDC2)
+greffe$NOUV1<-factor(greffe$NOUV1)
+greffe$NOUV2<-factor(greffe$NOUV2)
+greffe$kmdc<-ifelse(is.na(greffe$DECES1),0,1) # Pour faire un Kaplan-Meier
+greffe$kmdelaidc<- ifelse(is.na(greffe$DECES1),as.Date(c("2016-11-01"), origin = "1899-12-30")-greffe$GRF1,greffe$DECES1-greffe$GRF1) # Pour faire un Kaplan-Meier : délai avant évènement (ou suivi jusqu'au 1-11-2016)
+greffe <- greffe[!duplicated(greffe$NEFG),] # On supprime les patients avec le même identifiant (sans données)
+
+
+## _gnc----
+gnc <- read_excel("~/IRC/dataIgA/donnees GNC.xlsx", 
+                  col_types = c("text", "text", "text", 
+                                "text", "numeric", "text", "numeric", 
+                                "text", "text", "numeric", "text", 
+                                "text", "text", "text", "text", "text", 
+                                "numeric", "text", "text", "text", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "text", "text", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "text", "numeric", "text", "text", 
+                                "text", "text", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "text", "text", "text", 
+                                "text", "text", "text", "numeric", 
+                                "numeric", "text", "text", "text", 
+                                "text", "numeric", "text", "text", 
+                                "numeric", "numeric", "text", "text", 
+                                "text", "text", "date", "date", "date", 
+                                "date", "date", "date", "date", 
+                                "date", "date", "date"))
+gnc<-gnc[!gnc$anirt<2010,] # On supprime les patients qui ont eu une leur 1er ttt de supppléance avant 2010
+gnc$anirt<-as.factor(gnc$anirt)
+gnc$age<-as.numeric(gnc$age)
+gnc<-gnc[!gnc$age<16,] # On supprime les patients inf à 16 ans
+gnc$DATE_EVT<-as.Date(gnc$DATE_EVT, origin = "1899-12-30")
+gnc$FAV_DATE<-as.Date(gnc$FAV_DATE, origin = "1899-12-30")
+gnc$DDIRT<-as.Date(gnc$DDIRT, origin = "1899-12-30")
+gnc$DNAIS<-as.Date(gnc$DNAIS, origin = "1899-12-30")
+gnc$DINSCMED<-as.Date(gnc$DINSCMED, origin = "1899-12-30")
+gnc$dgrf<-as.Date(gnc$dgrf, origin = "1899-12-30")
+gnc$dsvr<-as.Date(gnc$dsvr, origin = "1899-12-30")
+gnc$ddc<-as.Date(gnc$ddc, origin = "1899-12-30")
+gnc$dpdv<-as.Date(gnc$dpdv, origin = "1899-12-30")
+gnc$DATE_DERNOUV<-as.Date(gnc$DATE_DERNOUV, origin = "1899-12-30")
+gnc$delai_dernouv<-as.numeric(gnc$delai_dernouv)
+gnc$delailna<-as.numeric(gnc$delailna)
+gnc$delaitx<-as.numeric(gnc$delaitx)
+gnc$delaidc<-as.numeric(gnc$delaidc)
+gnc$RES_DEP_LIB<-as.factor(gnc$RES_DEP_LIB)
+gnc$RES_REG_LIB<-as.factor(gnc$RES_REG_LIB)
+gnc$bmi<-as.numeric(gnc$bmi)
+gnc$classage<-as.factor(gnc$classage)
+gnc$agegp<-as.factor(gnc$agegp)
+gnc$AUTCOMOR3_LIB<-as.factor(gnc$AUTCOMOR3_LIB)
+gnc$AUTCOMOR3_COD<-as.factor(gnc$AUTCOMOR3_COD)
+gnc$AUTCOMOR2_LIB<-as.factor(gnc$AUTCOMOR2_LIB)
+gnc$AUTCOMOR2_COD<-as.factor(gnc$AUTCOMOR2_COD)
+gnc$AUTCOMOR1_LIB<-as.factor(gnc$AUTCOMOR1_LIB)
+gnc$AUTCOMOR1_COD<-as.factor(gnc$AUTCOMOR1_COD)
+gnc$HB<-as.numeric(gnc$HB)
+gnc$HBINI<-as.numeric(gnc$HBINI)
+gnc$gr_HBINI<-NA
+gnc$gr_HBINI[gnc$sex==1]<-cut(gnc$HBINI[gnc$sex==1], breaks = c(0,13,max(gnc$HBINI, na.rm = T)+1), right = F)
+gnc$gr_HBINI[gnc$sex==2]<-cut(gnc$HBINI[gnc$sex==2], breaks = c(0,12,max(gnc$HBINI, na.rm = T)+1), right = F)
+gnc$gr_HBINI<-factor(gnc$gr_HBINI, levels = c(1,2), labels = c(1,0))
+gnc$ALBI_MTH<-factor(gnc$ALBI_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
+gnc$ALB_MTH<-factor(gnc$ALB_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
+gnc$ALB<-as.numeric(gnc$ALB)
+gnc$PDS<-as.numeric(gnc$PDS)
+#gnc$nephgp<-NULL # N'a que le facteur "gnc" et pas de donnée manquante
+#gnc$liste_longue<-NULL # N'a que le facteur "Néphropathie à dépôts d'gnc" et pas de donnée manquante
+gnc$ALBI_MTH<-as.factor(gnc$ALBI_MTH)
+gnc$ALBINI<-as.numeric(gnc$ALBINI)
+gnc$CAUSENEPH2_LIB<-as.factor(gnc$CAUSENEPH2_LIB)
+gnc$CAUSENEPH2_COD<-as.factor(gnc$CAUSENEPH2_COD)
+gnc$CAUSENEPH1_LIB<-as.factor(gnc$CAUSENEPH1_LIB)
+gnc$CAUSENEPH1_COD<-as.factor(gnc$CAUSENEPH1_COD)
+gnc$NEPH_LIB<-as.factor(gnc$NEPH_LIB)
+gnc$NEPH_COD<-as.factor(gnc$NEPH_COD)
+gnc$EQD_REG_COD<-as.factor(gnc$EQD_REG_COD)
+#gnc$EQD_PAYS_LIB<-NULL # N'a que le facteur "France" et pas de donnée manquante
+gnc$EQD_DEP_LIB<-as.factor(gnc$EQD_DEP_LIB)
+gnc$EQD_DEP_COD<-as.factor(gnc$EQD_DEP_COD)
+gnc$EQD_REG_LIB<-as.factor(gnc$EQD_REG_LIB)
+gnc$RREC_COD<-as.factor(gnc$RREC_COD)
+gnc$CAUSDCP_LIB<-as.factor(gnc$CAUSDCP_LIB)
+gnc$CAUSDCP_COD<-as.factor(gnc$CAUSDCP_COD)
+gnc$CAUSEDCP_A_LIB<-as.factor(gnc$CAUSEDCP_A_LIB)
+gnc$CAUSEDCP_A_COD<-as.factor(gnc$CAUSEDCP_A_COD)
+gnc$TABACn <- factor(gnc$TABACn, labels = c("NF","Fumeur","EX Fumeur"))
+gnc$VAVn <- factor(gnc$VAVn, labels = c("FAV native","Cathéter tunnélisé","Pontage","Autre"))
+gnc$ACTIVn<-factor(gnc$ACTIVn, labels = c("Actif temps plein","Actif temps partiel","Actif en milieu protégé","Retraité","Au chômage","Au foyer","Scolarisé, étudiant","Arrêt longue maladie","Inactif en invalidité","Inactif autre"))
+gnc$METHOn<-factor(gnc$METHOn, labels = c("Hémodialyse","Dialyse péritonéale","Greffe"))
+
+## _diab----
+diab <- read_excel("~/IRC/dataIgA/donneesdiabete.xlsx", 
+                   col_types = c("text", "text", "text", 
+                                 "text", "numeric", "text", "numeric", 
+                                 "text", "text", "numeric", "text", 
+                                 "text", "text", "text", "text", "text", 
+                                 "numeric", "text", "text", "text", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "text", "text", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "text", "numeric", "text", "text", 
+                                 "text", "text", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "numeric", "numeric", 
+                                 "numeric", "text", "text", "text", 
+                                 "text", "text", "text", "numeric", 
+                                 "numeric", "text", "text", "text", 
+                                 "text", "numeric", "text", "text", 
+                                 "numeric", "numeric", "text", "text", 
+                                 "text", "text", "date", "date", "date", 
+                                 "date", "date", "date", "date", 
+                                 "date", "date", "date"))
+diab<-diab[!diab$anirt<2010,] # On supprime les patients qui ont eu une leur 1er ttt de supppléance avant 2010
+diab$anirt<-as.factor(diab$anirt)
+diab$age<-as.numeric(diab$age)
+diab<-diab[!diab$age<16,] # On supprime les patients inf à 16 ans
+diab$DATE_EVT<-as.Date(diab$DATE_EVT, origin = "1899-12-30")
+diab$FAV_DATE<-as.Date(diab$FAV_DATE, origin = "1899-12-30")
+diab$DDIRT<-as.Date(diab$DDIRT, origin = "1899-12-30")
+diab$DNAIS<-as.Date(diab$DNAIS, origin = "1899-12-30")
+diab$DINSCMED<-as.Date(diab$DINSCMED, origin = "1899-12-30")
+diab$dgrf<-as.Date(diab$dgrf, origin = "1899-12-30")
+diab$dsvr<-as.Date(diab$dsvr, origin = "1899-12-30")
+diab$ddc<-as.Date(diab$ddc, origin = "1899-12-30")
+diab$dpdv<-as.Date(diab$dpdv, origin = "1899-12-30")
+diab$DATE_DERNOUV<-as.Date(diab$DATE_DERNOUV, origin = "1899-12-30")
+diab$delai_dernouv<-as.numeric(diab$delai_dernouv)
+diab$delailna<-as.numeric(diab$delailna)
+diab$delaitx<-as.numeric(diab$delaitx)
+diab$delaidc<-as.numeric(diab$delaidc)
+diab$RES_DEP_LIB<-as.factor(diab$RES_DEP_LIB)
+diab$RES_REG_LIB<-as.factor(diab$RES_REG_LIB)
+diab$bmi<-as.numeric(diab$bmi)
+diab$classage<-as.factor(diab$classage)
+diab$agegp<-as.factor(diab$agegp)
+diab$AUTCOMOR3_LIB<-as.factor(diab$AUTCOMOR3_LIB)
+diab$AUTCOMOR3_COD<-as.factor(diab$AUTCOMOR3_COD)
+diab$AUTCOMOR2_LIB<-as.factor(diab$AUTCOMOR2_LIB)
+diab$AUTCOMOR2_COD<-as.factor(diab$AUTCOMOR2_COD)
+diab$AUTCOMOR1_LIB<-as.factor(diab$AUTCOMOR1_LIB)
+diab$AUTCOMOR1_COD<-as.factor(diab$AUTCOMOR1_COD)
+diab$HB<-as.numeric(diab$HB)
+diab$HBINI<-as.numeric(diab$HBINI)
+diab$gr_HBINI<-NA
+diab$gr_HBINI[diab$sex==1]<-cut(diab$HBINI[diab$sex==1], breaks = c(0,13,max(diab$HBINI, na.rm = T)+1), right = F)
+diab$gr_HBINI[diab$sex==2]<-cut(diab$HBINI[diab$sex==2], breaks = c(0,12,max(diab$HBINI, na.rm = T)+1), right = F)
+diab$gr_HBINI<-factor(diab$gr_HBINI, levels = c(1,2), labels = c(1,0))
+diab$ALBI_MTH<-factor(diab$ALBI_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
+diab$ALB_MTH<-factor(diab$ALB_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
+diab$ALB<-as.numeric(diab$ALB)
+diab$PDS<-as.numeric(diab$PDS)
+#diab$nephgp<-NULL # N'a que le facteur "gnc" et pas de donnée manquante
+#diab$liste_longue<-NULL # N'a que le facteur "Néphropathie à dépôts d'gnc" et pas de donnée manquante
+diab$ALBI_MTH<-as.factor(diab$ALBI_MTH)
+diab$ALBINI<-as.numeric(diab$ALBINI)
+diab$CAUSENEPH2_LIB<-as.factor(diab$CAUSENEPH2_LIB)
+diab$CAUSENEPH2_COD<-as.factor(diab$CAUSENEPH2_COD)
+diab$CAUSENEPH1_LIB<-as.factor(diab$CAUSENEPH1_LIB)
+diab$CAUSENEPH1_COD<-as.factor(diab$CAUSENEPH1_COD)
+diab$NEPH_LIB<-as.factor(diab$NEPH_LIB)
+diab$NEPH_COD<-as.factor(diab$NEPH_COD)
+diab$EQD_REG_COD<-as.factor(diab$EQD_REG_COD)
+#diab$EQD_PAYS_LIB<-NULL # N'a que le facteur "France" et pas de donnée manquante
+diab$EQD_DEP_LIB<-as.factor(diab$EQD_DEP_LIB)
+diab$EQD_DEP_COD<-as.factor(diab$EQD_DEP_COD)
+diab$EQD_REG_LIB<-as.factor(diab$EQD_REG_LIB)
+diab$RREC_COD<-as.factor(diab$RREC_COD)
+diab$CAUSDCP_LIB<-as.factor(diab$CAUSDCP_LIB)
+diab$CAUSDCP_COD<-as.factor(diab$CAUSDCP_COD)
+diab$CAUSEDCP_A_LIB<-as.factor(diab$CAUSEDCP_A_LIB)
+diab$CAUSEDCP_A_COD<-as.factor(diab$CAUSEDCP_A_COD)
+diab$TABACn <- factor(diab$TABACn, labels = c("NF","Fumeur","EX Fumeur"))
+diab$VAVn <- factor(diab$VAVn, labels = c("FAV native","Cathéter tunnélisé","Pontage","Autre"))
+diab$ACTIVn<-factor(diab$ACTIVn, labels = c("Actif temps plein","Actif temps partiel","Actif en milieu protégé","Retraité","Au chômage","Au foyer","Scolarisé, étudiant","Arrêt longue maladie","Inactif en invalidité","Inactif autre"))
+diab$METHOn<-factor(diab$METHOn, labels = c("Hémodialyse","Dialyse péritonéale","Greffe"))
+
+## _global----
+# On créé un fichier contenant les tableaux iga, diab et gnc (greffe est à part et pkrd n'est pas exploitable en l'état)
+global<-bind_rows(iga, gnc, diab)
+global$DATE_EVT<-as.Date(global$DATE_EVT, origin = "1899-12-30")
+global$FAV_DATE<-as.Date(global$FAV_DATE, origin = "1899-12-30")
+global$DDIRT<-as.Date(global$DDIRT, origin = "1899-12-30")
+global$DNAIS<-as.Date(global$DNAIS, origin = "1899-12-30")
+global$DINSCMED<-as.Date(global$DINSCMED, origin = "1899-12-30")
+global$dgrf<-as.Date(global$dgrf, origin = "1899-12-30")
+global$dsvr<-as.Date(global$dsvr, origin = "1899-12-30")
+global$ddc<-as.Date(global$ddc, origin = "1899-12-30")
+global$dpdv<-as.Date(global$dpdv, origin = "1899-12-30")
+global$DATE_DERNOUV<-as.Date(global$DATE_DERNOUV, origin = "1899-12-30")
+global$delai_dernouv<-as.numeric(global$delai_dernouv)
+global$delailna<-as.numeric(global$delailna)
+global$delaitx<-as.numeric(global$delaitx)
+global$delaidc<-as.numeric(global$delaidc)
+global$RES_DEP_LIB<-as.factor(global$RES_DEP_LIB)
+global$RES_REG_LIB<-as.factor(global$RES_REG_LIB)
+global$bmi<-as.numeric(global$bmi)
+global$age<-as.numeric(global$age)
+global$classage<-as.factor(global$classage)
+global$agegp<-as.factor(global$agegp)
+global$anirt<-as.factor(global$anirt)
+global$AUTCOMOR3_LIB<-as.factor(global$AUTCOMOR3_LIB)
+global$AUTCOMOR3_COD<-as.factor(global$AUTCOMOR3_COD)
+global$AUTCOMOR2_LIB<-as.factor(global$AUTCOMOR2_LIB)
+global$AUTCOMOR2_COD<-as.factor(global$AUTCOMOR2_COD)
+global$AUTCOMOR1_LIB<-as.factor(global$AUTCOMOR1_LIB)
+global$AUTCOMOR1_COD<-as.factor(global$AUTCOMOR1_COD)
+global$HB<-as.numeric(global$HB)
+global$HBINI<-as.numeric(global$HBINI)
+global$gr_HBINI<-factor(global$gr_HBINI)
+global$ALBI_MTH<-factor(global$ALBI_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
+global$ALB_MTH<-factor(global$ALB_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
+global$ALB<-as.numeric(global$ALB)
+global$PDS<-as.numeric(global$PDS)
+#global$nephgp<-NULL # N'a que le facteur "gnc" et pas de donnée manquante
+#global$liste_longue<-NULL # N'a que le facteur "Néphropathie à dépôts d'gnc" et pas de donnée manquante
+global$ALBI_MTH<-as.factor(global$ALBI_MTH)
+global$ALBINI<-as.numeric(global$ALBINI)
+global$CAUSENEPH2_LIB<-as.factor(global$CAUSENEPH2_LIB)
+global$CAUSENEPH2_COD<-as.factor(global$CAUSENEPH2_COD)
+global$CAUSENEPH1_LIB<-as.factor(global$CAUSENEPH1_LIB)
+global$CAUSENEPH1_COD<-as.factor(global$CAUSENEPH1_COD)
+global$NEPH_LIB<-as.factor(global$NEPH_LIB)
+global$NEPH_COD<-as.factor(global$NEPH_COD)
+global$EQD_REG_COD<-as.factor(global$EQD_REG_COD)
+#global$EQD_PAYS_LIB<-NULL # N'a que le facteur "France" et pas de donnée manquante
+global$EQD_DEP_LIB<-as.factor(global$EQD_DEP_LIB)
+global$EQD_DEP_COD<-as.factor(global$EQD_DEP_COD)
+global$EQD_REG_LIB<-as.factor(global$EQD_REG_LIB)
+global$RREC_COD<-as.factor(global$RREC_COD)
+global$CAUSDCP_LIB<-as.factor(global$CAUSDCP_LIB)
+global$CAUSDCP_COD<-as.factor(global$CAUSDCP_COD)
+global$CAUSEDCP_A_LIB<-as.factor(global$CAUSEDCP_A_LIB)
+global$CAUSEDCP_A_COD<-as.factor(global$CAUSEDCP_A_COD)
 @
+
+La table "globale" \Sexpr{nrow(global)} patients différents ayant une IRCT avec maladie de Berger (\Sexpr{nrow(iga)}), une néphropathie diabétique (\Sexpr{nrow(diab)}) ou une glomérulonéphrite chronique (\Sexpr{nrow(gnc)}).
+
+La table "greffe" contient \Sexpr{nrow(greffe)} patients, dont \Sexpr{length(intersect(global$RREC_COD,greffe$NEFG))} (\Sexpr{round(length(intersect(global$RREC_COD,greffe$NEFG))/nrow(greffe)*100,1)}\%) qui sont en commun avec la table "globale". \Sexpr{length(intersect(global$RREC_COD[is.na(global$dgrf)],greffe$NEFG))} patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
 
 \section{Incidence maladie de Berger}
 <<data_incid_temp>>=
@@ -160,7 +445,7 @@ for (i in colnames(eff_region[,-1])) standdirect[,i]<-as.matrix(round(ageadjust.
 standdirect<-t(standdirect)
 standdirect<-data.frame(standdirect)
 @
-On a de 2010 à 2014 \Sexpr{nrow(iga)} patients qui ont eu une première suppléance. L'incidence était de \Sexpr{round(sum(nrow(iga))/sum(eff_france$effectif)*100000,1)} cas pour 100 000 habitants.
+On a \Sexpr{nrow(iga)} patients qui ont eu une première suppléance. L'incidence était de \Sexpr{round(sum(nrow(iga))/sum(eff_france$effectif)*100000,1)} cas pour 100 000 habitants.
 
   \subsection{Incidence spatiale}
 
@@ -174,13 +459,212 @@ standdirect[order(standdirect$Ratio.ajuste, decreasing = T),]
 <<>>=
 table(iga$anirt, useNA = "always")
 round(prop.table(table(iga$anirt))*100,1)
+chisq.test(table(iga$anirt),correct = F)
 @
 
 \section{Etude des caractéristiques cliniques et du devenir de ces patients}
 
   \subsection{Caractéristiques cliniques des patients au stade d’IRCT}
   
-  Age moyen au stade d’IRCT : 
+    \subsubsection{Age au stade d’IRCT (1ère suppléance) de 2010 à 2014 puis par années}
+
+<<age>>=
+summary(iga$age)
+tapply(iga$age, iga$anirt, summary)
+@
+
+    \subsubsection{Taille, poids et BMI}
+  
+  Taille lors de l'IRCT :
+  
+<<poids>>=
+summary(iga$TAIL)
+@
+
+Poids :
+
+<<taille>>=
+summary(iga$PDS)
+@
+
+BMI :
+
+<<bmi, fig.height=2.5>>=
+iga$gr_bmi<-cut(iga$bmi, breaks = c(min(iga$bmi,na.rm = T),18.5,25,30,35,40,max(iga$bmi,na.rm = T)+1), right = F, labels = c("<18.5","18.5-24.9","25-29.9","30-34.9","35-39.9",">40"))
+table(iga$gr_bmi, useNA = "always")
+round(prop.table(table(iga$gr_bmi))*100,1)
+@
+
+      \subsubsection{Ponction Biopsie Rénale}
+
+\Sexpr{table(iga$PBRn)[2]} (\Sexpr{round(prop.table(table(iga$PBRn))*100,1)[2]}\%) NA = \Sexpr{table(iga$PBRn, useNA = "always")[3]}
+
+      \subsubsection{Co-morbidités}
+
+
+
+Diabète : \Sexpr{table(iga$DIABn)[2]} (\Sexpr{round(prop.table(table(iga$DIABn))*100,1)[2]}\%) NA = \Sexpr{table(iga$DIABn, useNA = "always")[3]}
+
+Type de diabète :
+<<>>=
+table(iga$TYPDIABn,useNA = "always")[c(-1,-4)] # Type de diabète
+round(prop.table(table(iga$TYPDIABn[!iga$TYPDIABn==0]))*100,1)
+@
+
+Cirrhose : \Sexpr{table(iga$CIRHn)[2]} (\Sexpr{round(prop.table(table(iga$CIRHn))*100,1)[2]}\%) NA = \Sexpr{table(iga$CIRHn, useNA = "always")[3]}
+
+Stade de la cirrhose :
+
+<<>>=
+table(iga$STDCIRHn, useNA = "always")
+round(prop.table(table(iga$STDCIRHn))*100,1)
+@
+
+Insuffisance cardiaque : \Sexpr{table(iga$ICn)[2]} (\Sexpr{round(prop.table(table(iga$ICn))*100,1)[2]}\%) NA = \Sexpr{table(iga$ICn, useNA = "always")[3]}
+
+stade de l’IC :
+
+<<>>=
+table(iga$STADICn,useNA = "always") 
+round(prop.table(table(iga$STADICn))*100,1)
+@
+
+Infarctus du myocarde : \Sexpr{table(iga$IDMn)[2]} (\Sexpr{round(prop.table(table(iga$IDMn))*100,1)[2]}\%) NA = \Sexpr{table(iga$IDMn, useNA = "always")[3]}
+~\\
+
+Artériopathie des membres inférieurs : \Sexpr{table(iga$AMIn)[2]} (\Sexpr{round(prop.table(table(iga$AMIn))*100,1)[2]}\%) NA = \Sexpr{table(iga$AMIn, useNA = "always")[3]}
+~\\
+
+Stade de l’AOMI : 
+
+<<>>=
+table(iga$STDAMIn, useNA = "always")
+round(prop.table(table(iga$STDAMIn))*100,1)
+@
+
+Amputation : \Sexpr{table(iga$AMPn)[2]} (\Sexpr{round(prop.table(table(iga$AMPn))*100,1)[2]}\%) NA = \Sexpr{table(iga$AMPn, useNA = "always")[3]}
+~\\
+
+Accident vasculaire cérébrale (AVC et AIT) :
+
+<<>>=
+addmargins(table(iga$AVCn, iga$AITn, useNA = "always", deparse.level = 2))
+round(prop.table(table(iga$AVCn, iga$AITn, deparse.level = 2))*100,1)
+@
+
+VIH : \Sexpr{table(iga$VIHn,useNA = "always")[2]} (\Sexpr{round(prop.table(table(iga$VIHn))*100,1)[2]}\%)
+
+Dont stade SIDA : \Sexpr{table(iga$SIDAn)[2]} (\Sexpr{round(table(iga$SIDAn)[2]/table(iga$VIHn)[2]*100,1)}\%)
+~\\
+
+Ag HBS positif : \Sexpr{table(iga$VHBn)[2]} (\Sexpr{round(prop.table(table(iga$VHBn))*100,1)[2]}\%) NA = \Sexpr{table(iga$VHBn, useNA = "always")[3]}
+~\\
+
+PCR VHC positif : \Sexpr{table(iga$VHCn)[2]} (\Sexpr{round(prop.table(table(iga$VHCn))*100,1)[2]}\%) NA = \Sexpr{table(iga$VHCn, useNA = "always")[3]}
+
+
+    \subsubsection{Statut Tabagique}
+
+<<>>=
+table(iga$TABACn, useNA = "always")
+round(prop.table(table(iga$TABACn))*100,1)
+@
+
+    \subsubsection{Créatinine, albumine et hémoglobine}
+
+Créatininémie initiale :
+
+<<fig.height=3.5>>=
+summary(iga$CREATINI)
+hist(iga$CREATINI, xlab = "Créatininémie (micromol/l)", main = "Créatininémie", xlim = c(0,3000))
+@
+
+Albuminémie initiale :
+
+<<fig.height=3.5>>=
+summary(iga$ALBINI)
+hist(iga$ALBINI, xlab = "Albuminémie (U/L)", main = "Albuminémie", xlim = c(0,60))
+@
+
+Méthode de mesure de l'albumine initiale :
+
+<<>>=
+table(iga$ALBI_MTH,useNA = "always")
+round(prop.table(table(iga$ALBI_MTH))*100,1)
+@
+
+Hémoglobine :
+
+<<fig.height=3.5>>=
+iga$gr_HBINI[iga$sex==1]<-cut(iga$HBINI[iga$sex==1], breaks = c(0,13,max(iga$HBINI, na.rm = T)+1), right = F)
+iga$gr_HBINI[iga$sex==2]<-cut(iga$HBINI[iga$sex==2], breaks = c(0,12,max(iga$HBINI, na.rm = T)+1), right = F)
+iga$gr_HBINI<-factor(iga$gr_HBINI, levels = c(1,2), labels = c(1,0))
+summary(iga$HBINI)
+hist(iga$HBINI, xlab = "Hémoglobinémie (g/l)", main = "Hémoglobinémie", xlim = c(4,18))
+@
+
+Nombres d'anémiques :
+
+<<>>=
+addmargins(table(iga$sex,iga$gr_HBINI, deparse.level = 2)) # Nombre d'anémiques selon le sexe
+round(prop.table(table(iga$sex,iga$gr_HBINI, deparse.level = 2),1)*100,1)
+chisq.test(table(iga$sex,iga$gr_HBINI),correct = F) # Chi2 test
+@
+
+
+    \subsubsection{Traitement de suppléance}
+
+<<>>=
+table(iga$METHOn, useNA = "always")
+round(prop.table(table(iga$METHOn))*100,1) # Greffe = greffé sans être passé par la dialyse
+@
+
+
+    \subsubsection{Contexte de démarrage de dialyse}
+    
+Premier traitement en urgence :  \Sexpr{table(iga$URGn)[2]} (\Sexpr{round(prop.table(table(iga$URGn))*100,1)[2]}\%) NA = \Sexpr{table(iga$URGn, useNA = "always")[3]}
+~\\
+
+Premier traitement en réanimation :  \Sexpr{table(iga$REAn)[2]} (\Sexpr{round(prop.table(table(iga$REAn))*100,1)[2]}\%) NA = \Sexpr{table(iga$REAn, useNA = "always")[3]}
+
+<<>>=
+table(iga$URGn,iga$REAn, useNA = "always", deparse.level = 2)
+@
+
+Voie d’abord :
+<<>>=
+table(iga$VAVn, useNA = "always")
+round(prop.table(table(iga$VAVn))*100,1)
+@
+
+    \subsubsection{Activité}
+
+<<>>=
+sort(table(iga$ACTIVn, useNA = "always"), decreasing = T)
+round(prop.table(sort(table(iga$ACTIVn), decreasing = T))*100,1)
+@
+
+  \subsection{Devenir des patients après la mise en dialyse}
+  
+  \subsection{Analyse de la survie patient avec comme outcome le décès}
+  
+  On a \Sexpr{table(iga$dc)[2]} (\Sexpr{round(table(iga$dc)[2]/nrow(iga)*100,1)}\%) patients qui sont décédés. On a al date de décès pour \Sexpr{table(!is.na(iga$ddc))[2]} (\Sexpr{round(table(!is.na(iga$ddc))[2]/nrow(iga)*100,1)}\%) patients.
+  
+  \subsection{Recherche d’un lien entre les évènements infectieux saisonniers et la mise en route de la dialyse}
+  
+\section{Divers}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

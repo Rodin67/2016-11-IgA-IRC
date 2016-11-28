@@ -46,14 +46,11 @@ iga <- read_excel("~/IRC/dataIgA/donnes patients IgA.xlsx",
                                 "text", "text", "date", "date", "date", 
                                 "date", "date", "date", "date", 
                                 "date", "date", "date"))
-iga<-iga[!iga$anirt<2010,] # On supprime les patientsqui ont eu une leur 1er ttt de supppléance avant 2010
+iga<-iga[!iga$anirt<2010,] # On supprime les patients qui ont eu une leur 1er ttt de supppléance avant 2010
 iga$anirt<-as.factor(iga$anirt)
-iga$DATE_EVT<-as.Date(iga$DATE_EVT, origin = "1899-12-30")
-iga$gr_DATE_EVT <- cut(iga$DATE_EVT, 
-                       breaks = as.Date(c("2010-01-01","2011-01-01","2012-01-01","2013-01-01","2014-01-01","2015-01-01","2016-01-01")),
-                       labels = c("2010","2011","2012","2013","2014","2015"))
 iga$age<-as.numeric(iga$age)
 iga<-iga[!iga$age<16,] # On supprime les patients inf à 16 ans
+iga$DATE_EVT<-as.Date(iga$DATE_EVT, origin = "1899-12-30")
 iga$FAV_DATE<-as.Date(iga$FAV_DATE, origin = "1899-12-30")
 iga$DDIRT<-as.Date(iga$DDIRT, origin = "1899-12-30")
 iga$DNAIS<-as.Date(iga$DNAIS, origin = "1899-12-30")
@@ -82,16 +79,15 @@ iga$AUTCOMOR1_COD<-as.factor(iga$AUTCOMOR1_COD)
 iga$HB<-as.numeric(iga$HB)
 iga$HBINI<-as.numeric(iga$HBINI)
 iga$gr_HBINI<-NA
-#ifelse(iga$sex==1,
-#       iga$gr_HBINI[iga$sex==1]<-cut(iga$HBINI[iga$sex==1], breaks = c(0,13,max(iga$HBINI, na.rm = T)+1), right = F),
-#       iga$gr_HBINI[iga$sex==2]<-cut(iga$HBINI[iga$sex==2], breaks = c(0,12,max(iga$HBINI, na.rm = T)+1), right = F)
-#)
-#iga$gr_HBINI<-factor(iga$gr_HBINI, levels = c(1,2), labels = c(1,0))
+iga$gr_HBINI[iga$sex==1]<-cut(iga$HBINI[iga$sex==1], breaks = c(0,13,max(iga$HBINI, na.rm = T)+1), right = F)
+iga$gr_HBINI[iga$sex==2]<-cut(iga$HBINI[iga$sex==2], breaks = c(0,12,max(iga$HBINI, na.rm = T)+1), right = F)
+iga$gr_HBINI<-factor(iga$gr_HBINI, levels = c(1,2), labels = c(1,0))
 #table(iga$gr_HBINI, useNA = "always")
 iga$ALBI_MTH<-factor(iga$ALBI_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
 iga$ALB_MTH<-factor(iga$ALB_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
 iga$ALB<-as.numeric(iga$ALB)
 iga$PDS<-as.numeric(iga$PDS)
+iga$METHOn<-factor(iga$METHOn, labels = c("Hémodialyse","Dialyse péritonéale","Greffe"))
 
 #iga$nephgp<-NULL # N'a que le facteur "gnc" et pas de donnée manquante
 #iga$liste_longue<-NULL # N'a que le facteur "Néphropathie à dépôts d'IgA" et pas de donnée manquante
@@ -113,6 +109,9 @@ iga$CAUSDCP_LIB<-as.factor(iga$CAUSDCP_LIB)
 iga$CAUSDCP_COD<-as.factor(iga$CAUSDCP_COD)
 iga$CAUSEDCP_A_LIB<-as.factor(iga$CAUSEDCP_A_LIB)
 iga$CAUSEDCP_A_COD<-as.factor(iga$CAUSEDCP_A_COD)
+iga$TABACn <- factor(iga$TABACn, labels = c("NF","Fumeur","EX Fumeur"))
+iga$VAVn <- factor(iga$VAVn, labels = c("FAV native","Cathéter tunnélisé","Pontage","Autre"))
+iga$ACTIVn<-factor(iga$ACTIVn, labels = c("Actif temps plein","Actif temps partiel","Actif en milieu protégé","Retraité","Au chômage","Au foyer","Scolarisé, étudiant","Arrêt longue maladie","Inactif en invalidité","Inactif autre"))
 
 ## _greffe----
 greffe <- read_excel("~/IRC/dataIgA/greffe IgA.xlsx", col_types = c("numeric", "text", "date", "date", "date", "date", "date", "numeric", "numeric",
@@ -177,7 +176,10 @@ gnc <- read_excel("~/IRC/dataIgA/donnees GNC.xlsx",
                                 "text", "text", "date", "date", "date", 
                                 "date", "date", "date", "date", 
                                 "date", "date", "date"))
-gnc$patient<-c(1:nrow(gnc)) # On met un numéro par patient
+gnc<-gnc[!gnc$anirt<2010,] # On supprime les patients qui ont eu une leur 1er ttt de supppléance avant 2010
+gnc$anirt<-as.factor(gnc$anirt)
+gnc$age<-as.numeric(gnc$age)
+gnc<-gnc[!gnc$age<16,] # On supprime les patients inf à 16 ans
 gnc$DATE_EVT<-as.Date(gnc$DATE_EVT, origin = "1899-12-30")
 gnc$FAV_DATE<-as.Date(gnc$FAV_DATE, origin = "1899-12-30")
 gnc$DDIRT<-as.Date(gnc$DDIRT, origin = "1899-12-30")
@@ -195,10 +197,8 @@ gnc$delaidc<-as.numeric(gnc$delaidc)
 gnc$RES_DEP_LIB<-as.factor(gnc$RES_DEP_LIB)
 gnc$RES_REG_LIB<-as.factor(gnc$RES_REG_LIB)
 gnc$bmi<-as.numeric(gnc$bmi)
-gnc$age<-as.numeric(gnc$age)
 gnc$classage<-as.factor(gnc$classage)
 gnc$agegp<-as.factor(gnc$agegp)
-gnc$anirt<-as.factor(gnc$anirt)
 gnc$AUTCOMOR3_LIB<-as.factor(gnc$AUTCOMOR3_LIB)
 gnc$AUTCOMOR3_COD<-as.factor(gnc$AUTCOMOR3_COD)
 gnc$AUTCOMOR2_LIB<-as.factor(gnc$AUTCOMOR2_LIB)
@@ -208,10 +208,8 @@ gnc$AUTCOMOR1_COD<-as.factor(gnc$AUTCOMOR1_COD)
 gnc$HB<-as.numeric(gnc$HB)
 gnc$HBINI<-as.numeric(gnc$HBINI)
 gnc$gr_HBINI<-NA
-ifelse(gnc$sex==1,
-       gnc$gr_HBINI[gnc$sex==1]<-cut(gnc$HBINI[gnc$sex==1], breaks = c(0,13,max(gnc$HBINI, na.rm = T)+1), right = F),
-       gnc$gr_HBINI[gnc$sex==2]<-cut(gnc$HBINI[gnc$sex==2], breaks = c(0,12,max(gnc$HBINI, na.rm = T)+1), right = F)
-)
+gnc$gr_HBINI[gnc$sex==1]<-cut(gnc$HBINI[gnc$sex==1], breaks = c(0,13,max(gnc$HBINI, na.rm = T)+1), right = F)
+gnc$gr_HBINI[gnc$sex==2]<-cut(gnc$HBINI[gnc$sex==2], breaks = c(0,12,max(gnc$HBINI, na.rm = T)+1), right = F)
 gnc$gr_HBINI<-factor(gnc$gr_HBINI, levels = c(1,2), labels = c(1,0))
 gnc$ALBI_MTH<-factor(gnc$ALBI_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
 gnc$ALB_MTH<-factor(gnc$ALB_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
@@ -237,6 +235,10 @@ gnc$CAUSDCP_LIB<-as.factor(gnc$CAUSDCP_LIB)
 gnc$CAUSDCP_COD<-as.factor(gnc$CAUSDCP_COD)
 gnc$CAUSEDCP_A_LIB<-as.factor(gnc$CAUSEDCP_A_LIB)
 gnc$CAUSEDCP_A_COD<-as.factor(gnc$CAUSEDCP_A_COD)
+gnc$TABACn <- factor(gnc$TABACn, labels = c("NF","Fumeur","EX Fumeur"))
+gnc$VAVn <- factor(gnc$VAVn, labels = c("FAV native","Cathéter tunnélisé","Pontage","Autre"))
+gnc$ACTIVn<-factor(gnc$ACTIVn, labels = c("Actif temps plein","Actif temps partiel","Actif en milieu protégé","Retraité","Au chômage","Au foyer","Scolarisé, étudiant","Arrêt longue maladie","Inactif en invalidité","Inactif autre"))
+gnc$METHOn<-factor(gnc$METHOn, labels = c("Hémodialyse","Dialyse péritonéale","Greffe"))
 
 ## _diab----
 diab <- read_excel("~/IRC/dataIgA/donneesdiabete.xlsx", 
@@ -273,7 +275,10 @@ diab <- read_excel("~/IRC/dataIgA/donneesdiabete.xlsx",
                                  "text", "text", "date", "date", "date", 
                                  "date", "date", "date", "date", 
                                  "date", "date", "date"))
-diab$patient<-c(1:nrow(diab)) # On met un numéro par patient
+diab<-diab[!diab$anirt<2010,] # On supprime les patients qui ont eu une leur 1er ttt de supppléance avant 2010
+diab$anirt<-as.factor(diab$anirt)
+diab$age<-as.numeric(diab$age)
+diab<-diab[!diab$age<16,] # On supprime les patients inf à 16 ans
 diab$DATE_EVT<-as.Date(diab$DATE_EVT, origin = "1899-12-30")
 diab$FAV_DATE<-as.Date(diab$FAV_DATE, origin = "1899-12-30")
 diab$DDIRT<-as.Date(diab$DDIRT, origin = "1899-12-30")
@@ -291,10 +296,8 @@ diab$delaidc<-as.numeric(diab$delaidc)
 diab$RES_DEP_LIB<-as.factor(diab$RES_DEP_LIB)
 diab$RES_REG_LIB<-as.factor(diab$RES_REG_LIB)
 diab$bmi<-as.numeric(diab$bmi)
-diab$age<-as.numeric(diab$age)
 diab$classage<-as.factor(diab$classage)
 diab$agegp<-as.factor(diab$agegp)
-diab$anirt<-as.factor(diab$anirt)
 diab$AUTCOMOR3_LIB<-as.factor(diab$AUTCOMOR3_LIB)
 diab$AUTCOMOR3_COD<-as.factor(diab$AUTCOMOR3_COD)
 diab$AUTCOMOR2_LIB<-as.factor(diab$AUTCOMOR2_LIB)
@@ -304,10 +307,8 @@ diab$AUTCOMOR1_COD<-as.factor(diab$AUTCOMOR1_COD)
 diab$HB<-as.numeric(diab$HB)
 diab$HBINI<-as.numeric(diab$HBINI)
 diab$gr_HBINI<-NA
-ifelse(diab$sex==1,
-       diab$gr_HBINI[diab$sex==1]<-cut(diab$HBINI[diab$sex==1], breaks = c(0,13,max(diab$HBINI, na.rm = T)+1), right = F),
-       diab$gr_HBINI[diab$sex==2]<-cut(diab$HBINI[diab$sex==2], breaks = c(0,12,max(diab$HBINI, na.rm = T)+1), right = F)
-)
+diab$gr_HBINI[diab$sex==1]<-cut(diab$HBINI[diab$sex==1], breaks = c(0,13,max(diab$HBINI, na.rm = T)+1), right = F)
+diab$gr_HBINI[diab$sex==2]<-cut(diab$HBINI[diab$sex==2], breaks = c(0,12,max(diab$HBINI, na.rm = T)+1), right = F)
 diab$gr_HBINI<-factor(diab$gr_HBINI, levels = c(1,2), labels = c(1,0))
 diab$ALBI_MTH<-factor(diab$ALBI_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
 diab$ALB_MTH<-factor(diab$ALB_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
@@ -333,106 +334,14 @@ diab$CAUSDCP_LIB<-as.factor(diab$CAUSDCP_LIB)
 diab$CAUSDCP_COD<-as.factor(diab$CAUSDCP_COD)
 diab$CAUSEDCP_A_LIB<-as.factor(diab$CAUSEDCP_A_LIB)
 diab$CAUSEDCP_A_COD<-as.factor(diab$CAUSEDCP_A_COD)
-
-## _/!\ pkrd----
-# /!\ On a environ 70 lignes déaclées !!!
-pkrd <- read_excel("~/IRC/dataIgA/donneesPKRD.xlsx", 
-                   col_types = c("text", "text", "text", 
-                                 "text", "numeric", "text", "numeric", 
-                                 "text", "text", "numeric", "text", 
-                                 "text", "text", "text", "text", "text", 
-                                 "numeric", "text", "text", "text", 
-                                 "numeric", "numeric", "numeric", 
-                                 "numeric", "numeric", "numeric", 
-                                 "numeric", "text", "text", "numeric", 
-                                 "numeric", "numeric", "numeric", 
-                                 "numeric", "numeric", "numeric", 
-                                 "text", "numeric", "text", "text", 
-                                 "text", "text", "numeric", "numeric", 
-                                 "numeric", "numeric", "numeric", 
-                                 "numeric", "numeric", "numeric", 
-                                 "numeric", "numeric", "numeric", 
-                                 "numeric", "numeric", "numeric", 
-                                 "numeric", "numeric", "numeric", 
-                                 "numeric", "numeric", "numeric", 
-                                 "numeric", "numeric", "numeric", 
-                                 "numeric", "numeric", "numeric", 
-                                 "numeric", "numeric", "numeric", 
-                                 "numeric", "numeric", "numeric", 
-                                 "numeric", "numeric", "numeric", 
-                                 "numeric", "numeric", "numeric", 
-                                 "numeric", "numeric", "numeric", 
-                                 "numeric", "text", "text", "text", 
-                                 "text", "text", "text", "numeric", 
-                                 "numeric", "text", "text", "text", 
-                                 "text", "numeric", "text", "text", 
-                                 "numeric", "numeric", "text", "text", 
-                                 "text", "text", "date", "date", "date", 
-                                 "date", "date", "date", "date", 
-                                 "date", "date", "date"))
-pkrd$patient<-c(1:nrow(pkrd)) # On met un numéro par patient
-pkrd$DATE_EVT<-as.Date(pkrd$DATE_EVT, origin = "1899-12-30")
-pkrd$FAV_DATE<-as.Date(pkrd$FAV_DATE, origin = "1899-12-30")
-pkrd$DDIRT<-as.Date(pkrd$DDIRT, origin = "1899-12-30")
-pkrd$DNAIS<-as.Date(pkrd$DNAIS, origin = "1899-12-30")
-pkrd$DINSCMED<-as.Date(pkrd$DINSCMED, origin = "1899-12-30")
-pkrd$dgrf<-as.Date(pkrd$dgrf, origin = "1899-12-30")
-pkrd$dsvr<-as.Date(pkrd$dsvr, origin = "1899-12-30")
-pkrd$ddc<-as.Date(pkrd$ddc, origin = "1899-12-30")
-pkrd$dpdv<-as.Date(pkrd$dpdv, origin = "1899-12-30")
-pkrd$DATE_DERNOUV<-as.Date(pkrd$DATE_DERNOUV, origin = "1899-12-30")
-pkrd$delai_dernouv<-as.numeric(pkrd$delai_dernouv)
-pkrd$delailna<-as.numeric(pkrd$delailna)
-pkrd$delaitx<-as.numeric(pkrd$delaitx)
-pkrd$delaidc<-as.numeric(pkrd$delaidc)
-pkrd$RES_DEP_LIB<-as.factor(pkrd$RES_DEP_LIB)
-pkrd$RES_REG_LIB<-as.factor(pkrd$RES_REG_LIB)
-pkrd$bmi<-as.numeric(pkrd$bmi)
-pkrd$age<-as.numeric(pkrd$age)
-pkrd$classage<-as.factor(pkrd$classage)
-pkrd$agegp<-as.factor(pkrd$agegp)
-pkrd$anirt<-as.factor(pkrd$anirt)
-pkrd$AUTCOMOR3_LIB<-as.factor(pkrd$AUTCOMOR3_LIB)
-pkrd$AUTCOMOR3_COD<-as.factor(pkrd$AUTCOMOR3_COD)
-pkrd$AUTCOMOR2_LIB<-as.factor(pkrd$AUTCOMOR2_LIB)
-pkrd$AUTCOMOR2_COD<-as.factor(pkrd$AUTCOMOR2_COD)
-pkrd$AUTCOMOR1_LIB<-as.factor(pkrd$AUTCOMOR1_LIB)
-pkrd$AUTCOMOR1_COD<-as.factor(pkrd$AUTCOMOR1_COD)
-pkrd$HB<-as.numeric(pkrd$HB)
-pkrd$HBINI<-as.numeric(pkrd$HBINI)
-pkrd$gr_HBINI<-NA
-pkrd$gr_HBINI[pkrd$sex==1]<-cut(pkrd$HBINI[pkrd$sex==1], breaks = c(0,13,max(pkrd$HBINI, na.rm = T)+1), right = F, labels = c("Anémique","Non anémique"))
-pkrd$gr_HBINI[pkrd$sex==2]<-cut(pkrd$HBINI[pkrd$sex==2], breaks = c(0,12,max(pkrd$HBINI, na.rm = T)+1), right = F, labels = c("Anémique","Non anémique"))
-pkrd$ALBI_MTH<-factor(pkrd$ALBI_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
-pkrd$ALB_MTH<-factor(pkrd$ALB_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
-pkrd$ALB<-as.numeric(pkrd$ALB)
-pkrd$PDS<-as.numeric(pkrd$PDS)
-#pkrd$nephgp<-NULL # N'a que le facteur "gnc" et pas de donnée manquante
-#pkrd$liste_longue<-NULL # N'a que le facteur "Néphropathie à dépôts d'pkrd" et pas de donnée manquante
-pkrd$ALBI_MTH<-as.factor(pkrd$ALBI_MTH)
-pkrd$ALBINI<-as.numeric(pkrd$ALBINI)
-pkrd$CAUSENEPH2_LIB<-as.factor(pkrd$CAUSENEPH2_LIB)
-pkrd$CAUSENEPH2_COD<-as.factor(pkrd$CAUSENEPH2_COD)
-pkrd$CAUSENEPH1_LIB<-as.factor(pkrd$CAUSENEPH1_LIB)
-pkrd$CAUSENEPH1_COD<-as.factor(pkrd$CAUSENEPH1_COD)
-pkrd$NEPH_LIB<-as.factor(pkrd$NEPH_LIB)
-pkrd$NEPH_COD<-as.factor(pkrd$NEPH_COD)
-pkrd$EQD_REG_COD<-as.factor(pkrd$EQD_REG_COD)
-#pkrd$EQD_PAYS_LIB<-NULL # N'a que le facteur "France" et pas de donnée manquante
-pkrd$EQD_DEP_LIB<-as.factor(pkrd$EQD_DEP_LIB)
-pkrd$EQD_DEP_COD<-as.factor(pkrd$EQD_DEP_COD)
-pkrd$EQD_REG_LIB<-as.factor(pkrd$EQD_REG_LIB)
-pkrd$RREC_COD<-as.factor(pkrd$RREC_COD)
-pkrd$CAUSDCP_LIB<-as.factor(pkrd$CAUSDCP_LIB)
-pkrd$CAUSDCP_COD<-as.factor(pkrd$CAUSDCP_COD)
-pkrd$CAUSEDCP_A_LIB<-as.factor(pkrd$CAUSEDCP_A_LIB)
-pkrd$CAUSEDCP_A_COD<-as.factor(pkrd$CAUSEDCP_A_COD)
+diab$TABACn <- factor(diab$TABACn, labels = c("NF","Fumeur","EX Fumeur"))
+diab$VAVn <- factor(diab$VAVn, labels = c("FAV native","Cathéter tunnélisé","Pontage","Autre"))
+diab$ACTIVn<-factor(diab$ACTIVn, labels = c("Actif temps plein","Actif temps partiel","Actif en milieu protégé","Retraité","Au chômage","Au foyer","Scolarisé, étudiant","Arrêt longue maladie","Inactif en invalidité","Inactif autre"))
+diab$METHOn<-factor(diab$METHOn, labels = c("Hémodialyse","Dialyse péritonéale","Greffe"))
 
 ## _global----
 # On créé un fichier contenant les tableaux iga, diab et gnc (greffe est à part et pkrd n'est pas exploitable en l'état)
 global<-bind_rows(iga, gnc, diab)
-global$patient<-NULL # On enlève le numéro par patient
-global$patient<-c(1:nrow(global)) # On met un numéro par patient
 global$DATE_EVT<-as.Date(global$DATE_EVT, origin = "1899-12-30")
 global$FAV_DATE<-as.Date(global$FAV_DATE, origin = "1899-12-30")
 global$DDIRT<-as.Date(global$DDIRT, origin = "1899-12-30")
@@ -482,11 +391,12 @@ global$EQD_REG_COD<-as.factor(global$EQD_REG_COD)
 global$EQD_DEP_LIB<-as.factor(global$EQD_DEP_LIB)
 global$EQD_DEP_COD<-as.factor(global$EQD_DEP_COD)
 global$EQD_REG_LIB<-as.factor(global$EQD_REG_LIB)
-global$RREC_COD<-as.factor(glOobal$RREC_COD)
+global$RREC_COD<-as.factor(global$RREC_COD)
 global$CAUSDCP_LIB<-as.factor(global$CAUSDCP_LIB)
 global$CAUSDCP_COD<-as.factor(global$CAUSDCP_COD)
 global$CAUSEDCP_A_LIB<-as.factor(global$CAUSEDCP_A_LIB)
 global$CAUSEDCP_A_COD<-as.factor(global$CAUSEDCP_A_COD)
+
 #-----------------------------------------------------------------------------------Fichier greffe-------------------------------------------
 # Les points "." ont été gérés comme une donnée manquante "NA"
 
@@ -605,8 +515,14 @@ pie(table(iga$sex),
     labels = c("Hommes","Femmes"))
 
 ## _Poids, taille, bmi----
-table(iga$PDS, useNA = "always")
+summary(iga$PDS)
 iga[iga$PDS<35 & !is.na(iga$PDS),] # On regarde les patients avec un poids faible
+hist(iga$PDS,
+     las = 1,
+     xlab = "Poids",
+     ylab = "Fréquence",
+     main = "Répartition des poids")
+summary(iga$TAIL)
 hist(iga$TAIL,
      las = 1,
      xlim = c(100,200),
@@ -635,26 +551,26 @@ hist(iga$CREATINI)
 ## _Albuminémie----
 summary(iga$ALBINI) # Albuminémie initiale (g/L)
 hist(iga$ALBINI)
-summary(iga$ALBI_MTH) # Méthode de mesure de l'albumine initiale
-barplot(table(iga$ALBI_MTH))
+table(iga$ALBI_MTH) # Méthode de mesure de l'albumine initiale
+barplot(sort(table(iga$ALBI_MTH), decreasing = T))
 
 summary(iga$ALB) # Albuminémie (g/L)
 hist(iga$ALB)
 summary(iga$ALB_MTH) # Méthode de mesure de l'albumine
-barplot(table(iga$ALB_MTH))
+barplot(sort(table(iga$ALB_MTH), decreasing = T))
 
 ## _Hémoglobinémie----
 summary(iga$HBINI) # Hémoglobinémie initiale
 hist(iga$HBINI)
 boxplot(iga$HBINI~iga$sex)
-abline(h = 13, col = "blue") # Limite anémie hommes
-abline(h = 12, col = "red") # Limite anémie femmes
+abline(v = 13, col = "blue") # Limite anémie hommes
+abline(v = 12, col = "red") # Limite anémie femmes
 
 table(iga$gr_HBINI)
 round(prop.table(table(iga$gr_HBINI))*100,1) # Nombre d'anémiques
 
-table(iga$sex,iga$gr_HBINI) # Nombre d'anémiques selon le sexe
-round(prop.table(table(iga$sex,iga$gr_HBINI, deparse.level = 1),1)*100,1)
+table(iga$sex,iga$gr_HBINI, deparse.level = 2) # Nombre d'anémiques selon le sexe
+round(prop.table(table(iga$sex,iga$gr_HBINI, deparse.level = 2),1)*100,1)
 chisq.test(table(iga$sex,iga$gr_HBINI),correct = F) # Chi2 test
 
 summary(iga$HB) # Hémoglobinémie
@@ -688,14 +604,13 @@ round(prop.table(table(iga$REAn))*100,1)
 pie(table(iga$REAn), col = c("lightblue","pink"))
 
 ## _Ponction Biopsie rénale----
-summary(iga$PBRn)
-table(iga$PBRn)
+
+table(iga$PBRn, useNA = "always")
 round(prop.table(table(iga$PBRn))*100,1)
 pie(table(iga$PBRn), col = c("lightblue","pink"))
 
 ## _Activité au début de l'IRT----
-summary(iga$ACTIVn)
-iga$ACTIVn<-factor(iga$ACTIVn, labels = c("Actif temps plein","Actif temps partiel","Actif en milieu protégé","Retraité","Au chômage","Au foyer","Scolarisé, étudiant","Arrêt longue maladie","Inactif en invalidité","Inactif autre"))
+table(iga$ACTIVn, useNA = "always")
 round(prop.table(table(iga$ACTIVn))*100,1)
 par(mar=c(5,10,5,3))
 barplot(sort(table(iga$ACTIVn)),
@@ -719,15 +634,14 @@ barplot(table(iga$VOLDP), las = 1)
 
 ## _Type de traitement de l'IRCT----
 summary(iga$METHOn)
-table(iga$METHOn)
-iga$METHOn<-factor(iga$METHOn, labels = c("Hémodialyse","Dialyse péritonéale","Greffe"))
+table(iga$METHOn, useNA = "always")
 round(prop.table(table(iga$METHOn))*100,1) # Greffe = greffé sans être passé par la dialyse
 barplot(table(iga$METHOn), las = 1)
 
 ## _Voie d'abord vasculaire----
 # NA = zéro abord ? 
 summary(iga$VAVn)
-table(iga$VAVn)
+table(iga$VAVn, useNA = "always")
 round(prop.table(table(iga$VAVn))*100,1)
 barplot(table(iga$VAVn), las = 1)
 
@@ -752,7 +666,7 @@ table(iga$DIABn,useNA = "always")
 round(prop.table(table(iga$DIABn))*100,1)
 pie(table(iga$DIABn),col = c("lightblue","pink"))
 
-table(iga$TYPDIABn,useNA = "always") # Type de diabète
+table(iga$TYPDIABn) # Type de diabète
 round(prop.table(table(iga$TYPDIABn[!iga$TYPDIABn==0]))*100,1)
 pie(table(iga$TYPDIABn[!iga$TYPDIABn==0]))
 
@@ -776,8 +690,7 @@ table(iga$ICn,useNA = "always")
 round(prop.table(table(iga$ICn))*100,1)
 pie(table(iga$ICn))
 
-## _Stade de l'insuffisance cardiaque ???----
-table(iga$STADICn,useNA = "always")
+table(iga$STADICn,useNA = "always") # Stade de l'insuffisance cardiaque ???
 round(prop.table(table(iga$STADICn))*100,1)
 pie(table(iga$STADICn))
 
@@ -806,8 +719,7 @@ table(iga$AMIn,useNA = "always")
 round(prop.table(table(iga$AMIn))*100,1)
 pie(table(iga$AMIn))
 
-## _Stade de l'artérite des membres inférieurs----
-table(iga$STDAMIn, useNA = "always")
+table(iga$STDAMIn, useNA = "always") # Stade de l'artérite des membres inférieurs
 round(prop.table(table(iga$STDAMIn))*100,1)
 pie(table(iga$STDAMIn))
 
@@ -816,17 +728,16 @@ table(iga$AVCn,useNA = "always")
 round(prop.table(table(iga$AVCn))*100,1)
 pie(table(iga$AVCn))
 
-## _Accident ischémique transitoire----
-table(iga$AITn,useNA = "always")
+table(iga$AITn,useNA = "always") # Accident ischémique transitoire
 round(prop.table(table(iga$AITn))*100,1)
 pie(table(iga$AITn))
 
-## _Variable composite de AVC et AIT----
-table(iga$AVCAITn,useNA = "always")
+table(iga$AVCAITn,useNA = "always") # Variable composite de AVC et AIT
 round(prop.table(table(iga$AVCAITn))*100,1)
 pie(table(iga$AVCAITn))
 
-table(iga$AVCn, iga$AITn, useNA = "always", deparse.level = 2) # Ne correspond pas exactement
+addmargins(table(iga$AVCn, iga$AITn, useNA = "always", deparse.level = 2))# Ne correspond pas exactement
+round(prop.table(table(iga$AVCn, iga$AITn, deparse.level = 2))*100,1)
 
 ## _Cancer évolutif----
 table(iga$KCn,useNA = "always")
@@ -848,8 +759,7 @@ table(iga$CIRHn,useNA = "always")
 round(prop.table(table(iga$CIRHn))*100,1)
 pie(table(iga$CIRHn))
 
-## _Stade de la cirrhose----
-table(iga$STDCIRHn, useNA = "always")
+table(iga$STDCIRHn, useNA = "always") # Stade de la cirrhose
 round(prop.table(table(iga$STDCIRHn))*100,1)
 pie(table(iga$STDCIRHn))
 
@@ -858,10 +768,10 @@ table(iga$VIHn,useNA = "always")
 round(prop.table(table(iga$VIHn))*100,1)
 pie(table(iga$VIHn))
 
-## _SIDA----
-table(iga$SIDAn, useNA = "always")
+table(iga$SIDAn, useNA = "always") # SIDA
 round(prop.table(table(iga$SIDAn))*100,1)
 pie(table(iga$SIDAn))
+
 
 ## _Transplantation autre que rein----
 table(iga$TX_AUTRE, useNA = "always")
@@ -915,6 +825,7 @@ round(prop.table(table(iga$NOINSCn))*100,1)
 barplot(table(iga$NOINSCn))
 
 ## _Statut tabagique----
+
 table(iga$TABACn, useNA = "always")
 round(prop.table(table(iga$TABACn))*100,1)
 pie(table(iga$TABACn))
@@ -1027,7 +938,7 @@ barplot(table(iga$FAV_DATE))
 summary(iga$DDIRT)
 table(iga$DDIRT, useNA = "always")
 barplot(table(iga$DDIRT))
-table(iga$)
+
 
 ## _Date de naissance----
 summary(iga$DNAIS)
@@ -1090,6 +1001,37 @@ round(prop.table(table(iga$anirt))*100,1)
 addmargins(table(iga$RES_REG_LIB,iga$anirt)) # Par région
 sum(nbev_iga_region$Alsace)
 round(prop.table(table(iga$RES_REG_LIB,iga$anirt),1)*100,0)
+
+
+#------------------------------------------------- Etude des caractéristiques cliniques et du devenir de ces patients --------------------------
+
+summary(iga$age)
+hist(iga$age,
+     las = 1,
+     xlab = "Age",
+     ylab = "Fréquence",
+     main = "Age à l'initiation du traitement de suppléance")
+
+ave(iga$age, iga$anirt, summary)
+tapply(iga$age, iga$anirt, summary)
+
+
+#------------------------------------------------- Divers --------------------------
+
+table(!is.na(iga$ddc))[2]
+summary(iga$delaidc)
+table(iga$dc,!is.na(iga$ddc), deparse.level = 2)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
