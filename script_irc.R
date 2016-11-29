@@ -7,6 +7,20 @@ library("prettyR", lib.loc="~/R/win-library/3.3")
 library("ggplot2", lib.loc="~/R/win-library/3.3")
 library("corrplot", lib.loc="~/R/win-library/3.3")
 library("epitools", lib.loc="~/R/win-library/3.3")
+library("sp", lib.loc="~/R/win-library/3.3")
+library("rgdal", lib.loc="~/R/win-library/3.3")
+library("RColorBrewer", lib.loc="~/R/win-library/3.3")
+library("classInt", lib.loc="~/R/win-library/3.3")
+
+ogrInfo(dsn = "./data/cartes", layer="DEPARTEMENT")
+dep <- readOGR(dsn = "./data/cartes", layer="DEPARTEMENT", stringsAsFactors=FALSE)
+dep@data$CODE_DEPT
+
+
+plot(dep[dep$NOM_REG=="ILE-DE-FRANCE",])
+plot(comm[comm$CODE_REG=="11",])
+plot(comm[comm$CODE_REG=="11" & comm$POPULATION>1000,], col = "red", add = T)
+
 
 .pardefault <- par(no.readonly = T)
 options(max.print = 99999999)
@@ -118,6 +132,13 @@ greffe <- read_excel("~/IRC/dataIgA/greffe IgA.xlsx", col_types = c("numeric", "
                                                                     "date", "date", "text", "text", "numeric", "text", "text", "text", "text",
                                                                     "text", "text", "numeric"))
 for (i in greffe$NEFG[duplicated(greffe[,c("NEFG","LMALADI")])]) greffe<-greffe[!(greffe$NEFG==i & is.na(greffe$GRF1)),]
+greffe<-separate(greffe, GRF1, c("annee1","mois1","jour"), remove = F)
+greffe$jour<-NULL
+greffe<-separate(greffe, GRF2, c("annee2","mois2","jour"), remove = F)
+greffe$jour<-NULL
+greffe<-separate(greffe, GRF3, c("annee3","mois3","jour"), remove = F)
+greffe$jour<-NULL
+greffe <- greffe[!greffe$annee1<2010 | is.na(greffe$annee1),]
 greffe$ARF1<-as.Date(greffe$ARF1, origin = "1899-12-30")
 greffe$ARF2<-as.Date(greffe$ARF2, origin = "1899-12-30")
 greffe$GRF1<-as.Date(greffe$GRF1, origin = "1899-12-30")
@@ -139,8 +160,6 @@ greffe$NOUV1<-factor(greffe$NOUV1)
 greffe$NOUV2<-factor(greffe$NOUV2)
 greffe$kmdc<-ifelse(is.na(greffe$DECES1),0,1) # Pour faire un Kaplan-Meier
 greffe$kmdelaidc<- ifelse(is.na(greffe$DECES1),as.Date(c("2016-11-01"), origin = "1899-12-30")-greffe$GRF1,greffe$DECES1-greffe$GRF1) # Pour faire un Kaplan-Meier : délai avant évènement (ou suivi jusqu'au 1-11-2016)
-
-
 
 ## _gnc----
 gnc <- read_excel("~/IRC/dataIgA/donnees GNC.xlsx", 
@@ -500,6 +519,11 @@ global$CAUSDCP_COD<-as.factor(global$CAUSDCP_COD)
 global$CAUSEDCP_A_LIB<-as.factor(global$CAUSEDCP_A_LIB)
 global$CAUSEDCP_A_COD<-as.factor(global$CAUSEDCP_A_COD)
 
+## _global_greffe ----
+names(greffe)[names(greffe)=="NEFG"] <- "RREC_COD"
+global_greffe <- left_join(global, greffe, by = "RREC_COD")
+View(global_greffe[global_greffe$RREC_COD==178144,])
+names(greffe)[names(greffe)=="RREC_COD"] <- "NEFG"
 #-----------------------------------------------------------------------------------Fichier greffe-------------------------------------------
 # Les points "." ont été gérés comme une donnée manquante "NA"
 
@@ -518,25 +542,18 @@ greffe<-greffe[!(greffe$NEFG==140081 & greffe$LMALADI==c("Inconnue ou indétermi
 greffe<-greffe[!(greffe$NEFG==153968 & greffe$LMALADI==c("Inconnue ou indéterminée")),] #Supprime car maladie inconnue
 #Les patients ayant à la fois les diagnostics de néphropathie à dépôts d'IgA et maladie de Berger ne sont pas supprimé car dépôt IgA pas forcément une maladie de Berger
 
-##Statistiques
-table(duplicated(greffe$NEFG))["TRUE"] # Nombres de patients unique
+table(duplicated(greffe$NEFG))["FALSE"] # Nombres de patients unique
 
 sort(table(greffe$LMALADI),decreasing = T) # Répartition des pathologies rénales
 sort(round(table(greffe$LMALADI)*100/table(duplicated(greffe$NEFG))["FALSE"],1),decreasing = T) # Pourcentage des diagnostics sur le nombre de patients
 
 ## _Nombre de greffe par année----
-greffe<-separate(greffe, GRF1, c("annee1","mois1","jour"), remove = F)
-greffe$jour<-NULL
 addmargins(table(greffe$annee1)) # Nombre de greffe par année (1ère greffe)
 round(prop.table(table(greffe$annee1))*100,1)
 
-greffe<-separate(greffe, GRF2, c("annee2","mois2","jour"), remove = F)
-greffe$jour<-NULL
 addmargins(table(greffe$annee2)) # Nombre de greffe par année (2e greffe)
 round(prop.table(table(greffe$annee2))*100,1)
 
-greffe<-separate(greffe, GRF3, c("annee3","mois3","jour"), remove = F)
-greffe$jour<-NULL
 addmargins(table(greffe$annee3)) # Nombre de greffe par année (3e greffe)
 
 greffe_annee<-gather(greffe, "a","annee",c(3,5,7))
@@ -1102,6 +1119,39 @@ standdirect<-t(standdirect)
 standdirect<-data.frame(standdirect)
 standdirect[order(standdirect$Ratio.ajuste, decreasing = T),]
 
+
+#################################################### Départements
+
+## Tableaux du nombre de cas d'IgA par âge et sexe selon le département
+nbev_iga_dep<-iga[,c("sex","classage","RES_DEP_LIB","res_dep_cod")] 
+nbev_iga_dep<-unite(nbev_iga_dep, "sex_age", 1:2, sep = "-")
+nbev_iga_dep$res_dep_cod[nbev_iga_dep$RES_DEP_LIB=="Corse-du-Sud"] <- "2A"
+nbev_iga_dep$res_dep_cod[nbev_iga_dep$RES_DEP_LIB=="Haute-Corse"] <- "2B"
+nbev_iga_dep$res_dep_cod<-factor(nbev_iga_dep$res_dep_cod)
+nbev_iga_dep<-unite(nbev_iga_dep, "dep", 3:2, sep = "-", remove = F)
+nbev_iga_dep<-nbev_iga_dep[!(nbev_iga_dep$res_dep_cod=="976" | nbev_iga_dep$res_dep_cod=="987" | is.na(nbev_iga_dep$res_dep_cod)),]
+nbev_iga_dep<-as.data.frame.matrix(table(nbev_iga_dep$sex_age, nbev_iga_dep$RES_DEP_LIB))
+
+## Tableaux de l'effectif par département, pour la catégorie d'âge 16-19 ans, les données INSEE étant de 15 à 19 ans, muliplié par 0.8
+eff_dep <- read.csv2("~/IRC/data/eff_dep.csv", header = T, ";")
+nbev_iga_dep<-data.frame(eff_dep[,1],nbev_iga_dep)
+colnames(nbev_iga_dep)[1]<-"classage"
+
+## Tableaux de l'effectif en France
+eff_france <- read.csv2("~/IRC/data/eff_france.csv", header = T,";")
+eff_france$age<-cut(eff_france$age, breaks = c(16, seq(20,95,5)), right = F, include.lowest = T)
+eff_france<-gather(eff_france, "sex","effectif", 2:3)
+eff_france$sex<-factor(eff_france$sex, levels = c("h","f"), labels = c(1,2))
+eff_france<-unite(eff_france, "classage", 2:1, sep = "-")
+eff_france$classage<-factor(eff_france$classage)
+
+## Calcul par standardisation directe sur l'âge et le sexe pour 100 000 habitants
+standdirect_dep<-matrix(nrow = 4, ncol = 99, dimnames = list(c("Ratio brut","Ratio ajuste","IC inf","IC sup"), c(colnames(nbev_iga_dep[,-1]))))
+for (i in colnames(eff_dep[,-1])) standdirect_reg[,i]<-as.matrix(round(ageadjust.direct(nbev_iga_dep[,i], eff_dep[,i], stdpop = eff_france[,2])*10^5,1))
+standdirect_dep<-t(standdirect_dep)
+standdirect_dep<-data.frame(standdirect_dep)
+standdirect_dep[order(standdirect_dep$Ratio.ajuste, decreasing = T),]
+
 #--------------------------------------------------------------- incidence temporelle --------------------------
 
 table(iga$anirt, useNA = "always")
@@ -1123,6 +1173,8 @@ hist(iga$age,
 ave(iga$age, iga$anirt, summary)
 tapply(iga$age, iga$anirt, summary)
 
+
+#------------------------------------------------- Répartition France métropolitaine ----
 
 #------------------------------------------------- Divers --------------------------
 

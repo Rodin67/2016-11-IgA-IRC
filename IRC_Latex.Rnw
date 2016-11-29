@@ -27,6 +27,7 @@ library("tidyr", lib.loc="~/R/win-library/3.3")
 library("dplyr", lib.loc="~/R/win-library/3.3")
 library("corrplot", lib.loc="~/R/win-library/3.3")
 library("epitools", lib.loc="~/R/win-library/3.3")
+
 ## _iga----
 iga <- read_excel("~/IRC/dataIgA/donnes patients IgA.xlsx", 
                   col_types = c("text", "text", "text", 
@@ -133,6 +134,13 @@ greffe <- read_excel("~/IRC/dataIgA/greffe IgA.xlsx", col_types = c("numeric", "
                                                                     "date", "date", "text", "text", "numeric", "text", "text", "text", "text",
                                                                     "text", "text", "numeric"))
 for (i in greffe$NEFG[duplicated(greffe[,c("NEFG","LMALADI")])]) greffe<-greffe[!(greffe$NEFG==i & is.na(greffe$GRF1)),]
+greffe<-separate(greffe, GRF1, c("annee1","mois1","jour"), remove = F)
+greffe$jour<-NULL
+greffe<-separate(greffe, GRF2, c("annee2","mois2","jour"), remove = F)
+greffe$jour<-NULL
+greffe<-separate(greffe, GRF3, c("annee3","mois3","jour"), remove = F)
+greffe$jour<-NULL
+greffe <- greffe[!greffe$annee1<2010 | is.na(greffe$annee1),]
 greffe$ARF1<-as.Date(greffe$ARF1, origin = "1899-12-30")
 greffe$ARF2<-as.Date(greffe$ARF2, origin = "1899-12-30")
 greffe$GRF1<-as.Date(greffe$GRF1, origin = "1899-12-30")
@@ -154,7 +162,6 @@ greffe$NOUV1<-factor(greffe$NOUV1)
 greffe$NOUV2<-factor(greffe$NOUV2)
 greffe$kmdc<-ifelse(is.na(greffe$DECES1),0,1) # Pour faire un Kaplan-Meier
 greffe$kmdelaidc<- ifelse(is.na(greffe$DECES1),as.Date(c("2016-11-01"), origin = "1899-12-30")-greffe$GRF1,greffe$DECES1-greffe$GRF1) # Pour faire un Kaplan-Meier : délai avant évènement (ou suivi jusqu'au 1-11-2016)
-
 
 ## _gnc----
 gnc <- read_excel("~/IRC/dataIgA/donnees GNC.xlsx", 
@@ -513,6 +520,10 @@ global$CAUSDCP_LIB<-as.factor(global$CAUSDCP_LIB)
 global$CAUSDCP_COD<-as.factor(global$CAUSDCP_COD)
 global$CAUSEDCP_A_LIB<-as.factor(global$CAUSEDCP_A_LIB)
 global$CAUSEDCP_A_COD<-as.factor(global$CAUSEDCP_A_COD)
+## _global_greffe ----
+names(greffe)[names(greffe)=="NEFG"] <- "RREC_COD"
+global_greffe <- left_join(global, greffe, by = "RREC_COD")
+names(greffe)[names(greffe)=="RREC_COD"] <- "NEFG"
 @
 
 La table "globale" contient \Sexpr{table(duplicated(global$RREC_COD))["FALSE"]} patients différents pouvant avoir une IRCT avec maladie de Berger (\Sexpr{table(duplicated(iga$RREC_COD))["FALSE"]}), une néphropathie diabétique (\Sexpr{table(duplicated(diab$RREC_COD))["FALSE"]}), une glomérulonéphrite chronique (\Sexpr{table(duplicated(gnc$RREC_COD))["FALSE"]}) ou une PKRD (\Sexpr{table(duplicated(pkrd$RREC_COD))["FALSE"]}).
@@ -546,13 +557,14 @@ standdirect<-matrix(nrow = 4, ncol = 25, dimnames = list(c("Ratio brut","Ratio a
 for (i in colnames(eff_region[,-1])) standdirect[,i]<-as.matrix(round(ageadjust.direct(nbev_iga_region[,i], eff_region[,i], stdpop = eff_france[,2])*10^5,1))
 standdirect<-t(standdirect)
 standdirect<-data.frame(standdirect)
+standdirect$annuel <- standdirect$Ratio.ajuste/5
 @
 On a \Sexpr{nrow(iga)} patients qui ont eu une première suppléance. L'incidence était de \Sexpr{round(sum(nrow(iga))/sum(eff_france$effectif)*100000,1)} cas pour 100 000 habitants.
 
   \subsection{Incidence spatiale}
 
 Tableau d'incidence selon la région par standardisation directe pour 100 000 habitants de 2010 à 2014 (selon l'effectif français de 2013) :
-<<>>=
+<<cache=FALSE>>=
 standdirect[order(standdirect$Ratio.ajuste, decreasing = T),]
 @
 
@@ -561,7 +573,6 @@ standdirect[order(standdirect$Ratio.ajuste, decreasing = T),]
 <<>>=
 table(iga$anirt, useNA = "always")
 round(prop.table(table(iga$anirt))*100,1)
-chisq.test(table(iga$anirt),correct = F)
 @
 
 \section{Etude des caractéristiques cliniques et du devenir de ces patients}
@@ -585,7 +596,7 @@ print(x)
 
     \subsubsection{Taille, poids et BMI}
   
-  Taille lors de l'IRCT :
+Taille lors de l'IRCT :
   
 <<poids>>=
 summary(iga$TAIL)
@@ -761,6 +772,17 @@ round(prop.table(sort(table(iga$ACTIVn), decreasing = T))*100,1)
   
 \section{Greffe}
 
+  \subsection{Nombre de greffe par année}
+
+<<>>=
+print("Greffe 1")
+addmargins(table(greffe$annee1)) # Nombre de greffe par année (1ère greffe)
+round(prop.table(table(greffe$annee1))*100,1)
+
+print("Greffe 2")
+addmargins(table(greffe$annee2)) # Nombre de greffe par année (2e greffe)
+round(prop.table(table(greffe$annee2))*100,1)
+@
 
 
 

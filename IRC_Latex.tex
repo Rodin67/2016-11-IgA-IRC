@@ -72,7 +72,7 @@
 
 La table "globale" contient 20455 patients différents pouvant avoir une IRCT avec maladie de Berger (1720), une néphropathie diabétique (11174), une glomérulonéphrite chronique (4417) ou une PKRD (3144).
 
-La table "greffe" contient 1984 patients uniques (14 ont 2 patholgies), dont 958 (48.3\%) sont en commun avec la table "globale". 9 patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
+La table "greffe" contient 1317 patients uniques (7 ont 2 patholgies), dont 958 (72.7\%) sont en commun avec la table "globale". 9 patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
 
 \section{Incidence maladie de Berger}
 
@@ -84,32 +84,32 @@ Tableau d'incidence selon la région par standardisation directe pour 100 000 ha
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-                           Ratio.brut Ratio.ajuste IC.inf IC.sup
-Reunion                           5.7          5.8    3.9    8.8
-Alsace                            5.4          5.5    4.3    6.8
-Auvergne                          4.6          4.5    3.3    5.9
-Nord.Pas.de.Calais                4.1          4.2    3.5    5.0
-Bretagne                          4.0          3.9    3.2    4.7
-Midi.Pyrénées                     3.8          3.8    3.0    4.6
-Centre                            3.7          3.6    2.9    4.5
-Champagne.Ardenne                 3.6          3.6    2.6    5.0
-Pays.de.la.Loire                  3.7          3.6    3.0    4.4
-Franche.Comté                     3.6          3.5    2.4    5.0
-Rhône.Alpes                       3.5          3.5    3.0    4.1
-Bourgogne                         3.6          3.4    2.5    4.5
-Basse.Normandie                   3.3          3.2    2.3    4.4
-Languedoc.Roussillon              3.2          3.2    2.5    4.1
-Picardie                          3.0          2.9    2.1    3.9
-Haute.Normandie                   2.8          2.8    2.0    3.8
-Ile.de.France                     2.8          2.8    2.5    3.2
-Aquitaine                         2.7          2.7    2.1    3.4
-Lorraine                          2.7          2.7    2.0    3.6
-Limousin                          2.6          2.6    1.5    4.4
-Poitou.Charentes                  2.5          2.4    1.7    3.4
-Provence.Alpes.Côte.d.Azur        2.4          2.3    1.9    2.8
-Corse                             1.5          1.5    0.4    4.0
-Guadeloupe                        1.0          1.0    0.2    3.4
-Martinique                        0.7          0.7    0.1    3.0
+                           Ratio.brut Ratio.ajuste IC.inf IC.sup annuel
+Reunion                           5.7          5.8    3.9    8.8   1.16
+Alsace                            5.4          5.5    4.3    6.8   1.10
+Auvergne                          4.6          4.5    3.3    5.9   0.90
+Nord.Pas.de.Calais                4.1          4.2    3.5    5.0   0.84
+Bretagne                          4.0          3.9    3.2    4.7   0.78
+Midi.Pyrénées                     3.8          3.8    3.0    4.6   0.76
+Centre                            3.7          3.6    2.9    4.5   0.72
+Champagne.Ardenne                 3.6          3.6    2.6    5.0   0.72
+Pays.de.la.Loire                  3.7          3.6    3.0    4.4   0.72
+Franche.Comté                     3.6          3.5    2.4    5.0   0.70
+Rhône.Alpes                       3.5          3.5    3.0    4.1   0.70
+Bourgogne                         3.6          3.4    2.5    4.5   0.68
+Basse.Normandie                   3.3          3.2    2.3    4.4   0.64
+Languedoc.Roussillon              3.2          3.2    2.5    4.1   0.64
+Picardie                          3.0          2.9    2.1    3.9   0.58
+Haute.Normandie                   2.8          2.8    2.0    3.8   0.56
+Ile.de.France                     2.8          2.8    2.5    3.2   0.56
+Aquitaine                         2.7          2.7    2.1    3.4   0.54
+Lorraine                          2.7          2.7    2.0    3.6   0.54
+Limousin                          2.6          2.6    1.5    4.4   0.52
+Poitou.Charentes                  2.5          2.4    1.7    3.4   0.48
+Provence.Alpes.Côte.d.Azur        2.4          2.3    1.9    2.8   0.46
+Corse                             1.5          1.5    0.4    4.0   0.30
+Guadeloupe                        1.0          1.0    0.2    3.4   0.20
+Martinique                        0.7          0.7    0.1    3.0   0.14
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -125,11 +125,6 @@ Martinique                        0.7          0.7    0.1    3.0
 
 2010 2011 2012 2013 2014 
 18.7 20.2 20.8 20.9 19.4 
-
-	Chi-squared test for given probabilities
-
-data:  table(iga$anirt)
-X-squared = 3.0988, df = 4, p-value = 0.5414
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -159,7 +154,7 @@ X-squared = 3.0988, df = 4, p-value = 0.5414
 
     \subsubsection{Taille, poids et BMI}
   
-  Taille lors de l'IRCT :
+Taille lors de l'IRCT :
   
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -499,6 +494,28 @@ Actif en milieu protégé
   
 \section{Greffe}
 
+  \subsection{Nombre de greffe par année}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+[1] "Greffe 1"
+
+2010 2011 2012 2013 2014 2015 2016  Sum 
+ 175  206  215  215  228  179   92 1310 
+
+2010 2011 2012 2013 2014 2015 2016 
+13.4 15.7 16.4 16.4 17.4 13.7  7.0 
+[1] "Greffe 2"
+
+2012 2013 2014 2015 2016  Sum 
+   7    5    4    5    5   26 
+
+2012 2013 2014 2015 2016 
+26.9 19.2 15.4 19.2 19.2 
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 
 
