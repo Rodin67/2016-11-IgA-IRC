@@ -117,6 +117,7 @@ iga$ACTIVn<-factor(iga$ACTIVn, labels = c("Actif temps plein","Actif temps parti
 greffe <- read_excel("~/IRC/dataIgA/greffe IgA.xlsx", col_types = c("numeric", "text", "date", "date", "date", "date", "date", "numeric", "numeric",
                                                                     "date", "date", "text", "text", "numeric", "text", "text", "text", "text",
                                                                     "text", "text", "numeric"))
+for (i in greffe$NEFG[duplicated(greffe[,c("NEFG","LMALADI")])]) greffe<-greffe[!(greffe$NEFG==i & is.na(greffe$GRF1)),]
 greffe$ARF1<-as.Date(greffe$ARF1, origin = "1899-12-30")
 greffe$ARF2<-as.Date(greffe$ARF2, origin = "1899-12-30")
 greffe$GRF1<-as.Date(greffe$GRF1, origin = "1899-12-30")
@@ -339,9 +340,111 @@ diab$VAVn <- factor(diab$VAVn, labels = c("FAV native","Cathéter tunnélisé","
 diab$ACTIVn<-factor(diab$ACTIVn, labels = c("Actif temps plein","Actif temps partiel","Actif en milieu protégé","Retraité","Au chômage","Au foyer","Scolarisé, étudiant","Arrêt longue maladie","Inactif en invalidité","Inactif autre"))
 diab$METHOn<-factor(diab$METHOn, labels = c("Hémodialyse","Dialyse péritonéale","Greffe"))
 
+## _pkrd ----
+pkrd <- read_excel("~/IRC/dataIgA/donnes PKRD.xlsx", 
+                  col_types = c("text", "text", "text", 
+                                "text", "numeric", "text", "numeric", 
+                                "text", "text", "numeric", "text", 
+                                "text", "text", "text", "text", "text", 
+                                "numeric", "text", "text", "text", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "text", "text", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "text", "numeric", "text", "text", 
+                                "text", "text", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "text", "text", "text", 
+                                "text", "text", "text", "numeric", 
+                                "numeric", "text", "text", "text", 
+                                "text", "numeric", "text", "text", 
+                                "numeric", "numeric", "text", "text", 
+                                "text", "text", "date", "date", "date", 
+                                "date", "date", "date", "date", 
+                                "date", "date", "date"))
+pkrd<-pkrd[!pkrd$anirt<2010,] # On supprime les patients qui ont eu une leur 1er ttt de supppléance avant 2010
+pkrd$anirt<-as.factor(pkrd$anirt)
+pkrd$age<-as.numeric(pkrd$age)
+pkrd<-pkrd[!pkrd$age<16,] # On supprime les patients inf à 16 ans
+pkrd$DATE_EVT<-as.Date(pkrd$DATE_EVT, origin = "1899-12-30")
+pkrd$FAV_DATE<-as.Date(pkrd$FAV_DATE, origin = "1899-12-30")
+pkrd$DDIRT<-as.Date(pkrd$DDIRT, origin = "1899-12-30")
+pkrd$DNAIS<-as.Date(pkrd$DNAIS, origin = "1899-12-30")
+pkrd$DINSCMED<-as.Date(pkrd$DINSCMED, origin = "1899-12-30")
+pkrd$dgrf<-as.Date(pkrd$dgrf, origin = "1899-12-30")
+pkrd$dsvr<-as.Date(pkrd$dsvr, origin = "1899-12-30")
+pkrd$ddc<-as.Date(pkrd$ddc, origin = "1899-12-30")
+pkrd$dpdv<-as.Date(pkrd$dpdv, origin = "1899-12-30")
+pkrd$DATE_DERNOUV<-as.Date(pkrd$DATE_DERNOUV, origin = "1899-12-30")
+pkrd$delai_dernouv<-as.numeric(pkrd$delai_dernouv)
+pkrd$delailna<-as.numeric(pkrd$delailna)
+pkrd$delaitx<-as.numeric(pkrd$delaitx)
+pkrd$delaidc<-as.numeric(pkrd$delaidc)
+pkrd$RES_DEP_LIB<-as.factor(pkrd$RES_DEP_LIB)
+pkrd$RES_REG_LIB<-as.factor(pkrd$RES_REG_LIB)
+pkrd$bmi<-as.numeric(pkrd$bmi)
+pkrd$classage<-as.factor(pkrd$classage)
+pkrd$classage<-cut(pkrd$age, breaks = c(16,seq(20,95,5)), right = F)
+pkrd$agegp<-as.factor(pkrd$agegp)
+pkrd$AUTCOMOR3_LIB<-as.factor(pkrd$AUTCOMOR3_LIB)
+pkrd$AUTCOMOR3_COD<-as.factor(pkrd$AUTCOMOR3_COD)
+pkrd$AUTCOMOR2_LIB<-as.factor(pkrd$AUTCOMOR2_LIB)
+pkrd$AUTCOMOR2_COD<-as.factor(pkrd$AUTCOMOR2_COD)
+pkrd$AUTCOMOR1_LIB<-as.factor(pkrd$AUTCOMOR1_LIB)
+pkrd$AUTCOMOR1_COD<-as.factor(pkrd$AUTCOMOR1_COD)
+pkrd$HB<-as.numeric(pkrd$HB)
+pkrd$HBINI<-as.numeric(pkrd$HBINI)
+pkrd$gr_HBINI<-NA
+pkrd$gr_HBINI[pkrd$sex==1]<-cut(pkrd$HBINI[pkrd$sex==1], breaks = c(0,13,max(pkrd$HBINI, na.rm = T)+1), right = F)
+pkrd$gr_HBINI[pkrd$sex==2]<-cut(pkrd$HBINI[pkrd$sex==2], breaks = c(0,12,max(pkrd$HBINI, na.rm = T)+1), right = F)
+pkrd$gr_HBINI<-factor(pkrd$gr_HBINI, levels = c(1,2), labels = c(1,0))
+#table(pkrd$gr_HBINI, useNA = "always")
+pkrd$ALBI_MTH<-factor(pkrd$ALBI_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
+pkrd$ALB_MTH<-factor(pkrd$ALB_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
+pkrd$ALB<-as.numeric(pkrd$ALB)
+pkrd$PDS<-as.numeric(pkrd$PDS)
+pkrd$METHOn<-factor(pkrd$METHOn, labels = c("Hémodialyse","Dialyse péritonéale","Greffe"))
+
+#pkrd$nephgp<-NULL # N'a que le facteur "gnc" et pas de donnée manquante
+#pkrd$liste_longue<-NULL # N'a que le facteur "Néphropathie à dépôts d'pkrd" et pas de donnée manquante
+pkrd$ALBI_MTH<-as.factor(pkrd$ALBI_MTH)
+pkrd$ALBINI<-as.numeric(pkrd$ALBINI)
+pkrd$CAUSENEPH2_LIB<-as.factor(pkrd$CAUSENEPH2_LIB)
+pkrd$CAUSENEPH2_COD<-as.factor(pkrd$CAUSENEPH2_COD)
+pkrd$CAUSENEPH1_LIB<-as.factor(pkrd$CAUSENEPH1_LIB)
+pkrd$CAUSENEPH1_COD<-as.factor(pkrd$CAUSENEPH1_COD)
+pkrd$NEPH_LIB<-as.factor(pkrd$NEPH_LIB)
+pkrd$NEPH_COD<-as.factor(pkrd$NEPH_COD)
+pkrd$EQD_REG_COD<-as.factor(pkrd$EQD_REG_COD)
+#pkrd$EQD_PAYS_LIB<-NULL # N'a que le facteur "France" et pas de donnée manquante
+pkrd$EQD_DEP_LIB<-as.factor(pkrd$EQD_DEP_LIB)
+pkrd$EQD_DEP_COD<-as.factor(pkrd$EQD_DEP_COD)
+pkrd$EQD_REG_LIB<-as.factor(pkrd$EQD_REG_LIB)
+pkrd$RREC_COD<-as.factor(pkrd$RREC_COD)
+pkrd$CAUSDCP_LIB<-as.factor(pkrd$CAUSDCP_LIB)
+pkrd$CAUSDCP_COD<-as.factor(pkrd$CAUSDCP_COD)
+pkrd$CAUSEDCP_A_LIB<-as.factor(pkrd$CAUSEDCP_A_LIB)
+pkrd$CAUSEDCP_A_COD<-as.factor(pkrd$CAUSEDCP_A_COD)
+pkrd$TABACn <- factor(pkrd$TABACn, labels = c("NF","Fumeur","EX Fumeur"))
+pkrd$VAVn <- factor(pkrd$VAVn, labels = c("FAV native","Cathéter tunnélisé","Pontage","Autre"))
+pkrd$ACTIVn<-factor(pkrd$ACTIVn, labels = c("Actif temps plein","Actif temps partiel","Actif en milieu protégé","Retraité","Au chômage","Au foyer","Scolarisé, étudiant","Arrêt longue maladie","Inactif en invalidité","Inactif autre"))
+
 ## _global----
 # On créé un fichier contenant les tableaux iga, diab et gnc (greffe est à part et pkrd n'est pas exploitable en l'état)
-global<-bind_rows(iga, gnc, diab)
+global<-bind_rows(iga, gnc, diab, pkrd)
 global$DATE_EVT<-as.Date(global$DATE_EVT, origin = "1899-12-30")
 global$FAV_DATE<-as.Date(global$FAV_DATE, origin = "1899-12-30")
 global$DDIRT<-as.Date(global$DDIRT, origin = "1899-12-30")
@@ -400,18 +503,23 @@ global$CAUSEDCP_A_COD<-as.factor(global$CAUSEDCP_A_COD)
 #-----------------------------------------------------------------------------------Fichier greffe-------------------------------------------
 # Les points "." ont été gérés comme une donnée manquante "NA"
 
-greffe$NEFG[duplicated(greffe[,c("NEFG")])]
+View(greffe[duplicated(greffe[,c("NEFG")]),])
 greffe$NEFG[duplicated(greffe[,c("NEFG","LMALADI")])]
-for (i in greffe$NEFG[duplicated(greffe[,c("NEFG","LMALADI")])]) print(table(is.na(greffe[greffe$NEFG==i,])[2,3:17])) # On regarde si les patients avec le même NEFG et la même maladie ont une ligne vide
-for (i in greffe$NEFG[duplicated(greffe[,c("NEFG")])]) print(table(is.na(greffe[greffe$NEFG==i,])[2,2:17])) # On regarde si les patients avec le même NEFG ont une ligne vide
-setdiff(greffe$NEFG[duplicated(greffe[,c("NEFG")])],greffe$NEFG[duplicated(greffe[,c("NEFG","LMALADI")])])
-for (i in setdiff(greffe$NEFG[duplicated(greffe[,c("NEFG")])],greffe$NEFG[duplicated(greffe[,c("NEFG","LMALADI")])])) print(greffe[greffe$NEFG==i,1:2]) # On regarde les pathologies rénales des patients en double
+
+# On regarde si les patients avec le même NEFG et la même maladie ont une ligne vide
+for (i in greffe$NEFG[duplicated(greffe[,c("NEFG","LMALADI")])]) print(table(is.na(greffe[greffe$NEFG==i,])[2,3:17])) 
+# On regarde si les patients avec le même NEFG ont une ligne vide
+for (i in greffe$NEFG[duplicated(greffe[,c("NEFG")])]) print(table(is.na(greffe[greffe$NEFG==i,])[2,2:17])) 
+# On regarde les pathologies rénales des patients en double
+for (i in setdiff(greffe$NEFG[duplicated(greffe[,c("NEFG")])],greffe$NEFG[duplicated(greffe[,c("NEFG","LMALADI")])])) print(greffe[greffe$NEFG==i,1:2]) 
+## Le patient 116736 n'a pas de maladie rénale à dépôt d'IgA mais il est dans la table "iga" avec une patho à IgA
+
 greffe<-greffe[!(greffe$NEFG==140081 & greffe$LMALADI==c("Inconnue ou indéterminée")),] #Supprime car maladie inconnue
 greffe<-greffe[!(greffe$NEFG==153968 & greffe$LMALADI==c("Inconnue ou indéterminée")),] #Supprime car maladie inconnue
 #Les patients ayant à la fois les diagnostics de néphropathie à dépôts d'IgA et maladie de Berger ne sont pas supprimé car dépôt IgA pas forcément une maladie de Berger
 
 ##Statistiques
-table(duplicated(greffe$NEFG))["FALSE"] # Nombres de patients unique
+table(duplicated(greffe$NEFG))["TRUE"] # Nombres de patients unique
 
 sort(table(greffe$LMALADI),decreasing = T) # Répartition des pathologies rénales
 sort(round(table(greffe$LMALADI)*100/table(duplicated(greffe$NEFG))["FALSE"],1),decreasing = T) # Pourcentage des diagnostics sur le nombre de patients
@@ -1022,7 +1130,15 @@ table(!is.na(iga$ddc))[2]
 summary(iga$delaidc)
 table(iga$dc,!is.na(iga$ddc), deparse.level = 2)
 
-
+summary_annee <- function(x,y) {
+x <- matrix(nrow = 5, ncol = 6, dimnames = list(c("2010","2011","2012","2013","2014"),c("Min.", "1st Qu.",  "Median", "Mean", "3rd Qu.", "Max.")));
+x[1,] <- tapply(x, y, summary)$"2010";
+x[2,] <- tapply(x, y, summary)$"2011";
+x[3,] <- tapply(x, y, summary)$"2012";
+x[4,] <- tapply(x, y, summary)$"2013";
+x[5,] <- tapply(x, y, summary)$"2014";
+print(x)
+}
 
 
 

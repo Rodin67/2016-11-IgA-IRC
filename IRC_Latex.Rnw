@@ -10,23 +10,23 @@
 \usepackage{threeparttable}
 \usepackage[top=2cm,bottom=2cm,right=2cm,left=2cm]{geometry}
 
-\author{Nathanael LAPIDUS, Rodolphe JANTZEN}
-\title{Etude IRC à IgA 2010-2014}
+%\author{}
+\title{Étude IRC à IgA 2010-2014}
 
 \begin{document}
 \maketitle
 
-<<options et library, echo=FALSE, message=FALSE>>=
-opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, comment = "")
+<<options, echo=FALSE, message=FALSE>>=
+opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, comment = "", cache = TRUE)
+@
+
+<<data>>=
 library("survival", lib.loc="C:/Program Files/R/R-3.3.2/library")
 library("readxl", lib.loc="~/R/win-library/3.3")
 library("tidyr", lib.loc="~/R/win-library/3.3")
 library("dplyr", lib.loc="~/R/win-library/3.3")
 library("corrplot", lib.loc="~/R/win-library/3.3")
 library("epitools", lib.loc="~/R/win-library/3.3")
-@
-
-<<data, cache=TRUE>>=
 ## _iga----
 iga <- read_excel("~/IRC/dataIgA/donnes patients IgA.xlsx", 
                   col_types = c("text", "text", "text", 
@@ -132,6 +132,7 @@ iga$ACTIVn<-factor(iga$ACTIVn, labels = c("Actif temps plein","Actif temps parti
 greffe <- read_excel("~/IRC/dataIgA/greffe IgA.xlsx", col_types = c("numeric", "text", "date", "date", "date", "date", "date", "numeric", "numeric",
                                                                     "date", "date", "text", "text", "numeric", "text", "text", "text", "text",
                                                                     "text", "text", "numeric"))
+for (i in greffe$NEFG[duplicated(greffe[,c("NEFG","LMALADI")])]) greffe<-greffe[!(greffe$NEFG==i & is.na(greffe$GRF1)),]
 greffe$ARF1<-as.Date(greffe$ARF1, origin = "1899-12-30")
 greffe$ARF2<-as.Date(greffe$ARF2, origin = "1899-12-30")
 greffe$GRF1<-as.Date(greffe$GRF1, origin = "1899-12-30")
@@ -153,7 +154,6 @@ greffe$NOUV1<-factor(greffe$NOUV1)
 greffe$NOUV2<-factor(greffe$NOUV2)
 greffe$kmdc<-ifelse(is.na(greffe$DECES1),0,1) # Pour faire un Kaplan-Meier
 greffe$kmdelaidc<- ifelse(is.na(greffe$DECES1),as.Date(c("2016-11-01"), origin = "1899-12-30")-greffe$GRF1,greffe$DECES1-greffe$GRF1) # Pour faire un Kaplan-Meier : délai avant évènement (ou suivi jusqu'au 1-11-2016)
-greffe <- greffe[!duplicated(greffe$NEFG),] # On supprime les patients avec le même identifiant (sans données)
 
 
 ## _gnc----
@@ -354,9 +354,111 @@ diab$VAVn <- factor(diab$VAVn, labels = c("FAV native","Cathéter tunnélisé","
 diab$ACTIVn<-factor(diab$ACTIVn, labels = c("Actif temps plein","Actif temps partiel","Actif en milieu protégé","Retraité","Au chômage","Au foyer","Scolarisé, étudiant","Arrêt longue maladie","Inactif en invalidité","Inactif autre"))
 diab$METHOn<-factor(diab$METHOn, labels = c("Hémodialyse","Dialyse péritonéale","Greffe"))
 
+## _pkrd ----
+pkrd <- read_excel("~/IRC/dataIgA/donnes PKRD.xlsx", 
+                  col_types = c("text", "text", "text", 
+                                "text", "numeric", "text", "numeric", 
+                                "text", "text", "numeric", "text", 
+                                "text", "text", "text", "text", "text", 
+                                "numeric", "text", "text", "text", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "text", "text", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "text", "numeric", "text", "text", 
+                                "text", "text", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "numeric", "numeric", 
+                                "numeric", "text", "text", "text", 
+                                "text", "text", "text", "numeric", 
+                                "numeric", "text", "text", "text", 
+                                "text", "numeric", "text", "text", 
+                                "numeric", "numeric", "text", "text", 
+                                "text", "text", "date", "date", "date", 
+                                "date", "date", "date", "date", 
+                                "date", "date", "date"))
+pkrd<-pkrd[!pkrd$anirt<2010,] # On supprime les patients qui ont eu une leur 1er ttt de supppléance avant 2010
+pkrd$anirt<-as.factor(pkrd$anirt)
+pkrd$age<-as.numeric(pkrd$age)
+pkrd<-pkrd[!pkrd$age<16,] # On supprime les patients inf à 16 ans
+pkrd$DATE_EVT<-as.Date(pkrd$DATE_EVT, origin = "1899-12-30")
+pkrd$FAV_DATE<-as.Date(pkrd$FAV_DATE, origin = "1899-12-30")
+pkrd$DDIRT<-as.Date(pkrd$DDIRT, origin = "1899-12-30")
+pkrd$DNAIS<-as.Date(pkrd$DNAIS, origin = "1899-12-30")
+pkrd$DINSCMED<-as.Date(pkrd$DINSCMED, origin = "1899-12-30")
+pkrd$dgrf<-as.Date(pkrd$dgrf, origin = "1899-12-30")
+pkrd$dsvr<-as.Date(pkrd$dsvr, origin = "1899-12-30")
+pkrd$ddc<-as.Date(pkrd$ddc, origin = "1899-12-30")
+pkrd$dpdv<-as.Date(pkrd$dpdv, origin = "1899-12-30")
+pkrd$DATE_DERNOUV<-as.Date(pkrd$DATE_DERNOUV, origin = "1899-12-30")
+pkrd$delai_dernouv<-as.numeric(pkrd$delai_dernouv)
+pkrd$delailna<-as.numeric(pkrd$delailna)
+pkrd$delaitx<-as.numeric(pkrd$delaitx)
+pkrd$delaidc<-as.numeric(pkrd$delaidc)
+pkrd$RES_DEP_LIB<-as.factor(pkrd$RES_DEP_LIB)
+pkrd$RES_REG_LIB<-as.factor(pkrd$RES_REG_LIB)
+pkrd$bmi<-as.numeric(pkrd$bmi)
+pkrd$classage<-as.factor(pkrd$classage)
+pkrd$classage<-cut(pkrd$age, breaks = c(16,seq(20,95,5)), right = F)
+pkrd$agegp<-as.factor(pkrd$agegp)
+pkrd$AUTCOMOR3_LIB<-as.factor(pkrd$AUTCOMOR3_LIB)
+pkrd$AUTCOMOR3_COD<-as.factor(pkrd$AUTCOMOR3_COD)
+pkrd$AUTCOMOR2_LIB<-as.factor(pkrd$AUTCOMOR2_LIB)
+pkrd$AUTCOMOR2_COD<-as.factor(pkrd$AUTCOMOR2_COD)
+pkrd$AUTCOMOR1_LIB<-as.factor(pkrd$AUTCOMOR1_LIB)
+pkrd$AUTCOMOR1_COD<-as.factor(pkrd$AUTCOMOR1_COD)
+pkrd$HB<-as.numeric(pkrd$HB)
+pkrd$HBINI<-as.numeric(pkrd$HBINI)
+pkrd$gr_HBINI<-NA
+pkrd$gr_HBINI[pkrd$sex==1]<-cut(pkrd$HBINI[pkrd$sex==1], breaks = c(0,13,max(pkrd$HBINI, na.rm = T)+1), right = F)
+pkrd$gr_HBINI[pkrd$sex==2]<-cut(pkrd$HBINI[pkrd$sex==2], breaks = c(0,12,max(pkrd$HBINI, na.rm = T)+1), right = F)
+pkrd$gr_HBINI<-factor(pkrd$gr_HBINI, levels = c(1,2), labels = c(1,0))
+#table(pkrd$gr_HBINI, useNA = "always")
+pkrd$ALBI_MTH<-factor(pkrd$ALBI_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
+pkrd$ALB_MTH<-factor(pkrd$ALB_MTH, labels = c("Automate","Electrophorèse","ND","Néphélémétrie","Colorimétrique "))
+pkrd$ALB<-as.numeric(pkrd$ALB)
+pkrd$PDS<-as.numeric(pkrd$PDS)
+pkrd$METHOn<-factor(pkrd$METHOn, labels = c("Hémodialyse","Dialyse péritonéale","Greffe"))
+
+#pkrd$nephgp<-NULL # N'a que le facteur "gnc" et pas de donnée manquante
+#pkrd$liste_longue<-NULL # N'a que le facteur "Néphropathie à dépôts d'pkrd" et pas de donnée manquante
+pkrd$ALBI_MTH<-as.factor(pkrd$ALBI_MTH)
+pkrd$ALBINI<-as.numeric(pkrd$ALBINI)
+pkrd$CAUSENEPH2_LIB<-as.factor(pkrd$CAUSENEPH2_LIB)
+pkrd$CAUSENEPH2_COD<-as.factor(pkrd$CAUSENEPH2_COD)
+pkrd$CAUSENEPH1_LIB<-as.factor(pkrd$CAUSENEPH1_LIB)
+pkrd$CAUSENEPH1_COD<-as.factor(pkrd$CAUSENEPH1_COD)
+pkrd$NEPH_LIB<-as.factor(pkrd$NEPH_LIB)
+pkrd$NEPH_COD<-as.factor(pkrd$NEPH_COD)
+pkrd$EQD_REG_COD<-as.factor(pkrd$EQD_REG_COD)
+#pkrd$EQD_PAYS_LIB<-NULL # N'a que le facteur "France" et pas de donnée manquante
+pkrd$EQD_DEP_LIB<-as.factor(pkrd$EQD_DEP_LIB)
+pkrd$EQD_DEP_COD<-as.factor(pkrd$EQD_DEP_COD)
+pkrd$EQD_REG_LIB<-as.factor(pkrd$EQD_REG_LIB)
+pkrd$RREC_COD<-as.factor(pkrd$RREC_COD)
+pkrd$CAUSDCP_LIB<-as.factor(pkrd$CAUSDCP_LIB)
+pkrd$CAUSDCP_COD<-as.factor(pkrd$CAUSDCP_COD)
+pkrd$CAUSEDCP_A_LIB<-as.factor(pkrd$CAUSEDCP_A_LIB)
+pkrd$CAUSEDCP_A_COD<-as.factor(pkrd$CAUSEDCP_A_COD)
+pkrd$TABACn <- factor(pkrd$TABACn, labels = c("NF","Fumeur","EX Fumeur"))
+pkrd$VAVn <- factor(pkrd$VAVn, labels = c("FAV native","Cathéter tunnélisé","Pontage","Autre"))
+pkrd$ACTIVn<-factor(pkrd$ACTIVn, labels = c("Actif temps plein","Actif temps partiel","Actif en milieu protégé","Retraité","Au chômage","Au foyer","Scolarisé, étudiant","Arrêt longue maladie","Inactif en invalidité","Inactif autre"))
+
 ## _global----
 # On créé un fichier contenant les tableaux iga, diab et gnc (greffe est à part et pkrd n'est pas exploitable en l'état)
-global<-bind_rows(iga, gnc, diab)
+global<-bind_rows(iga, gnc, diab, pkrd)
 global$DATE_EVT<-as.Date(global$DATE_EVT, origin = "1899-12-30")
 global$FAV_DATE<-as.Date(global$FAV_DATE, origin = "1899-12-30")
 global$DDIRT<-as.Date(global$DDIRT, origin = "1899-12-30")
@@ -413,9 +515,9 @@ global$CAUSEDCP_A_LIB<-as.factor(global$CAUSEDCP_A_LIB)
 global$CAUSEDCP_A_COD<-as.factor(global$CAUSEDCP_A_COD)
 @
 
-La table "globale" \Sexpr{nrow(global)} patients différents ayant une IRCT avec maladie de Berger (\Sexpr{nrow(iga)}), une néphropathie diabétique (\Sexpr{nrow(diab)}) ou une glomérulonéphrite chronique (\Sexpr{nrow(gnc)}).
+La table "globale" contient \Sexpr{table(duplicated(global$RREC_COD))["FALSE"]} patients différents pouvant avoir une IRCT avec maladie de Berger (\Sexpr{table(duplicated(iga$RREC_COD))["FALSE"]}), une néphropathie diabétique (\Sexpr{table(duplicated(diab$RREC_COD))["FALSE"]}), une glomérulonéphrite chronique (\Sexpr{table(duplicated(gnc$RREC_COD))["FALSE"]}) ou une PKRD (\Sexpr{table(duplicated(pkrd$RREC_COD))["FALSE"]}).
 
-La table "greffe" contient \Sexpr{nrow(greffe)} patients, dont \Sexpr{length(intersect(global$RREC_COD,greffe$NEFG))} (\Sexpr{round(length(intersect(global$RREC_COD,greffe$NEFG))/nrow(greffe)*100,1)}\%) qui sont en commun avec la table "globale". \Sexpr{length(intersect(global$RREC_COD[is.na(global$dgrf)],greffe$NEFG))} patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
+La table "greffe" contient \Sexpr{table(duplicated(greffe$NEFG))["FALSE"]} patients uniques (\Sexpr{table(duplicated(greffe$NEFG))["TRUE"]} ont 2 patholgies), dont \Sexpr{length(intersect(global$RREC_COD,greffe$NEFG))} (\Sexpr{round(length(intersect(global$RREC_COD,greffe$NEFG))/table(duplicated(greffe$NEFG))["FALSE"]*100,1)}\%) sont en commun avec la table "globale". \Sexpr{length(intersect(global$RREC_COD[is.na(global$dgrf)],greffe$NEFG))} patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
 
 \section{Incidence maladie de Berger}
 <<data_incid_temp>>=
@@ -469,8 +571,16 @@ chisq.test(table(iga$anirt),correct = F)
     \subsubsection{Age au stade d’IRCT (1ère suppléance) de 2010 à 2014 puis par années}
 
 <<age>>=
+print("2010-2014")
 summary(iga$age)
-tapply(iga$age, iga$anirt, summary)
+print("Par année")
+x <- matrix(nrow = 5, ncol = 6, dimnames = list(c("2010","2011","2012","2013","2014"),c("Min.", "1st Qu.",  "Median", "Mean", "3rd Qu.", "Max.")))
+x[1,] <- tapply(iga$age, iga$anirt, summary)$"2010"
+x[2,] <- tapply(iga$age, iga$anirt, summary)$"2011"
+x[3,] <- tapply(iga$age, iga$anirt, summary)$"2012"
+x[4,] <- tapply(iga$age, iga$anirt, summary)$"2013"
+x[5,] <- tapply(iga$age, iga$anirt, summary)$"2014"
+print(x)
 @
 
     \subsubsection{Taille, poids et BMI}
@@ -596,9 +706,6 @@ round(prop.table(table(iga$ALBI_MTH))*100,1)
 Hémoglobine :
 
 <<fig.height=3.5>>=
-iga$gr_HBINI[iga$sex==1]<-cut(iga$HBINI[iga$sex==1], breaks = c(0,13,max(iga$HBINI, na.rm = T)+1), right = F)
-iga$gr_HBINI[iga$sex==2]<-cut(iga$HBINI[iga$sex==2], breaks = c(0,12,max(iga$HBINI, na.rm = T)+1), right = F)
-iga$gr_HBINI<-factor(iga$gr_HBINI, levels = c(1,2), labels = c(1,0))
 summary(iga$HBINI)
 hist(iga$HBINI, xlab = "Hémoglobinémie (g/l)", main = "Hémoglobinémie", xlim = c(4,18))
 @
@@ -652,7 +759,9 @@ round(prop.table(sort(table(iga$ACTIVn), decreasing = T))*100,1)
   
   \subsection{Recherche d’un lien entre les évènements infectieux saisonniers et la mise en route de la dialyse}
   
-\section{Divers}
+\section{Greffe}
+
+
 
 
 
