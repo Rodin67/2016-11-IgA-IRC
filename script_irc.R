@@ -12,15 +12,6 @@ library("rgdal", lib.loc="~/R/win-library/3.3")
 library("RColorBrewer", lib.loc="~/R/win-library/3.3")
 library("classInt", lib.loc="~/R/win-library/3.3")
 
-ogrInfo(dsn = "./data/cartes", layer="DEPARTEMENT")
-dep <- readOGR(dsn = "./data/cartes", layer="DEPARTEMENT", stringsAsFactors=FALSE)
-dep@data$CODE_DEPT
-
-
-plot(dep[dep$NOM_REG=="ILE-DE-FRANCE",])
-plot(comm[comm$CODE_REG=="11",])
-plot(comm[comm$CODE_REG=="11" & comm$POPULATION>1000,], col = "red", add = T)
-
 
 .pardefault <- par(no.readonly = T)
 options(max.print = 99999999)
@@ -1118,7 +1109,7 @@ for (i in colnames(eff_region[,-1])) standdirect[,i]<-as.matrix(round(ageadjust.
 standdirect<-t(standdirect)
 standdirect<-data.frame(standdirect)
 standdirect[order(standdirect$Ratio.ajuste, decreasing = T),]
-
+standdirect$annuel <- standdirect$Ratio.ajuste/5
 
 #################################################### Départements
 
@@ -1136,6 +1127,8 @@ nbev_iga_dep<-as.data.frame.matrix(table(nbev_iga_dep$sex_age, nbev_iga_dep$RES_
 eff_dep <- read.csv2("~/IRC/data/eff_dep.csv", header = T, ";")
 nbev_iga_dep<-data.frame(eff_dep[,1],nbev_iga_dep)
 colnames(nbev_iga_dep)[1]<-"classage"
+eff_dep[eff_dep$classage=="1.[16,20)",-1] <- 0.8*eff_dep[eff_dep$classage=="1.[16,20)",-1]
+eff_dep[eff_dep$classage=="2.[16,20)",-1] <- 0.8*eff_dep[eff_dep$classage=="2.[16,20)",-1]
 
 ## Tableaux de l'effectif en France
 eff_france <- read.csv2("~/IRC/data/eff_france.csv", header = T,";")
@@ -1147,10 +1140,11 @@ eff_france$classage<-factor(eff_france$classage)
 
 ## Calcul par standardisation directe sur l'âge et le sexe pour 100 000 habitants
 standdirect_dep<-matrix(nrow = 4, ncol = 99, dimnames = list(c("Ratio brut","Ratio ajuste","IC inf","IC sup"), c(colnames(nbev_iga_dep[,-1]))))
-for (i in colnames(eff_dep[,-1])) standdirect_reg[,i]<-as.matrix(round(ageadjust.direct(nbev_iga_dep[,i], eff_dep[,i], stdpop = eff_france[,2])*10^5,1))
+for (i in colnames(eff_dep[,-1])) standdirect_dep[,i]<-as.matrix(round(ageadjust.direct(nbev_iga_dep[,i], eff_dep[,i], stdpop = eff_france[,2])*10^5,1))
 standdirect_dep<-t(standdirect_dep)
 standdirect_dep<-data.frame(standdirect_dep)
 standdirect_dep[order(standdirect_dep$Ratio.ajuste, decreasing = T),]
+standdirect_dep$annuel <- standdirect_dep$Ratio.ajuste/5
 
 #--------------------------------------------------------------- incidence temporelle --------------------------
 
@@ -1175,6 +1169,17 @@ tapply(iga$age, iga$anirt, summary)
 
 
 #------------------------------------------------- Répartition France métropolitaine ----
+ogrInfo(dsn = "./data/cartes", layer="DEPARTEMENT")
+dep <- readOGR(dsn = "./data/cartes", layer="DEPARTEMENT", stringsAsFactors=FALSE)
+
+carte_dep <- standdirect_dep
+carte_dep$dep <-rownames(standdirect_dep)
+carte_dep <- carte_dep[,c(2,6)]
+carte_dep <- bind_rows(carte_dep, data.frame(dep = "Creuse", Ratio.ajuste = 0))
+carte_dep <- carte_dep[!carte_dep$dep %in% c("Guadeloupe", "Martinique", "Mayotte", "Réunion"),]
+carte_dep <- carte_dep[order(carte_dep$dep),]
+carte_dep$dep <- sort(dep@data$NOM_DEPT)
+
 
 #------------------------------------------------- Divers --------------------------
 

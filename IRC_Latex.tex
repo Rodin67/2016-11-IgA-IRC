@@ -75,7 +75,16 @@ La table "globale" contient 20455 patients différents pouvant avoir une IRCT av
 La table "greffe" contient 1317 patients uniques (7 ont 2 patholgies), dont 958 (72.7\%) sont en commun avec la table "globale". 9 patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
 
 \section{Incidence maladie de Berger}
-
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+OGR data source with driver: ESRI Shapefile 
+Source: "./data/cartes", layer: "DEPARTEMENT"
+with 96 features
+It has 11 fields
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 On a 1720 patients qui ont eu une première suppléance. L'incidence était de 3.4 cas pour 100 000 habitants.
 
   \subsection{Incidence spatiale}
@@ -85,33 +94,150 @@ Tableau d'incidence selon la région par standardisation directe pour 100 000 ha
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
                            Ratio.brut Ratio.ajuste IC.inf IC.sup annuel
-Reunion                           5.7          5.8    3.9    8.8   1.16
-Alsace                            5.4          5.5    4.3    6.8   1.10
-Auvergne                          4.6          4.5    3.3    5.9   0.90
-Nord.Pas.de.Calais                4.1          4.2    3.5    5.0   0.84
-Bretagne                          4.0          3.9    3.2    4.7   0.78
-Midi.Pyrénées                     3.8          3.8    3.0    4.6   0.76
-Centre                            3.7          3.6    2.9    4.5   0.72
-Champagne.Ardenne                 3.6          3.6    2.6    5.0   0.72
-Pays.de.la.Loire                  3.7          3.6    3.0    4.4   0.72
-Franche.Comté                     3.6          3.5    2.4    5.0   0.70
-Rhône.Alpes                       3.5          3.5    3.0    4.1   0.70
-Bourgogne                         3.6          3.4    2.5    4.5   0.68
-Basse.Normandie                   3.3          3.2    2.3    4.4   0.64
-Languedoc.Roussillon              3.2          3.2    2.5    4.1   0.64
-Picardie                          3.0          2.9    2.1    3.9   0.58
-Haute.Normandie                   2.8          2.8    2.0    3.8   0.56
-Ile.de.France                     2.8          2.8    2.5    3.2   0.56
-Aquitaine                         2.7          2.7    2.1    3.4   0.54
-Lorraine                          2.7          2.7    2.0    3.6   0.54
-Limousin                          2.6          2.6    1.5    4.4   0.52
-Poitou.Charentes                  2.5          2.4    1.7    3.4   0.48
-Provence.Alpes.Côte.d.Azur        2.4          2.3    1.9    2.8   0.46
-Corse                             1.5          1.5    0.4    4.0   0.30
-Guadeloupe                        1.0          1.0    0.2    3.4   0.20
-Martinique                        0.7          0.7    0.1    3.0   0.14
+Reunion                          5.66         5.79   3.95   8.80   1.16
+Alsace                           5.43         5.46   4.34   6.81   1.09
+Auvergne                         4.65         4.46   3.33   5.89   0.89
+Nord.Pas.de.Calais               4.05         4.23   3.53   5.05   0.85
+Bretagne                         3.97         3.90   3.18   4.73   0.78
+Midi.Pyrénées                    3.81         3.77   3.04   4.63   0.75
+Pays.de.la.Loire                 3.66         3.64   2.98   4.40   0.73
+Centre                           3.73         3.63   2.86   4.54   0.73
+Champagne.Ardenne                3.62         3.62   2.57   4.95   0.72
+Franche.Comté                    3.61         3.54   2.45   4.96   0.71
+Rhône.Alpes                      3.46         3.51   3.01   4.07   0.70
+Bourgogne                        3.58         3.35   2.47   4.48   0.67
+Languedoc.Roussillon             3.24         3.24   2.53   4.10   0.65
+Basse.Normandie                  3.26         3.23   2.30   4.44   0.65
+Picardie                         2.96         2.92   2.13   3.93   0.58
+Ile.de.France                    2.80         2.83   2.50   3.21   0.57
+Haute.Normandie                  2.79         2.80   2.01   3.82   0.56
+Aquitaine                        2.72         2.72   2.14   3.43   0.54
+Lorraine                         2.73         2.72   2.03   3.59   0.54
+Limousin                         2.61         2.63   1.48   4.38   0.53
+Poitou.Charentes                 2.46         2.43   1.70   3.38   0.49
+Provence.Alpes.Côte.d.Azur       2.35         2.31   1.87   2.83   0.46
+Corse                            1.50         1.51   0.41   4.05   0.30
+Guadeloupe                       0.96         1.05   0.20   3.41   0.21
+Martinique                       0.65         0.71   0.08   2.97   0.14
 \end{verbatim}
 \end{kframe}
+\end{knitrout}
+
+Tableau d'incidence selon le département par standardisation directe pour 100 000 habitants de 2010 à 2014 (selon l'effectif français de 2013) :
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+                        Ratio.brut Ratio.ajuste IC.inf IC.sup annuel
+Bas.Rhin                      6.89         7.03   5.39   9.09   1.41
+Réunion                       5.66         5.79   3.95   8.80   1.16
+Morbihan                      5.86         5.56   3.87   7.84   1.11
+Savoie                        5.57         5.49   3.30   8.63   1.10
+Tarn.et.Garonne               5.50         5.47   2.71  10.16   1.09
+Hautes.Pyrénées               5.77         5.32   2.61  10.12   1.06
+Nord                          4.96         5.28   4.29   6.45   1.06
+Haute.Marne                   5.38         5.18   2.23  10.76   1.04
+Haute.Loire                   5.46         5.15   2.44  10.03   1.03
+Cantal                        5.66         5.08   2.03  11.57   1.02
+Ardèche                       5.01         4.85   2.55   8.69   0.97
+Côte.d.Or                     4.87         4.83   2.99   7.42   0.97
+Puy.de.Dôme                   4.74         4.70   3.04   6.97   0.94
+Tarn                          4.81         4.67   2.58   7.98   0.93
+Indre                         4.76         4.62   2.08   9.40   0.92
+Loire                         4.78         4.55   3.05   6.58   0.91
+Gers                          5.07         4.54   1.91  10.08   0.91
+Sarthe                        4.64         4.47   2.77   6.90   0.89
+Aude                          4.70         4.44   2.40   7.76   0.89
+Meuse                         4.51         4.40   1.76   9.39   0.88
+Lozère                        4.73         4.30   0.86  14.37   0.86
+Jura                          4.30         4.17   1.90   8.27   0.83
+Oise                          4.09         4.10   2.67   6.12   0.82
+Charente                      4.12         4.05   2.08   7.32   0.81
+Vendée                        4.38         4.04   2.55   6.23   0.81
+Marne                         3.93         3.93   2.33   6.27   0.79
+Ariège                        3.97         3.92   1.23  10.21   0.78
+Haute.Vienne                  3.87         3.92   2.01   6.97   0.78
+Rhône                         3.75         3.92   2.93   5.15   0.78
+Aveyron                       3.91         3.86   1.74   7.89   0.77
+Doubs                         3.76         3.75   2.15   6.15   0.75
+Var                           3.89         3.70   2.53   5.27   0.74
+Vosges                        3.61         3.70   1.83   6.79   0.74
+Orne                          3.84         3.69   1.67   7.30   0.74
+Seine.Saint.Denis             3.56         3.68   2.63   5.14   0.74
+Val.de.Marne                  3.65         3.68   2.61   5.10   0.74
+Hérault                       3.48         3.57   2.42   5.08   0.71
+Paris                         3.36         3.52   2.69   4.55   0.70
+Ain                           3.51         3.50   2.03   5.69   0.70
+Calvados                      3.43         3.48   2.09   5.45   0.70
+Drôme                         3.55         3.48   1.90   5.94   0.70
+Allier                        3.52         3.46   1.63   6.69   0.69
+Finistère                     3.54         3.45   2.25   5.11   0.69
+Mayenne                       3.72         3.44   1.56   6.79   0.69
+Haute.Saône                   3.65         3.41   1.37   7.51   0.68
+Ille.et.Vilaine               3.35         3.40   2.24   4.99   0.68
+Loire.Atlantique              3.33         3.40   2.37   4.75   0.68
+Pyrénées.Atlantiques          3.47         3.40   2.04   5.39   0.68
+Ardennes                      3.56         3.34   1.44   6.83   0.67
+Lot.et.Garonne                2.92         3.29   1.41   6.67   0.66
+Dordogne                      3.16         3.23   1.59   6.11   0.65
+Haut.Rhin                     3.28         3.23   1.97   5.09   0.65
+Seine.Maritime                3.09         3.16   2.14   4.49   0.63
+Côtes.d.Armor                 3.31         3.09   1.76   5.23   0.62
+Landes                        3.08         3.03   1.44   5.91   0.61
+Yonne                         3.27         2.97   1.35   5.98   0.59
+Haute.Garonne                 2.86         2.95   1.98   4.24   0.59
+Meurthe.et.Moselle            2.87         2.94   1.71   4.77   0.59
+Loir.et.Cher                  2.98         2.92   1.25   6.05   0.58
+Seine.et.Marne                2.85         2.89   1.94   4.23   0.58
+Deux.Sèvres                   3.00         2.88   1.31   5.74   0.58
+Hauts.de.Seine                2.78         2.88   1.99   4.06   0.58
+Maine.et.Loire                2.86         2.85   1.69   4.52   0.57
+Saône.et.Loire                2.86         2.73   1.44   4.89   0.55
+Loiret                        2.66         2.63   1.44   4.43   0.53
+Vaucluse                      2.72         2.61   1.34   4.63   0.52
+Manche                        2.71         2.60   1.29   4.84   0.52
+Isère                         2.57         2.57   1.66   3.83   0.51
+Gard                          2.54         2.50   1.39   4.19   0.50
+Pas.de.Calais                 2.43         2.47   1.64   3.62   0.49
+Val.d.Oise                    2.51         2.45   1.55   3.81   0.49
+Aisne                         2.57         2.43   1.21   4.45   0.49
+Hautes.Alpes                  2.65         2.39   0.49   8.36   0.48
+Pyrénées.Orientales           2.39         2.39   1.09   4.69   0.48
+Lot                           2.06         2.29   0.45   7.80   0.46
+Gironde                       2.13         2.16   1.41   3.17   0.43
+Nièvre                        2.78         2.13   0.69   5.85   0.43
+Eure                          2.15         2.08   1.00   3.95   0.42
+Aube                          2.04         2.06   0.67   4.87   0.41
+Cher                          2.34         2.04   0.75   4.84   0.41
+Bouches.du.Rhône              1.99         2.03   1.39   2.86   0.41
+Corrèze                       1.99         1.94   0.51   5.64   0.39
+Eure.et.Loir                  2.05         1.94   0.78   4.15   0.39
+Moselle                       1.99         1.94   1.13   3.24   0.39
+Territoire.de.Belfort         1.74         1.78   0.22   6.82   0.36
+Somme                         1.75         1.77   0.76   3.52   0.35
+Vienne                        1.71         1.77   0.65   3.89   0.35
+Charente.Maritime             1.72         1.68   0.76   3.33   0.34
+Indre.et.Loire                1.65         1.67   0.72   3.33   0.33
+Yvelines                      1.54         1.54   0.90   2.53   0.31
+Corse.du.Sud                  1.61         1.53   0.18   6.13   0.31
+Essonne                       1.54         1.52   0.85   2.61   0.30
+Haute.Corse                   1.40         1.46   0.18   5.61   0.29
+Alpes.de.Haute.Provence       1.51         1.44   0.17   6.28   0.29
+Alpes.Maritimes               1.45         1.44   0.76   2.49   0.29
+Guadeloupe                    0.96         1.05   0.20   3.41   0.21
+Haute.Savoie                  0.98         1.03   0.37   2.34   0.21
+Martinique                    0.65         0.71   0.08   2.97   0.14
+Mayotte                         NA           NA     NA     NA     NA
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+
+Incidence de 2010 à 2014 par département :
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-3-1} 
+
 \end{knitrout}
 
   \subsection{Incidence temporelle}
@@ -329,7 +455,7 @@ Créatininémie initiale :
    46.0   513.2   650.0   719.5   841.8  2793.0     526 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-9-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-11-1} 
 
 \end{knitrout}
 
@@ -342,7 +468,7 @@ Albuminémie initiale :
    9.00   30.00   34.60   34.05   38.60   58.00     707 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-10-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-12-1} 
 
 \end{knitrout}
 
@@ -374,7 +500,7 @@ Hémoglobine :
    4.70    9.10   10.30   10.26   11.40   17.60     400 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-12-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-14-1} 
 
 \end{knitrout}
 

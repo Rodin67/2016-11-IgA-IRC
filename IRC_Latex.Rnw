@@ -27,6 +27,10 @@ library("tidyr", lib.loc="~/R/win-library/3.3")
 library("dplyr", lib.loc="~/R/win-library/3.3")
 library("corrplot", lib.loc="~/R/win-library/3.3")
 library("epitools", lib.loc="~/R/win-library/3.3")
+library("sp", lib.loc="~/R/win-library/3.3")
+library("rgdal", lib.loc="~/R/win-library/3.3")
+library("RColorBrewer", lib.loc="~/R/win-library/3.3")
+library("classInt", lib.loc="~/R/win-library/3.3")
 
 ## _iga----
 iga <- read_excel("~/IRC/dataIgA/donnes patients IgA.xlsx", 
@@ -531,7 +535,7 @@ La table "globale" contient \Sexpr{table(duplicated(global$RREC_COD))["FALSE"]} 
 La table "greffe" contient \Sexpr{table(duplicated(greffe$NEFG))["FALSE"]} patients uniques (\Sexpr{table(duplicated(greffe$NEFG))["TRUE"]} ont 2 patholgies), dont \Sexpr{length(intersect(global$RREC_COD,greffe$NEFG))} (\Sexpr{round(length(intersect(global$RREC_COD,greffe$NEFG))/table(duplicated(greffe$NEFG))["FALSE"]*100,1)}\%) sont en commun avec la table "globale". \Sexpr{length(intersect(global$RREC_COD[is.na(global$dgrf)],greffe$NEFG))} patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
 
 \section{Incidence maladie de Berger}
-<<data_incid_temp>>=
+<<data_incid>>=
 ## Tableaux du nombre de cas d'IgA par âge et sexe selon la région
 nbev_iga_region<-iga[,c("sex","classage","RES_REG_LIB")]
 nbev_iga_region<-unite(nbev_iga_region, "sex_age", 1:2, sep = "-")
@@ -554,10 +558,56 @@ eff_france$classage<-factor(eff_france$classage)
 
 ## Calcul par standardisation directe sur l'âge et le sexe pour 100 000 habitants
 standdirect<-matrix(nrow = 4, ncol = 25, dimnames = list(c("Ratio brut","Ratio ajuste","IC inf","IC sup"), c(colnames(nbev_iga_region[,-1]))))
-for (i in colnames(eff_region[,-1])) standdirect[,i]<-as.matrix(round(ageadjust.direct(nbev_iga_region[,i], eff_region[,i], stdpop = eff_france[,2])*10^5,1))
+for (i in colnames(eff_region[,-1])) standdirect[,i]<-as.matrix(round(ageadjust.direct(nbev_iga_region[,i], eff_region[,i], stdpop = eff_france[,2])*10^5,2))
 standdirect<-t(standdirect)
 standdirect<-data.frame(standdirect)
-standdirect$annuel <- standdirect$Ratio.ajuste/5
+standdirect$annuel <- round(standdirect$Ratio.ajuste/5,2)
+
+
+
+## Tableaux du nombre de cas d'IgA par âge et sexe selon le département
+nbev_iga_dep<-iga[,c("sex","classage","RES_DEP_LIB","res_dep_cod")] 
+nbev_iga_dep<-unite(nbev_iga_dep, "sex_age", 1:2, sep = "-")
+nbev_iga_dep$res_dep_cod[nbev_iga_dep$RES_DEP_LIB=="Corse-du-Sud"] <- "2A"
+nbev_iga_dep$res_dep_cod[nbev_iga_dep$RES_DEP_LIB=="Haute-Corse"] <- "2B"
+nbev_iga_dep$res_dep_cod<-factor(nbev_iga_dep$res_dep_cod)
+nbev_iga_dep<-unite(nbev_iga_dep, "dep", 3:2, sep = "-", remove = F)
+nbev_iga_dep<-nbev_iga_dep[!(nbev_iga_dep$res_dep_cod=="976" | nbev_iga_dep$res_dep_cod=="987" | is.na(nbev_iga_dep$res_dep_cod)),]
+nbev_iga_dep<-as.data.frame.matrix(table(nbev_iga_dep$sex_age, nbev_iga_dep$RES_DEP_LIB))
+
+## Tableaux de l'effectif par département, pour la catégorie d'âge 16-19 ans, les données INSEE étant de 15 à 19 ans, muliplié par 0.8
+eff_dep <- read.csv2("~/IRC/data/eff_dep.csv", header = T, ";")
+nbev_iga_dep<-data.frame(eff_dep[,1],nbev_iga_dep)
+colnames(nbev_iga_dep)[1]<-"classage"
+eff_dep[eff_dep$classage=="1.[16,20)",-1] <- 0.8*eff_dep[eff_dep$classage=="1.[16,20)",-1]
+eff_dep[eff_dep$classage=="2.[16,20)",-1] <- 0.8*eff_dep[eff_dep$classage=="2.[16,20)",-1]
+
+## Tableaux de l'effectif en France
+eff_france <- read.csv2("~/IRC/data/eff_france.csv", header = T,";")
+eff_france$age<-cut(eff_france$age, breaks = c(16, seq(20,95,5)), right = F, include.lowest = T)
+eff_france<-gather(eff_france, "sex","effectif", 2:3)
+eff_france$sex<-factor(eff_france$sex, levels = c("h","f"), labels = c(1,2))
+eff_france<-unite(eff_france, "classage", 2:1, sep = "-")
+eff_france$classage<-factor(eff_france$classage)
+
+## Calcul par standardisation directe sur l'âge et le sexe pour 100 000 habitants
+standdirect_dep<-matrix(nrow = 4, ncol = 99, dimnames = list(c("Ratio brut","Ratio ajuste","IC inf","IC sup"), c(colnames(nbev_iga_dep[,-1]))))
+for (i in colnames(eff_dep[,-1])) standdirect_dep[,i]<-as.matrix(round(ageadjust.direct(nbev_iga_dep[,i], eff_dep[,i], stdpop = eff_france[,2])*10^5,2))
+standdirect_dep<-t(standdirect_dep)
+standdirect_dep<-data.frame(standdirect_dep)
+standdirect_dep$annuel <- round(standdirect_dep$Ratio.ajuste/5,2)
+
+## _carte ----
+dep <- readOGR(dsn = "./data/cartes", layer="DEPARTEMENT", stringsAsFactors=FALSE)
+
+carte_dep <- standdirect_dep
+carte_dep$dep <-rownames(standdirect_dep)
+carte_dep <- carte_dep[,c(2,6)]
+carte_dep <- bind_rows(carte_dep, data.frame(dep = "Creuse", Ratio.ajuste = 0))
+carte_dep <- carte_dep[!carte_dep$dep %in% c("Guadeloupe", "Martinique", "Mayotte", "Réunion"),]
+carte_dep <- carte_dep[order(carte_dep$dep),]
+carte_dep$dep <- sort(dep@data$NOM_DEPT)
+dep@data <- left_join(dep@data, carte_dep, by = c("NOM_DEPT" = "dep"))
 @
 On a \Sexpr{nrow(iga)} patients qui ont eu une première suppléance. L'incidence était de \Sexpr{round(sum(nrow(iga))/sum(eff_france$effectif)*100000,1)} cas pour 100 000 habitants.
 
@@ -566,6 +616,26 @@ On a \Sexpr{nrow(iga)} patients qui ont eu une première suppléance. L'incidenc
 Tableau d'incidence selon la région par standardisation directe pour 100 000 habitants de 2010 à 2014 (selon l'effectif français de 2013) :
 <<cache=FALSE>>=
 standdirect[order(standdirect$Ratio.ajuste, decreasing = T),]
+@
+
+Tableau d'incidence selon le département par standardisation directe pour 100 000 habitants de 2010 à 2014 (selon l'effectif français de 2013) :
+<<cache=FALSE>>=
+standdirect_dep[order(standdirect_dep$Ratio.ajuste, decreasing = T),]
+@
+
+
+Incidence de 2010 à 2014 par département :
+
+<<>>=
+classTemps <- classIntervals(dep@data$Ratio.ajuste, 9, style = "quantile")
+palette <- brewer.pal(n = 9, name = "YlOrRd")
+legende <- as.character(levels(cut(dep@data$Ratio.ajuste, breaks = classTemps$brks, include.lowest = TRUE, right = FALSE)))
+dep@data$ratio_coul <- as.character(cut(dep@data$Ratio.ajuste, breaks = classTemps$brks, labels = palette, include.lowest = TRUE))
+
+
+plot(dep, col = dep@data$ratio_coul, border = "black")
+title("Incidence de la maladie de Berger pour 100 000 habitants")
+legend("bottomleft", legend = legende, fill = palette, cex=0.95, title = "Incidence")
 @
 
   \subsection{Incidence temporelle}
