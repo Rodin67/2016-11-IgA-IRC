@@ -149,6 +149,8 @@ greffe$DELAIDC1<-as.numeric(greffe$DELAIDC1)
 greffe$DELAIDC2<-as.numeric(greffe$DELAIDC2)
 greffe$NOUV1<-factor(greffe$NOUV1)
 greffe$NOUV2<-factor(greffe$NOUV2)
+greffe$ECHEC1<-factor(greffe$ECHEC1)
+greffe$ECHEC2<-factor(greffe$ECHEC2)
 greffe$kmdc<-ifelse(is.na(greffe$DECES1),0,1) # Pour faire un Kaplan-Meier
 greffe$kmdelaidc<- ifelse(is.na(greffe$DECES1),as.Date(c("2016-11-01"), origin = "1899-12-30")-greffe$GRF1,greffe$DECES1-greffe$GRF1) # Pour faire un Kaplan-Meier : délai avant évènement (ou suivi jusqu'au 1-11-2016)
 
@@ -511,10 +513,10 @@ global$CAUSEDCP_A_LIB<-as.factor(global$CAUSEDCP_A_LIB)
 global$CAUSEDCP_A_COD<-as.factor(global$CAUSEDCP_A_COD)
 
 ## _global_greffe ----
-names(greffe)[names(greffe)=="NEFG"] <- "RREC_COD"
-global_greffe <- left_join(global, greffe, by = "RREC_COD")
-View(global_greffe[global_greffe$RREC_COD==178144,])
-names(greffe)[names(greffe)=="RREC_COD"] <- "NEFG"
+global_greffe <- left_join(global, greffe, by = c("RREC_COD" = "NEFG"))
+global_greffe$ECHEC1<-factor(global_greffe$ECHEC1, labels = c("Rejet aigu","Rejet chronique","Infection du greffon","Récidive de la maladie initiale","Complications vasculaires du greffon","Autres complications greffon","Autre infection déterminee"))
+global_greffe$ECHEC2<-factor(global_greffe$ECHEC2, labels = c("Complications vasculaires du greffon"))
+
 #-----------------------------------------------------------------------------------Fichier greffe-------------------------------------------
 # Les points "." ont été gérés comme une donnée manquante "NA"
 
@@ -558,6 +560,10 @@ barplot(prop.table(table(greffe_annee$annee))*100,
         main = "Répartition du nombre de greffe total par année", 
         ylim = c(0,12),
         col = "darkturquoise")
+
+
+
+table(global_greffe$ECHEC2)
 
 ## _Arrêt de fonction de chaque greffe----
 sum(table(greffe$ARF1)) # Arrêt de fonction lors de la 1ère greffe
@@ -1179,6 +1185,19 @@ carte_dep <- bind_rows(carte_dep, data.frame(dep = "Creuse", Ratio.ajuste = 0))
 carte_dep <- carte_dep[!carte_dep$dep %in% c("Guadeloupe", "Martinique", "Mayotte", "Réunion"),]
 carte_dep <- carte_dep[order(carte_dep$dep),]
 carte_dep$dep <- sort(dep@data$NOM_DEPT)
+
+dep@data <- left_join(dep@data, carte_dep, by = c("NOM_DEPT" = "dep"))
+classTemps <- classIntervals(dep@data$Ratio.ajuste, 7, style = "quantile")
+palette <- brewer.pal(n = 7, name = "YlOrRd")
+legende <- as.character(levels(cut(dep@data$Ratio.ajuste, breaks = classTemps$brks, include.lowest = TRUE, right = FALSE)))
+dep@data$ratio_coul <- as.character(cut(dep@data$Ratio.ajuste, breaks = classTemps$brks, labels = palette, include.lowest = TRUE))
+
+plot(dep, col = dep@data$ratio_coul, border = "black")
+title("Incidence de la maladie de Berger de 2010 à 2014")
+legend("bottomleft", legend = legende, fill = palette, cex=0.4, title = "Incidence pour 100 000 habitants")
+
+display.brewer.all()
+
 
 
 #------------------------------------------------- Divers --------------------------

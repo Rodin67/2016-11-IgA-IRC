@@ -14,7 +14,12 @@
 \title{Étude IRC à IgA 2010-2014}
 
 \begin{document}
+
 \maketitle
+
+\tableofcontents
+
+\newpage
 
 <<options, echo=FALSE, message=FALSE>>=
 opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, comment = "", cache = TRUE)
@@ -164,6 +169,8 @@ greffe$DELAIDC1<-as.numeric(greffe$DELAIDC1)
 greffe$DELAIDC2<-as.numeric(greffe$DELAIDC2)
 greffe$NOUV1<-factor(greffe$NOUV1)
 greffe$NOUV2<-factor(greffe$NOUV2)
+greffe$ECHEC1<-factor(greffe$ECHEC1)
+greffe$ECHEC2<-factor(greffe$ECHEC2)
 greffe$kmdc<-ifelse(is.na(greffe$DECES1),0,1) # Pour faire un Kaplan-Meier
 greffe$kmdelaidc<- ifelse(is.na(greffe$DECES1),as.Date(c("2016-11-01"), origin = "1899-12-30")-greffe$GRF1,greffe$DECES1-greffe$GRF1) # Pour faire un Kaplan-Meier : délai avant évènement (ou suivi jusqu'au 1-11-2016)
 
@@ -525,16 +532,14 @@ global$CAUSDCP_COD<-as.factor(global$CAUSDCP_COD)
 global$CAUSEDCP_A_LIB<-as.factor(global$CAUSEDCP_A_LIB)
 global$CAUSEDCP_A_COD<-as.factor(global$CAUSEDCP_A_COD)
 ## _global_greffe ----
-names(greffe)[names(greffe)=="NEFG"] <- "RREC_COD"
-global_greffe <- left_join(global, greffe, by = "RREC_COD")
-names(greffe)[names(greffe)=="RREC_COD"] <- "NEFG"
+global_greffe <- left_join(global, greffe, by = c("RREC_COD" = "NEFG"))
+global_greffe$ECHEC1<-factor(global_greffe$ECHEC1, labels = c("Rejet aigu","Rejet chronique","Infection du greffon","Récidive de la maladie initiale","Complications vasculaires du greffon","Autres complications greffon","Autre infection déterminee"))
+global_greffe$ECHEC2<-factor(global_greffe$ECHEC2, labels = c("Complications vasculaires du greffon"))
 @
 
 La table "globale" contient \Sexpr{table(duplicated(global$RREC_COD))["FALSE"]} patients différents pouvant avoir une IRCT avec maladie de Berger (\Sexpr{table(duplicated(iga$RREC_COD))["FALSE"]}), une néphropathie diabétique (\Sexpr{table(duplicated(diab$RREC_COD))["FALSE"]}), une glomérulonéphrite chronique (\Sexpr{table(duplicated(gnc$RREC_COD))["FALSE"]}) ou une PKRD (\Sexpr{table(duplicated(pkrd$RREC_COD))["FALSE"]}).
 
-La table "greffe" contient \Sexpr{table(duplicated(greffe$NEFG))["FALSE"]} patients uniques (\Sexpr{table(duplicated(greffe$NEFG))["TRUE"]} ont 2 patholgies), dont \Sexpr{length(intersect(global$RREC_COD,greffe$NEFG))} (\Sexpr{round(length(intersect(global$RREC_COD,greffe$NEFG))/table(duplicated(greffe$NEFG))["FALSE"]*100,1)}\%) sont en commun avec la table "globale". \Sexpr{length(intersect(global$RREC_COD[is.na(global$dgrf)],greffe$NEFG))} patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
-
-\section{Incidence maladie de Berger}
+\section{Incidence IRCT maladie de Berger}
 <<data_incid>>=
 ## Tableaux du nombre de cas d'IgA par âge et sexe selon la région
 nbev_iga_region<-iga[,c("sex","classage","RES_REG_LIB")]
@@ -599,7 +604,6 @@ standdirect_dep$annuel <- round(standdirect_dep$Ratio.ajuste/5,2)
 
 ## _carte ----
 dep <- readOGR(dsn = "./data/cartes", layer="DEPARTEMENT", stringsAsFactors=FALSE)
-
 carte_dep <- standdirect_dep
 carte_dep$dep <-rownames(standdirect_dep)
 carte_dep <- carte_dep[,c(2,6)]
@@ -609,9 +613,9 @@ carte_dep <- carte_dep[order(carte_dep$dep),]
 carte_dep$dep <- sort(dep@data$NOM_DEPT)
 dep@data <- left_join(dep@data, carte_dep, by = c("NOM_DEPT" = "dep"))
 @
-On a \Sexpr{nrow(iga)} patients qui ont eu une première suppléance. L'incidence était de \Sexpr{round(sum(nrow(iga))/sum(eff_france$effectif)*100000,1)} cas pour 100 000 habitants.
+On a \Sexpr{nrow(iga)} patients qui ont eu une première suppléance. L'incidence était de \Sexpr{round(sum(nrow(iga))/sum(eff_france$effectif)*100000,1)} cas pour 100 000 habitants de 2010 à 2014, soit en moyenne \textbf{\Sexpr{round(sum(nrow(iga))/sum(eff_france$effectif)/5*1000000,1)} nouveau cas d'IRCT/million d'habitants/an}. Sachant que l’incidence de la Maladie de Berger varie de 10 à 40 nouveaux cas/million d’habitants/an et que 25 à 50\% des cas développent une IRCT.
 
-  \subsection{Incidence spatiale}
+  \subsection{Incidence spatiale d'IRCT}
 
 Tableau d'incidence selon la région par standardisation directe pour 100 000 habitants de 2010 à 2014 (selon l'effectif français de 2013) :
 <<cache=FALSE>>=
@@ -634,11 +638,11 @@ dep@data$ratio_coul <- as.character(cut(dep@data$Ratio.ajuste, breaks = classTem
 
 
 plot(dep, col = dep@data$ratio_coul, border = "black")
-title("Incidence de la maladie de Berger pour 100 000 habitants")
+title("Incidence d'IRCT pour la maladie de Berger/100 000 habitants")
 legend("bottomleft", legend = legende, fill = palette, cex=0.95, title = "Incidence")
 @
 
-  \subsection{Incidence temporelle}
+  \subsection{Incidence temporelle d'IRCT}
 
 <<>>=
 table(iga$anirt, useNA = "always")
@@ -842,26 +846,43 @@ round(prop.table(sort(table(iga$ACTIVn), decreasing = T))*100,1)
   
 \section{Greffe}
 
+La table "greffe" contient \Sexpr{table(duplicated(greffe$NEFG))["FALSE"]} patients uniques (\Sexpr{table(duplicated(greffe$NEFG))["TRUE"]} ont 2 patholgies), dont \Sexpr{length(greffe$annee1[!is.na(greffe$annee1)])} ont une date de greffe et \Sexpr{length(intersect(global$RREC_COD,greffe$NEFG))} (\Sexpr{round(length(intersect(global$RREC_COD,greffe$NEFG))/table(duplicated(greffe$NEFG))["FALSE"]*100,1)}\%) sont en commun avec la table "globale" (ce sont eux qui ont été utilisés pour al suite des données). \Sexpr{length(intersect(global$RREC_COD[is.na(global$dgrf)],greffe$NEFG))} patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
+
   \subsection{Nombre de greffe par année}
 
 <<>>=
 print("Greffe 1")
-addmargins(table(greffe$annee1)) # Nombre de greffe par année (1ère greffe)
-round(prop.table(table(greffe$annee1))*100,1)
+addmargins(table(global_greffe$annee1)) # Nombre de greffe par année (1ère greffe)
+round(prop.table(table(global_greffe$annee1))*100,1)
 
 print("Greffe 2")
-addmargins(table(greffe$annee2)) # Nombre de greffe par année (2e greffe)
-round(prop.table(table(greffe$annee2))*100,1)
+addmargins(table(global_greffe$annee2)) # Nombre de greffe par année (2e greffe)
+round(prop.table(table(global_greffe$annee2))*100,0)
 @
 
 
+  \subsection{Arrêt de fonction du greffon}
+  
+<<fig.height=4>>=
+print("Greffe 1 (en mois)")
+summary(global_greffe$DELAIARF1)
+hist(global_greffe$DELAIARF1/12, main = "Temps entre la greffe 1 et l'arrêt du greffon", xlab = "Temps (en année)")
 
+print("Greffe 2 = 0 jour")
+@
 
+Raisons de l'arrêt du greffon 1 :
+<<>>=
+sort(table(global_greffe$ECHEC1, useNA = "always"), decreasing = T)
+print("Pourcentage :")
+round(prop.table(sort(table(global_greffe$ECHEC1), decreasing = T))*100,1)
+@
 
+Raisons de l'arrêt du greffon 2 : Complications vasculaires du greffon  (pour 2 patients).
 
+  \subsection{Décès au cours de al greffe 1}
 
-
-
+\Sexpr{length(global_greffe[!is.na(global_greffe$DECES1),])} (\Sexpr{round(length(global_greffe[!is.na(global_greffe$DECES1),])/length(intersect(global$RREC_COD,greffe$NEFG))*100,1)}\%) patients sont décédés au cours de la greffe 1.
 
 
 
