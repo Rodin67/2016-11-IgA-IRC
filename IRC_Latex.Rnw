@@ -537,10 +537,10 @@ global_greffe$ECHEC1<-factor(global_greffe$ECHEC1, labels = c("Rejet aigu","Reje
 global_greffe$ECHEC2<-factor(global_greffe$ECHEC2, labels = c("Complications vasculaires du greffon"))
 @
 
-La table "globale" contient \Sexpr{table(duplicated(global$RREC_COD))["FALSE"]} patients différents pouvant avoir une IRCT avec maladie de Berger (\Sexpr{table(duplicated(iga$RREC_COD))["FALSE"]}), une néphropathie diabétique (\Sexpr{table(duplicated(diab$RREC_COD))["FALSE"]}), une glomérulonéphrite chronique (\Sexpr{table(duplicated(gnc$RREC_COD))["FALSE"]}) ou une PKRD (\Sexpr{table(duplicated(pkrd$RREC_COD))["FALSE"]}).
+La table "globale" contient \Sexpr{table(duplicated(global$RREC_COD))["FALSE"]} patients différents étant passés au stade d'IRCT dont \Sexpr{table(duplicated(iga$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(iga$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec maladie de Berger, \Sexpr{table(duplicated(diab$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(diab$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec une néphropathie diabétique, \Sexpr{table(duplicated(gnc$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(gnc$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec une glomérulonéphrite chronique et \Sexpr{table(duplicated(pkrd$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(pkrd$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec une PKRD.
 
 \section{Incidence IRCT maladie de Berger}
-<<data_incid>>=
+<<data_incid, include=FALSE>>=
 ## Tableaux du nombre de cas d'IgA par âge et sexe selon la région
 nbev_iga_region<-iga[,c("sex","classage","RES_REG_LIB")]
 nbev_iga_region<-unite(nbev_iga_region, "sex_age", 1:2, sep = "-")
@@ -613,7 +613,7 @@ carte_dep <- carte_dep[order(carte_dep$dep),]
 carte_dep$dep <- sort(dep@data$NOM_DEPT)
 dep@data <- left_join(dep@data, carte_dep, by = c("NOM_DEPT" = "dep"))
 @
-On a \Sexpr{nrow(iga)} patients qui ont eu une première suppléance. L'incidence était de \Sexpr{round(sum(nrow(iga))/sum(eff_france$effectif)*100000,1)} cas pour 100 000 habitants de 2010 à 2014, soit en moyenne \textbf{\Sexpr{round(sum(nrow(iga))/sum(eff_france$effectif)/5*1000000,1)} nouveau cas d'IRCT/million d'habitants/an}. Sachant que l’incidence de la Maladie de Berger varie de 10 à 40 nouveaux cas/million d’habitants/an et que 25 à 50\% des cas développent une IRCT.
+On a \Sexpr{nrow(iga)} patients qui ont eu une première suppléance. L'incidence était de \Sexpr{round(sum(nrow(iga))/sum(eff_france$effectif)*100000,1)} cas pour 100 000 habitants de 2010 à 2014, soit en moyenne \textbf{\Sexpr{round(sum(nrow(iga))/sum(eff_france$effectif)/5*1000000,1)} nouveau cas d'IRCT/million d'habitants/an}. %Sachant que l’incidence de la Maladie de Berger varie de 10 à 40 nouveaux cas/million d’habitants/an et que 25 à 50\% des cas développent une IRCT.
 
   \subsection{Incidence spatiale d'IRCT}
 
@@ -627,8 +627,6 @@ Tableau d'incidence selon le département par standardisation directe pour 100 0
 standdirect_dep[order(standdirect_dep$Ratio.ajuste, decreasing = T),]
 @
 
-
-Incidence de 2010 à 2014 par département :
 
 <<>>=
 classTemps <- classIntervals(dep@data$Ratio.ajuste, 9, style = "quantile")
@@ -644,17 +642,37 @@ legend("bottomleft", legend = legende, fill = palette, cex=0.95, title = "Incide
 
   \subsection{Incidence temporelle d'IRCT}
 
+Pour 1 000 000 d'habitants français (\textgreater 15 ans) :
+
 <<>>=
-table(iga$anirt, useNA = "always")
-round(prop.table(table(iga$anirt))*100,1)
+inc_iga <- matrix(nrow = 4, ncol = 5, dimnames = list(c("Berger","Non Berger","Total France","Cas pour 1M d'hab"),c("2010","2011","2012","2013","2014")))
+inc_iga[1,] <- c(322, 347, 358, 360, 333)
+inc_iga[2,] <- c(50482295-322, 50701229-347, 50930784-358, 51192770-360, 51421008-333)
+inc_iga[3,] <- c(50482295, 50701229, 50930784, 51192770, 51421008)
+inc_iga[4,] <- round(prop.table(inc_iga[1:2,],2)*1000000,1)[1,]
+inc_iga
+chisq.test(inc_iga[1:2,], correct = F)
 @
 
 \section{Etude des caractéristiques cliniques et du devenir de ces patients}
 
   \subsection{Caractéristiques cliniques des patients au stade d’IRCT}
   
-    \subsubsection{Age au stade d’IRCT (1ère suppléance) de 2010 à 2014 puis par années}
+    \subsubsection{Sexe et âge au stade d’IRCT (1ère suppléance)}
 
+Sexe :
+<<sexe>>=
+print("2010-2014")
+table(iga$sex, useNA = "always")
+round(prop.table(table(iga$sex))*100,1)
+print("Par année")
+table(iga$sex, iga$anirt)
+round(prop.table(table(iga$sex, iga$anirt),2)*100,1)
+chisq.test(table(iga$sex, iga$anirt), correct = F)
+@
+
+
+Âge :
 <<age>>=
 print("2010-2014")
 summary(iga$age)
@@ -700,42 +718,41 @@ round(prop.table(table(iga$gr_bmi))*100,1)
 
 Diabète : \Sexpr{table(iga$DIABn)[2]} (\Sexpr{round(prop.table(table(iga$DIABn))*100,1)[2]}\%) NA = \Sexpr{table(iga$DIABn, useNA = "always")[3]}
 
-Type de diabète :
-<<>>=
-table(iga$TYPDIABn,useNA = "always")[c(-1,-4)] # Type de diabète
-round(prop.table(table(iga$TYPDIABn[!iga$TYPDIABn==0]))*100,1)
-@
+Type de diabète : 
+
+- 1 : \Sexpr{table(iga$TYPDIABn,useNA = "always")[2]} (\Sexpr{round(prop.table(table(iga$TYPDIABn[!iga$TYPDIABn==0]))*100,1)[1]}\%)
+
+- 2 : \Sexpr{table(iga$TYPDIABn,useNA = "always")[3]} (\Sexpr{round(prop.table(table(iga$TYPDIABn[!iga$TYPDIABn==0]))*100,1)[2]}\%)
+~\\
 
 Cirrhose : \Sexpr{table(iga$CIRHn)[2]} (\Sexpr{round(prop.table(table(iga$CIRHn))*100,1)[2]}\%) NA = \Sexpr{table(iga$CIRHn, useNA = "always")[3]}
 
 Stade de la cirrhose :
 
-<<>>=
-table(iga$STDCIRHn, useNA = "always")
-round(prop.table(table(iga$STDCIRHn))*100,1)
-@
+- 1 : \Sexpr{table(iga$STDCIRHn,useNA = "always")[2]} (\Sexpr{round(prop.table(table(iga$STDCIRHn[!iga$STDCIRHn==0]))*100,1)[1]}\%)
+
+- 2 : \Sexpr{table(iga$STDCIRHn,useNA = "always")[3]} (\Sexpr{round(prop.table(table(iga$STDCIRHn[!iga$STDCIRHn==0]))*100,1)[2]}\%)
+~\\
+
+Infarctus du myocarde : \Sexpr{table(iga$IDMn)[2]} (\Sexpr{round(prop.table(table(iga$IDMn))*100,1)[2]}\%) NA = \Sexpr{table(iga$IDMn, useNA = "always")[3]}
 
 Insuffisance cardiaque : \Sexpr{table(iga$ICn)[2]} (\Sexpr{round(prop.table(table(iga$ICn))*100,1)[2]}\%) NA = \Sexpr{table(iga$ICn, useNA = "always")[3]}
 
-stade de l’IC :
+Stade de l’IC :
 
-<<>>=
-table(iga$STADICn,useNA = "always") 
-round(prop.table(table(iga$STADICn))*100,1)
-@
+- 1 : \Sexpr{table(iga$STADICn,useNA = "always")[2]} (\Sexpr{round(prop.table(table(iga$STADICn[!iga$STADICn==0]))*100,1)[1]}\%)
 
-Infarctus du myocarde : \Sexpr{table(iga$IDMn)[2]} (\Sexpr{round(prop.table(table(iga$IDMn))*100,1)[2]}\%) NA = \Sexpr{table(iga$IDMn, useNA = "always")[3]}
+- 2 : \Sexpr{table(iga$STADICn,useNA = "always")[3]} (\Sexpr{round(prop.table(table(iga$STADICn[!iga$STADICn==0]))*100,1)[2]}\%)
 ~\\
 
 Artériopathie des membres inférieurs : \Sexpr{table(iga$AMIn)[2]} (\Sexpr{round(prop.table(table(iga$AMIn))*100,1)[2]}\%) NA = \Sexpr{table(iga$AMIn, useNA = "always")[3]}
-~\\
 
 Stade de l’AOMI : 
 
-<<>>=
-table(iga$STDAMIn, useNA = "always")
-round(prop.table(table(iga$STDAMIn))*100,1)
-@
+- 1 : \Sexpr{table(iga$STDAMIn,useNA = "always")[2]} (\Sexpr{round(prop.table(table(iga$STDAMIn[!iga$STDAMIn==0]))*100,1)[1]}\%)
+
+- 2 : \Sexpr{table(iga$STDAMIn,useNA = "always")[3]} (\Sexpr{round(prop.table(table(iga$STDAMIn[!iga$STDAMIn==0]))*100,1)[2]}\%)
+~\\
 
 Amputation : \Sexpr{table(iga$AMPn)[2]} (\Sexpr{round(prop.table(table(iga$AMPn))*100,1)[2]}\%) NA = \Sexpr{table(iga$AMPn, useNA = "always")[3]}
 ~\\
@@ -790,7 +807,7 @@ round(prop.table(table(iga$ALBI_MTH))*100,1)
 
 Hémoglobine :
 
-<<fig.height=3.5>>=
+<<fig.height=3.8>>=
 summary(iga$HBINI)
 hist(iga$HBINI, xlab = "Hémoglobinémie (g/l)", main = "Hémoglobinémie", xlim = c(4,18))
 @
@@ -805,22 +822,35 @@ chisq.test(table(iga$sex,iga$gr_HBINI),correct = F) # Chi2 test
 
 
     \subsubsection{Traitement de suppléance}
+    
+Greffe = greffé sans être passé par la dialyse
 
 <<>>=
-table(iga$METHOn, useNA = "always")
-round(prop.table(table(iga$METHOn))*100,1) # Greffe = greffé sans être passé par la dialyse
+addmargins(table(iga$METHOn, iga$anirt))
+round(prop.table(table(iga$METHOn, iga$anirt),2)*100,1) # Greffe = greffé sans être passé par la dialyse
+chisq.test(table(iga$METHOn, iga$anirt))
 @
 
+Nombre de dialyse pour maladie de Berger (hémo + péritonéale) comparé aux dialysés totaux en France :
+
+<<>>=
+inc_greffe <- matrix(nrow = 4, ncol = 5, dimnames = list(c("Berger","Non Berger","Total","Pourcentage Berger"),c("2010","2011","2012","2013","2014")))
+inc_greffe[1,] <- apply(table(iga$METHOn, iga$anirt)[1:2,], 2 ,sum)
+inc_greffe[2,] <- c(37296-293, 39158-313, 40893-325, 42506-329, 44281-293)
+inc_greffe[3,] <- c(37296, 39158, 40893, 42506, 44281)
+inc_greffe[4,] <- round(prop.table(inc_greffe[1:2,],2)*100,1)[1,]
+inc_greffe
+chisq.test(inc_greffe[1:2,], correct = F)
+@
 
     \subsubsection{Contexte de démarrage de dialyse}
     
 Premier traitement en urgence :  \Sexpr{table(iga$URGn)[2]} (\Sexpr{round(prop.table(table(iga$URGn))*100,1)[2]}\%) NA = \Sexpr{table(iga$URGn, useNA = "always")[3]}
-~\\
 
 Premier traitement en réanimation :  \Sexpr{table(iga$REAn)[2]} (\Sexpr{round(prop.table(table(iga$REAn))*100,1)[2]}\%) NA = \Sexpr{table(iga$REAn, useNA = "always")[3]}
 
 <<>>=
-table(iga$URGn,iga$REAn, useNA = "always", deparse.level = 2)
+addmargins(table(iga$URGn,iga$REAn, useNA = "always", deparse.level = 2))
 @
 
 Voie d’abord :
@@ -840,15 +870,30 @@ round(prop.table(sort(table(iga$ACTIVn), decreasing = T))*100,1)
   
   \subsection{Analyse de la survie patient avec comme outcome le décès}
   
-  On a \Sexpr{table(iga$dc)[2]} (\Sexpr{round(table(iga$dc)[2]/nrow(iga)*100,1)}\%) patients qui sont décédés. On a al date de décès pour \Sexpr{table(!is.na(iga$ddc))[2]} (\Sexpr{round(table(!is.na(iga$ddc))[2]/nrow(iga)*100,1)}\%) patients.
-  
-  \subsection{Recherche d’un lien entre les évènements infectieux saisonniers et la mise en route de la dialyse}
-  
-\section{Greffe}
+  On a \Sexpr{table(iga$dc)[2]} (\Sexpr{round(table(iga$dc)[2]/nrow(iga)*100,1)}\%) patients qui sont décédés. On a la date de décès pour \Sexpr{table(!is.na(iga$ddc))[2]} (\Sexpr{round(table(!is.na(iga$ddc))[2]/nrow(iga)*100,1)}\%) patients.
 
-La table "greffe" contient \Sexpr{table(duplicated(greffe$NEFG))["FALSE"]} patients uniques (\Sexpr{table(duplicated(greffe$NEFG))["TRUE"]} ont 2 patholgies), dont \Sexpr{length(greffe$annee1[!is.na(greffe$annee1)])} ont une date de greffe et \Sexpr{length(intersect(global$RREC_COD,greffe$NEFG))} (\Sexpr{round(length(intersect(global$RREC_COD,greffe$NEFG))/table(duplicated(greffe$NEFG))["FALSE"]*100,1)}\%) sont en commun avec la table "globale" (ce sont eux qui ont été utilisés pour al suite des données). \Sexpr{length(intersect(global$RREC_COD[is.na(global$dgrf)],greffe$NEFG))} patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
+<<>>=
+print("En ligne : décédé ; en colonne : présence d'une date de décès")
+table(iga$dc, !is.na(iga$ddc), deparse.level = 2)
+@
+
+  %\subsection{Recherche d’un lien entre les évènements infectieux saisonniers et la mise en route de la dialyse}
+  
+\section{Greffe maladie de Berger}
+
+La table "greffe" contient \Sexpr{table(duplicated(greffe$NEFG))["FALSE"]} patients uniques (\Sexpr{table(duplicated(greffe$NEFG))["TRUE"]} ont 2 patholgies), dont \Sexpr{length(greffe$annee1[!is.na(greffe$annee1)])} ont une date de greffe et \Sexpr{length(intersect(global$RREC_COD,greffe$NEFG))} (\Sexpr{round(length(intersect(global$RREC_COD,greffe$NEFG))/table(duplicated(greffe$NEFG))["FALSE"]*100,1)}\%) sont en commun avec la table "globale" (= ceux qui ont été utilisés pour la suite des données). \Sexpr{length(intersect(global$RREC_COD[is.na(global$dgrf)],greffe$NEFG))} patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
 
   \subsection{Nombre de greffe par année}
+
+<<>>=
+inc_greffe_iga <- matrix(nrow = 4, ncol = 6, dimnames = list(c("Greffe Berger","Pas de greffe Berger","Total France","Cas pour 1M d'hab"),c("2010","2011","2012","2013","2014","2015")))
+inc_greffe_iga[1,] <- c(52, 120, 153, 177, 204, 168)
+inc_greffe_iga[2,] <- c(50482295-52, 50701229-120, 50930784-153, 51192770-177, 51421008-204, 51676545-168)
+inc_greffe_iga[3,] <- c(50482295, 50701229, 50930784, 51192770, 51421008, 51676545)
+inc_greffe_iga[4,] <- round(prop.table(inc_greffe_iga[1:2,],2)*1000000,1)[1,]
+inc_greffe_iga
+chisq.test(inc_greffe_iga[1:2,], correct = F)
+@
 
 <<>>=
 print("Greffe 1")
@@ -867,9 +912,9 @@ round(prop.table(table(global_greffe$annee2))*100,0)
 print("Greffe 1 (en mois)")
 summary(global_greffe$DELAIARF1)
 hist(global_greffe$DELAIARF1/12, main = "Temps entre la greffe 1 et l'arrêt du greffon", xlab = "Temps (en année)")
-
-print("Greffe 2 = 0 jour")
 @
+Greffe 2 = 0 jour pour 2 patients
+~\\
 
 Raisons de l'arrêt du greffon 1 :
 <<>>=
@@ -880,9 +925,9 @@ round(prop.table(sort(table(global_greffe$ECHEC1), decreasing = T))*100,1)
 
 Raisons de l'arrêt du greffon 2 : Complications vasculaires du greffon  (pour 2 patients).
 
-  \subsection{Décès au cours de al greffe 1}
+  \subsection{Décès au cours de la greffe}
 
-\Sexpr{length(global_greffe[!is.na(global_greffe$DECES1),])} (\Sexpr{round(length(global_greffe[!is.na(global_greffe$DECES1),])/length(intersect(global$RREC_COD,greffe$NEFG))*100,1)}\%) patients sont décédés au cours de la greffe 1.
+\Sexpr{length(global_greffe$DECES1[!is.na(global_greffe$DECES1)])} (\Sexpr{round(length(global_greffe$DECES1[!is.na(global_greffe$DECES1)])/length(intersect(global$RREC_COD,greffe$NEFG))*100,1)}\%) patients sont décédés au cours de la greffe 1 et \Sexpr{length(global_greffe$DECES2[!is.na(global_greffe$DECES2)])} au cours de la 2e.
 
 
 

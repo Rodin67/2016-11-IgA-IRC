@@ -75,20 +75,11 @@
 
 
 
-La table "globale" contient 20455 patients différents pouvant avoir une IRCT avec maladie de Berger (1720), une néphropathie diabétique (11174), une glomérulonéphrite chronique (4417) ou une PKRD (3144).
+La table "globale" contient 20455 patients différents étant passés au stade d'IRCT dont 1720 (8.4\%) avec maladie de Berger, 11174 (54.6\%) avec une néphropathie diabétique, 4417 (21.6\%) avec une glomérulonéphrite chronique et 3144 (15.4\%) avec une PKRD.
 
 \section{Incidence IRCT maladie de Berger}
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-OGR data source with driver: ESRI Shapefile 
-Source: "./data/cartes", layer: "DEPARTEMENT"
-with 96 features
-It has 11 fields
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
-On a 1720 patients qui ont eu une première suppléance. L'incidence était de 3.4 cas pour 100 000 habitants de 2010 à 2014, soit en moyenne \textbf{6.7 nouveau cas d'IRCT/million d'habitants/an}. Sachant que l’incidence de la Maladie de Berger varie de 10 à 40 nouveaux cas/million d’habitants/an et que 25 à 50\% des cas développent une IRCT.
+
+On a 1720 patients qui ont eu une première suppléance. L'incidence était de 3.4 cas pour 100 000 habitants de 2010 à 2014, soit en moyenne \textbf{6.7 nouveau cas d'IRCT/million d'habitants/an}. %Sachant que l’incidence de la Maladie de Berger varie de 10 à 40 nouveaux cas/million d’habitants/an et que 25 à 50\% des cas développent une IRCT.
 
   \subsection{Incidence spatiale d'IRCT}
 
@@ -235,8 +226,6 @@ Mayotte                         NA           NA     NA     NA     NA
 \end{knitrout}
 
 
-Incidence de 2010 à 2014 par département :
-
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 \includegraphics[width=\maxwidth]{figure/unnamed-chunk-3-1} 
@@ -245,15 +234,21 @@ Incidence de 2010 à 2014 par département :
 
   \subsection{Incidence temporelle d'IRCT}
 
+Pour 1 000 000 d'habitants français (\textgreater 15 ans) :
+
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
+                        2010       2011     2012     2013       2014
+Berger                 322.0      347.0      358      360      333.0
+Non Berger        50481973.0 50700882.0 50930426 51192410 51420675.0
+Total France      50482295.0 50701229.0 50930784 51192770 51421008.0
+Cas pour 1M d'hab        6.4        6.8        7        7        6.5
 
-2010 2011 2012 2013 2014 <NA> 
- 322  347  358  360  333    0 
+	Pearson's Chi-squared test
 
-2010 2011 2012 2013 2014 
-18.7 20.2 20.8 20.9 19.4 
+data:  inc_iga[1:2, ]
+X-squared = 2.8618, df = 4, p-value = 0.5812
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -262,8 +257,39 @@ Incidence de 2010 à 2014 par département :
 
   \subsection{Caractéristiques cliniques des patients au stade d’IRCT}
   
-    \subsubsection{Age au stade d’IRCT (1ère suppléance) de 2010 à 2014 puis par années}
+    \subsubsection{Sexe et âge au stade d’IRCT (1ère suppléance)}
 
+Sexe :
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+[1] "2010-2014"
+
+   1    2 <NA> 
+1325  395    0 
+
+ 1  2 
+77 23 
+[1] "Par année"
+   
+    2010 2011 2012 2013 2014
+  1  248  260  273  283  261
+  2   74   87   85   77   72
+   
+    2010 2011 2012 2013 2014
+  1 77.0 74.9 76.3 78.6 78.4
+  2 23.0 25.1 23.7 21.4 21.6
+
+	Pearson's Chi-squared test
+
+data:  table(iga$sex, iga$anirt)
+X-squared = 1.8385, df = 4, p-value = 0.7654
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+
+Âge :
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
@@ -330,74 +356,41 @@ BMI :
 
 Diabète : 193 (11.3\%) NA = 15
 
-Type de diabète :
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
+Type de diabète : 
 
-  1   2 
-  9 179 
+- 1 : 9 (4.8\%)
 
-   1    2 
- 4.8 95.2 
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+- 2 : 179 (95.2\%)
+~\\
 
 Cirrhose : 98 (6.5\%) NA = 208
 
 Stade de la cirrhose :
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
+- 1 : 30 (38\%)
 
-   0    1    2 <NA> 
-1414   30   49  227 
+- 2 : 49 (62\%)
+~\\
 
-   0    1    2 
-94.7  2.0  3.3 
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+Infarctus du myocarde : 60 (4\%) NA = 207
 
 Insuffisance cardiaque : 149 (9.8\%) NA = 206
 
-stade de l’IC :
+Stade de l’IC :
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
+- 1 : 99 (71.7\%)
 
-   0    1    2 <NA> 
-1365   99   39  217 
-
-   0    1    2 
-90.8  6.6  2.6 
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
-
-Infarctus du myocarde : 60 (4\%) NA = 207
+- 2 : 39 (28.3\%)
 ~\\
 
 Artériopathie des membres inférieurs : 112 (7.4\%) NA = 212
-~\\
 
 Stade de l’AOMI : 
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
+- 1 : 71 (67.6\%)
 
-   0    1    2 <NA> 
-1396   71   34  219 
-
-   0    1    2 
-93.0  4.7  2.3 
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+- 2 : 34 (32.4\%)
+~\\
 
 Amputation : 9 (0.6\%) NA = 247
 ~\\
@@ -458,7 +451,7 @@ Créatininémie initiale :
    46.0   513.2   650.0   719.5   841.8  2793.0     526 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-11-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-7-1} 
 
 \end{knitrout}
 
@@ -471,7 +464,7 @@ Albuminémie initiale :
    9.00   30.00   34.60   34.05   38.60   58.00     707 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-12-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-8-1} 
 
 \end{knitrout}
 
@@ -503,7 +496,7 @@ Hémoglobine :
    4.70    9.10   10.30   10.26   11.40   17.60     400 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-14-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-10-1} 
 
 \end{knitrout}
 
@@ -532,27 +525,54 @@ X-squared = 16.528, df = 1, p-value = 4.793e-05
 
 
     \subsubsection{Traitement de suppléance}
+    
+Greffe = greffé sans être passé par la dialyse
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
+                     
+                      2010 2011 2012 2013 2014  Sum
+  Hémodialyse          236  251  268  267  235 1257
+  Dialyse péritonéale   57   62   57   62   58  296
+  Greffe                29   34   33   31   40  167
+  Sum                  322  347  358  360  333 1720
+                     
+                      2010 2011 2012 2013 2014
+  Hémodialyse         73.3 72.3 74.9 74.2 70.6
+  Dialyse péritonéale 17.7 17.9 15.9 17.2 17.4
+  Greffe               9.0  9.8  9.2  8.6 12.0
 
-        Hémodialyse Dialyse péritonéale              Greffe 
-               1257                 296                 167 
-               <NA> 
-                  0 
+	Pearson's Chi-squared test
 
-        Hémodialyse Dialyse péritonéale              Greffe 
-               73.1                17.2                 9.7 
+data:  table(iga$METHOn, iga$anirt)
+X-squared = 3.5363, df = 8, p-value = 0.8964
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
 
+Nombre de dialyse pour maladie de Berger (hémo + péritonéale) comparé aux dialysés totaux en France :
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+                      2010    2011    2012    2013    2014
+Berger               293.0   313.0   325.0   329.0   293.0
+Non Berger         37003.0 38845.0 40568.0 42177.0 43988.0
+Total              37296.0 39158.0 40893.0 42506.0 44281.0
+Pourcentage Berger     0.8     0.8     0.8     0.8     0.7
+
+	Pearson's Chi-squared test
+
+data:  inc_greffe[1:2, ]
+X-squared = 7.5586, df = 4, p-value = 0.1092
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
     \subsubsection{Contexte de démarrage de dialyse}
     
 Premier traitement en urgence :  322 (21.9\%) NA = 249
-~\\
 
 Premier traitement en réanimation :  85 (5.9\%) NA = 273
 
@@ -560,10 +580,11 @@ Premier traitement en réanimation :  85 (5.9\%) NA = 273
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
         iga$REAn
-iga$URGn    0    1 <NA>
-    0    1111   12   26
-    1     233   71   18
-    <NA>   18    2  229
+iga$URGn    0    1 <NA>  Sum
+    0    1111   12   26 1149
+    1     233   71   18  322
+    <NA>   18    2  229  249
+    Sum  1362   85  273 1720
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -617,15 +638,49 @@ Actif en milieu protégé
   
   \subsection{Analyse de la survie patient avec comme outcome le décès}
   
-  On a 168 (9.8\%) patients qui sont décédés. On a al date de décès pour 238 (13.8\%) patients.
-  
-  \subsection{Recherche d’un lien entre les évènements infectieux saisonniers et la mise en route de la dialyse}
-  
-\section{Greffe}
+  On a 168 (9.8\%) patients qui sont décédés. On a la date de décès pour 238 (13.8\%) patients.
 
-La table "greffe" contient 1317 patients uniques (7 ont 2 patholgies), dont 1310 ont une date de greffe et 958 (72.7\%) sont en commun avec la table "globale" (ce sont eux qui ont été utilisés pour al suite des données). 9 patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+[1] "En ligne : décédé ; en colonne : présence d'une date de décès"
+      !is.na(iga$ddc)
+iga$dc FALSE TRUE
+     0  1482   70
+     1     0  168
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+  %\subsection{Recherche d’un lien entre les évènements infectieux saisonniers et la mise en route de la dialyse}
+  
+\section{Greffe maladie de Berger}
+
+La table "greffe" contient 1317 patients uniques (7 ont 2 patholgies), dont 1310 ont une date de greffe et 958 (72.7\%) sont en commun avec la table "globale" (= ceux qui ont été utilisés pour la suite des données). 9 patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
 
   \subsection{Nombre de greffe par année}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+                         2010       2011     2012       2013     2014
+Greffe Berger              52      120.0      153      177.0      204
+Pas de greffe Berger 50482243 50701109.0 50930631 51192593.0 51420804
+Total France         50482295 50701229.0 50930784 51192770.0 51421008
+Cas pour 1M d'hab           1        2.4        3        3.5        4
+                           2015
+Greffe Berger             168.0
+Pas de greffe Berger 51676377.0
+Total France         51676545.0
+Cas pour 1M d'hab           3.3
+
+	Pearson's Chi-squared test
+
+data:  inc_greffe_iga[1:2, ]
+X-squared = 95.231, df = 5, p-value < 2.2e-16
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -659,12 +714,11 @@ La table "greffe" contient 1317 patients uniques (7 ont 2 patholgies), dont 1310
   0.000   0.030   0.525   7.790  13.520  58.680   20416 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-21-1} 
-\begin{kframe}\begin{verbatim}
-[1] "Greffe 2 = 0 jour"
-\end{verbatim}
-\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-20-1} 
+
 \end{knitrout}
+Greffe 2 = 0 jour pour 2 patients
+~\\
 
 Raisons de l'arrêt du greffon 1 :
 \begin{knitrout}
@@ -695,9 +749,9 @@ Complications vasculaires du greffon                      Rejet chronique
 
 Raisons de l'arrêt du greffon 2 : Complications vasculaires du greffon  (pour 2 patients).
 
-  \subsection{Décès au cours de al greffe 1}
+  \subsection{Décès au cours de la greffe}
 
-142 (14.8\%) patients sont décédés au cours de la greffe 1.
+17 (1.8\%) patients sont décédés au cours de la greffe 1 et 0 au cours de la 2e.
 
 
 

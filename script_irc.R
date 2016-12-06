@@ -600,6 +600,8 @@ plot(survfit(Surv(greffe$kmdelaidc/365.25,greffe$kmdc)~1),
 
 table(greffe$NOUV1) # Nouveaux évènements (moins de décès)
 
+
+
 #-----------------------------------------------------------------------------------Fichier patients IgA-----------------------------------------
 ## Fichier avec tous les patients ayant une IgA
 table(duplicated(iga)) # Pas de doublons donc 3249 patients avec une néphropathie à dépôts d'IgA
@@ -759,6 +761,14 @@ summary(iga$METHOn)
 table(iga$METHOn, useNA = "always")
 round(prop.table(table(iga$METHOn))*100,1) # Greffe = greffé sans être passé par la dialyse
 barplot(table(iga$METHOn), las = 1)
+
+inc_greffe <- matrix(nrow = 4, ncol = 5, dimnames = list(c("Berger","Non Berger","Total","Pourcentage Berger"),c("2010","2011","2012","2013","2014")))
+inc_greffe[1,] <- apply(table(iga$METHOn, iga$anirt)[1:2,], 2 ,sum)
+inc_greffe[2,] <- c(37296-293, 39158-313, 40893-325, 42506-329, 44281-293)
+inc_greffe[3,] <- c(37296, 39158, 40893, 42506, 44281)
+inc_greffe[4,] <- round(prop.table(inc_greffe[1:2,],2)*100,1)[1,]
+inc_greffe
+chisq.test(inc_greffe[1:2,], correct = F)
 
 ## _Voie d'abord vasculaire----
 # NA = zéro abord ? 
@@ -1216,14 +1226,16 @@ x[5,] <- tapply(x, y, summary)$"2014";
 print(x)
 }
 
+greffe$NEFG[duplicated(greffe$NEFG)]
+
+x <- greffe[!greffe$NEFG %in% greffe$NEFG[duplicated(greffe$NEFG)] & is.na(greffe$GRF1), ]
+y <- as.list(x[,"NEFG"])
+
+global_greffe$RREC_COD <- factor(global_greffe$RREC_COD)
+View(global_greffe[global_greffe$RREC_COD %in% y,])
 
 
-
-
-
-
-
-
+global_greffe[global_greffe$RREC_COD=="140081",]
 
 
 

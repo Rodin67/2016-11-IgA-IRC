@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6100 64-bit) (preloaded format=pdflatex 2016.11.2)  2 DEC 2016 17:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6100 64-bit) (preloaded format=pdflatex 2016.11.2)  6 DEC 2016 14:55
 entering extended mode
 **./IRC_Latex.tex
 (IRC_Latex.tex
@@ -661,151 +661,171 @@ LaTeX Warning: No \author given.
  [1
 
 {C:/Users/Rodolphe/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-Package color Info: Redefining color shadecolor on input line 82.
-Package color Info: Redefining color shadecolor on input line 97.
-Package color Info: Redefining color shadecolor on input line 131.
+Package color Info: Redefining color shadecolor on input line 88.
+Package color Info: Redefining color shadecolor on input line 122.
  [2]
-Underfull \vbox (badness 10000) detected at line 234
+Underfull \vbox (badness 10000) detected at line 225
  []
 
 
-Underfull \vbox (badness 10000) detected at line 234
+Underfull \vbox (badness 10000) detected at line 225
  []
 
 [3]
-Package color Info: Redefining color shadecolor on input line 241.
+Package color Info: Redefining color shadecolor on input line 230.
  <figure/unnamed-chunk-3-1.pdf, id=17, 505.89pt x 505.89pt>
 File: figure/unnamed-chunk-3-1.pdf Graphic file (type pdf)
 
 <use figure/unnamed-chunk-3-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-3-1.pdf used on input line 242.
+Package pdftex.def Info: figure/unnamed-chunk-3-1.pdf used on input line 231.
 (pdftex.def)             Requested size: 483.69687pt x 483.70361pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 242--243
+Overfull \hbox (17.0pt too wide) in paragraph at lines 231--232
 [][] 
  []
 
 [4]
-Package color Info: Redefining color shadecolor on input line 249.
-Package color Info: Redefining color shadecolor on input line 268.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 237.
+
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omlcmr.fd"
+File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 237.
+Package color Info: Redefining color shadecolor on input line 240.
+Package color Info: Redefining color shadecolor on input line 264.
  [5 <./figure/unnamed-chunk-3-1.pdf>]
-Package color Info: Redefining color shadecolor on input line 289.
-Package color Info: Redefining color shadecolor on input line 300.
-Package color Info: Redefining color shadecolor on input line 311.
-Package color Info: Redefining color shadecolor on input line 335.
-Package color Info: Redefining color shadecolor on input line 352.
-Package color Info: Redefining color shadecolor on input line 369.
+Package color Info: Redefining color shadecolor on input line 294.
+Package color Info: Redefining color shadecolor on input line 315.
+Package color Info: Redefining color shadecolor on input line 326.
+Package color Info: Redefining color shadecolor on input line 337.
  [6]
-Underfull \hbox (badness 10000) in paragraph at lines 381--383
+Underfull \hbox (badness 10000) in paragraph at lines 363--365
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 384--386
-
- []
-
-Package color Info: Redefining color shadecolor on input line 390.
-
-Underfull \hbox (badness 10000) in paragraph at lines 402--404
-
- []
-
-Package color Info: Redefining color shadecolor on input line 408.
-
-Underfull \hbox (badness 10000) in paragraph at lines 426--428
+Underfull \hbox (badness 10000) in paragraph at lines 372--374
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 429--431
+Underfull \hbox (badness 10000) in paragraph at lines 383--385
 
  []
 
-Package color Info: Redefining color shadecolor on input line 438.
-Package color Info: Redefining color shadecolor on input line 455.
-[7] <figure/unnamed-chunk-11-1.pdf, id=37, 505.89pt x 252.945pt>
-File: figure/unnamed-chunk-11-1.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-11-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-11-1.pdf used on input line 461.
+Underfull \hbox (badness 10000) in paragraph at lines 392--394
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 395--397
+
+ []
+
+Package color Info: Redefining color shadecolor on input line 401.
+
+Underfull \hbox (badness 10000) in paragraph at lines 419--421
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 422--424
+
+ []
+
+[7]
+Package color Info: Redefining color shadecolor on input line 431.
+Package color Info: Redefining color shadecolor on input line 448.
+ <figure/unnamed-chunk-7-1.pdf, id=38, 505.89pt x 252.945pt>
+File: figure/unnamed-chunk-7-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-7-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-7-1.pdf used on input line 454.
 (pdftex.def)             Requested size: 483.69687pt x 241.8518pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 461--462
+Overfull \hbox (17.0pt too wide) in paragraph at lines 454--455
 [][] 
  []
 
-Package color Info: Redefining color shadecolor on input line 468.
-<figure/unnamed-chunk-12-1.pdf, id=38, 505.89pt x 252.945pt>
-File: figure/unnamed-chunk-12-1.pdf Graphic file (type pdf)
+Package color Info: Redefining color shadecolor on input line 461.
+<figure/unnamed-chunk-8-1.pdf, id=39, 505.89pt x 252.945pt>
+File: figure/unnamed-chunk-8-1.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-12-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-12-1.pdf used on input line 474.
+<use figure/unnamed-chunk-8-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-8-1.pdf used on input line 467.
 (pdftex.def)             Requested size: 483.69687pt x 241.8518pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 474--475
+Overfull \hbox (17.0pt too wide) in paragraph at lines 467--468
 [][] 
  []
 
-Package color Info: Redefining color shadecolor on input line 481.
-[8 <./figure/unnamed-chunk-11-1.pdf> <./figure/unnamed-chunk-12-1.pdf>]
-Package color Info: Redefining color shadecolor on input line 500.
+[8 <./figure/unnamed-chunk-7-1.pdf>]
+Package color Info: Redefining color shadecolor on input line 474.
+Package color Info: Redefining color shadecolor on input line 493.
 
-<figure/unnamed-chunk-14-1.pdf, id=54, 505.89pt x 252.945pt>
-File: figure/unnamed-chunk-14-1.pdf Graphic file (type pdf)
+<figure/unnamed-chunk-10-1.pdf, id=49, 505.89pt x 274.02374pt>
+File: figure/unnamed-chunk-10-1.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-14-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-14-1.pdf used on input line 506.
-(pdftex.def)             Requested size: 483.69687pt x 241.8518pt.
+<use figure/unnamed-chunk-10-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-10-1.pdf used on input line 499.
+(pdftex.def)             Requested size: 483.69687pt x 262.00612pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 506--507
+Overfull \hbox (17.0pt too wide) in paragraph at lines 499--500
 [][] 
  []
 
-Package color Info: Redefining color shadecolor on input line 513.
-Package color Info: Redefining color shadecolor on input line 537.
-[9 <./figure/unnamed-chunk-14-1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 554--556
+Package color Info: Redefining color shadecolor on input line 506.
+[9 <./figure/unnamed-chunk-8-1.pdf> <./figure/unnamed-chunk-10-1.pdf>]
+Package color Info: Redefining color shadecolor on input line 532.
+Package color Info: Redefining color shadecolor on input line 557.
+Package color Info: Redefining color shadecolor on input line 580.
+ [10]
+Package color Info: Redefining color shadecolor on input line 594.
+Package color Info: Redefining color shadecolor on input line 613.
+Package color Info: Redefining color shadecolor on input line 644.
 
- []
+[11]
+Package color Info: Redefining color shadecolor on input line 664.
+Package color Info: Redefining color shadecolor on input line 686.
+Package color Info: Redefining color shadecolor on input line 710.
+ [12] <figure/unnamed-chunk-20-1.pdf, id=74, 505.89pt x 289.08pt>
+File: figure/unnamed-chunk-20-1.pdf Graphic file (type pdf)
 
-Package color Info: Redefining color shadecolor on input line 560.
-Package color Info: Redefining color shadecolor on input line 573.
-Package color Info: Redefining color shadecolor on input line 592.
-[10]
-Package color Info: Redefining color shadecolor on input line 631.
-Package color Info: Redefining color shadecolor on input line 655.
- <figure/unnamed-chunk-21-1.pdf, id=67, 505.89pt x 289.08pt>
-File: figure/unnamed-chunk-21-1.pdf Graphic file (type pdf)
-
-<use figure/unnamed-chunk-21-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-21-1.pdf used on input line 662.
+<use figure/unnamed-chunk-20-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-20-1.pdf used on input line 717.
 (pdftex.def)             Requested size: 483.69687pt x 276.40207pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 662--663
+Overfull \hbox (17.0pt too wide) in paragraph at lines 717--718
 [][] 
  []
 
-[11 <./figure/unnamed-chunk-21-1.pdf>]
-Package color Info: Redefining color shadecolor on input line 671.
- [12] (IRC_Latex.aux) ) 
+
+Underfull \hbox (badness 10000) in paragraph at lines 720--722
+
+ []
+
+Package color Info: Redefining color shadecolor on input line 725.
+[13 <./figure/unnamed-chunk-20-1.pdf>] (IRC_Latex.aux) ) 
 Here is how much of TeX's memory you used:
- 4499 strings out of 493334
- 60165 string characters out of 3139243
+ 4517 strings out of 493334
+ 60447 string characters out of 3139243
  182661 words of memory out of 3000000
- 7927 multiletter control sequences out of 15000+200000
+ 7942 multiletter control sequences out of 15000+200000
  11520 words of font info for 44 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,6n,30p,390b,439s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx
-12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C
-:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program
- Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on IRC_Latex.pdf (12 pages, 932710 bytes).
+ 40i,6n,30p,391b,439s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
+/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
+/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17
+.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on IRC_Latex.pdf (13 pages, 941490 bytes).
 PDF statistics:
- 100 PDF objects out of 1000 (max. 8388607)
+ 108 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
