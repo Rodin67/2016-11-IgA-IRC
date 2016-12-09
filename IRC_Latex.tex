@@ -75,6 +75,9 @@
 
 
 
+
+
+
 La table "globale" contient 20455 patients différents étant passés au stade d'IRCT dont 1720 (8.4\%) avec maladie de Berger, 11174 (54.6\%) avec une néphropathie diabétique, 4417 (21.6\%) avec une glomérulonéphrite chronique et 3144 (15.4\%) avec une PKRD.
 
 \section{Incidence IRCT maladie de Berger}
@@ -307,6 +310,23 @@ X-squared = 1.8385, df = 4, p-value = 0.7654
 \end{kframe}
 \end{knitrout}
 
+Distribution des âges :
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-5-1} 
+
+\end{knitrout}
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-6-1} 
+
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-6-2} 
+
+\end{knitrout}
+
     \subsubsection{Taille, poids et BMI}
   
 Taille lors de l'IRCT :
@@ -319,8 +339,6 @@ Taille lors de l'IRCT :
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
-
-Poids :
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -346,35 +364,484 @@ BMI :
 \end{kframe}
 \end{knitrout}
 
+Age d'arrivée au stade d'IRT selon le BMI :
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+$`<18.5`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  16.60   31.35   44.50   47.11   62.65   90.00 
+
+$`18.5-24.9`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  16.30   36.42   50.25   51.40   64.60   93.50 
+
+$`25-29.9`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  19.30   45.80   58.10   57.28   68.10   90.30 
+
+$`30-34.9`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  19.40   43.70   58.75   55.34   66.45   88.80 
+
+$`35-39.9`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  25.90   46.58   57.65   56.64   67.38   88.00 
+
+$`>40`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  26.40   55.10   58.10   57.75   63.70   70.30 
+\end{verbatim}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-7-1} 
+\begin{kframe}\begin{verbatim}
+
+Call:
+lm(formula = iga$age ~ iga$gr_bmi)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-37.98 -13.10   0.40  11.86  42.89 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(>|t|)    
+(Intercept)        51.4000     0.6731  76.359  < 2e-16 ***
+iga$gr_bmi<18.5    -4.2915     2.2802  -1.882   0.0601 .  
+iga$gr_bmi25-29.9   5.8764     1.0714   5.485 4.99e-08 ***
+iga$gr_bmi30-34.9   3.9417     1.6045   2.457   0.0142 *  
+iga$gr_bmi35-39.9   5.2400     2.4604   2.130   0.0334 *  
+iga$gr_bmi>40       6.3467     4.3728   1.451   0.1469    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 16.73 on 1271 degrees of freedom
+  (443 observations deleted due to missingness)
+Multiple R-squared:  0.03267,	Adjusted R-squared:  0.02886 
+F-statistic: 8.584 on 5 and 1271 DF,  p-value: 5.216e-08
+\end{verbatim}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-7-2} 
+\begin{kframe}\begin{verbatim}
+
+Call:
+lm(formula = global$age ~ global$gr_bmi)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-50.372  -8.944   1.228  11.056  36.978 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           62.1595     0.1982 313.650  < 2e-16 ***
+global$gr_bmi<18.5    -4.4377     0.6802  -6.524 7.06e-11 ***
+global$gr_bmi25-29.9   4.1843     0.2884  14.509  < 2e-16 ***
+global$gr_bmi30-34.9   4.8121     0.3417  14.084  < 2e-16 ***
+global$gr_bmi35-39.9   3.2272     0.4658   6.928 4.45e-12 ***
+global$gr_bmi>40       1.3304     0.6182   2.152   0.0314 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 14.58 on 15311 degrees of freedom
+  (5138 observations deleted due to missingness)
+Multiple R-squared:  0.02618,	Adjusted R-squared:  0.02587 
+F-statistic: 82.34 on 5 and 15311 DF,  p-value: < 2.2e-16
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+
       \subsubsection{Ponction Biopsie Rénale}
 
-1199 (81.6\%) NA = 250
+Pour le Berger : 1199 (81.6\%) NA = 250
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+                                                 
+                                                      0     1  <NA>   Sum
+  Diabète                                          9040   873  1261 11174
+  GN avec HSF                                       216   856   112  1184
+  GN extra-membraneuse                               50   338    49   437
+  GN extracapillaire ou endo/extracapillaire         48   337    26   411
+  GN membrano-proliférative type 1                   20   169    16   205
+  GN membrano-proliférative type 2, dépôts denses    10    62     9    81
+  GN primitive avec autre diagnostic histologique    51   164    29   244
+  GN primitive sans examen histologique             827   276   147  1250
+  Maladies systémiques autres                        73   237    17   327
+  Néphropathie à dépôts d'IgA                       271  1199   250  1720
+  Néphropathie lupique                               43   138    26   207
+  Polykystose rénale de l adulte                   2604    29   511  3144
+  Purpura rhumatoïde                                 17    48     6    71
+  <NA>                                                0     0     0     0
+  Sum                                             13270  4726  2459 20455
+                                                 
+                                                     0    1
+  GN membrano-proliférative type 1                10.6 89.4
+  GN extracapillaire ou endo/extracapillaire      12.5 87.5
+  GN extra-membraneuse                            12.9 87.1
+  GN membrano-proliférative type 2, dépôts denses 13.9 86.1
+  Néphropathie à dépôts d'IgA                     18.4 81.6
+  GN avec HSF                                     20.1 79.9
+  Maladies systémiques autres                     23.5 76.5
+  GN primitive avec autre diagnostic histologique 23.7 76.3
+  Néphropathie lupique                            23.8 76.2
+  Purpura rhumatoïde                              26.2 73.8
+  GN primitive sans examen histologique           75.0 25.0
+  Diabète                                         91.2  8.8
+  Polykystose rénale de l adulte                  98.9  1.1
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\textcolor{red}{Commentaire : 25\% de ceux qui n'ont pas eu d'examen histologique ont été ponctionnés.}
+~\\
+
+Pour le Berger par région :
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+                            
+                                0    1 <NA>  Sum
+  Alsace                       16   54   12   82
+  Aquitaine                     5   54   15   74
+  Auvergne                     12   35    5   52
+  Basse-Normandie               6   28    5   39
+  Bourgogne                     9   34    5   48
+  Bretagne                      6   86   12  104
+  Centre                       21   49    7   77
+  Champagne-Ardenne             3   30    6   39
+  Corse                         2    2    0    4
+  ETRANGER                      0    0    1    1
+  Franche-Comté                 7   21    6   34
+  Guadeloupe                    1    2    0    3
+  Haute-Normandie               2   30    9   41
+  Ile-de-France                62  166   36  264
+  Languedoc-Roussillon         19   36   17   72
+  Limousin                      0   13    3   16
+  Lorraine                      2   43    7   52
+  Martinique                    0    2    0    2
+  Mayotte                       1    0    0    1
+  Midi-Pyrénées                 8   66   18   92
+  Nord-Pas-de-Calais           26   93   10  129
+  Pays de la Loire             15   67   24  106
+  Picardie                      5   38    2   45
+  Poitou-Charentes              1   29    6   36
+  POLYNESIE FRANCAISE           0    0    1    1
+  Provence-Alpes-Côte d'Azur   33   47   15   95
+  Reunion                       2   20   13   35
+  Rhône-Alpes                   7  154   15  176
+  <NA>                          0    0    0    0
+  Sum                         271 1199  250 1720
+                            
+                                 0     1
+  Limousin                     0.0 100.0
+  Martinique                   0.0 100.0
+  Poitou-Charentes             3.3  96.7
+  Rhône-Alpes                  4.3  95.7
+  Lorraine                     4.4  95.6
+  Haute-Normandie              6.2  93.8
+  Bretagne                     6.5  93.5
+  Aquitaine                    8.5  91.5
+  Champagne-Ardenne            9.1  90.9
+  Reunion                      9.1  90.9
+  Midi-Pyrénées               10.8  89.2
+  Picardie                    11.6  88.4
+  Basse-Normandie             17.6  82.4
+  Pays de la Loire            18.3  81.7
+  Bourgogne                   20.9  79.1
+  Nord-Pas-de-Calais          21.8  78.2
+  Alsace                      22.9  77.1
+  Franche-Comté               25.0  75.0
+  Auvergne                    25.5  74.5
+  Ile-de-France               27.2  72.8
+  Centre                      30.0  70.0
+  Guadeloupe                  33.3  66.7
+  Languedoc-Roussillon        34.5  65.5
+  Provence-Alpes-Côte d'Azur  41.2  58.8
+  Corse                       50.0  50.0
+  Mayotte                    100.0   0.0
+  ETRANGER                              
+  POLYNESIE FRANCAISE                   
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
 
       \subsubsection{Co-morbidités}
 
-
-
 Diabète : 193 (11.3\%) NA = 15
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+                                                 
+                                                      0     1  <NA>   Sum
+  Diabète                                             0 11174     0 11174
+  GN avec HSF                                       932   244     8  1184
+  GN extra-membraneuse                              355    79     3   437
+  GN extracapillaire ou endo/extracapillaire        329    78     4   411
+  GN membrano-proliférative type 1                  174    29     2   205
+  GN membrano-proliférative type 2, dépôts denses    63    18     0    81
+  GN primitive avec autre diagnostic histologique   190    52     2   244
+  GN primitive sans examen histologique             971   264    15  1250
+  Maladies systémiques autres                       263    63     1   327
+  Néphropathie à dépôts d'IgA                      1512   193    15  1720
+  Néphropathie lupique                              184    20     3   207
+  Polykystose rénale de l adulte                   2863   253    28  3144
+  Purpura rhumatoïde                                 47    24     0    71
+  <NA>                                                0     0     0     0
+  Sum                                              7883 12491    81 20455
+                                                 
+                                                      0     1
+  Diabète                                           0.0 100.0
+  Purpura rhumatoïde                               66.2  33.8
+  GN membrano-proliférative type 2, dépôts denses  77.8  22.2
+  GN primitive avec autre diagnostic histologique  78.5  21.5
+  GN primitive sans examen histologique            78.6  21.4
+  GN avec HSF                                      79.3  20.7
+  Maladies systémiques autres                      80.7  19.3
+  GN extracapillaire ou endo/extracapillaire       80.8  19.2
+  GN extra-membraneuse                             81.8  18.2
+  GN membrano-proliférative type 1                 85.7  14.3
+  Néphropathie à dépôts d'IgA                      88.7  11.3
+  Néphropathie lupique                             90.2   9.8
+  Polykystose rénale de l adulte                   91.9   8.1
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 Type de diabète : 
 
 - 1 : 9 (4.8\%)
 
 - 2 : 179 (95.2\%)
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+                                                 
+                                                      1     2  <NA>   Sum
+  Diabète                                          1018 10001     0 11019
+  GN avec HSF                                         8   234     0   242
+  GN extra-membraneuse                                2    77     0    79
+  GN extracapillaire ou endo/extracapillaire          3    74     0    77
+  GN membrano-proliférative type 1                    2    26     0    28
+  GN membrano-proliférative type 2, dépôts denses     2    16     0    18
+  GN primitive avec autre diagnostic histologique     3    48     0    51
+  GN primitive sans examen histologique              15   247     0   262
+  Maladies systémiques autres                         1    61     0    62
+  Néphropathie à dépôts d'IgA                         9   179     0   188
+  Néphropathie lupique                                0    20     0    20
+  Polykystose rénale de l adulte                     11   241     0   252
+  Purpura rhumatoïde                                  0    24     0    24
+  <NA>                                                0     0   901   901
+  Sum                                              1074 11248   901 13223
+                                                 
+                                                      1     2
+  Néphropathie lupique                              0.0 100.0
+  Purpura rhumatoïde                                0.0 100.0
+  Maladies systémiques autres                       1.6  98.4
+  GN extra-membraneuse                              2.5  97.5
+  GN avec HSF                                       3.3  96.7
+  GN extracapillaire ou endo/extracapillaire        3.9  96.1
+  Polykystose rénale de l adulte                    4.4  95.6
+  Néphropathie à dépôts d'IgA                       4.8  95.2
+  GN primitive sans examen histologique             5.7  94.3
+  GN primitive avec autre diagnostic histologique   5.9  94.1
+  GN membrano-proliférative type 1                  7.1  92.9
+  Diabète                                           9.2  90.8
+  GN membrano-proliférative type 2, dépôts denses  11.1  88.9
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 ~\\
 
 Cirrhose : 98 (6.5\%) NA = 208
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+[1] "Cirrhose et VHB :"
+
+ 0 
+93 
+[1] "Cirrhose et VHC :"
+
+ 0  1 
+91  4 
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+                                                 
+                                                      0     1  <NA>   Sum
+  Diabète                                         10417   233   524 11174
+  GN avec HSF                                      1087    19    78  1184
+  GN extra-membraneuse                              399     3    35   437
+  GN extracapillaire ou endo/extracapillaire        377    10    24   411
+  GN membrano-proliférative type 1                  184     9    12   205
+  GN membrano-proliférative type 2, dépôts denses    67     7     7    81
+  GN primitive avec autre diagnostic histologique   212     7    25   244
+  GN primitive sans examen histologique            1120    32    98  1250
+  Maladies systémiques autres                       318     2     7   327
+  Néphropathie à dépôts d'IgA                      1414    98   208  1720
+  Néphropathie lupique                              183     4    20   207
+  Polykystose rénale de l adulte                   2706    15   423  3144
+  Purpura rhumatoïde                                 63     5     3    71
+  <NA>                                                0     0     0     0
+  Sum                                             18547   444  1464 20455
+                                                 
+                                                     0    1
+  GN membrano-proliférative type 2, dépôts denses 90.5  9.5
+  Purpura rhumatoïde                              92.6  7.4
+  Néphropathie à dépôts d'IgA                     93.5  6.5
+  GN membrano-proliférative type 1                95.3  4.7
+  GN primitive avec autre diagnostic histologique 96.8  3.2
+  GN primitive sans examen histologique           97.2  2.8
+  GN extracapillaire ou endo/extracapillaire      97.4  2.6
+  Diabète                                         97.8  2.2
+  Néphropathie lupique                            97.9  2.1
+  GN avec HSF                                     98.3  1.7
+  GN extra-membraneuse                            99.3  0.7
+  Maladies systémiques autres                     99.4  0.6
+  Polykystose rénale de l adulte                  99.4  0.6
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 Stade de la cirrhose :
 
 - 1 : 30 (38\%)
 
 - 2 : 49 (62\%)
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+                                                 
+                                                     1    2 <NA>  Sum
+  Diabète                                           82   77    0  159
+  GN avec HSF                                        6    7    0   13
+  GN extra-membraneuse                               1    1    0    2
+  GN extracapillaire ou endo/extracapillaire         5    3    0    8
+  GN membrano-proliférative type 1                   2    5    0    7
+  GN membrano-proliférative type 2, dépôts denses    3    3    0    6
+  GN primitive avec autre diagnostic histologique    4    2    0    6
+  GN primitive sans examen histologique             11   10    0   21
+  Maladies systémiques autres                        1    0    0    1
+  Néphropathie à dépôts d'IgA                       30   49    0   79
+  Néphropathie lupique                               0    2    0    2
+  Polykystose rénale de l adulte                     8    4    0   12
+  Purpura rhumatoïde                                 1    3    0    4
+  <NA>                                               0    0 1588 1588
+  Sum                                              154  166 1588 1908
+                                                 
+                                                      1     2
+  Néphropathie lupique                              0.0 100.0
+  Purpura rhumatoïde                               25.0  75.0
+  GN membrano-proliférative type 1                 28.6  71.4
+  Néphropathie à dépôts d'IgA                      38.0  62.0
+  GN avec HSF                                      46.2  53.8
+  GN extra-membraneuse                             50.0  50.0
+  GN membrano-proliférative type 2, dépôts denses  50.0  50.0
+  Diabète                                          51.6  48.4
+  GN primitive sans examen histologique            52.4  47.6
+  GN extracapillaire ou endo/extracapillaire       62.5  37.5
+  GN primitive avec autre diagnostic histologique  66.7  33.3
+  Polykystose rénale de l adulte                   66.7  33.3
+  Maladies systémiques autres                     100.0   0.0
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 ~\\
 
 Infarctus du myocarde : 60 (4\%) NA = 207
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+                                                 
+                                                      0     1  <NA>   Sum
+  Diabète                                          9175  1452   547 11174
+  GN avec HSF                                      1049    61    74  1184
+  GN extra-membraneuse                              374    27    36   437
+  GN extracapillaire ou endo/extracapillaire        370    20    21   411
+  GN membrano-proliférative type 1                  185     9    11   205
+  GN membrano-proliférative type 2, dépôts denses    68     7     6    81
+  GN primitive avec autre diagnostic histologique   198    21    25   244
+  GN primitive sans examen histologique            1064    97    89  1250
+  Maladies systémiques autres                       302    15    10   327
+  Néphropathie à dépôts d'IgA                      1453    60   207  1720
+  Néphropathie lupique                              176    12    19   207
+  Polykystose rénale de l adulte                   2554   153   437  3144
+  Purpura rhumatoïde                                 61     7     3    71
+  <NA>                                                0     0     0     0
+  Sum                                             17029  1941  1485 20455
+                                                 
+                                                     0    1
+  Diabète                                         86.3 13.7
+  Purpura rhumatoïde                              89.7 10.3
+  GN primitive avec autre diagnostic histologique 90.4  9.6
+  GN membrano-proliférative type 2, dépôts denses 90.7  9.3
+  GN primitive sans examen histologique           91.6  8.4
+  GN extra-membraneuse                            93.3  6.7
+  Néphropathie lupique                            93.6  6.4
+  Polykystose rénale de l adulte                  94.3  5.7
+  GN avec HSF                                     94.5  5.5
+  GN extracapillaire ou endo/extracapillaire      94.9  5.1
+  Maladies systémiques autres                     95.3  4.7
+  GN membrano-proliférative type 1                95.4  4.6
+  Néphropathie à dépôts d'IgA                     96.0  4.0
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
 Insuffisance cardiaque : 149 (9.8\%) NA = 206
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+                                                 
+                                                      0     1  <NA>   Sum
+  Diabète                                          7348  3301   525 11174
+  GN avec HSF                                       978   134    72  1184
+  GN extra-membraneuse                              348    55    34   437
+  GN extracapillaire ou endo/extracapillaire        335    54    22   411
+  GN membrano-proliférative type 1                  156    37    12   205
+  GN membrano-proliférative type 2, dépôts denses    62    13     6    81
+  GN primitive avec autre diagnostic histologique   183    36    25   244
+  GN primitive sans examen histologique             924   247    79  1250
+  Maladies systémiques autres                       277    42     8   327
+  Néphropathie à dépôts d'IgA                      1365   149   206  1720
+  Néphropathie lupique                              167    22    18   207
+  Polykystose rénale de l adulte                   2457   262   425  3144
+  Purpura rhumatoïde                                 59    10     2    71
+  <NA>                                                0     0     0     0
+  Sum                                             14659  4362  1434 20455
+                                                 
+                                                     0    1
+  Diabète                                         69.0 31.0
+  GN primitive sans examen histologique           78.9 21.1
+  GN membrano-proliférative type 1                80.8 19.2
+  GN membrano-proliférative type 2, dépôts denses 82.7 17.3
+  GN primitive avec autre diagnostic histologique 83.6 16.4
+  Purpura rhumatoïde                              85.5 14.5
+  GN extracapillaire ou endo/extracapillaire      86.1 13.9
+  GN extra-membraneuse                            86.4 13.6
+  Maladies systémiques autres                     86.8 13.2
+  GN avec HSF                                     87.9 12.1
+  Néphropathie lupique                            88.4 11.6
+  Néphropathie à dépôts d'IgA                     90.2  9.8
+  Polykystose rénale de l adulte                  90.4  9.6
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 Stade de l’IC :
 
@@ -385,6 +852,45 @@ Stade de l’IC :
 
 Artériopathie des membres inférieurs : 112 (7.4\%) NA = 212
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+                                                 
+                                                      0     1  <NA>   Sum
+  Diabète                                          7032  3530   612 11174
+  GN avec HSF                                      1008    98    78  1184
+  GN extra-membraneuse                              345    52    40   437
+  GN extracapillaire ou endo/extracapillaire        351    35    25   411
+  GN membrano-proliférative type 1                  175    18    12   205
+  GN membrano-proliférative type 2, dépôts denses    71     4     6    81
+  GN primitive avec autre diagnostic histologique   195    23    26   244
+  GN primitive sans examen histologique             995   160    95  1250
+  Maladies systémiques autres                       289    27    11   327
+  Néphropathie à dépôts d'IgA                      1396   112   212  1720
+  Néphropathie lupique                              182     8    17   207
+  Polykystose rénale de l adulte                   2545   160   439  3144
+  Purpura rhumatoïde                                 56    10     5    71
+  <NA>                                                0     0     0     0
+  Sum                                             14640  4237  1578 20455
+                                                 
+                                                     0    1
+  Diabète                                         66.6 33.4
+  Purpura rhumatoïde                              84.8 15.2
+  GN primitive sans examen histologique           86.1 13.9
+  GN extra-membraneuse                            86.9 13.1
+  GN primitive avec autre diagnostic histologique 89.4 10.6
+  GN membrano-proliférative type 1                90.7  9.3
+  GN extracapillaire ou endo/extracapillaire      90.9  9.1
+  GN avec HSF                                     91.1  8.9
+  Maladies systémiques autres                     91.5  8.5
+  Néphropathie à dépôts d'IgA                     92.6  7.4
+  Polykystose rénale de l adulte                  94.1  5.9
+  GN membrano-proliférative type 2, dépôts denses 94.7  5.3
+  Néphropathie lupique                            95.8  4.2
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
 Stade de l’AOMI : 
 
 - 1 : 71 (67.6\%)
@@ -393,6 +899,45 @@ Stade de l’AOMI :
 ~\\
 
 Amputation : 9 (0.6\%) NA = 247
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+                                                 
+                                                      0     1  <NA>   Sum
+  Diabète                                          9650   471  1053 11174
+  GN avec HSF                                      1069     5   110  1184
+  GN extra-membraneuse                              389     2    46   437
+  GN extracapillaire ou endo/extracapillaire        369     3    39   411
+  GN membrano-proliférative type 1                  185     3    17   205
+  GN membrano-proliférative type 2, dépôts denses    72     1     8    81
+  GN primitive avec autre diagnostic histologique   208     0    36   244
+  GN primitive sans examen histologique            1118     6   126  1250
+  Maladies systémiques autres                       312     4    11   327
+  Néphropathie à dépôts d'IgA                      1464     9   247  1720
+  Néphropathie lupique                              182     1    24   207
+  Polykystose rénale de l adulte                   2653     3   488  3144
+  Purpura rhumatoïde                                 67     1     3    71
+  <NA>                                                0     0     0     0
+  Sum                                             17738   509  2208 20455
+                                                 
+                                                      0     1
+  Diabète                                          95.3   4.7
+  GN membrano-proliférative type 1                 98.4   1.6
+  Purpura rhumatoïde                               98.5   1.5
+  GN membrano-proliférative type 2, dépôts denses  98.6   1.4
+  Maladies systémiques autres                      98.7   1.3
+  GN extracapillaire ou endo/extracapillaire       99.2   0.8
+  Néphropathie à dépôts d'IgA                      99.4   0.6
+  GN avec HSF                                      99.5   0.5
+  GN extra-membraneuse                             99.5   0.5
+  GN primitive sans examen histologique            99.5   0.5
+  Néphropathie lupique                             99.5   0.5
+  Polykystose rénale de l adulte                   99.9   0.1
+  GN primitive avec autre diagnostic histologique 100.0   0.0
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 ~\\
 
 Accident vasculaire cérébrale (AVC et AIT) :
@@ -410,20 +955,214 @@ iga$AVCn    0    1 <NA>  Sum
 iga$AVCn    0    1
        0 95.8  1.0
        1  2.6  0.5
+
+    0     1  <NA> 
+16716  2002  1737 
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+                                                 
+                                                      0     1  <NA>   Sum
+  Diabète                                          9060  1447   667 11174
+  GN avec HSF                                      1023    67    94  1184
+  GN extra-membraneuse                              368    25    44   437
+  GN extracapillaire ou endo/extracapillaire        356    28    27   411
+  GN membrano-proliférative type 1                  177    11    17   205
+  GN membrano-proliférative type 2, dépôts denses    69     5     7    81
+  GN primitive avec autre diagnostic histologique   202    17    25   244
+  GN primitive sans examen histologique            1041   112    97  1250
+  Maladies systémiques autres                       292    25    10   327
+  Néphropathie à dépôts d'IgA                      1418    63   239  1720
+  Néphropathie lupique                              173    15    19   207
+  Polykystose rénale de l adulte                   2474   181   489  3144
+  Purpura rhumatoïde                                 63     6     2    71
+  <NA>                                                0     0     0     0
+  Sum                                             16716  2002  1737 20455
+                                                 
+                                                     0    1
+  Diabète                                         86.2 13.8
+  GN primitive sans examen histologique           90.3  9.7
+  Purpura rhumatoïde                              91.3  8.7
+  Néphropathie lupique                            92.0  8.0
+  Maladies systémiques autres                     92.1  7.9
+  GN primitive avec autre diagnostic histologique 92.2  7.8
+  GN extracapillaire ou endo/extracapillaire      92.7  7.3
+  GN membrano-proliférative type 2, dépôts denses 93.2  6.8
+  Polykystose rénale de l adulte                  93.2  6.8
+  GN extra-membraneuse                            93.6  6.4
+  GN avec HSF                                     93.9  6.1
+  GN membrano-proliférative type 1                94.1  5.9
+  Néphropathie à dépôts d'IgA                     95.7  4.3
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
 
 VIH : 13 (0.9\%)
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+                                                 
+                                                      0     1  <NA>   Sum
+  Diabète                                         10585    42   547 11174
+  GN avec HSF                                      1054    53    77  1184
+  GN extra-membraneuse                              398     4    35   437
+  GN extracapillaire ou endo/extracapillaire        382     1    28   411
+  GN membrano-proliférative type 1                  190     4    11   205
+  GN membrano-proliférative type 2, dépôts denses    73     2     6    81
+  GN primitive avec autre diagnostic histologique   207    10    27   244
+  GN primitive sans examen histologique            1146    12    92  1250
+  Maladies systémiques autres                       320     0     7   327
+  Néphropathie à dépôts d'IgA                      1493    13   214  1720
+  Néphropathie lupique                              188     2    17   207
+  Polykystose rénale de l adulte                   2702     6   436  3144
+  Purpura rhumatoïde                                 68     1     2    71
+  <NA>                                                0     0     0     0
+  Sum                                             18806   150  1499 20455
+                                                 
+                                                      0     1
+  GN avec HSF                                      95.2   4.8
+  GN primitive avec autre diagnostic histologique  95.4   4.6
+  GN membrano-proliférative type 2, dépôts denses  97.3   2.7
+  GN membrano-proliférative type 1                 97.9   2.1
+  Purpura rhumatoïde                               98.6   1.4
+  Néphropathie lupique                             98.9   1.1
+  GN extra-membraneuse                             99.0   1.0
+  GN primitive sans examen histologique            99.0   1.0
+  Néphropathie à dépôts d'IgA                      99.1   0.9
+  Diabète                                          99.6   0.4
+  GN extracapillaire ou endo/extracapillaire       99.7   0.3
+  Polykystose rénale de l adulte                   99.8   0.2
+  Maladies systémiques autres                     100.0   0.0
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 Dont stade SIDA : 1 (7.7\%)
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+                                                 
+                                                      0     1  <NA>   Sum
+  Diabète                                         10570     8   596 11174
+  GN avec HSF                                      1088    21    75  1184
+  GN extra-membraneuse                              396     2    39   437
+  GN extracapillaire ou endo/extracapillaire        382     2    27   411
+  GN membrano-proliférative type 1                  188     3    14   205
+  GN membrano-proliférative type 2, dépôts denses    75     0     6    81
+  GN primitive avec autre diagnostic histologique   214     3    27   244
+  GN primitive sans examen histologique            1144     6   100  1250
+  Maladies systémiques autres                       317     0    10   327
+  Néphropathie à dépôts d'IgA                      1501     1   218  1720
+  Néphropathie lupique                              189     0    18   207
+  Polykystose rénale de l adulte                   2706     0   438  3144
+  Purpura rhumatoïde                                 68     0     3    71
+  <NA>                                                0     0     0     0
+  Sum                                             18838    46  1571 20455
+                                                 
+                                                      0     1
+  GN avec HSF                                      98.1   1.9
+  GN membrano-proliférative type 1                 98.4   1.6
+  GN primitive avec autre diagnostic histologique  98.6   1.4
+  GN extra-membraneuse                             99.5   0.5
+  GN extracapillaire ou endo/extracapillaire       99.5   0.5
+  GN primitive sans examen histologique            99.5   0.5
+  Diabète                                          99.9   0.1
+  Néphropathie à dépôts d'IgA                      99.9   0.1
+  GN membrano-proliférative type 2, dépôts denses 100.0   0.0
+  Maladies systémiques autres                     100.0   0.0
+  Néphropathie lupique                            100.0   0.0
+  Polykystose rénale de l adulte                  100.0   0.0
+  Purpura rhumatoïde                              100.0   0.0
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 ~\\
 
 Ag HBS positif : 12 (0.8\%) NA = 217
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+                                                 
+                                                      0     1  <NA>   Sum
+  Diabète                                         10575    86   513 11174
+  GN avec HSF                                      1086    25    73  1184
+  GN extra-membraneuse                              396     6    35   437
+  GN extracapillaire ou endo/extracapillaire        385     2    24   411
+  GN membrano-proliférative type 1                  190     4    11   205
+  GN membrano-proliférative type 2, dépôts denses    74     1     6    81
+  GN primitive avec autre diagnostic histologique   214     5    25   244
+  GN primitive sans examen histologique            1142     8   100  1250
+  Maladies systémiques autres                       315     3     9   327
+  Néphropathie à dépôts d'IgA                      1491    12   217  1720
+  Néphropathie lupique                              187     2    18   207
+  Polykystose rénale de l adulte                   2691    20   433  3144
+  Purpura rhumatoïde                                 69     0     2    71
+  <NA>                                                0     0     0     0
+  Sum                                             18815   174  1466 20455
+                                                 
+                                                      0     1
+  GN avec HSF                                      97.7   2.3
+  GN primitive avec autre diagnostic histologique  97.7   2.3
+  GN membrano-proliférative type 1                 97.9   2.1
+  GN extra-membraneuse                             98.5   1.5
+  GN membrano-proliférative type 2, dépôts denses  98.7   1.3
+  Néphropathie lupique                             98.9   1.1
+  Maladies systémiques autres                      99.1   0.9
+  Diabète                                          99.2   0.8
+  Néphropathie à dépôts d'IgA                      99.2   0.8
+  GN primitive sans examen histologique            99.3   0.7
+  Polykystose rénale de l adulte                   99.3   0.7
+  GN extracapillaire ou endo/extracapillaire       99.5   0.5
+  Purpura rhumatoïde                              100.0   0.0
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 ~\\
 
 PCR VHC positif : 11 (0.7\%) NA = 224
-
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+                                                 
+                                                      0     1  <NA>   Sum
+  Diabète                                         10421   186   567 11174
+  GN avec HSF                                      1072    24    88  1184
+  GN extra-membraneuse                              395     5    37   437
+  GN extracapillaire ou endo/extracapillaire        379     6    26   411
+  GN membrano-proliférative type 1                  183    10    12   205
+  GN membrano-proliférative type 2, dépôts denses    68     6     7    81
+  GN primitive avec autre diagnostic histologique   210     7    27   244
+  GN primitive sans examen histologique            1119    21   110  1250
+  Maladies systémiques autres                       313     4    10   327
+  Néphropathie à dépôts d'IgA                      1485    11   224  1720
+  Néphropathie lupique                              184     3    20   207
+  Polykystose rénale de l adulte                   2680    19   445  3144
+  Purpura rhumatoïde                                 69     0     2    71
+  <NA>                                                0     0     0     0
+  Sum                                             18578   302  1575 20455
+                                                 
+                                                      0     1
+  GN membrano-proliférative type 2, dépôts denses  91.9   8.1
+  GN membrano-proliférative type 1                 94.8   5.2
+  GN primitive avec autre diagnostic histologique  96.8   3.2
+  GN avec HSF                                      97.8   2.2
+  Diabète                                          98.2   1.8
+  GN primitive sans examen histologique            98.2   1.8
+  GN extracapillaire ou endo/extracapillaire       98.4   1.6
+  Néphropathie lupique                             98.4   1.6
+  Maladies systémiques autres                      98.7   1.3
+  GN extra-membraneuse                             98.8   1.2
+  Néphropathie à dépôts d'IgA                      99.3   0.7
+  Polykystose rénale de l adulte                   99.3   0.7
+  Purpura rhumatoïde                              100.0   0.0
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
     \subsubsection{Statut Tabagique}
 
@@ -440,6 +1179,62 @@ PCR VHC positif : 11 (0.7\%) NA = 224
 \end{kframe}
 \end{knitrout}
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+                                                 
+                                                     NF Fumeur EX Fumeur
+  Diabète                                          5470    922      2650
+  GN avec HSF                                       542    188       254
+  GN extra-membraneuse                              173     49       115
+  GN extracapillaire ou endo/extracapillaire        177     50        95
+  GN membrano-proliférative type 1                   99     39        36
+  GN membrano-proliférative type 2, dépôts denses    28     13        26
+  GN primitive avec autre diagnostic histologique   122     29        46
+  GN primitive sans examen histologique             603    158       268
+  Maladies systémiques autres                       158     38        82
+  Néphropathie à dépôts d'IgA                       755    243       327
+  Néphropathie lupique                              115     29        17
+  Polykystose rénale de l adulte                   1533    291       511
+  Purpura rhumatoïde                                 27     10        19
+  <NA>                                                0      0         0
+  Sum                                              9802   2059      4446
+                                                 
+                                                   <NA>   Sum
+  Diabète                                          2132 11174
+  GN avec HSF                                       200  1184
+  GN extra-membraneuse                              100   437
+  GN extracapillaire ou endo/extracapillaire         89   411
+  GN membrano-proliférative type 1                   31   205
+  GN membrano-proliférative type 2, dépôts denses    14    81
+  GN primitive avec autre diagnostic histologique    47   244
+  GN primitive sans examen histologique             221  1250
+  Maladies systémiques autres                        49   327
+  Néphropathie à dépôts d'IgA                       395  1720
+  Néphropathie lupique                               46   207
+  Polykystose rénale de l adulte                    809  3144
+  Purpura rhumatoïde                                 15    71
+  <NA>                                                0     0
+  Sum                                              4148 20455
+                                                 
+                                                    NF Fumeur EX Fumeur
+  GN membrano-proliférative type 1                56.9   22.4      20.7
+  GN membrano-proliférative type 2, dépôts denses 41.8   19.4      38.8
+  GN avec HSF                                     55.1   19.1      25.8
+  Néphropathie à dépôts d'IgA                     57.0   18.3      24.7
+  Néphropathie lupique                            71.4   18.0      10.6
+  Purpura rhumatoïde                              48.2   17.9      33.9
+  GN extracapillaire ou endo/extracapillaire      55.0   15.5      29.5
+  GN primitive sans examen histologique           58.6   15.4      26.0
+  GN primitive avec autre diagnostic histologique 61.9   14.7      23.4
+  GN extra-membraneuse                            51.3   14.5      34.1
+  Maladies systémiques autres                     56.8   13.7      29.5
+  Polykystose rénale de l adulte                  65.7   12.5      21.9
+  Diabète                                         60.5   10.2      29.3
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
     \subsubsection{Créatinine, albumine et hémoglobine}
 
 Créatininémie initiale :
@@ -451,11 +1246,87 @@ Créatininémie initiale :
    46.0   513.2   650.0   719.5   841.8  2793.0     526 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-7-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-27-1} 
 
 \end{knitrout}
 
+DFG initial :
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  1.600   5.868   7.835   8.493  10.050 123.000     526 
+\end{verbatim}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-28-1} 
+
+\end{knitrout}
+On a 1 patient qui a un DFG supérieur à 120 ml/min. Aucun entre 40 et 120.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+$Diabète
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+   1.63    6.98    9.23   10.17   12.02  184.20    3236 
+
+$`GN avec HSF`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  1.460   5.900   7.945   8.959  10.470 115.200     304 
+
+$`GN extra-membraneuse`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  1.460   6.200   8.380   9.732  11.140  80.460     121 
+
+$`GN extracapillaire ou endo/extracapillaire`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  1.410   5.377   7.200   7.794   9.272  42.570      79 
+
+$`GN membrano-proliférative type 1`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  2.420   5.820   8.685  10.270  12.490 100.700      49 
+
+$`GN membrano-proliférative type 2, dépôts denses`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  3.990   6.750   8.730   9.897  11.390  25.160      24 
+
+$`GN primitive avec autre diagnostic histologique`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  1.490   5.975   8.130   9.579  10.380 114.500      72 
+
+$`GN primitive sans examen histologique`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  1.440   5.868   8.155   8.952  10.850  62.720     380 
+
+$`Maladies systémiques autres`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  1.330   5.280   7.090   8.359   9.820  71.350      78 
+
+$`Néphropathie à dépôts d'IgA`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  1.600   5.868   7.835   8.493  10.050 123.000     526 
+
+$`Néphropathie lupique`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+   2.39    5.58    7.80    9.00   10.92   43.12      60 
+
+$`Polykystose rénale de l adulte`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  1.440   6.228   7.925   8.437   9.990  77.230    1056 
+
+$`Purpura rhumatoïde`
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  2.770   5.672   7.855   8.430  10.500  21.360      21 
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+~\\
+
 Albuminémie initiale :
+
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -464,7 +1335,7 @@ Albuminémie initiale :
    9.00   30.00   34.60   34.05   38.60   58.00     707 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-8-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-30-1} 
 
 \end{knitrout}
 
@@ -496,7 +1367,7 @@ Hémoglobine :
    4.70    9.10   10.30   10.26   11.40   17.60     400 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-10-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-32-1} 
 
 \end{knitrout}
 
@@ -519,6 +1390,31 @@ iga$sex    1    0
 
 data:  table(iga$sex, iga$gr_HBINI)
 X-squared = 16.528, df = 1, p-value = 4.793e-05
+
+Call:
+glm(formula = iga$gr_HBINI ~ iga$sex + iga$dfg, family = "binomial")
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-2.6198   0.2930   0.3303   0.4042   1.0378  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  4.54843    0.44828  10.146  < 2e-16 ***
+iga$sex     -0.87721    0.24709  -3.550 0.000385 ***
+iga$dfg     -0.09169    0.02446  -3.749 0.000178 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 579.04  on 1137  degrees of freedom
+Residual deviance: 551.57  on 1135  degrees of freedom
+  (582 observations deleted due to missingness)
+AIC: 557.57
+
+Number of Fisher Scoring iterations: 5
+[1] "OR d'être de sexe féminin : 0.42"
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -550,6 +1446,25 @@ X-squared = 3.5363, df = 8, p-value = 0.8964
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+        2010 2011 2012 2013 2014
+Dialyse  293  313  325  329  293
+Greffe    29   34   33   31   40
+        2010 2011 2012 2013 2014
+Dialyse   91 90.2 90.8 91.4   88
+Greffe     9  9.8  9.2  8.6   12
+
+	Pearson's Chi-squared test
+
+data:  x
+X-squared = 2.7927, df = 4, p-value = 0.5931
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
 
 Nombre de dialyse pour maladie de Berger (hémo + péritonéale) comparé aux dialysés totaux en France :
 
@@ -714,7 +1629,7 @@ X-squared = 95.231, df = 5, p-value < 2.2e-16
   0.000   0.030   0.525   7.790  13.520  58.680   20416 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-20-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-43-1} 
 
 \end{knitrout}
 Greffe 2 = 0 jour pour 2 patients

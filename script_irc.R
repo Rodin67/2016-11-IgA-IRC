@@ -1162,6 +1162,29 @@ standdirect_dep<-data.frame(standdirect_dep)
 standdirect_dep[order(standdirect_dep$Ratio.ajuste, decreasing = T),]
 standdirect_dep$annuel <- standdirect_dep$Ratio.ajuste/5
 
+ogrInfo(dsn = "./data/cartes", layer="DEPARTEMENT")
+dep <- readOGR(dsn = "./data/cartes", layer="DEPARTEMENT", stringsAsFactors=FALSE)
+
+carte_dep <- standdirect_dep
+carte_dep$dep <-rownames(standdirect_dep)
+carte_dep <- carte_dep[,c(2,6)]
+carte_dep <- bind_rows(carte_dep, data.frame(dep = "Creuse", Ratio.ajuste = 0))
+carte_dep <- carte_dep[!carte_dep$dep %in% c("Guadeloupe", "Martinique", "Mayotte", "Réunion"),]
+carte_dep <- carte_dep[order(carte_dep$dep),]
+carte_dep$dep <- sort(dep@data$NOM_DEPT)
+
+dep@data <- left_join(dep@data, carte_dep, by = c("NOM_DEPT" = "dep"))
+classTemps <- classIntervals(dep@data$Ratio.ajuste, 9, style = "quantile")
+palette <- brewer.pal(n = 9, name = "YlOrRd")
+legende <- as.character(levels(cut(dep@data$Ratio.ajuste, breaks = classTemps$brks, include.lowest = TRUE, right = FALSE)))
+dep@data$ratio_coul <- as.character(cut(dep@data$Ratio.ajuste, breaks = classTemps$brks, labels = palette, include.lowest = TRUE))
+
+plot(dep, col = dep@data$ratio_coul, border = "black")
+title("Incidence de la maladie de Berger de 2010 à 2014")
+legend("bottomleft", legend = legende, fill = palette, cex=0.4, title = "Incidence pour 100 000 habitants")
+
+display.brewer.all()
+
 #--------------------------------------------------------------- incidence temporelle --------------------------
 
 table(iga$anirt, useNA = "always")
@@ -1182,32 +1205,6 @@ hist(iga$age,
 
 ave(iga$age, iga$anirt, summary)
 tapply(iga$age, iga$anirt, summary)
-
-
-#------------------------------------------------- Répartition France métropolitaine ----
-ogrInfo(dsn = "./data/cartes", layer="DEPARTEMENT")
-dep <- readOGR(dsn = "./data/cartes", layer="DEPARTEMENT", stringsAsFactors=FALSE)
-
-carte_dep <- standdirect_dep
-carte_dep$dep <-rownames(standdirect_dep)
-carte_dep <- carte_dep[,c(2,6)]
-carte_dep <- bind_rows(carte_dep, data.frame(dep = "Creuse", Ratio.ajuste = 0))
-carte_dep <- carte_dep[!carte_dep$dep %in% c("Guadeloupe", "Martinique", "Mayotte", "Réunion"),]
-carte_dep <- carte_dep[order(carte_dep$dep),]
-carte_dep$dep <- sort(dep@data$NOM_DEPT)
-
-dep@data <- left_join(dep@data, carte_dep, by = c("NOM_DEPT" = "dep"))
-classTemps <- classIntervals(dep@data$Ratio.ajuste, 7, style = "quantile")
-palette <- brewer.pal(n = 7, name = "YlOrRd")
-legende <- as.character(levels(cut(dep@data$Ratio.ajuste, breaks = classTemps$brks, include.lowest = TRUE, right = FALSE)))
-dep@data$ratio_coul <- as.character(cut(dep@data$Ratio.ajuste, breaks = classTemps$brks, labels = palette, include.lowest = TRUE))
-
-plot(dep, col = dep@data$ratio_coul, border = "black")
-title("Incidence de la maladie de Berger de 2010 à 2014")
-legend("bottomleft", legend = legende, fill = palette, cex=0.4, title = "Incidence pour 100 000 habitants")
-
-display.brewer.all()
-
 
 
 #------------------------------------------------- Divers --------------------------
@@ -1241,7 +1238,7 @@ global_greffe[global_greffe$RREC_COD=="140081",]
 
 
 
-
+hist(iga$age)
 
 
 

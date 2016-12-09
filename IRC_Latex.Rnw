@@ -37,7 +37,9 @@ library("rgdal", lib.loc="~/R/win-library/3.3")
 library("RColorBrewer", lib.loc="~/R/win-library/3.3")
 library("classInt", lib.loc="~/R/win-library/3.3")
 
-## _iga----
+.pardefault <- par(no.readonly = T)
+
+## _iga---
 iga <- read_excel("~/IRC/dataIgA/donnes patients IgA.xlsx", 
                   col_types = c("text", "text", "text", 
                                 "text", "numeric", "text", "numeric", 
@@ -72,7 +74,7 @@ iga <- read_excel("~/IRC/dataIgA/donnes patients IgA.xlsx",
                                 "text", "text", "date", "date", "date", 
                                 "date", "date", "date", "date", 
                                 "date", "date", "date"))
-iga<-iga[!iga$anirt<2010,] # On supprime les patientsqui ont eu une leur 1er ttt de supppléance avant 2010
+iga<-iga[!iga$anirt<2010,] # On supprime les patients qui ont eu une leur 1er ttt de supppléance avant 2010
 iga$anirt<-as.factor(iga$anirt)
 iga$age<-as.numeric(iga$age)
 iga<-iga[!iga$age<16,] # On supprime les patients inf à 16 ans
@@ -174,6 +176,7 @@ greffe$ECHEC2<-factor(greffe$ECHEC2)
 greffe$kmdc<-ifelse(is.na(greffe$DECES1),0,1) # Pour faire un Kaplan-Meier
 greffe$kmdelaidc<- ifelse(is.na(greffe$DECES1),as.Date(c("2016-11-01"), origin = "1899-12-30")-greffe$GRF1,greffe$DECES1-greffe$GRF1) # Pour faire un Kaplan-Meier : délai avant évènement (ou suivi jusqu'au 1-11-2016)
 
+
 ## _gnc----
 gnc <- read_excel("~/IRC/dataIgA/donnees GNC.xlsx", 
                   col_types = c("text", "text", "text", 
@@ -272,6 +275,11 @@ gnc$TABACn <- factor(gnc$TABACn, labels = c("NF","Fumeur","EX Fumeur"))
 gnc$VAVn <- factor(gnc$VAVn, labels = c("FAV native","Cathéter tunnélisé","Pontage","Autre"))
 gnc$ACTIVn<-factor(gnc$ACTIVn, labels = c("Actif temps plein","Actif temps partiel","Actif en milieu protégé","Retraité","Au chômage","Au foyer","Scolarisé, étudiant","Arrêt longue maladie","Inactif en invalidité","Inactif autre"))
 gnc$METHOn<-factor(gnc$METHOn, labels = c("Hémodialyse","Dialyse péritonéale","Greffe"))
+gnc$dfg <- NA
+gnc$dfg <-ifelse(gnc$sex==1, 
+                 round(186.3*(gnc$CREATINI/88.4)^-1.154 * (gnc$age)^-0.203,2), 
+                 round(186.3*(gnc$CREATINI/88.4)^-1.154 * (gnc$age)^-0.203 * 0.742,2))
+
 
 ## _diab----
 diab <- read_excel("~/IRC/dataIgA/donneesdiabete.xlsx", 
@@ -371,6 +379,10 @@ diab$TABACn <- factor(diab$TABACn, labels = c("NF","Fumeur","EX Fumeur"))
 diab$VAVn <- factor(diab$VAVn, labels = c("FAV native","Cathéter tunnélisé","Pontage","Autre"))
 diab$ACTIVn<-factor(diab$ACTIVn, labels = c("Actif temps plein","Actif temps partiel","Actif en milieu protégé","Retraité","Au chômage","Au foyer","Scolarisé, étudiant","Arrêt longue maladie","Inactif en invalidité","Inactif autre"))
 diab$METHOn<-factor(diab$METHOn, labels = c("Hémodialyse","Dialyse péritonéale","Greffe"))
+diab$dfg <- NA
+diab$dfg <-ifelse(diab$sex==1, 
+                  round(186.3*(diab$CREATINI/88.4)^-1.154 * (diab$age)^-0.203,2), 
+                  round(186.3*(diab$CREATINI/88.4)^-1.154 * (diab$age)^-0.203 * 0.742,2))
 
 ## _pkrd ----
 pkrd <- read_excel("~/IRC/dataIgA/donnes PKRD.xlsx", 
@@ -473,6 +485,10 @@ pkrd$CAUSEDCP_A_COD<-as.factor(pkrd$CAUSEDCP_A_COD)
 pkrd$TABACn <- factor(pkrd$TABACn, labels = c("NF","Fumeur","EX Fumeur"))
 pkrd$VAVn <- factor(pkrd$VAVn, labels = c("FAV native","Cathéter tunnélisé","Pontage","Autre"))
 pkrd$ACTIVn<-factor(pkrd$ACTIVn, labels = c("Actif temps plein","Actif temps partiel","Actif en milieu protégé","Retraité","Au chômage","Au foyer","Scolarisé, étudiant","Arrêt longue maladie","Inactif en invalidité","Inactif autre"))
+pkrd$dfg <- NA
+pkrd$dfg <-ifelse(pkrd$sex==1, 
+                  round(186.3*(pkrd$CREATINI/88.4)^-1.154 * (pkrd$age)^-0.203,2), 
+                  round(186.3*(pkrd$CREATINI/88.4)^-1.154 * (pkrd$age)^-0.203 * 0.742,2))
 
 ## _global----
 # On créé un fichier contenant les tableaux iga, diab et gnc (greffe est à part et pkrd n'est pas exploitable en l'état)
@@ -531,11 +547,18 @@ global$CAUSDCP_LIB<-as.factor(global$CAUSDCP_LIB)
 global$CAUSDCP_COD<-as.factor(global$CAUSDCP_COD)
 global$CAUSEDCP_A_LIB<-as.factor(global$CAUSEDCP_A_LIB)
 global$CAUSEDCP_A_COD<-as.factor(global$CAUSEDCP_A_COD)
+global$dfg <- NA
+global$dfg <- ifelse(global$sex==1, 
+                  round(186.3*(global$CREATINI/88.4)^-1.154 * (global$age)^-0.203,2), 
+                  round(186.3*(global$CREATINI/88.4)^-1.154 * (global$age)^-0.203 * 0.742,2))
 ## _global_greffe ----
 global_greffe <- left_join(global, greffe, by = c("RREC_COD" = "NEFG"))
 global_greffe$ECHEC1<-factor(global_greffe$ECHEC1, labels = c("Rejet aigu","Rejet chronique","Infection du greffon","Récidive de la maladie initiale","Complications vasculaires du greffon","Autres complications greffon","Autre infection déterminee"))
 global_greffe$ECHEC2<-factor(global_greffe$ECHEC2, labels = c("Complications vasculaires du greffon"))
 @
+
+
+
 
 La table "globale" contient \Sexpr{table(duplicated(global$RREC_COD))["FALSE"]} patients différents étant passés au stade d'IRCT dont \Sexpr{table(duplicated(iga$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(iga$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec maladie de Berger, \Sexpr{table(duplicated(diab$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(diab$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec une néphropathie diabétique, \Sexpr{table(duplicated(gnc$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(gnc$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec une glomérulonéphrite chronique et \Sexpr{table(duplicated(pkrd$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(pkrd$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec une PKRD.
 
@@ -686,17 +709,33 @@ x[5,] <- tapply(iga$age, iga$anirt, summary)$"2014"
 print(x)
 @
 
+Distribution des âges :
+
+<<fig.height=5>>=
+par(mar=c(4,4,3,4))
+hist(iga$age, main =  "Répartition des âges avec courbe de densité", xlab = "Âge", ylab = "Fréquence")
+par(new=T)
+plot(density(iga$age), xaxt = "n", yaxt = "n",xlab="",ylab="", main = "",type="l", col = "red")
+axis(4, ylim = c(0,0.020), col="red",col.axis="red")
+mtext("Densité",side=4,col="red",line=2.5)
+@
+
+
+<<fig.height=2.5>>=
+par(mfrow = c(1,3))
+for(i in 2010:2014) plot(density(iga$age[iga$anirt==i]), main = i)
+par(mfrow = c(1,1))
+@
+
     \subsubsection{Taille, poids et BMI}
   
 Taille lors de l'IRCT :
   
-<<poids>>=
+<<taille>>=
 summary(iga$TAIL)
 @
 
-Poids :
-
-<<taille>>=
+<<poids>>=
 summary(iga$PDS)
 @
 
@@ -708,35 +747,116 @@ table(iga$gr_bmi, useNA = "always")
 round(prop.table(table(iga$gr_bmi))*100,1)
 @
 
+Age d'arrivée au stade d'IRT selon le BMI :
+
+<<fig.height=5>>=
+tapply(iga$age, iga$gr_bmi, FUN = summary)
+ggplot(iga, aes(x = gr_bmi, y = age)) + 
+  geom_boxplot(fill = "grey80", colour = "black") +
+  xlab("BMI") +
+  ylab("Âge lors de l'IRT pour la maladie de Berger")
+iga$gr_bmi <- relevel(iga$gr_bmi, ref = "18.5-24.9")
+summary(lm(iga$age~iga$gr_bmi))
+
+global$gr_bmi<-cut(global$bmi, breaks = c(min(global$bmi,na.rm = T),18.5,25,30,35,40,max(global$bmi,na.rm = T)+1), right = F, labels = c("<18.5","18.5-24.9","25-29.9","30-34.9","35-39.9",">40"))
+ggplot(global, aes(x = gr_bmi, y = age)) + 
+  geom_boxplot(fill = "grey80", colour = "black") +
+  xlab("BMI") +
+  ylab("Âge lors de l'IRT pour toute cause")
+global$gr_bmi <- relevel(global$gr_bmi, ref = "18.5-24.9")
+summary(lm(global$age~global$gr_bmi))
+@
+
+
       \subsubsection{Ponction Biopsie Rénale}
 
-\Sexpr{table(iga$PBRn)[2]} (\Sexpr{round(prop.table(table(iga$PBRn))*100,1)[2]}\%) NA = \Sexpr{table(iga$PBRn, useNA = "always")[3]}
+Pour le Berger : \Sexpr{table(iga$PBRn)[2]} (\Sexpr{round(prop.table(table(iga$PBRn))*100,1)[2]}\%) NA = \Sexpr{table(iga$PBRn, useNA = "always")[3]}
+
+<<>>=
+addmargins(table(global$liste_longue, global$PBRn, useNA = "always"))
+x <- round(prop.table(table(global$liste_longue, global$PBRn),1)*100,1)
+x[order(x[,2], decreasing = T),]
+@
+
+\textcolor{red}{Commentaire : 25\% de ceux qui n'ont pas eu d'examen histologique ont été ponctionnés.}
+~\\
+
+Pour le Berger par région :
+
+<<>>=
+addmargins(table(iga$RES_REG_LIB, iga$PBRn, useNA = "always"))
+x <- round(prop.table(table(iga$RES_REG_LIB, iga$PBRn),1)*100,1)
+x[order(x[,2], decreasing = T),]
+@
+
 
       \subsubsection{Co-morbidités}
 
-
-
 Diabète : \Sexpr{table(iga$DIABn)[2]} (\Sexpr{round(prop.table(table(iga$DIABn))*100,1)[2]}\%) NA = \Sexpr{table(iga$DIABn, useNA = "always")[3]}
+
+<<>>=
+addmargins(table(global$liste_longue, global$DIABn, useNA = "always"))
+x <- round(prop.table(table(global$liste_longue, global$DIABn),1)*100,1)
+x[order(x[,2], decreasing = T),]
+@
 
 Type de diabète : 
 
 - 1 : \Sexpr{table(iga$TYPDIABn,useNA = "always")[2]} (\Sexpr{round(prop.table(table(iga$TYPDIABn[!iga$TYPDIABn==0]))*100,1)[1]}\%)
 
 - 2 : \Sexpr{table(iga$TYPDIABn,useNA = "always")[3]} (\Sexpr{round(prop.table(table(iga$TYPDIABn[!iga$TYPDIABn==0]))*100,1)[2]}\%)
+
+<<>>=
+addmargins(table(global$liste_longue[!global$TYPDIABn==0], global$TYPDIABn[!global$TYPDIABn==0], useNA = "always"))
+x <- round(prop.table(table(global$liste_longue[!global$TYPDIABn==0], global$TYPDIABn[!global$TYPDIABn==0]),1)*100,1)
+x[order(x[,2], decreasing = T),]
+@
 ~\\
 
 Cirrhose : \Sexpr{table(iga$CIRHn)[2]} (\Sexpr{round(prop.table(table(iga$CIRHn))*100,1)[2]}\%) NA = \Sexpr{table(iga$CIRHn, useNA = "always")[3]}
+
+<<>>=
+print("Cirrhose et VHB :")
+table(iga$VHBn[iga$CIRHn==1])
+print("Cirrhose et VHC :")
+table(iga$VHCn[iga$CIRHn==1])
+@
+
+
+<<>>=
+addmargins(table(global$liste_longue, global$CIRHn, useNA = "always"))
+x <- round(prop.table(table(global$liste_longue, global$CIRHn),1)*100,1)
+x[order(x[,2], decreasing = T),]
+@
 
 Stade de la cirrhose :
 
 - 1 : \Sexpr{table(iga$STDCIRHn,useNA = "always")[2]} (\Sexpr{round(prop.table(table(iga$STDCIRHn[!iga$STDCIRHn==0]))*100,1)[1]}\%)
 
 - 2 : \Sexpr{table(iga$STDCIRHn,useNA = "always")[3]} (\Sexpr{round(prop.table(table(iga$STDCIRHn[!iga$STDCIRHn==0]))*100,1)[2]}\%)
+
+<<>>=
+addmargins(table(global$liste_longue[!global$STDCIRHn==0], global$STDCIRHn[!global$STDCIRHn==0], useNA = "always"))
+x <- round(prop.table(table(global$liste_longue[!global$STDCIRHn==0], global$STDCIRHn[!global$STDCIRHn==0]),1)*100,1)
+x[order(x[,2], decreasing = T),]
+@
 ~\\
 
 Infarctus du myocarde : \Sexpr{table(iga$IDMn)[2]} (\Sexpr{round(prop.table(table(iga$IDMn))*100,1)[2]}\%) NA = \Sexpr{table(iga$IDMn, useNA = "always")[3]}
 
+<<>>=
+addmargins(table(global$liste_longue, global$IDMn, useNA = "always"))
+x <- round(prop.table(table(global$liste_longue, global$IDMn),1)*100,1)
+x[order(x[,2], decreasing = T),]
+@
+
 Insuffisance cardiaque : \Sexpr{table(iga$ICn)[2]} (\Sexpr{round(prop.table(table(iga$ICn))*100,1)[2]}\%) NA = \Sexpr{table(iga$ICn, useNA = "always")[3]}
+
+<<>>=
+addmargins(table(global$liste_longue, global$ICn, useNA = "always"))
+x <- round(prop.table(table(global$liste_longue, global$ICn),1)*100,1)
+x[order(x[,2], decreasing = T),]
+@
 
 Stade de l’IC :
 
@@ -747,6 +867,12 @@ Stade de l’IC :
 
 Artériopathie des membres inférieurs : \Sexpr{table(iga$AMIn)[2]} (\Sexpr{round(prop.table(table(iga$AMIn))*100,1)[2]}\%) NA = \Sexpr{table(iga$AMIn, useNA = "always")[3]}
 
+<<>>=
+addmargins(table(global$liste_longue, global$AMIn, useNA = "always"))
+x <- round(prop.table(table(global$liste_longue, global$AMIn),1)*100,1)
+x[order(x[,2], decreasing = T),]
+@
+
 Stade de l’AOMI : 
 
 - 1 : \Sexpr{table(iga$STDAMIn,useNA = "always")[2]} (\Sexpr{round(prop.table(table(iga$STDAMIn[!iga$STDAMIn==0]))*100,1)[1]}\%)
@@ -755,6 +881,12 @@ Stade de l’AOMI :
 ~\\
 
 Amputation : \Sexpr{table(iga$AMPn)[2]} (\Sexpr{round(prop.table(table(iga$AMPn))*100,1)[2]}\%) NA = \Sexpr{table(iga$AMPn, useNA = "always")[3]}
+
+<<>>=
+addmargins(table(global$liste_longue, global$AMPn, useNA = "always"))
+x <- round(prop.table(table(global$liste_longue, global$AMPn),1)*100,1)
+x[order(x[,2], decreasing = T),]
+@
 ~\\
 
 Accident vasculaire cérébrale (AVC et AIT) :
@@ -762,24 +894,59 @@ Accident vasculaire cérébrale (AVC et AIT) :
 <<>>=
 addmargins(table(iga$AVCn, iga$AITn, useNA = "always", deparse.level = 2))
 round(prop.table(table(iga$AVCn, iga$AITn, deparse.level = 2))*100,1)
+global$avc_ait <- NA
+global$avc_ait <- ifelse(global$AVCn==1 | global$AITn==1, 1, 0)
+table(global$avc_ait, useNA = "always")
+@
+
+<<>>=
+addmargins(table(global$liste_longue, global$avc_ait, useNA = "always"))
+x <- round(prop.table(table(global$liste_longue, global$avc_ait),1)*100,1)
+x[order(x[,2], decreasing = T),]
 @
 
 VIH : \Sexpr{table(iga$VIHn,useNA = "always")[2]} (\Sexpr{round(prop.table(table(iga$VIHn))*100,1)[2]}\%)
+<<>>=
+addmargins(table(global$liste_longue, global$VIHn, useNA = "always"))
+x <- round(prop.table(table(global$liste_longue, global$VIHn),1)*100,1)
+x[order(x[,2], decreasing = T),]
+@
 
 Dont stade SIDA : \Sexpr{table(iga$SIDAn)[2]} (\Sexpr{round(table(iga$SIDAn)[2]/table(iga$VIHn)[2]*100,1)}\%)
+<<>>=
+addmargins(table(global$liste_longue, global$SIDAn, useNA = "always"))
+x <- round(prop.table(table(global$liste_longue, global$SIDAn),1)*100,1)
+x[order(x[,2], decreasing = T),]
+@
 ~\\
 
 Ag HBS positif : \Sexpr{table(iga$VHBn)[2]} (\Sexpr{round(prop.table(table(iga$VHBn))*100,1)[2]}\%) NA = \Sexpr{table(iga$VHBn, useNA = "always")[3]}
+
+<<>>=
+addmargins(table(global$liste_longue, global$VHBn, useNA = "always"))
+x <- round(prop.table(table(global$liste_longue, global$VHBn),1)*100,1)
+x[order(x[,2], decreasing = T),]
+@
 ~\\
 
 PCR VHC positif : \Sexpr{table(iga$VHCn)[2]} (\Sexpr{round(prop.table(table(iga$VHCn))*100,1)[2]}\%) NA = \Sexpr{table(iga$VHCn, useNA = "always")[3]}
-
+<<>>=
+addmargins(table(global$liste_longue, global$VHCn, useNA = "always"))
+x <- round(prop.table(table(global$liste_longue, global$VHCn),1)*100,1)
+x[order(x[,2], decreasing = T),]
+@
 
     \subsubsection{Statut Tabagique}
 
 <<>>=
 table(iga$TABACn, useNA = "always")
 round(prop.table(table(iga$TABACn))*100,1)
+@
+
+<<>>=
+addmargins(table(global$liste_longue, global$TABACn, useNA = "always"))
+x <- round(prop.table(table(global$liste_longue, global$TABACn),1)*100,1)
+x[order(x[,2], decreasing = T),]
 @
 
     \subsubsection{Créatinine, albumine et hémoglobine}
@@ -791,7 +958,27 @@ summary(iga$CREATINI)
 hist(iga$CREATINI, xlab = "Créatininémie (micromol/l)", main = "Créatininémie", xlim = c(0,3000))
 @
 
+DFG initial :
+
+
+<<fig.height=5>>=
+iga$dfg <- NA
+iga$dfg <- ifelse(iga$sex==1, 
+                  round(186.3*(iga$CREATINI/88.4)^-1.154 * (iga$age)^-0.203,2), 
+                  round(186.3*(iga$CREATINI/88.4)^-1.154 * (iga$age)^-0.203 * 0.742,2))
+summary(iga$dfg)
+hist(iga$dfg, xlab = "DFG (ml/min)", main = "DFG Berger")
+@
+On a \Sexpr{length(iga$dfg[iga$dfg=="123.02" & !is.na(iga$dfg)])} patient qui a un DFG supérieur à 120 ml/min. Aucun entre 40 et 120.
+
+<<>>=
+tapply(global$dfg, global$liste_longue, summary)
+@
+
+~\\
+
 Albuminémie initiale :
+
 
 <<fig.height=3.5>>=
 summary(iga$ALBINI)
@@ -818,6 +1005,10 @@ Nombres d'anémiques :
 addmargins(table(iga$sex,iga$gr_HBINI, deparse.level = 2)) # Nombre d'anémiques selon le sexe
 round(prop.table(table(iga$sex,iga$gr_HBINI, deparse.level = 2),1)*100,1)
 chisq.test(table(iga$sex,iga$gr_HBINI),correct = F) # Chi2 test
+
+iga$gr_HBINI <- as.numeric(as.character(iga$gr_HBINI))
+summary(glm(iga$gr_HBINI~iga$sex+iga$dfg, family = "binomial"))
+paste("OR d'être de sexe féminin :", round(exp(-0.8766 ),2))
 @
 
 
@@ -830,6 +1021,14 @@ addmargins(table(iga$METHOn, iga$anirt))
 round(prop.table(table(iga$METHOn, iga$anirt),2)*100,1) # Greffe = greffé sans être passé par la dialyse
 chisq.test(table(iga$METHOn, iga$anirt))
 @
+
+<<>>=
+x <- matrix(c(236+57,29,251+62,34,268+57,33,267+62,31,235+58,40), ncol = 5, nrow = 2, dimnames = list(c("Dialyse","Greffe"), c(2010:2014)))
+x
+round(prop.table(x,2)*100,1)
+chisq.test(x, correct = F)
+@
+
 
 Nombre de dialyse pour maladie de Berger (hémo + péritonéale) comparé aux dialysés totaux en France :
 
