@@ -23,18 +23,17 @@
 \newpage
 
 <<options, echo=FALSE, message=FALSE>>=
-opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, comment = "", cache = TRUE)
+opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, comment = "", cache=TRUE)
 @
 
 <<cache=FALSE>>=
 library("xtable", lib.loc="~/R/win-library/3.3")
+library("tidyr", lib.loc="~/R/win-library/3.3")
 @
 
-
-<<>>=
+<<cache=TRUE>>=
 library("survival", lib.loc="C:/Program Files/R/R-3.3.2/library")
 library("readxl", lib.loc="~/R/win-library/3.3")
-library("tidyr", lib.loc="~/R/win-library/3.3")
 library("dplyr", lib.loc="~/R/win-library/3.3")
 library("corrplot", lib.loc="~/R/win-library/3.3")
 library("epitools", lib.loc="~/R/win-library/3.3")
@@ -47,7 +46,7 @@ library("ggplot2", lib.loc="~/R/win-library/3.3")
 library("gplots", lib.loc="~/R/win-library/3.3")
 @
 
-<<data>>=
+<<data, cache=TRUE>>=
 .pardefault <- par(no.readonly = T)
 
 ## _iga----
@@ -160,6 +159,7 @@ greffe <- read_excel("~/IRC/dataIgA/greffe IgA.xlsx", col_types = c("numeric", "
                                                                     "date", "date", "text", "text", "numeric", "text", "text", "text", "text",
                                                                     "text", "text", "numeric"))
 for (i in greffe$NEFG[duplicated(greffe[,c("NEFG","LMALADI")])]) greffe<-greffe[!(greffe$NEFG==i & is.na(greffe$GRF1)),]
+greffe<-greffe[greffe$LMALADI=="Néphro. à dépôts d'IgA (diagnostic prouvé par immunofluorescence)" | greffe$LMALADI=="Maladie de Berger",]
 greffe<-separate(greffe, GRF1, c("annee1","mois1","jour"), remove = F)
 greffe$jour<-NULL
 greffe<-separate(greffe, GRF2, c("annee2","mois2","jour"), remove = F)
@@ -190,7 +190,8 @@ greffe$ECHEC1<-factor(greffe$ECHEC1)
 greffe$ECHEC2<-factor(greffe$ECHEC2)
 greffe$kmdc<-ifelse(is.na(greffe$DECES1),0,1) # Pour faire un Kaplan-Meier
 greffe$kmdelaidc<- ifelse(is.na(greffe$DECES1),as.Date(c("2016-11-01"), origin = "1899-12-30")-greffe$GRF1,greffe$DECES1-greffe$GRF1) # Pour faire un Kaplan-Meier : délai avant évènement (ou suivi jusqu'au 1-11-2016)
-
+greffe <- greffe[!((greffe$NEFG==178144 | greffe$NEFG==194055 | greffe$NEFG==208156) & greffe$LMALADI=="Maladie de Berger"),]
+greffe <- greffe[!is.na(greffe$GRF1),]
 
 ## _gnc----
 gnc <- read_excel("~/IRC/dataIgA/donnees GNC.xlsx", 
@@ -568,8 +569,10 @@ global$dfg <- ifelse(global$sex==1,
                   round(186.3*(global$CREATINI/88.4)^-1.154 * (global$age)^-0.203 * 0.742,2))
 ## _global_greffe ----
 global_greffe <- left_join(global, greffe, by = c("RREC_COD" = "NEFG"))
-global_greffe$ECHEC1<-factor(global_greffe$ECHEC1, labels = c("Rejet aigu","Rejet chronique","Infection du greffon","Récidive de la maladie initiale","Complications vasculaires du greffon","Autres complications greffon","Autre infection déterminee"))
+global_greffe$ECHEC1 <- factor(global_greffe$ECHEC1)
+global_greffe$ECHEC1<-factor(global_greffe$ECHEC1, labels = c("Rejet aigu","Rejet chronique","Récidive de la maladie initiale","Complications vasculaires du greffon","Autres complications greffon","Autre infection déterminee"))
 global_greffe$ECHEC2<-factor(global_greffe$ECHEC2, labels = c("Complications vasculaires du greffon"))
+global_greffe$greffe <- ifelse(global_greffe$tx=="1" | !is.na(global_greffe$dgrf) | !is.na(global_greffe$GRF1) | !is.na(global_greffe$GRF2) | !is.na(global_greffe$GRF3),1,0)
 @
 
 La table "globale" contient \Sexpr{table(duplicated(global$RREC_COD))["FALSE"]} patients différents étant passés au stade d'IRCT dont \Sexpr{table(duplicated(iga$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(iga$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec maladie de Berger, \Sexpr{table(duplicated(diab$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(diab$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec une néphropathie diabétique, \Sexpr{table(duplicated(gnc$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(gnc$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec une glomérulonéphrite chronique et \Sexpr{table(duplicated(pkrd$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(pkrd$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec une PKRD.
@@ -1034,27 +1037,49 @@ paste("OR d'être de sexe féminin :", round(exp(-0.8766 ),2))
 
 
     \subsubsection{Traitement de suppléance}
-    
-Greffe = greffé sans être passé par la dialyse
+
+<<results="asis">>=
+levels(iga$METHOn) <- c("Hémodialyse","Dialyse péritonéale", "Greffe sans dialyse")
+xtable(addmargins(table(iga$METHOn, iga$anirt)), digits = 0)
+xtable(round(prop.table(table(iga$METHOn, iga$anirt),2)*100,1), caption = "Pourcentage", digits = 1) # Greffe = greffé sans être passé par la dialyse
+@
 
 <<>>=
-addmargins(table(iga$METHOn, iga$anirt))
-round(prop.table(table(iga$METHOn, iga$anirt),2)*100,1) # Greffe = greffé sans être passé par la dialyse
 chisq.test(table(iga$METHOn, iga$anirt))
 @
 
+Nombre de greffé sans dialyse et nombre de dialysé après dialyse :
+
+<<results="asis">>=
+x <- matrix(nrow = 2, ncol = 5, dimnames = list(c("Greffe sans dialyse","Greffe après dialyse"),c("2010","2011","2012","2013","2014")))
+x[1,] <- c(29,34,33,31,40)
+x[2,] <- c(187-29,192-34,155-33,108-31,64-40)
+print(xtable(addmargins(x), digits = 0), table.placement = "H")
+print(xtable(prop.table(x,2)*100, digits = 1), table.placement = "H")
+@
+
+\textcolor{red}{Attention : le recul n'est pas le même pour ceux de 2010 et 2015, ce qui explique la différence.}
+~\\
 
 Nombre de dialyse pour maladie de Berger (hémo + péritonéale) comparé aux dialysés totaux en France :
 
-<<>>=
+<<results="asis">>=
 inc_greffe <- matrix(nrow = 4, ncol = 5, dimnames = list(c("Berger","Non Berger","Total","Pourcentage Berger"),c("2010","2011","2012","2013","2014")))
 inc_greffe[1,] <- apply(table(iga$METHOn, iga$anirt)[1:2,], 2 ,sum)
 inc_greffe[2,] <- c(37296-293, 39158-313, 40893-325, 42506-329, 44281-293)
 inc_greffe[3,] <- c(37296, 39158, 40893, 42506, 44281)
 inc_greffe[4,] <- round(prop.table(inc_greffe[1:2,],2)*100,1)[1,]
-inc_greffe
+xtable(inc_greffe, digits = 1)
+apply(table(iga$METHOn, iga$anirt)[1:2,], 2 ,sum)
+apply(table(gnc$METHOn, gnc$anirt)[1:2,], 2 ,sum)
+apply(table(diab$METHOn, diab$anirt)[1:2,], 2 ,sum)
+apply(table(pkrd$METHOn, pkrd$anirt)[1:2,], 2 ,sum)
+@
+
+<<>>=
 chisq.test(inc_greffe[1:2,], correct = F)
 @
+
 
     \subsubsection{Contexte de démarrage de dialyse}
     
@@ -1078,8 +1103,8 @@ round(prop.table(table(iga$VAVn))*100,1)
     \subsubsection{Activité}
 
 <<results="asis">>=
-xtable(t(sort(table(iga$ACTIVn, useNA = "always"), decreasing = T)))
-round(prop.table(sort(table(iga$ACTIVn), decreasing = T))*100,1)
+print(xtable(sort(table(iga$ACTIVn, useNA = "always")[-11], decreasing = T)), include.colnames = F)
+xtable(round(prop.table(sort(table(iga$ACTIVn), decreasing = T))*100,1), digits = 1)
 @
 
   \subsection{Devenir des patients après la mise en dialyse}
@@ -1097,24 +1122,24 @@ table(iga$dc, !is.na(iga$ddc), deparse.level = 2)
   
 \section{Greffe maladie de Berger}
 
-La table "greffe" contient \Sexpr{table(duplicated(greffe$NEFG))["FALSE"]} patients uniques (\Sexpr{table(duplicated(greffe$NEFG))["TRUE"]} ont 2 patholgies), dont \Sexpr{length(greffe$annee1[!is.na(greffe$annee1)])} ont une date de greffe et \Sexpr{length(intersect(global$RREC_COD,greffe$NEFG))} (\Sexpr{round(length(intersect(global$RREC_COD,greffe$NEFG))/table(duplicated(greffe$NEFG))["FALSE"]*100,1)}\%) sont en commun avec la table "globale" (= ceux qui ont été utilisés pour la suite des données). \Sexpr{length(intersect(global$RREC_COD[is.na(global$dgrf)],greffe$NEFG))} patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
+La table "greffe" contient \Sexpr{table(duplicated(greffe$NEFG))["FALSE"]} patients uniques après suppression de ceux qui n'avaient pas de maladie de Berger ou de néphropathie à IgA (si un patient avait les deux pathologies, la ligne ne coneant aucune information était supprimée), les patients sans date de greffe ont été supprimés. \Sexpr{length(intersect(global$RREC_COD,greffe$NEFG))} (\Sexpr{round(length(intersect(global$RREC_COD,greffe$NEFG))/table(duplicated(greffe$NEFG))["FALSE"]*100,1)}\%) sont en commun avec la table "globale" (= ceux qui ont été utilisés pour la suite des données). \Sexpr{length(intersect(global$RREC_COD[is.na(global$dgrf)],greffe$NEFG))} patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
 
   \subsection{Nombre de greffe par année}
 
-<<>>=
+<<results="asis">>=
 inc_greffe_iga <- matrix(nrow = 4, ncol = 6, dimnames = list(c("Greffe Berger","Pas de greffe Berger","Total France","Cas pour 1M d'hab"),c("2010","2011","2012","2013","2014","2015")))
 inc_greffe_iga[1,] <- c(52, 120, 153, 177, 204, 168)
 inc_greffe_iga[2,] <- c(50482295-52, 50701229-120, 50930784-153, 51192770-177, 51421008-204, 51676545-168)
 inc_greffe_iga[3,] <- c(50482295, 50701229, 50930784, 51192770, 51421008, 51676545)
 inc_greffe_iga[4,] <- round(prop.table(inc_greffe_iga[1:2,],2)*1000000,1)[1,]
-inc_greffe_iga
-chisq.test(inc_greffe_iga[1:2,], correct = F)
+xtable(inc_greffe_iga, digits = 1) 
+chisq.test(inc_greffe_iga[1:2,], correct = F) 
 @
 
-<<>>=
+<<results="asis">>=
 print("Greffe 1")
-addmargins(table(global_greffe$annee1)) # Nombre de greffe par année (1ère greffe)
-round(prop.table(table(global_greffe$annee1))*100,1)
+print(xtable(addmargins(table(global_greffe$annee1)), digits = 1), table.placement = "H") # Nombre de greffe par année (1ère greffe)
+print(xtable(round(prop.table(table(global_greffe$annee1))*100,1), digits = 1), table.placement = "H")
 
 print("Greffe 2")
 addmargins(table(global_greffe$annee2)) # Nombre de greffe par année (2e greffe)

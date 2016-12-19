@@ -80,7 +80,6 @@
 
 
 
-
 La table "globale" contient 20455 patients différents étant passés au stade d'IRCT dont 1720 (8.4\%) avec maladie de Berger, 11174 (54.6\%) avec une néphropathie diabétique, 4417 (21.6\%) avec une glomérulonéphrite chronique et 3144 (15.4\%) avec une PKRD.
 
 \section{Incidence IRCT maladie de Berger}
@@ -93,7 +92,7 @@ Dans l'article de Simon, on a une incidence de néphropathie à IgA (donc pas fo
 
 Tableau d'incidence selon la région par standardisation directe pour 1 million d'habitants de 2010 à 2014 (selon l'effectif français de 2013) :
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 12:56:47 2016
+% Mon Dec 19 18:44:39 2016
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1480,23 +1479,42 @@ Number of Fisher Scoring iterations: 5
 
 
     \subsubsection{Traitement de suppléance}
-    
-Greffe = greffé sans être passé par la dialyse
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Dec 19 15:25:27 2016
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & 2010 & 2011 & 2012 & 2013 & 2014 & Sum \\ 
+  \hline
+Hémodialyse & 236 & 251 & 268 & 267 & 235 & 1257 \\ 
+  Dialyse péritonéale & 57 & 62 & 57 & 62 & 58 & 296 \\ 
+  Greffe sans dialyse & 29 & 34 & 33 & 31 & 40 & 167 \\ 
+  Sum & 322 & 347 & 358 & 360 & 333 & 1720 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Dec 19 15:25:27 2016
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrr}
+  \hline
+ & 2010 & 2011 & 2012 & 2013 & 2014 \\ 
+  \hline
+Hémodialyse & 73.3 & 72.3 & 74.9 & 74.2 & 70.6 \\ 
+  Dialyse péritonéale & 17.7 & 17.9 & 15.9 & 17.2 & 17.4 \\ 
+  Greffe sans dialyse & 9.0 & 9.8 & 9.2 & 8.6 & 12.0 \\ 
+   \hline
+\end{tabular}
+\caption{Pourcentage} 
+\end{table}
+
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-                     
-                      2010 2011 2012 2013 2014  Sum
-  Hémodialyse          236  251  268  267  235 1257
-  Dialyse péritonéale   57   62   57   62   58  296
-  Greffe                29   34   33   31   40  167
-  Sum                  322  347  358  360  333 1720
-                     
-                      2010 2011 2012 2013 2014
-  Hémodialyse         73.3 72.3 74.9 74.2 70.6
-  Dialyse péritonéale 17.7 17.9 15.9 17.2 17.4
-  Greffe               9.0  9.8  9.2  8.6 12.0
 
 	Pearson's Chi-squared test
 
@@ -1506,17 +1524,70 @@ X-squared = 3.5363, df = 8, p-value = 0.8964
 \end{kframe}
 \end{knitrout}
 
+Nombre de greffé sans dialyse et nombre de dialysé après dialyse :
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Dec 19 16:28:50 2016
+\begin{table}[H]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & 2010 & 2011 & 2012 & 2013 & 2014 & Sum \\ 
+  \hline
+Greffe sans dialyse & 29 & 34 & 33 & 31 & 40 & 167 \\ 
+  Greffe après dialyse & 158 & 158 & 122 & 77 & 24 & 539 \\ 
+  Sum & 187 & 192 & 155 & 108 & 64 & 706 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Dec 19 16:28:50 2016
+\begin{table}[H]
+\centering
+\begin{tabular}{rrrrrr}
+  \hline
+ & 2010 & 2011 & 2012 & 2013 & 2014 \\ 
+  \hline
+Greffe sans dialyse & 15.5 & 17.7 & 21.3 & 28.7 & 62.5 \\ 
+  Greffe après dialyse & 84.5 & 82.3 & 78.7 & 71.3 & 37.5 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+\textcolor{red}{Attention : le recul n'est pas le même pour ceux de 2010 et 2015, ce qui explique la différence.}
+~\\
 
 Nombre de dialyse pour maladie de Berger (hémo + péritonéale) comparé aux dialysés totaux en France :
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Dec 19 18:38:54 2016
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrr}
+  \hline
+ & 2010 & 2011 & 2012 & 2013 & 2014 \\ 
+  \hline
+Berger & 293.0 & 313.0 & 325.0 & 329.0 & 293.0 \\ 
+  Non Berger & 37003.0 & 38845.0 & 40568.0 & 42177.0 & 43988.0 \\ 
+  Total & 37296.0 & 39158.0 & 40893.0 & 42506.0 & 44281.0 \\ 
+  Pourcentage Berger & 0.8 & 0.8 & 0.8 & 0.8 & 0.7 \\ 
+   \hline
+\end{tabular}
+\end{table}
+2010 2011 2012 2013 2014 
+ 293  313  325  329  293 
+2010 2011 2012 2013 2014 
+ 805  812  817  858  947 
+2010 2011 2012 2013 2014 
+2083 2101 2194 2296 2297 
+2010 2011 2012 2013 2014 
+ 531  543  531  601  577 
+
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-                      2010    2011    2012    2013    2014
-Berger               293.0   313.0   325.0   329.0   293.0
-Non Berger         37003.0 38845.0 40568.0 42177.0 43988.0
-Total              37296.0 39158.0 40893.0 42506.0 44281.0
-Pourcentage Berger     0.8     0.8     0.8     0.8     0.7
 
 	Pearson's Chi-squared test
 
@@ -1525,6 +1596,7 @@ X-squared = 7.5586, df = 4, p-value = 0.1092
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
+
 
     \subsubsection{Contexte de démarrage de dialyse}
     
@@ -1569,26 +1641,46 @@ Voie d’abord :
     \subsubsection{Activité}
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 12:56:50 2016
+% Mon Dec 19 18:17:33 2016
 \begin{table}[ht]
 \centering
-\begin{tabular}{rrrrrrrrrrrr}
+\begin{tabular}{rr}
   \hline
- & NA & Retraité & Actif temps plein & Inactif autre & Inactif en invalidité & Actif temps partiel & Au chômage & Arrêt longue maladie & Au foyer & Scolarisé, étudiant & Actif en milieu protégé \\ 
   \hline
-1 & 495 & 458 & 449 &  69 &  55 &  48 &  46 &  45 &  32 &  18 &   5 \\ 
+Retraité & 458 \\ 
+  Actif temps plein & 449 \\ 
+  Inactif autre &  69 \\ 
+  Inactif en invalidité &  55 \\ 
+  Actif temps partiel &  48 \\ 
+  Au chômage &  46 \\ 
+  Arrêt longue maladie &  45 \\ 
+  Au foyer &  32 \\ 
+  Scolarisé, étudiant &  18 \\ 
+  Actif en milieu protégé &   5 \\ 
    \hline
 \end{tabular}
 \end{table}
-
-               Retraité       Actif temps plein           Inactif autre 
-                   37.4                    36.7                     5.6 
-  Inactif en invalidité     Actif temps partiel              Au chômage 
-                    4.5                     3.9                     3.8 
-   Arrêt longue maladie                Au foyer     Scolarisé, étudiant 
-                    3.7                     2.6                     1.5 
-Actif en milieu protégé 
-                    0.4 
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Dec 19 18:17:33 2016
+\begin{table}[ht]
+\centering
+\begin{tabular}{rr}
+  \hline
+ & V1 \\ 
+  \hline
+Retraité & 37.4 \\ 
+  Actif temps plein & 36.7 \\ 
+  Inactif autre & 5.6 \\ 
+  Inactif en invalidité & 4.5 \\ 
+  Actif temps partiel & 3.9 \\ 
+  Au chômage & 3.8 \\ 
+  Arrêt longue maladie & 3.7 \\ 
+  Au foyer & 2.6 \\ 
+  Scolarisé, étudiant & 1.5 \\ 
+  Actif en milieu protégé & 0.4 \\ 
+   \hline
+\end{tabular}
+\end{table}
 
 
   \subsection{Devenir des patients après la mise en dialyse}
@@ -1613,52 +1705,79 @@ iga$dc FALSE TRUE
   
 \section{Greffe maladie de Berger}
 
-La table "greffe" contient 1317 patients uniques (7 ont 2 patholgies), dont 1310 ont une date de greffe et 958 (72.7\%) sont en commun avec la table "globale" (= ceux qui ont été utilisés pour la suite des données). 9 patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
+La table "greffe" contient 1152 patients uniques après suppression de ceux qui n'avaient pas de maladie de Berger ou de néphropathie à IgA (si un patient avait les deux pathologies, la ligne ne coneant aucune information était supprimée), les patients sans date de greffe ont été supprimés. 860 (74.7\%) sont en commun avec la table "globale" (= ceux qui ont été utilisés pour la suite des données). 8 patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
 
   \subsection{Nombre de greffe par année}
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-                         2010       2011     2012       2013     2014
-Greffe Berger              52      120.0      153      177.0      204
-Pas de greffe Berger 50482243 50701109.0 50930631 51192593.0 51420804
-Total France         50482295 50701229.0 50930784 51192770.0 51421008
-Cas pour 1M d'hab           1        2.4        3        3.5        4
-                           2015
-Greffe Berger             168.0
-Pas de greffe Berger 51676377.0
-Total France         51676545.0
-Cas pour 1M d'hab           3.3
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Dec 19 18:39:17 2016
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & 2010 & 2011 & 2012 & 2013 & 2014 & 2015 \\ 
+  \hline
+Greffe Berger & 52.0 & 120.0 & 153.0 & 177.0 & 204.0 & 168.0 \\ 
+  Pas de greffe Berger & 50482243.0 & 50701109.0 & 50930631.0 & 51192593.0 & 51420804.0 & 51676377.0 \\ 
+  Total France & 50482295.0 & 50701229.0 & 50930784.0 & 51192770.0 & 51421008.0 & 51676545.0 \\ 
+  Cas pour 1M d'hab & 1.0 & 2.4 & 3.0 & 3.5 & 4.0 & 3.3 \\ 
+   \hline
+\end{tabular}
+\end{table}
 
 	Pearson's Chi-squared test
 
 data:  inc_greffe_iga[1:2, ]
 X-squared = 95.231, df = 5, p-value < 2.2e-16
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
+
+
 [1] "Greffe 1"
-
-2010 2011 2012 2013 2014 2015 2016  Sum 
-  52  120  153  177  204  168   84  958 
-
-2010 2011 2012 2013 2014 2015 2016 
- 5.4 12.5 16.0 18.5 21.3 17.5  8.8 
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Dec 19 18:44:42 2016
+\begin{table}[H]
+\centering
+\begin{tabular}{rr}
+  \hline
+ & V1 \\ 
+  \hline
+2010 & 48.0 \\ 
+  2011 & 114.0 \\ 
+  2012 & 141.0 \\ 
+  2013 & 155.0 \\ 
+  2014 & 176.0 \\ 
+  2015 & 152.0 \\ 
+  2016 & 74.0 \\ 
+  Sum & 860.0 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Dec 19 18:44:42 2016
+\begin{table}[H]
+\centering
+\begin{tabular}{rr}
+  \hline
+ & V1 \\ 
+  \hline
+2010 & 5.6 \\ 
+  2011 & 13.3 \\ 
+  2012 & 16.4 \\ 
+  2013 & 18.0 \\ 
+  2014 & 20.5 \\ 
+  2015 & 17.7 \\ 
+  2016 & 8.6 \\ 
+   \hline
+\end{tabular}
+\end{table}
 [1] "Greffe 2"
 
 2012 2013 2014 2015 2016  Sum 
-   2    3    3    3    4   15 
+   2    2    2    3    4   13 
 
 2012 2013 2014 2015 2016 
-  13   20   20   20   27 
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+  15   15   15   23   31 
+
 
 
   \subsection{Arrêt de fonction du greffon}
@@ -1668,10 +1787,10 @@ X-squared = 95.231, df = 5, p-value < 2.2e-16
 \begin{verbatim}
 [1] "Greffe 1 (en mois)"
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-  0.000   0.030   0.525   7.790  13.520  58.680   20416 
+  0.000   0.040   0.770   8.157  13.780  58.680   20413 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-45-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-48-1} 
 
 \end{knitrout}
 Greffe 2 = 0 jour pour 2 patients
@@ -1683,23 +1802,21 @@ Raisons de l'arrêt du greffon 1 :
 \begin{verbatim}
 
                                 <NA> Complications vasculaires du greffon 
-                               20416                                   24 
+                               20413                                   23 
                      Rejet chronique                           Rejet aigu 
                                    7                                    5 
         Autres complications greffon      Récidive de la maladie initiale 
                                    3                                    2 
-          Autre infection déterminee                 Infection du greffon 
-                                   2                                    1 
+          Autre infection déterminee 
+                                   2 
 [1] "Pourcentage :"
 
 Complications vasculaires du greffon                      Rejet chronique 
-                                54.5                                 15.9 
+                                54.8                                 16.7 
                           Rejet aigu         Autres complications greffon 
-                                11.4                                  6.8 
+                                11.9                                  7.1 
      Récidive de la maladie initiale           Autre infection déterminee 
-                                 4.5                                  4.5 
-                Infection du greffon 
-                                 2.3 
+                                 4.8                                  4.8 
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -1708,7 +1825,7 @@ Raisons de l'arrêt du greffon 2 : Complications vasculaires du greffon  (pour 2
 
   \subsection{Décès au cours de la greffe}
 
-17 (1.8\%) patients sont décédés au cours de la greffe 1 et 0 au cours de la 2e.
+13 (1.5\%) patients sont décédés au cours de la greffe 1 et 0 au cours de la 2e.
 
 
 
