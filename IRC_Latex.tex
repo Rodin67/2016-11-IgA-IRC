@@ -60,6 +60,7 @@
 \usepackage{threeparttable}
 \usepackage[top=2cm,bottom=2cm,right=2cm,left=2cm]{geometry}
 \usepackage{float}
+\usepackage{multicol}
 
 %\author{}
 \title{Étude IRC à IgA 2010-2014}
@@ -80,9 +81,23 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 La table "globale" contient 20455 patients différents étant passés au stade d'IRCT dont 1720 (8.4\%) avec maladie de Berger, 11174 (54.6\%) avec une néphropathie diabétique, 4417 (21.6\%) avec une glomérulonéphrite chronique et 3144 (15.4\%) avec une PKRD.
 
 \section{Incidence IRCT maladie de Berger}
+
+
 
 On a 1720 patients qui ont eu une première suppléance. L'incidence était de 3.4 cas pour 100 000 habitants de 2010 à 2014, soit en moyenne \textbf{6.7 nouveau cas d'IRCT/million d'habitants/an}. 
 
@@ -92,8 +107,8 @@ Dans l'article de Simon, on a une incidence de néphropathie à IgA (donc pas fo
 
 Tableau d'incidence selon la région par standardisation directe pour 1 million d'habitants de 2010 à 2014 (selon l'effectif français de 2013) :
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 18:44:39 2016
-\begin{table}[ht]
+% Tue Dec 20 17:12:32 2016
+\begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
   \hline
@@ -130,112 +145,128 @@ Reunion & 56.60 & 57.90 & 39.50 & 88.00 & 11.60 \\
 
 
 Tableau d'incidence selon le département par standardisation directe pour 1 million d'habitants de 2010 à 2014 (selon l'effectif français de 2013) :
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-                        Ratio.brut Ratio.ajuste IC.inf IC.sup annuel
-Bas.Rhin                      68.9         70.3   53.9   90.9   14.1
-Réunion                       56.6         57.9   39.5   88.0   11.6
-Morbihan                      58.6         55.6   38.7   78.4   11.1
-Savoie                        55.7         54.9   33.0   86.3   11.0
-Tarn.et.Garonne               55.0         54.7   27.1  101.6   10.9
-Hautes.Pyrénées               57.7         53.2   26.1  101.2   10.6
-Nord                          49.6         52.8   42.9   64.5   10.6
-Haute.Marne                   53.8         51.8   22.3  107.6   10.4
-Haute.Loire                   54.6         51.5   24.4  100.3   10.3
-Cantal                        56.6         50.8   20.3  115.7   10.2
-Ardèche                       50.1         48.5   25.5   86.9    9.7
-Côte.d.Or                     48.7         48.3   29.9   74.2    9.7
-Puy.de.Dôme                   47.4         47.0   30.4   69.7    9.4
-Tarn                          48.1         46.7   25.8   79.8    9.3
-Indre                         47.6         46.2   20.8   94.0    9.2
-Loire                         47.8         45.5   30.5   65.8    9.1
-Gers                          50.7         45.4   19.1  100.8    9.1
-Sarthe                        46.4         44.7   27.7   69.0    8.9
-Aude                          47.0         44.4   24.0   77.6    8.9
-Meuse                         45.1         44.0   17.6   93.9    8.8
-Lozère                        47.3         43.0    8.6  143.7    8.6
-Jura                          43.0         41.7   19.0   82.7    8.3
-Oise                          40.9         41.0   26.7   61.2    8.2
-Charente                      41.2         40.5   20.8   73.2    8.1
-Vendée                        43.8         40.4   25.5   62.3    8.1
-Marne                         39.3         39.3   23.3   62.7    7.9
-Ariège                        39.7         39.2   12.3  102.1    7.8
-Haute.Vienne                  38.7         39.2   20.1   69.7    7.8
-Rhône                         37.5         39.2   29.3   51.5    7.8
-Aveyron                       39.1         38.6   17.4   78.9    7.7
-Doubs                         37.6         37.5   21.5   61.5    7.5
-Var                           38.9         37.0   25.3   52.7    7.4
-Vosges                        36.1         37.0   18.3   67.9    7.4
-Orne                          38.4         36.9   16.7   73.0    7.4
-Seine.Saint.Denis             35.6         36.8   26.3   51.4    7.4
-Val.de.Marne                  36.5         36.8   26.1   51.0    7.4
-Hérault                       34.8         35.7   24.2   50.8    7.1
-Paris                         33.6         35.2   26.9   45.5    7.0
-Ain                           35.1         35.0   20.3   56.9    7.0
-Calvados                      34.3         34.8   20.9   54.5    7.0
-Drôme                         35.5         34.8   19.0   59.4    7.0
-Allier                        35.2         34.6   16.3   66.9    6.9
-Finistère                     35.4         34.5   22.5   51.1    6.9
-Mayenne                       37.2         34.4   15.6   67.9    6.9
-Haute.Saône                   36.5         34.1   13.7   75.1    6.8
-Ille.et.Vilaine               33.5         34.0   22.4   49.9    6.8
-Loire.Atlantique              33.3         34.0   23.7   47.5    6.8
-Pyrénées.Atlantiques          34.7         34.0   20.4   53.9    6.8
-Ardennes                      35.6         33.4   14.4   68.3    6.7
-Lot.et.Garonne                29.2         32.9   14.1   66.7    6.6
-Dordogne                      31.6         32.3   15.9   61.1    6.5
-Haut.Rhin                     32.8         32.3   19.7   50.9    6.5
-Seine.Maritime                30.9         31.6   21.4   44.9    6.3
-Côtes.d.Armor                 33.1         30.9   17.6   52.3    6.2
-Landes                        30.8         30.3   14.4   59.1    6.1
-Yonne                         32.7         29.7   13.5   59.8    5.9
-Haute.Garonne                 28.6         29.5   19.8   42.4    5.9
-Meurthe.et.Moselle            28.7         29.4   17.1   47.7    5.9
-Loir.et.Cher                  29.8         29.2   12.5   60.5    5.8
-Seine.et.Marne                28.5         28.9   19.4   42.3    5.8
-Deux.Sèvres                   30.0         28.8   13.1   57.4    5.8
-Hauts.de.Seine                27.8         28.8   19.9   40.6    5.8
-Maine.et.Loire                28.6         28.5   16.9   45.2    5.7
-Saône.et.Loire                28.6         27.3   14.4   48.9    5.5
-Loiret                        26.6         26.3   14.4   44.3    5.3
-Vaucluse                      27.2         26.1   13.4   46.3    5.2
-Manche                        27.1         26.0   12.9   48.4    5.2
-Isère                         25.7         25.7   16.6   38.3    5.1
-Gard                          25.4         25.0   13.9   41.9    5.0
-Pas.de.Calais                 24.3         24.7   16.4   36.2    4.9
-Val.d.Oise                    25.1         24.5   15.5   38.1    4.9
-Aisne                         25.7         24.3   12.1   44.5    4.9
-Hautes.Alpes                  26.5         23.9    4.9   83.6    4.8
-Pyrénées.Orientales           23.9         23.9   10.9   46.9    4.8
-Lot                           20.6         22.9    4.5   78.0    4.6
-Gironde                       21.3         21.6   14.1   31.7    4.3
-Nièvre                        27.8         21.3    6.9   58.5    4.3
-Eure                          21.5         20.8   10.0   39.5    4.2
-Aube                          20.4         20.6    6.7   48.7    4.1
-Cher                          23.4         20.4    7.5   48.4    4.1
-Bouches.du.Rhône              19.9         20.3   13.9   28.6    4.1
-Corrèze                       19.9         19.4    5.1   56.4    3.9
-Eure.et.Loir                  20.5         19.4    7.8   41.5    3.9
-Moselle                       19.9         19.4   11.3   32.4    3.9
-Territoire.de.Belfort         17.4         17.8    2.2   68.2    3.6
-Somme                         17.5         17.7    7.6   35.2    3.5
-Vienne                        17.1         17.7    6.5   38.9    3.5
-Charente.Maritime             17.2         16.8    7.6   33.3    3.4
-Indre.et.Loire                16.5         16.7    7.2   33.3    3.3
-Yvelines                      15.4         15.4    9.0   25.3    3.1
-Corse.du.Sud                  16.1         15.3    1.8   61.3    3.1
-Essonne                       15.4         15.2    8.5   26.1    3.0
-Haute.Corse                   14.0         14.6    1.8   56.1    2.9
-Alpes.de.Haute.Provence       15.1         14.4    1.7   62.8    2.9
-Alpes.Maritimes               14.5         14.4    7.6   24.9    2.9
-Guadeloupe                     9.6         10.5    2.0   34.1    2.1
-Haute.Savoie                   9.8         10.3    3.7   23.4    2.1
-Martinique                     6.5          7.1    0.8   29.7    1.4
-Mayotte                         NA           NA     NA     NA     NA
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Dec 20 16:17:40 2016
+\begin{table}[H]
+\centering
+\begin{tabular}{rrrrrr}
+  \hline
+ & Ratio.brut & Ratio.ajuste & IC.inf & IC.sup & annuel \\ 
+  \hline
+Bas.Rhin & 68.90 & 70.30 & 53.90 & 90.90 & 14.10 \\ 
+  Réunion & 56.60 & 57.90 & 39.50 & 88.00 & 11.60 \\ 
+  Morbihan & 58.60 & 55.60 & 38.70 & 78.40 & 11.10 \\ 
+  Savoie & 55.70 & 54.90 & 33.00 & 86.30 & 11.00 \\ 
+  Tarn.et.Garonne & 55.00 & 54.70 & 27.10 & 101.60 & 10.90 \\ 
+  Hautes.Pyrénées & 57.70 & 53.20 & 26.10 & 101.20 & 10.60 \\ 
+  Nord & 49.60 & 52.80 & 42.90 & 64.50 & 10.60 \\ 
+  Haute.Marne & 53.80 & 51.80 & 22.30 & 107.60 & 10.40 \\ 
+  Haute.Loire & 54.60 & 51.50 & 24.40 & 100.30 & 10.30 \\ 
+  Cantal & 56.60 & 50.80 & 20.30 & 115.70 & 10.20 \\ 
+  Ardèche & 50.10 & 48.50 & 25.50 & 86.90 & 9.70 \\ 
+  Côte.d.Or & 48.70 & 48.30 & 29.90 & 74.20 & 9.70 \\ 
+  Puy.de.Dôme & 47.40 & 47.00 & 30.40 & 69.70 & 9.40 \\ 
+  Tarn & 48.10 & 46.70 & 25.80 & 79.80 & 9.30 \\ 
+  Indre & 47.60 & 46.20 & 20.80 & 94.00 & 9.20 \\ 
+  Loire & 47.80 & 45.50 & 30.50 & 65.80 & 9.10 \\ 
+  Gers & 50.70 & 45.40 & 19.10 & 100.80 & 9.10 \\ 
+  Sarthe & 46.40 & 44.70 & 27.70 & 69.00 & 8.90 \\ 
+  Aude & 47.00 & 44.40 & 24.00 & 77.60 & 8.90 \\ 
+  Meuse & 45.10 & 44.00 & 17.60 & 93.90 & 8.80 \\ 
+  Lozère & 47.30 & 43.00 & 8.60 & 143.70 & 8.60 \\ 
+  Jura & 43.00 & 41.70 & 19.00 & 82.70 & 8.30 \\ 
+  Oise & 40.90 & 41.00 & 26.70 & 61.20 & 8.20 \\ 
+  Charente & 41.20 & 40.50 & 20.80 & 73.20 & 8.10 \\ 
+  Vendée & 43.80 & 40.40 & 25.50 & 62.30 & 8.10 \\ 
+  Marne & 39.30 & 39.30 & 23.30 & 62.70 & 7.90 \\ 
+  Ariège & 39.70 & 39.20 & 12.30 & 102.10 & 7.80 \\ 
+  Haute.Vienne & 38.70 & 39.20 & 20.10 & 69.70 & 7.80 \\ 
+  Rhône & 37.50 & 39.20 & 29.30 & 51.50 & 7.80 \\ 
+  Aveyron & 39.10 & 38.60 & 17.40 & 78.90 & 7.70 \\ 
+  Doubs & 37.60 & 37.50 & 21.50 & 61.50 & 7.50 \\ 
+  Var & 38.90 & 37.00 & 25.30 & 52.70 & 7.40 \\ 
+  Vosges & 36.10 & 37.00 & 18.30 & 67.90 & 7.40 \\ 
+  Orne & 38.40 & 36.90 & 16.70 & 73.00 & 7.40 \\ 
+  Seine.Saint.Denis & 35.60 & 36.80 & 26.30 & 51.40 & 7.40 \\ 
+  Val.de.Marne & 36.50 & 36.80 & 26.10 & 51.00 & 7.40 \\ 
+  Hérault & 34.80 & 35.70 & 24.20 & 50.80 & 7.10 \\ 
+  Paris & 33.60 & 35.20 & 26.90 & 45.50 & 7.00 \\ 
+  Ain & 35.10 & 35.00 & 20.30 & 56.90 & 7.00 \\ 
+  Calvados & 34.30 & 34.80 & 20.90 & 54.50 & 7.00 \\ 
+  Drôme & 35.50 & 34.80 & 19.00 & 59.40 & 7.00 \\ 
+  Allier & 35.20 & 34.60 & 16.30 & 66.90 & 6.90 \\ 
+  Finistère & 35.40 & 34.50 & 22.50 & 51.10 & 6.90 \\ 
+  Mayenne & 37.20 & 34.40 & 15.60 & 67.90 & 6.90 \\ 
+  Haute.Saône & 36.50 & 34.10 & 13.70 & 75.10 & 6.80 \\ 
+  Ille.et.Vilaine & 33.50 & 34.00 & 22.40 & 49.90 & 6.80 \\ 
+  Loire.Atlantique & 33.30 & 34.00 & 23.70 & 47.50 & 6.80 \\ 
+  Pyrénées.Atlantiques & 34.70 & 34.00 & 20.40 & 53.90 & 6.80 \\ 
+  Ardennes & 35.60 & 33.40 & 14.40 & 68.30 & 6.70 \\ 
+  Lot.et.Garonne & 29.20 & 32.90 & 14.10 & 66.70 & 6.60 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Dec 20 16:17:40 2016
+\begin{table}[H]
+\centering
+\begin{tabular}{rrrrrr}
+  \hline
+ & Ratio.brut & Ratio.ajuste & IC.inf & IC.sup & annuel \\ 
+  \hline
+Dordogne & 31.60 & 32.30 & 15.90 & 61.10 & 6.50 \\ 
+  Haut.Rhin & 32.80 & 32.30 & 19.70 & 50.90 & 6.50 \\ 
+  Seine.Maritime & 30.90 & 31.60 & 21.40 & 44.90 & 6.30 \\ 
+  Côtes.d.Armor & 33.10 & 30.90 & 17.60 & 52.30 & 6.20 \\ 
+  Landes & 30.80 & 30.30 & 14.40 & 59.10 & 6.10 \\ 
+  Yonne & 32.70 & 29.70 & 13.50 & 59.80 & 5.90 \\ 
+  Haute.Garonne & 28.60 & 29.50 & 19.80 & 42.40 & 5.90 \\ 
+  Meurthe.et.Moselle & 28.70 & 29.40 & 17.10 & 47.70 & 5.90 \\ 
+  Loir.et.Cher & 29.80 & 29.20 & 12.50 & 60.50 & 5.80 \\ 
+  Seine.et.Marne & 28.50 & 28.90 & 19.40 & 42.30 & 5.80 \\ 
+  Deux.Sèvres & 30.00 & 28.80 & 13.10 & 57.40 & 5.80 \\ 
+  Hauts.de.Seine & 27.80 & 28.80 & 19.90 & 40.60 & 5.80 \\ 
+  Maine.et.Loire & 28.60 & 28.50 & 16.90 & 45.20 & 5.70 \\ 
+  Saône.et.Loire & 28.60 & 27.30 & 14.40 & 48.90 & 5.50 \\ 
+  Loiret & 26.60 & 26.30 & 14.40 & 44.30 & 5.30 \\ 
+  Vaucluse & 27.20 & 26.10 & 13.40 & 46.30 & 5.20 \\ 
+  Manche & 27.10 & 26.00 & 12.90 & 48.40 & 5.20 \\ 
+  Isère & 25.70 & 25.70 & 16.60 & 38.30 & 5.10 \\ 
+  Gard & 25.40 & 25.00 & 13.90 & 41.90 & 5.00 \\ 
+  Pas.de.Calais & 24.30 & 24.70 & 16.40 & 36.20 & 4.90 \\ 
+  Val.d.Oise & 25.10 & 24.50 & 15.50 & 38.10 & 4.90 \\ 
+  Aisne & 25.70 & 24.30 & 12.10 & 44.50 & 4.90 \\ 
+  Hautes.Alpes & 26.50 & 23.90 & 4.90 & 83.60 & 4.80 \\ 
+  Pyrénées.Orientales & 23.90 & 23.90 & 10.90 & 46.90 & 4.80 \\ 
+  Lot & 20.60 & 22.90 & 4.50 & 78.00 & 4.60 \\ 
+  Gironde & 21.30 & 21.60 & 14.10 & 31.70 & 4.30 \\ 
+  Nièvre & 27.80 & 21.30 & 6.90 & 58.50 & 4.30 \\ 
+  Eure & 21.50 & 20.80 & 10.00 & 39.50 & 4.20 \\ 
+  Aube & 20.40 & 20.60 & 6.70 & 48.70 & 4.10 \\ 
+  Cher & 23.40 & 20.40 & 7.50 & 48.40 & 4.10 \\ 
+  Bouches.du.Rhône & 19.90 & 20.30 & 13.90 & 28.60 & 4.10 \\ 
+  Corrèze & 19.90 & 19.40 & 5.10 & 56.40 & 3.90 \\ 
+  Eure.et.Loir & 20.50 & 19.40 & 7.80 & 41.50 & 3.90 \\ 
+  Moselle & 19.90 & 19.40 & 11.30 & 32.40 & 3.90 \\ 
+  Territoire.de.Belfort & 17.40 & 17.80 & 2.20 & 68.20 & 3.60 \\ 
+  Somme & 17.50 & 17.70 & 7.60 & 35.20 & 3.50 \\ 
+  Vienne & 17.10 & 17.70 & 6.50 & 38.90 & 3.50 \\ 
+  Charente.Maritime & 17.20 & 16.80 & 7.60 & 33.30 & 3.40 \\ 
+  Indre.et.Loire & 16.50 & 16.70 & 7.20 & 33.30 & 3.30 \\ 
+  Yvelines & 15.40 & 15.40 & 9.00 & 25.30 & 3.10 \\ 
+  Corse.du.Sud & 16.10 & 15.30 & 1.80 & 61.30 & 3.10 \\ 
+  Essonne & 15.40 & 15.20 & 8.50 & 26.10 & 3.00 \\ 
+  Haute.Corse & 14.00 & 14.60 & 1.80 & 56.10 & 2.90 \\ 
+  Alpes.de.Haute.Provence & 15.10 & 14.40 & 1.70 & 62.80 & 2.90 \\ 
+  Alpes.Maritimes & 14.50 & 14.40 & 7.60 & 24.90 & 2.90 \\ 
+  Guadeloupe & 9.60 & 10.50 & 2.00 & 34.10 & 2.10 \\ 
+  Haute.Savoie & 9.80 & 10.30 & 3.70 & 23.40 & 2.10 \\ 
+  Martinique & 6.50 & 7.10 & 0.80 & 29.70 & 1.40 \\ 
+  Mayotte &  &  &  &  &  \\ 
+   \hline
+\end{tabular}
+\end{table}
+
 
 
 \begin{knitrout}
@@ -248,14 +279,26 @@ Mayotte                         NA           NA     NA     NA     NA
 
 Pour 1 000 000 d'habitants français (\textgreater 15 ans) :
 
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Dec 20 16:26:41 2016
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrrr}
+  \hline
+ & 2010 & 2011 & 2012 & 2013 & 2014 \\ 
+  \hline
+Berger & 322.0 & 347.0 & 358 & 360 & 333.0 \\ 
+  Non Berger & 50481973.0 & 50700882.0 & 50930426 & 51192410 & 51420675.0 \\ 
+  Total France & 50482295.0 & 50701229.0 & 50930784 & 51192770 & 51421008.0 \\ 
+  Cas pour 1M d'hab & 6.4 & 6.8 & 7 & 7 & 6.5 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-                        2010       2011     2012     2013       2014
-Berger                 322.0      347.0      358      360      333.0
-Non Berger        50481973.0 50700882.0 50930426 51192410 51420675.0
-Total France      50482295.0 50701229.0 50930784 51192770 51421008.0
-Cas pour 1M d'hab        6.4        6.8        7        7        6.5
 
 	Pearson's Chi-squared test
 
@@ -273,7 +316,7 @@ X-squared = 2.8618, df = 4, p-value = 0.5812
 
 Sexe (2010-2014) : Hommes 1325 (77\%), femmes 395 (23\%)
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 10:44:42 2016
+% Tue Dec 20 16:32:13 2016
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrrrr}
@@ -286,7 +329,7 @@ Sexe (2010-2014) : Hommes 1325 (77\%), femmes 395 (23\%)
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 10:44:42 2016
+% Tue Dec 20 16:32:13 2016
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrrrr}
@@ -299,13 +342,18 @@ Sexe (2010-2014) : Hommes 1325 (77\%), femmes 395 (23\%)
 \end{tabular}
 \end{table}
 
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+
 	Pearson's Chi-squared test
 
 data:  table(iga$sex, iga$anirt)
 X-squared = 1.8385, df = 4, p-value = 0.7654
-
-
-~\\
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 Âge :
 
@@ -343,22 +391,21 @@ Distribution des âges :
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-7-1} 
-
-\end{knitrout}
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-8-1} 
-
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-8-2} 
-
-\end{knitrout}
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 \includegraphics[width=\maxwidth]{figure/unnamed-chunk-9-1} 
+
+\end{knitrout}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-10-1} 
+
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-10-2} 
+
+\end{knitrout}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-11-1} 
 
 \end{knitrout}
 
@@ -386,52 +433,47 @@ Taille lors de l'IRCT :
 
 BMI :
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Dec 20 17:00:16 2016
+\begin{table}[H]
+\centering
+\begin{tabular}{rrrrrrrr}
+  \hline
+ & $<$18.5 & 18.5-24.9 & 25-29.9 & 30-34.9 & 35-39.9 & $>$40 & NA \\ 
+  \hline
+ & 59.0 & 618.0 & 403.0 & 132.0 & 50.0 & 15.0 & 443.0 \\ 
+  Pourcentage & 4.6 & 48.4 & 31.6 & 10.3 & 3.9 & 1.2 &  \\ 
+   \hline
+\end{tabular}
+\end{table}
 
-    <18.5 18.5-24.9   25-29.9   30-34.9   35-39.9       >40      <NA> 
-       59       618       403       132        50        15       443 
-
-    <18.5 18.5-24.9   25-29.9   30-34.9   35-39.9       >40 
-      4.6      48.4      31.6      10.3       3.9       1.2 
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
 
 Age d'arrivée au stade d'IRT selon le BMI :
 
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Dec 20 16:54:31 2016
+\begin{table}[H]
+\centering
+\begin{tabular}{rrrrrrr}
+  \hline
+ & Min. & 1st Qu. & Median & Mean & 3rd Qu. & Max. \\ 
+  \hline
+$<$18.5 & 16.60 & 31.35 & 44.50 & 47.11 & 62.65 & 90.00 \\ 
+  18.5-24.9 & 16.30 & 36.42 & 50.25 & 51.40 & 64.60 & 93.50 \\ 
+  25-29.9 & 19.30 & 45.80 & 58.10 & 57.28 & 68.10 & 90.30 \\ 
+  30-34.9 & 19.40 & 43.70 & 58.75 & 55.34 & 66.45 & 88.80 \\ 
+  35-39.9 & 25.90 & 46.58 & 57.65 & 56.64 & 67.38 & 88.00 \\ 
+  $>$40 & 26.40 & 55.10 & 58.10 & 57.75 & 63.70 & 70.30 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-$`<18.5`
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  16.60   31.35   44.50   47.11   62.65   90.00 
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-13-1} 
 
-$`18.5-24.9`
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  16.30   36.42   50.25   51.40   64.60   93.50 
-
-$`25-29.9`
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  19.30   45.80   58.10   57.28   68.10   90.30 
-
-$`30-34.9`
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  19.40   43.70   58.75   55.34   66.45   88.80 
-
-$`35-39.9`
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  25.90   46.58   57.65   56.64   67.38   88.00 
-
-$`>40`
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  26.40   55.10   58.10   57.75   63.70   70.30 
-\end{verbatim}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-10-1} 
-
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-10-2} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-13-2} 
 \begin{kframe}\begin{verbatim}
 
 Call:
@@ -458,9 +500,9 @@ Multiple R-squared:  0.03267,	Adjusted R-squared:  0.02886
 F-statistic: 8.584 on 5 and 1271 DF,  p-value: 5.216e-08
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-10-3} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-13-3} 
 
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-10-4} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-13-4} 
 \begin{kframe}\begin{verbatim}
 
 Call:
@@ -495,51 +537,51 @@ F-statistic: 82.34 on 5 and 15311 DF,  p-value: < 2.2e-16
 Pour le Berger : 1199 (81.6\%) NA = 250
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 12:20:17 2016
+% Tue Dec 20 17:12:35 2016
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrr}
   \hline
  & 0 & 1 & NA & Sum \\ 
   \hline
-Diabète & 9040.00 & 873.00 & 1261.00 & 11174.00 \\ 
-  GN avec HSF & 216.00 & 856.00 & 112.00 & 1184.00 \\ 
-  GN extra-membraneuse & 50.00 & 338.00 & 49.00 & 437.00 \\ 
-  GN extracapillaire ou endo/extracapillaire & 48.00 & 337.00 & 26.00 & 411.00 \\ 
-  GN membrano-proliférative type 1 & 20.00 & 169.00 & 16.00 & 205.00 \\ 
-  GN membrano-proliférative type 2, dépôts denses & 10.00 & 62.00 & 9.00 & 81.00 \\ 
-  GN primitive avec autre diagnostic histologique & 51.00 & 164.00 & 29.00 & 244.00 \\ 
-  GN primitive sans examen histologique & 827.00 & 276.00 & 147.00 & 1250.00 \\ 
-  Maladies systémiques autres & 73.00 & 237.00 & 17.00 & 327.00 \\ 
-  Néphropathie à dépôts d'IgA & 271.00 & 1199.00 & 250.00 & 1720.00 \\ 
-  Néphropathie lupique & 43.00 & 138.00 & 26.00 & 207.00 \\ 
-  Polykystose rénale de l adulte & 2604.00 & 29.00 & 511.00 & 3144.00 \\ 
-  Purpura rhumatoïde & 17.00 & 48.00 & 6.00 & 71.00 \\ 
-  Sum & 13270.00 & 4726.00 & 2459.00 & 20455.00 \\ 
+Diabète & 9040 & 873 & 1261 & 11174 \\ 
+  GN avec HSF & 216 & 856 & 112 & 1184 \\ 
+  GN extra-membraneuse & 50 & 338 & 49 & 437 \\ 
+  GN extracapillaire ou endo/extracapillaire & 48 & 337 & 26 & 411 \\ 
+  GN membrano-proliférative type 1 & 20 & 169 & 16 & 205 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 10 & 62 & 9 & 81 \\ 
+  GN primitive avec autre diagnostic histologique & 51 & 164 & 29 & 244 \\ 
+  GN primitive sans examen histologique & 827 & 276 & 147 & 1250 \\ 
+  Maladies systémiques autres & 73 & 237 & 17 & 327 \\ 
+  Néphropathie à dépôts d'IgA & 271 & 1199 & 250 & 1720 \\ 
+  Néphropathie lupique & 43 & 138 & 26 & 207 \\ 
+  Polykystose rénale de l adulte & 2604 & 29 & 511 & 3144 \\ 
+  Purpura rhumatoïde & 17 & 48 & 6 & 71 \\ 
+  Sum & 13270 & 4726 & 2459 & 20455 \\ 
    \hline
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 12:20:17 2016
+% Tue Dec 20 17:12:35 2016
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
   \hline
  & 0 & 1 \\ 
   \hline
-GN membrano-proliférative type 1 & 10.60 & 89.40 \\ 
-  GN extracapillaire ou endo/extracapillaire & 12.50 & 87.50 \\ 
-  GN extra-membraneuse & 12.90 & 87.10 \\ 
-  GN membrano-proliférative type 2, dépôts denses & 13.90 & 86.10 \\ 
-  Néphropathie à dépôts d'IgA & 18.40 & 81.60 \\ 
-  GN avec HSF & 20.10 & 79.90 \\ 
-  Maladies systémiques autres & 23.50 & 76.50 \\ 
-  GN primitive avec autre diagnostic histologique & 23.70 & 76.30 \\ 
-  Néphropathie lupique & 23.80 & 76.20 \\ 
-  Purpura rhumatoïde & 26.20 & 73.80 \\ 
-  GN primitive sans examen histologique & 75.00 & 25.00 \\ 
-  Diabète & 91.20 & 8.80 \\ 
-  Polykystose rénale de l adulte & 98.90 & 1.10 \\ 
+GN membrano-proliférative type 1 & 10.6 & 89.4 \\ 
+  GN extracapillaire ou endo/extracapillaire & 12.5 & 87.5 \\ 
+  GN extra-membraneuse & 12.9 & 87.1 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 13.9 & 86.1 \\ 
+  Néphropathie à dépôts d'IgA & 18.4 & 81.6 \\ 
+  GN avec HSF & 20.1 & 79.9 \\ 
+  Maladies systémiques autres & 23.5 & 76.5 \\ 
+  GN primitive avec autre diagnostic histologique & 23.7 & 76.3 \\ 
+  Néphropathie lupique & 23.8 & 76.2 \\ 
+  Purpura rhumatoïde & 26.2 & 73.8 \\ 
+  GN primitive sans examen histologique & 75.0 & 25.0 \\ 
+  Diabète & 91.2 & 8.8 \\ 
+  Polykystose rénale de l adulte & 98.9 & 1.1 \\ 
    \hline
 \end{tabular}
 \end{table}
@@ -551,79 +593,79 @@ GN membrano-proliférative type 1 & 10.60 & 89.40 \\
 Pour le Berger par région :
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 12:31:14 2016
-\begin{table}[ht]
+% Tue Dec 20 17:08:18 2016
+\begin{table}[H]
 \centering
 \begin{tabular}{rrrrr}
   \hline
  & 0 & 1 & NA & Sum \\ 
   \hline
-Alsace & 16.00 & 54.00 & 12.00 & 82.00 \\ 
-  Aquitaine & 5.00 & 54.00 & 15.00 & 74.00 \\ 
-  Auvergne & 12.00 & 35.00 & 5.00 & 52.00 \\ 
-  Basse-Normandie & 6.00 & 28.00 & 5.00 & 39.00 \\ 
-  Bourgogne & 9.00 & 34.00 & 5.00 & 48.00 \\ 
-  Bretagne & 6.00 & 86.00 & 12.00 & 104.00 \\ 
-  Centre & 21.00 & 49.00 & 7.00 & 77.00 \\ 
-  Champagne-Ardenne & 3.00 & 30.00 & 6.00 & 39.00 \\ 
-  Corse & 2.00 & 2.00 & 0.00 & 4.00 \\ 
-  ETRANGER & 0.00 & 0.00 & 1.00 & 1.00 \\ 
-  Franche-Comté & 7.00 & 21.00 & 6.00 & 34.00 \\ 
-  Guadeloupe & 1.00 & 2.00 & 0.00 & 3.00 \\ 
-  Haute-Normandie & 2.00 & 30.00 & 9.00 & 41.00 \\ 
-  Ile-de-France & 62.00 & 166.00 & 36.00 & 264.00 \\ 
-  Languedoc-Roussillon & 19.00 & 36.00 & 17.00 & 72.00 \\ 
-  Limousin & 0.00 & 13.00 & 3.00 & 16.00 \\ 
-  Lorraine & 2.00 & 43.00 & 7.00 & 52.00 \\ 
-  Martinique & 0.00 & 2.00 & 0.00 & 2.00 \\ 
-  Mayotte & 1.00 & 0.00 & 0.00 & 1.00 \\ 
-  Midi-Pyrénées & 8.00 & 66.00 & 18.00 & 92.00 \\ 
-  Nord-Pas-de-Calais & 26.00 & 93.00 & 10.00 & 129.00 \\ 
-  Pays de la Loire & 15.00 & 67.00 & 24.00 & 106.00 \\ 
-  Picardie & 5.00 & 38.00 & 2.00 & 45.00 \\ 
-  Poitou-Charentes & 1.00 & 29.00 & 6.00 & 36.00 \\ 
-  POLYNESIE FRANCAISE & 0.00 & 0.00 & 1.00 & 1.00 \\ 
-  Provence-Alpes-Côte d'Azur & 33.00 & 47.00 & 15.00 & 95.00 \\ 
-  Reunion & 2.00 & 20.00 & 13.00 & 35.00 \\ 
-  Rhône-Alpes & 7.00 & 154.00 & 15.00 & 176.00 \\ 
-  Sum & 271.00 & 1199.00 & 250.00 & 1720.00 \\ 
+Alsace & 16 & 54 & 12 & 82 \\ 
+  Aquitaine & 5 & 54 & 15 & 74 \\ 
+  Auvergne & 12 & 35 & 5 & 52 \\ 
+  Basse-Normandie & 6 & 28 & 5 & 39 \\ 
+  Bourgogne & 9 & 34 & 5 & 48 \\ 
+  Bretagne & 6 & 86 & 12 & 104 \\ 
+  Centre & 21 & 49 & 7 & 77 \\ 
+  Champagne-Ardenne & 3 & 30 & 6 & 39 \\ 
+  Corse & 2 & 2 & 0 & 4 \\ 
+  ETRANGER & 0 & 0 & 1 & 1 \\ 
+  Franche-Comté & 7 & 21 & 6 & 34 \\ 
+  Guadeloupe & 1 & 2 & 0 & 3 \\ 
+  Haute-Normandie & 2 & 30 & 9 & 41 \\ 
+  Ile-de-France & 62 & 166 & 36 & 264 \\ 
+  Languedoc-Roussillon & 19 & 36 & 17 & 72 \\ 
+  Limousin & 0 & 13 & 3 & 16 \\ 
+  Lorraine & 2 & 43 & 7 & 52 \\ 
+  Martinique & 0 & 2 & 0 & 2 \\ 
+  Mayotte & 1 & 0 & 0 & 1 \\ 
+  Midi-Pyrénées & 8 & 66 & 18 & 92 \\ 
+  Nord-Pas-de-Calais & 26 & 93 & 10 & 129 \\ 
+  Pays de la Loire & 15 & 67 & 24 & 106 \\ 
+  Picardie & 5 & 38 & 2 & 45 \\ 
+  Poitou-Charentes & 1 & 29 & 6 & 36 \\ 
+  POLYNESIE FRANCAISE & 0 & 0 & 1 & 1 \\ 
+  Provence-Alpes-Côte d'Azur & 33 & 47 & 15 & 95 \\ 
+  Reunion & 2 & 20 & 13 & 35 \\ 
+  Rhône-Alpes & 7 & 154 & 15 & 176 \\ 
+  Sum & 271 & 1199 & 250 & 1720 \\ 
    \hline
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 12:31:14 2016
+% Tue Dec 20 17:08:18 2016
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
   \hline
  & 0 & 1 \\ 
   \hline
-Limousin & 0.00 & 100.00 \\ 
-  Martinique & 0.00 & 100.00 \\ 
-  Poitou-Charentes & 3.30 & 96.70 \\ 
-  Rhône-Alpes & 4.30 & 95.70 \\ 
-  Lorraine & 4.40 & 95.60 \\ 
-  Haute-Normandie & 6.20 & 93.80 \\ 
-  Bretagne & 6.50 & 93.50 \\ 
-  Aquitaine & 8.50 & 91.50 \\ 
-  Champagne-Ardenne & 9.10 & 90.90 \\ 
-  Reunion & 9.10 & 90.90 \\ 
-  Midi-Pyrénées & 10.80 & 89.20 \\ 
-  Picardie & 11.60 & 88.40 \\ 
-  Basse-Normandie & 17.60 & 82.40 \\ 
-  Pays de la Loire & 18.30 & 81.70 \\ 
-  Bourgogne & 20.90 & 79.10 \\ 
-  Nord-Pas-de-Calais & 21.80 & 78.20 \\ 
-  Alsace & 22.90 & 77.10 \\ 
-  Franche-Comté & 25.00 & 75.00 \\ 
-  Auvergne & 25.50 & 74.50 \\ 
-  Ile-de-France & 27.20 & 72.80 \\ 
-  Centre & 30.00 & 70.00 \\ 
-  Guadeloupe & 33.30 & 66.70 \\ 
-  Languedoc-Roussillon & 34.50 & 65.50 \\ 
-  Provence-Alpes-Côte d'Azur & 41.20 & 58.80 \\ 
-  Corse & 50.00 & 50.00 \\ 
-  Mayotte & 100.00 & 0.00 \\ 
+Limousin & 0.0 & 100.0 \\ 
+  Martinique & 0.0 & 100.0 \\ 
+  Poitou-Charentes & 3.3 & 96.7 \\ 
+  Rhône-Alpes & 4.3 & 95.7 \\ 
+  Lorraine & 4.4 & 95.6 \\ 
+  Haute-Normandie & 6.2 & 93.8 \\ 
+  Bretagne & 6.5 & 93.5 \\ 
+  Aquitaine & 8.5 & 91.5 \\ 
+  Champagne-Ardenne & 9.1 & 90.9 \\ 
+  Reunion & 9.1 & 90.9 \\ 
+  Midi-Pyrénées & 10.8 & 89.2 \\ 
+  Picardie & 11.6 & 88.4 \\ 
+  Basse-Normandie & 17.6 & 82.4 \\ 
+  Pays de la Loire & 18.3 & 81.7 \\ 
+  Bourgogne & 20.9 & 79.1 \\ 
+  Nord-Pas-de-Calais & 21.8 & 78.2 \\ 
+  Alsace & 22.9 & 77.1 \\ 
+  Franche-Comté & 25.0 & 75.0 \\ 
+  Auvergne & 25.5 & 74.5 \\ 
+  Ile-de-France & 27.2 & 72.8 \\ 
+  Centre & 30.0 & 70.0 \\ 
+  Guadeloupe & 33.3 & 66.7 \\ 
+  Languedoc-Roussillon & 34.5 & 65.5 \\ 
+  Provence-Alpes-Côte d'Azur & 41.2 & 58.8 \\ 
+  Corse & 50.0 & 50.0 \\ 
+  Mayotte & 100.0 & 0.0 \\ 
   ETRANGER &  &  \\ 
   POLYNESIE FRANCAISE &  &  \\ 
    \hline
@@ -638,7 +680,7 @@ Limousin & 0.00 & 100.00 \\
 Diabète : 193 (11.3\%) NA = 15
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 12:34:12 2016
+% Tue Dec 20 16:54:00 2016
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrrr}
@@ -663,7 +705,7 @@ Diabète & 0 & 11174 & 0 & 11174 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 12:34:12 2016
+% Tue Dec 20 16:54:00 2016
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -695,7 +737,7 @@ Type de diabète :
 - 2 : 179 (95.2\%)
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 12:36:35 2016
+% Tue Dec 20 16:54:00 2016
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -720,7 +762,7 @@ Diabète & 1018 & 10001 & 11019 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 12:36:35 2016
+% Tue Dec 20 16:54:00 2016
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -1334,7 +1376,7 @@ Créatininémie initiale :
    46.0   513.2   650.0   719.5   841.8  2793.0     526 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-30-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-33-1} 
 
 \end{knitrout}
 
@@ -1348,13 +1390,13 @@ DFG initial :
   1.600   5.868   7.835   8.493  10.050 123.000     526 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-31-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-34-1} 
 
 \end{knitrout}
 On a 1 patient qui a un DFG supérieur à 120 ml/min. Aucun entre 40 et 120.
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 12:54:02 2016
+% Tue Dec 20 16:54:03 2016
 \begin{table}[ht]
 \centering
 \begingroup\small
@@ -1393,7 +1435,7 @@ Albuminémie initiale :
    9.00   30.00   34.60   34.05   38.60   58.00     707 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-33-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-36-1} 
 
 \end{knitrout}
 
@@ -1425,54 +1467,79 @@ Hémoglobine :
    4.70    9.10   10.30   10.26   11.40   17.60     400 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-35-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-38-1} 
 
 \end{knitrout}
 
 Nombres d'anémiques :
 
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Dec 20 16:54:03 2016
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & Anémique & Non anémique & Somme \\ 
+  \hline
+Homme & 956 & 56 & 1012 \\ 
+  Femme & 270 & 38 & 308 \\ 
+  Somme & 1226 & 94 & 1320 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Dec 20 16:54:03 2016
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrr}
+  \hline
+ & Anémique & Non anémique \\ 
+  \hline
+Homme & 94.5 & 5.5 \\ 
+  Femme & 87.7 & 12.3 \\ 
+  Somme & 92.9 & 7.1 \\ 
+   \hline
+\end{tabular}
+\caption{Pourcentage} 
+\end{table}
+
+
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-       iga$gr_HBINI
-iga$sex    1    0  Sum
-    1    956   56 1012
-    2    270   38  308
-    Sum 1226   94 1320
-       iga$gr_HBINI
-iga$sex    1    0
-      1 94.5  5.5
-      2 87.7 12.3
 
 	Pearson's Chi-squared test
 
 data:  table(iga$sex, iga$gr_HBINI)
 X-squared = 16.528, df = 1, p-value = 4.793e-05
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
 
 Call:
-glm(formula = iga$gr_HBINI ~ iga$sex + iga$dfg, family = "binomial")
+lm(formula = iga$HBINI ~ iga$sex + iga$dfg)
 
-Deviance Residuals: 
-    Min       1Q   Median       3Q      Max  
--2.6198   0.2930   0.3303   0.4042   1.0378  
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-6.5785 -1.1462  0.0073  1.0362  7.1163 
 
 Coefficients:
-            Estimate Std. Error z value Pr(>|z|)    
-(Intercept)  4.54843    0.44828  10.146  < 2e-16 ***
-iga$sex     -0.87721    0.24709  -3.550 0.000385 ***
-iga$dfg     -0.09169    0.02446  -3.749 0.000178 ***
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  9.833170   0.176821  55.611  < 2e-16 ***
+iga$sex     -0.233081   0.119313  -1.954    0.051 .  
+iga$dfg      0.078129   0.009866   7.919 5.66e-15 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-(Dispersion parameter for binomial family taken to be 1)
-
-    Null deviance: 579.04  on 1137  degrees of freedom
-Residual deviance: 551.57  on 1135  degrees of freedom
+Residual standard error: 1.69 on 1135 degrees of freedom
   (582 observations deleted due to missingness)
-AIC: 557.57
-
-Number of Fisher Scoring iterations: 5
-[1] "OR d'être de sexe féminin : 0.42"
+Multiple R-squared:  0.05572,	Adjusted R-squared:  0.05405 
+F-statistic: 33.49 on 2 and 1135 DF,  p-value: 7.42e-15
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -1481,7 +1548,7 @@ Number of Fisher Scoring iterations: 5
     \subsubsection{Traitement de suppléance}
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 15:25:27 2016
+% Tue Dec 20 16:54:03 2016
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrrrrr}
@@ -1496,7 +1563,7 @@ Hémodialyse & 236 & 251 & 268 & 267 & 235 & 1257 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 15:25:27 2016
+% Tue Dec 20 16:54:03 2016
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1527,7 +1594,7 @@ X-squared = 3.5363, df = 8, p-value = 0.8964
 Nombre de greffé sans dialyse et nombre de dialysé après dialyse :
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 16:28:50 2016
+% Tue Dec 20 16:54:03 2016
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrrr}
@@ -1541,7 +1608,7 @@ Greffe sans dialyse & 29 & 34 & 33 & 31 & 40 & 167 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 16:28:50 2016
+% Tue Dec 20 16:54:03 2016
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1561,123 +1628,94 @@ Greffe sans dialyse & 15.5 & 17.7 & 21.3 & 28.7 & 62.5 \\
 Nombre de dialyse pour maladie de Berger (hémo + péritonéale) comparé aux dialysés totaux en France :
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 18:38:54 2016
-\begin{table}[ht]
+% Tue Dec 20 16:54:04 2016
+\begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
   \hline
  & 2010 & 2011 & 2012 & 2013 & 2014 \\ 
   \hline
-Berger & 293.0 & 313.0 & 325.0 & 329.0 & 293.0 \\ 
-  Non Berger & 37003.0 & 38845.0 & 40568.0 & 42177.0 & 43988.0 \\ 
-  Total & 37296.0 & 39158.0 & 40893.0 & 42506.0 & 44281.0 \\ 
-  Pourcentage Berger & 0.8 & 0.8 & 0.8 & 0.8 & 0.7 \\ 
+Total France & 37296.00 & 39158.00 & 40893.00 & 42506.00 & 44281.00 \\ 
+  Berger & 293.00 & 313.00 & 325.00 & 329.00 & 293.00 \\ 
+  Pourcentage Berger & 0.79 & 0.80 & 0.79 & 0.77 & 0.66 \\ 
+  GNC & 805.00 & 812.00 & 817.00 & 858.00 & 947.00 \\ 
+  Pourcentage GNC & 2.16 & 2.07 & 2.00 & 2.02 & 2.14 \\ 
+  Diabète & 2083.00 & 2101.00 & 2194.00 & 2296.00 & 2297.00 \\ 
+  Pourcentage diabète & 5.59 & 5.37 & 5.37 & 5.40 & 5.19 \\ 
+  PKRD & 531.00 & 543.00 & 531.00 & 601.00 & 577.00 \\ 
+  Pourcentage PKRD & 1.42 & 1.39 & 1.30 & 1.41 & 1.30 \\ 
    \hline
 \end{tabular}
 \end{table}
-2010 2011 2012 2013 2014 
- 293  313  325  329  293 
-2010 2011 2012 2013 2014 
- 805  812  817  858  947 
-2010 2011 2012 2013 2014 
-2083 2101 2194 2296 2297 
-2010 2011 2012 2013 2014 
- 531  543  531  601  577 
 
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-
-	Pearson's Chi-squared test
-
-data:  inc_greffe[1:2, ]
-X-squared = 7.5586, df = 4, p-value = 0.1092
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-45-1} 
 
 
     \subsubsection{Contexte de démarrage de dialyse}
+
+
+
     
-Premier traitement en urgence :  322 (21.9\%) NA = 249
+Premier traitement en réanimation ou urgence IgA :  336 (23.2\%) NA = 273
 
-Premier traitement en réanimation :  85 (5.9\%) NA = 273
+Premier traitement en réanimation ou urgence diabète :  3310 (32.7\%) NA = 1050
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-        iga$REAn
-iga$URGn    0    1 <NA>  Sum
-    0    1111   12   26 1149
-    1     233   71   18  322
-    <NA>   18    2  229  249
-    Sum  1362   85  273 1720
+Premier traitement en réanimation ou urgence GNC :  1297 (32.8\%) NA = 457
 
-   0    1 <NA> 
-1111  336  273 
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+Premier traitement en réanimation ou urgence PKRD :  352 (13.7\%) NA = 578
+~\\
 
 Voie d’abord :
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Dec 20 16:54:04 2016
+\begin{table}[ht]
+\centering
+\begin{tabular}{lrrrrr}
+  \hline
+Pathologie & FAV native & Cathéter tunnélisé & Pontage & Autre & NA \\ 
+  \hline
+IgA & 715 & 405 &   7 &  69 & 524 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Dec 20 16:54:04 2016
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrr}
+  \hline
+ & FAV native & Cathéter tunnélisé & Pontage & Autre \\ 
+  \hline
+PKRD & 74.80 & 19.90 & 1.60 & 3.70 \\ 
+  IgA & 59.80 & 33.90 & 0.60 & 5.80 \\ 
+  Diabète & 49.10 & 42.80 & 1.80 & 6.30 \\ 
+  GNC & 47.30 & 44.10 & 1.10 & 7.50 \\ 
+   \hline
+\end{tabular}
+\caption{Pourcentage} 
+\end{table}
 
-        FAV native Cathéter tunnélisé            Pontage 
-               715                405                  7 
-             Autre               <NA> 
-                69                524 
-
-        FAV native Cathéter tunnélisé            Pontage 
-              59.8               33.9                0.6 
-             Autre 
-               5.8 
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
 
     \subsubsection{Activité}
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 18:17:33 2016
-\begin{table}[ht]
+% Tue Dec 20 16:54:04 2016
+\begin{table}[H]
 \centering
-\begin{tabular}{rr}
+\begin{tabular}{lrr}
   \hline
+Activité & Fréquence & Pourcentage \\ 
   \hline
-Retraité & 458 \\ 
-  Actif temps plein & 449 \\ 
-  Inactif autre &  69 \\ 
-  Inactif en invalidité &  55 \\ 
-  Actif temps partiel &  48 \\ 
-  Au chômage &  46 \\ 
-  Arrêt longue maladie &  45 \\ 
-  Au foyer &  32 \\ 
-  Scolarisé, étudiant &  18 \\ 
-  Actif en milieu protégé &   5 \\ 
-   \hline
-\end{tabular}
-\end{table}
-% latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 18:17:33 2016
-\begin{table}[ht]
-\centering
-\begin{tabular}{rr}
-  \hline
- & V1 \\ 
-  \hline
-Retraité & 37.4 \\ 
-  Actif temps plein & 36.7 \\ 
-  Inactif autre & 5.6 \\ 
-  Inactif en invalidité & 4.5 \\ 
-  Actif temps partiel & 3.9 \\ 
-  Au chômage & 3.8 \\ 
-  Arrêt longue maladie & 3.7 \\ 
-  Au foyer & 2.6 \\ 
-  Scolarisé, étudiant & 1.5 \\ 
-  Actif en milieu protégé & 0.4 \\ 
+Retraité & 458 & 37.40 \\ 
+  Actif temps plein & 449 & 36.70 \\ 
+  Inactif autre &  69 & 5.60 \\ 
+  Inactif en invalidité &  55 & 4.50 \\ 
+  Actif temps partiel &  48 & 3.90 \\ 
+  Au chômage &  46 & 3.80 \\ 
+  Arrêt longue maladie &  45 & 3.70 \\ 
+  Au foyer &  32 & 2.60 \\ 
+  Scolarisé, étudiant &  18 & 1.50 \\ 
+  Actif en milieu protégé &   5 & 0.40 \\ 
    \hline
 \end{tabular}
 \end{table}
@@ -1687,19 +1725,7 @@ Retraité & 37.4 \\
   
   \subsection{Analyse de la survie patient avec comme outcome le décès}
   
-  On a 168 (9.8\%) patients qui sont décédés. On a la date de décès pour 238 (13.8\%) patients.
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-[1] "En ligne : décédé ; en colonne : présence d'une date de décès"
-      !is.na(iga$ddc)
-iga$dc FALSE TRUE
-     0  1482   70
-     1     0  168
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+  On a la date de décès pour 238 (13.8\%) patients.
 
   %\subsection{Recherche d’un lien entre les évènements infectieux saisonniers et la mise en route de la dialyse}
   
@@ -1710,8 +1736,8 @@ La table "greffe" contient 1152 patients uniques après suppression de ceux qui 
   \subsection{Nombre de greffe par année}
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 18:39:17 2016
-\begin{table}[ht]
+% Tue Dec 20 16:54:04 2016
+\begin{table}[H]
 \centering
 \begin{tabular}{rrrrrrr}
   \hline
@@ -1725,16 +1751,23 @@ Greffe Berger & 52.0 & 120.0 & 153.0 & 177.0 & 204.0 & 168.0 \\
 \end{tabular}
 \end{table}
 
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+
 	Pearson's Chi-squared test
 
 data:  inc_greffe_iga[1:2, ]
 X-squared = 95.231, df = 5, p-value < 2.2e-16
-
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 
 [1] "Greffe 1"
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 18:44:42 2016
+% Tue Dec 20 16:54:05 2016
 \begin{table}[H]
 \centering
 \begin{tabular}{rr}
@@ -1753,7 +1786,7 @@ X-squared = 95.231, df = 5, p-value < 2.2e-16
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Dec 19 18:44:42 2016
+% Tue Dec 20 16:54:05 2016
 \begin{table}[H]
 \centering
 \begin{tabular}{rr}
@@ -1790,36 +1823,49 @@ X-squared = 95.231, df = 5, p-value < 2.2e-16
   0.000   0.040   0.770   8.157  13.780  58.680   20413 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-48-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-52-1} 
+
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-52-2} 
 
 \end{knitrout}
 Greffe 2 = 0 jour pour 2 patients
 ~\\
 
 Raisons de l'arrêt du greffon 1 :
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-
-                                <NA> Complications vasculaires du greffon 
-                               20413                                   23 
-                     Rejet chronique                           Rejet aigu 
-                                   7                                    5 
-        Autres complications greffon      Récidive de la maladie initiale 
-                                   3                                    2 
-          Autre infection déterminee 
-                                   2 
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Dec 20 16:54:05 2016
+\begin{table}[H]
+\centering
+\begin{tabular}{rr}
+  \hline
+  \hline
+Complications vasculaires du greffon &  23 \\ 
+  Rejet chronique &   7 \\ 
+  Rejet aigu &   5 \\ 
+  Autres complications greffon &   3 \\ 
+  Récidive de la maladie initiale &   2 \\ 
+  Autre infection déterminee &   2 \\ 
+   \hline
+\end{tabular}
+\end{table}
 [1] "Pourcentage :"
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Dec 20 16:54:05 2016
+\begin{table}[H]
+\centering
+\begin{tabular}{rr}
+  \hline
+  \hline
+Complications vasculaires du greffon & 54.80 \\ 
+  Rejet chronique & 16.70 \\ 
+  Rejet aigu & 11.90 \\ 
+  Autres complications greffon & 7.10 \\ 
+  Récidive de la maladie initiale & 4.80 \\ 
+  Autre infection déterminee & 4.80 \\ 
+   \hline
+\end{tabular}
+\end{table}
 
-Complications vasculaires du greffon                      Rejet chronique 
-                                54.8                                 16.7 
-                          Rejet aigu         Autres complications greffon 
-                                11.9                                  7.1 
-     Récidive de la maladie initiale           Autre infection déterminee 
-                                 4.8                                  4.8 
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
 
 Raisons de l'arrêt du greffon 2 : Complications vasculaires du greffon  (pour 2 patients).
 

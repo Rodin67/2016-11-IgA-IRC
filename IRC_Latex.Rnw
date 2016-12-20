@@ -10,6 +10,7 @@
 \usepackage{threeparttable}
 \usepackage[top=2cm,bottom=2cm,right=2cm,left=2cm]{geometry}
 \usepackage{float}
+\usepackage{multicol}
 
 %\author{}
 \title{Étude IRC à IgA 2010-2014}
@@ -46,10 +47,10 @@ library("ggplot2", lib.loc="~/R/win-library/3.3")
 library("gplots", lib.loc="~/R/win-library/3.3")
 @
 
-<<data, cache=TRUE>>=
+<<iga>>=
 .pardefault <- par(no.readonly = T)
 
-## _iga----
+## _iga
 iga <- read_excel("~/IRC/dataIgA/donnes patients IgA.xlsx", 
                   col_types = c("text", "text", "text", 
                                 "text", "numeric", "text", "numeric", 
@@ -153,7 +154,11 @@ iga$NOINSCn <- factor(iga$NOINSCn, labels = c("CI médicale","Refus patient","au
 iga$dfg <-ifelse(iga$sex==1, 
                  round(186.3*(iga$CREATINI/88.4)^-1.154 * (iga$age)^-0.203,2), 
                  round(186.3*(iga$CREATINI/88.4)^-1.154 * (iga$age)^-0.203 * 0.742,2))
+iga$urg_rea<-NA
+iga$urg_rea<-ifelse(iga$URGn==1 | iga$REAn==1, 1, 0)
+@
 
+<<greffe>>=
 ## _greffe----
 greffe <- read_excel("~/IRC/dataIgA/greffe IgA.xlsx", col_types = c("numeric", "text", "date", "date", "date", "date", "date", "numeric", "numeric",
                                                                     "date", "date", "text", "text", "numeric", "text", "text", "text", "text",
@@ -192,7 +197,9 @@ greffe$kmdc<-ifelse(is.na(greffe$DECES1),0,1) # Pour faire un Kaplan-Meier
 greffe$kmdelaidc<- ifelse(is.na(greffe$DECES1),as.Date(c("2016-11-01"), origin = "1899-12-30")-greffe$GRF1,greffe$DECES1-greffe$GRF1) # Pour faire un Kaplan-Meier : délai avant évènement (ou suivi jusqu'au 1-11-2016)
 greffe <- greffe[!((greffe$NEFG==178144 | greffe$NEFG==194055 | greffe$NEFG==208156) & greffe$LMALADI=="Maladie de Berger"),]
 greffe <- greffe[!is.na(greffe$GRF1),]
+@
 
+<<gnc>>=
 ## _gnc----
 gnc <- read_excel("~/IRC/dataIgA/donnees GNC.xlsx", 
                   col_types = c("text", "text", "text", 
@@ -296,7 +303,11 @@ gnc$dfg <-ifelse(gnc$sex==1,
                  round(186.3*(gnc$CREATINI/88.4)^-1.154 * (gnc$age)^-0.203,2), 
                  round(186.3*(gnc$CREATINI/88.4)^-1.154 * (gnc$age)^-0.203 * 0.742,2))
 gnc$NOINSCn <- factor(gnc$NOINSCn, labels = c("CI médicale","Refus patient","autre/non décrit","Bilan pré_greffe en cours"))
+gnc$urg_rea <- NA
+gnc$urg_rea <- ifelse(gnc$URGn==1 | gnc$REAn==1, 1, 0)
+@
 
+<<diab>>=
 ## _diab----
 diab <- read_excel("~/IRC/dataIgA/donneesdiabete.xlsx", 
                    col_types = c("text", "text", "text", 
@@ -400,6 +411,11 @@ diab$dfg <-ifelse(diab$sex==1,
                   round(186.3*(diab$CREATINI/88.4)^-1.154 * (diab$age)^-0.203,2), 
                   round(186.3*(diab$CREATINI/88.4)^-1.154 * (diab$age)^-0.203 * 0.742,2))
 diab$NOINSCn <- factor(diab$NOINSCn, labels = c("CI médicale","Refus patient","autre/non décrit","Bilan pré_greffe en cours"))
+diab$urg_rea <- NA
+diab$urg_rea <- ifelse(diab$URGn==1 | diab$REAn==1, 1, 0)
+@
+
+<<pkrd>>=
 ## _pkrd ----
 pkrd <- read_excel("~/IRC/dataIgA/donnes PKRD.xlsx", 
                   col_types = c("text", "text", "text", 
@@ -506,6 +522,11 @@ pkrd$dfg <-ifelse(pkrd$sex==1,
                   round(186.3*(pkrd$CREATINI/88.4)^-1.154 * (pkrd$age)^-0.203,2), 
                   round(186.3*(pkrd$CREATINI/88.4)^-1.154 * (pkrd$age)^-0.203 * 0.742,2))
 pkrd$NOINSCn <- factor(pkrd$NOINSCn, labels = c("CI médicale","Refus patient","autre/non décrit","Bilan pré_greffe en cours"))
+pkrd$urg_rea <- NA
+pkrd$urg_rea <- ifelse(pkrd$URGn==1 | pkrd$REAn==1, 1, 0)
+@
+
+<<global>>=
 ## _global----
 # On créé un fichier contenant les tableaux iga, diab et gnc (greffe est à part et pkrd n'est pas exploitable en l'état)
 global<-bind_rows(iga, gnc, diab, pkrd)
@@ -567,6 +588,9 @@ global$dfg <- NA
 global$dfg <- ifelse(global$sex==1, 
                   round(186.3*(global$CREATINI/88.4)^-1.154 * (global$age)^-0.203,2), 
                   round(186.3*(global$CREATINI/88.4)^-1.154 * (global$age)^-0.203 * 0.742,2))
+@
+
+<<global_greffe>>=
 ## _global_greffe ----
 global_greffe <- left_join(global, greffe, by = c("RREC_COD" = "NEFG"))
 global_greffe$ECHEC1 <- factor(global_greffe$ECHEC1)
@@ -578,6 +602,7 @@ global_greffe$greffe <- ifelse(global_greffe$tx=="1" | !is.na(global_greffe$dgrf
 La table "globale" contient \Sexpr{table(duplicated(global$RREC_COD))["FALSE"]} patients différents étant passés au stade d'IRCT dont \Sexpr{table(duplicated(iga$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(iga$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec maladie de Berger, \Sexpr{table(duplicated(diab$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(diab$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec une néphropathie diabétique, \Sexpr{table(duplicated(gnc$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(gnc$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec une glomérulonéphrite chronique et \Sexpr{table(duplicated(pkrd$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(pkrd$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec une PKRD.
 
 \section{Incidence IRCT maladie de Berger}
+
 <<data_incid, include=FALSE>>=
 ## Tableaux du nombre de cas d'IgA par âge et sexe selon la région
 nbev_iga_region<-iga[,c("sex","classage","RES_REG_LIB")]
@@ -651,6 +676,7 @@ carte_dep <- carte_dep[order(carte_dep$dep),]
 carte_dep$dep <- sort(dep@data$NOM_DEPT)
 dep@data <- left_join(dep@data, carte_dep, by = c("NOM_DEPT" = "dep"))
 @
+
 On a \Sexpr{nrow(iga)} patients qui ont eu une première suppléance. L'incidence était de \Sexpr{round(sum(nrow(iga))/sum(eff_france$effectif)*100000,1)} cas pour 100 000 habitants de 2010 à 2014, soit en moyenne \textbf{\Sexpr{round(sum(nrow(iga))/sum(eff_france$effectif)/5*1000000,1)} nouveau cas d'IRCT/million d'habitants/an}. 
 
 Dans l'article de Simon, on a une incidence de néphropathie à IgA (donc pas forcément au stade d'IRCT) de 26/million d'habitants/an (20-90+ ans) durant la période 1996-2002 en Côte d'Armor (ici pour cette région on a 6.2 cas pour 1M/an d'IRCT). %Sachant que l’incidence de la Maladie de Berger varie de 10 à 40 nouveaux cas/million d’habitants/an et que 25 à 50\% des cas développent une IRCT.
@@ -659,12 +685,14 @@ Dans l'article de Simon, on a une incidence de néphropathie à IgA (donc pas fo
 
 Tableau d'incidence selon la région par standardisation directe pour 1 million d'habitants de 2010 à 2014 (selon l'effectif français de 2013) :
 <<cache=FALSE, results="asis">>=
-xtable(standdirect[order(standdirect$Ratio.ajuste, decreasing = T),]*10)
+print(xtable(standdirect[order(standdirect$Ratio.ajuste, decreasing = T),]*10), table.placement = "H")
 @
 
 Tableau d'incidence selon le département par standardisation directe pour 1 million d'habitants de 2010 à 2014 (selon l'effectif français de 2013) :
-<<cache=FALSE>>=
-standdirect_dep[order(standdirect_dep$Ratio.ajuste, decreasing = T),]*10
+<<results="asis">>=
+x <- standdirect_dep[order(standdirect_dep$Ratio.ajuste, decreasing = T),]*10
+print(xtable(x[c(1:50),]), table.placement = "H")
+print(xtable(x[c(51:99),]), table.placement = "H")
 @
 
 
@@ -684,13 +712,16 @@ legend("bottomleft", legend = legende, fill = palette, cex=0.95, title = "Incide
 
 Pour 1 000 000 d'habitants français (\textgreater 15 ans) :
 
-<<>>=
+<<results="asis">>=
 inc_iga <- matrix(nrow = 4, ncol = 5, dimnames = list(c("Berger","Non Berger","Total France","Cas pour 1M d'hab"),c("2010","2011","2012","2013","2014")))
 inc_iga[1,] <- c(322, 347, 358, 360, 333)
 inc_iga[2,] <- c(50482295-322, 50701229-347, 50930784-358, 51192770-360, 51421008-333)
 inc_iga[3,] <- c(50482295, 50701229, 50930784, 51192770, 51421008)
 inc_iga[4,] <- round(prop.table(inc_iga[1:2,],2)*1000000,1)[1,]
-inc_iga
+print(xtable(inc_iga, auto = T), table.placement = "H")
+@
+
+<<>>=
 chisq.test(inc_iga[1:2,], correct = F)
 @
 
@@ -704,9 +735,11 @@ Sexe (2010-2014) : Hommes \Sexpr{table(iga$sex, useNA = "always")[1]} (\Sexpr{ro
 <<sexe, results="asis">>=
 xtable(table(iga$sex, iga$anirt))
 xtable(round(prop.table(table(iga$sex, iga$anirt),2)*100,1))
+@
+
+<<>>=
 chisq.test(table(iga$sex, iga$anirt), correct = F)
 @
-~\\
 
 Âge :
 
@@ -724,20 +757,15 @@ print(xtable(x), table.placement = "H")
 
 Distribution des âges :
 
-<<fig.height=4>>=
-par(mar=c(4,4,3,4))
-hist(iga$age, main =  "Répartition des âges avec courbe de densité", xlab = "Âge", ylab = "Fréquence")
-par(new=T)
-plot(density(iga$age), xaxt = "n", yaxt = "n",xlab="",ylab="", main = "",type="l", col = "red")
-axis(4, ylim = c(0,0.020), col="red",col.axis="red")
-mtext("Densité",side=4,col="red",line=2.5)
+<<fig.height=6>>=
+ggplot(iga, aes(age)) +
+  geom_histogram(aes(y=..density..), fill = "white", col = "black", bins = 30) +
+  geom_density(alpha = 0.2, fill = "#FF6666")
 @
-
 
 <<fig.height=2>>=
 par(mfrow = c(1,3))
 for(i in 2010:2014) plot(density(iga$age[iga$anirt==i]), main = i)
-par(mfrow = c(1,1))
 @
 
 <<fig.height=3>>=
@@ -758,22 +786,27 @@ summary(iga$PDS)
 
 BMI :
 
-<<bmi, fig.height=2.5>>=
+<<bmi, results="asis">>=
 iga$gr_bmi<-cut(iga$bmi, breaks = c(min(iga$bmi,na.rm = T),18.5,25,30,35,40,max(iga$bmi,na.rm = T)+1), right = F, labels = c("<18.5","18.5-24.9","25-29.9","30-34.9","35-39.9",">40"))
-table(iga$gr_bmi, useNA = "always")
-round(prop.table(table(iga$gr_bmi))*100,1)
+x <- do.call("rbind", list(table(iga$gr_bmi, useNA = "always"),round(prop.table(table(iga$gr_bmi))*100,1)))
+x[2,7] <- NA
+rownames(x) <-  c("","Pourcentage")
+print(xtable(x, digits = 1), table.placement = "H")
 @
 
 Age d'arrivée au stade d'IRT selon le BMI :
 
+<<results="asis">>=
+print(xtable(do.call("rbind", tapply(iga$age, iga$gr_bmi, FUN = summary))), table.placement = "H")
+@
+
 <<fig.height=5>>=
-tapply(iga$age, iga$gr_bmi, FUN = summary)
 ggplot(iga, aes(x = gr_bmi, y = age)) + 
   geom_boxplot(fill = "grey80", colour = "black") +
   xlab("BMI") +
   ylab("Âge lors de l'IRT pour la maladie de Berger")
 
-plotmeans(iga$age~iga$gr_bmi, gap=0, mean.labels= T)
+plotmeans(iga$age~iga$gr_bmi, gap=0, mean.labels= T, main = "Moyennes de l'âge avec intervalle de confiance - Maladie de Berger", xlab = "", ylab = "Âge")
 
 iga$gr_bmi <- relevel(iga$gr_bmi, ref = "18.5-24.9")
 summary(lm(iga$age~iga$gr_bmi))
@@ -796,10 +829,10 @@ summary(lm(global$age~global$gr_bmi))
 Pour le Berger : \Sexpr{table(iga$PBRn)[2]} (\Sexpr{round(prop.table(table(iga$PBRn))*100,1)[2]}\%) NA = \Sexpr{table(iga$PBRn, useNA = "always")[3]}
 
 <<results="asis">>=
-print(xtable(addmargins(table(global$liste_longue, global$PBRn, useNA = "always")[-14,])), table.placement = "H")
+print(xtable(addmargins(table(global$liste_longue, global$PBRn, useNA = "always")[-14,]), digits = 0), table.placement = "H")
 
 x <- round(prop.table(table(global$liste_longue, global$PBRn),1)*100,1)
-print(xtable(x[order(x[,2], decreasing = T),]), table.placement = "H")
+print(xtable(x[order(x[,2], decreasing = T),], digits = 1), table.placement = "H")
 @
 
 \textcolor{red}{Commentaire : 25\% de ceux qui n'ont pas eu d'examen histologique ont été ponctionnés.}
@@ -808,9 +841,9 @@ print(xtable(x[order(x[,2], decreasing = T),]), table.placement = "H")
 Pour le Berger par région :
 
 <<results="asis">>=
-xtable(addmargins(table(iga$RES_REG_LIB, iga$PBRn, useNA = "ifany")))
+print(xtable(addmargins(table(iga$RES_REG_LIB, iga$PBRn, useNA = "ifany")), digits = 0), table.placement = "H")
 x <- round(prop.table(table(iga$RES_REG_LIB, iga$PBRn),1)*100,1)
-print(xtable(x[order(x[,2], decreasing = T),], caption = "Pourcentage"), table.placement = "H")
+print(xtable(x[order(x[,2], decreasing = T),], caption = "Pourcentage", digits = 1), table.placement = "H")
 @
 
 
@@ -1025,14 +1058,22 @@ hist(iga$HBINI, xlab = "Hémoglobinémie (g/l)", main = "Hémoglobinémie", xlim
 
 Nombres d'anémiques :
 
-<<>>=
-addmargins(table(iga$sex,iga$gr_HBINI, deparse.level = 2)) # Nombre d'anémiques selon le sexe
-round(prop.table(table(iga$sex,iga$gr_HBINI, deparse.level = 2),1)*100,1)
-chisq.test(table(iga$sex,iga$gr_HBINI),correct = F) # Chi2 test
+<<results="asis">>=
+x <- addmargins(table(iga$sex,iga$gr_HBINI, deparse.level = 2))
+colnames(x) <- c("Anémique","Non anémique",'Somme')
+rownames(x) <- c("Homme","Femme","Somme")
+xtable(x, digits = 0) # Nombre d'anémiques selon le sexe
+xtable(round(prop.table(x[,1:2],1)*100,1), caption = "Pourcentage", digits = 1)
+@
 
+<<>>=
+chisq.test(table(iga$sex,iga$gr_HBINI),correct = F) # Chi2 test
+@
+
+
+<<>>=
 iga$gr_HBINI <- as.numeric(as.character(iga$gr_HBINI))
-summary(glm(iga$gr_HBINI~iga$sex+iga$dfg, family = "binomial"))
-paste("OR d'être de sexe féminin :", round(exp(-0.8766 ),2))
+summary(lm(iga$HBINI~iga$sex+iga$dfg))
 @
 
 
@@ -1063,60 +1104,81 @@ print(xtable(prop.table(x,2)*100, digits = 1), table.placement = "H")
 
 Nombre de dialyse pour maladie de Berger (hémo + péritonéale) comparé aux dialysés totaux en France :
 
-<<results="asis">>=
-inc_greffe <- matrix(nrow = 4, ncol = 5, dimnames = list(c("Berger","Non Berger","Total","Pourcentage Berger"),c("2010","2011","2012","2013","2014")))
-inc_greffe[1,] <- apply(table(iga$METHOn, iga$anirt)[1:2,], 2 ,sum)
-inc_greffe[2,] <- c(37296-293, 39158-313, 40893-325, 42506-329, 44281-293)
-inc_greffe[3,] <- c(37296, 39158, 40893, 42506, 44281)
-inc_greffe[4,] <- round(prop.table(inc_greffe[1:2,],2)*100,1)[1,]
-xtable(inc_greffe, digits = 1)
-apply(table(iga$METHOn, iga$anirt)[1:2,], 2 ,sum)
-apply(table(gnc$METHOn, gnc$anirt)[1:2,], 2 ,sum)
-apply(table(diab$METHOn, diab$anirt)[1:2,], 2 ,sum)
-apply(table(pkrd$METHOn, pkrd$anirt)[1:2,], 2 ,sum)
-@
+<<results="asis", fig.height=3>>=
+inc_greffe <- matrix(nrow = 9, ncol = 5, dimnames = list(c("Total France","Berger","Pourcentage Berger","GNC","Pourcentage GNC","Diabète","Pourcentage diabète","PKRD","Pourcentage PKRD"),c("2010","2011","2012","2013","2014")))
+inc_greffe[1,] <- c(37296, 39158, 40893, 42506, 44281)
+inc_greffe[2,] <- apply(table(iga$METHOn, iga$anirt)[1:2,], 2 ,sum)
+inc_greffe[3,] <- inc_greffe[1,]-inc_greffe[2,]
+inc_greffe[3,] <- round(prop.table(inc_greffe[2:3,],2)*100,2)[1,]
+inc_greffe[4,] <- apply(table(gnc$METHOn, gnc$anirt)[1:2,], 2 ,sum)
+inc_greffe[5,] <- inc_greffe[1,]-inc_greffe[4,]
+inc_greffe[5,] <- round(prop.table(inc_greffe[4:5,],2)*100,2)[1,]
+inc_greffe[6,] <- apply(table(diab$METHOn, diab$anirt)[1:2,], 2 ,sum)
+inc_greffe[7,] <- inc_greffe[1,]-inc_greffe[6,]
+inc_greffe[7,] <- round(prop.table(inc_greffe[6:7,],2)*100,2)[1,]
+inc_greffe[8,] <- apply(table(pkrd$METHOn, pkrd$anirt)[1:2,], 2 ,sum)
+inc_greffe[9,] <- inc_greffe[1,]-inc_greffe[8,]
+inc_greffe[9,] <- round(prop.table(inc_greffe[8:9,],2)*100,2)[1,]
 
-<<>>=
-chisq.test(inc_greffe[1:2,], correct = F)
-@
+print(xtable(inc_greffe, digits = 2), table.placement = "H")
 
+inc_greffe <- as.data.frame(inc_greffe[c(3,5,7,9),])
+inc_greffe$pathologie <- c(rownames(inc_greffe))
+inc_greffe <- inc_greffe[,c(6,1:5)]
+inc_greffe <- gather(inc_greffe, "annee","pourcentage",2:6)
+inc_greffe$pathologie <- factor(inc_greffe$pathologie, levels = c("Pourcentage diabète", "Pourcentage GNC", "Pourcentage PKRD","Pourcentage Berger"))
+ggplot(inc_greffe, aes(x = annee, y = pourcentage, fill = pathologie)) + 
+  geom_bar(stat = "identity", position = position_dodge()) +
+  ggtitle("Pourcentage de greffe par année sur le nombre de greffe total en France")
+@
 
     \subsubsection{Contexte de démarrage de dialyse}
-    
-Premier traitement en urgence :  \Sexpr{table(iga$URGn)[2]} (\Sexpr{round(prop.table(table(iga$URGn))*100,1)[2]}\%) NA = \Sexpr{table(iga$URGn, useNA = "always")[3]}
-
-Premier traitement en réanimation :  \Sexpr{table(iga$REAn)[2]} (\Sexpr{round(prop.table(table(iga$REAn))*100,1)[2]}\%) NA = \Sexpr{table(iga$REAn, useNA = "always")[3]}
 
 <<>>=
-iga$urg_rea <- NA
-iga$urg_rea <- ifelse(iga$URGn==1 | iga$REAn==1, 1, 0)
-addmargins(table(iga$URGn,iga$REAn, useNA = "always", deparse.level = 2))
-table(iga$urg_rea, useNA = "always")
+iga$urg_rea<-NA
+iga$urg_rea<-ifelse(iga$URGn==1 | iga$REAn==1, 1, 0)
 @
 
+    
+Premier traitement en réanimation ou urgence IgA :  \Sexpr{table(iga$urg_rea)[2]} (\Sexpr{round(prop.table(table(iga$urg_rea))*100,1)[2]}\%) NA = \Sexpr{table(iga$urg_rea, useNA = "always")[3]}
+
+Premier traitement en réanimation ou urgence diabète :  \Sexpr{table(diab$urg_rea)[2]} (\Sexpr{round(prop.table(table(diab$urg_rea))*100,1)[2]}\%) NA = \Sexpr{table(diab$urg_rea, useNA = "always")[3]}
+
+Premier traitement en réanimation ou urgence GNC :  \Sexpr{table(gnc$urg_rea)[2]} (\Sexpr{round(prop.table(table(gnc$urg_rea))*100,1)[2]}\%) NA = \Sexpr{table(gnc$urg_rea, useNA = "always")[3]}
+
+Premier traitement en réanimation ou urgence PKRD :  \Sexpr{table(pkrd$urg_rea)[2]} (\Sexpr{round(prop.table(table(pkrd$urg_rea))*100,1)[2]}\%) NA = \Sexpr{table(pkrd$urg_rea, useNA = "always")[3]}
+~\\
+
 Voie d’abord :
-<<>>=
-table(iga$VAVn, useNA = "always")
-round(prop.table(table(iga$VAVn))*100,1)
+<<results="asis">>=
+x <- t(table(iga$VAVn, useNA = "always"))
+x <- as.data.frame.matrix(x)
+x$Pathologie <- "IgA"
+colnames(x)[5] <- "NA"
+x <- x[, c(6,1:5)]
+x %>% xtable() %>% print(include.rownames = F)
+
+x <- matrix(ncol = 4, nrow = 4, dimnames = list(c("PKRD","IgA","Diabète","GNC"),c("FAV native","Cathéter tunnélisé","Pontage","Autre")))
+x[2,] <- round(prop.table(table(iga$VAVn))*100,1)
+x[3,] <- round(prop.table(table(diab$VAVn))*100,1)
+x[4,] <- round(prop.table(table(gnc$VAVn))*100,1)
+x[1,] <- round(prop.table(table(pkrd$VAVn))*100,1)
+xtable(x, caption = "Pourcentage")
 @
 
     \subsubsection{Activité}
 
 <<results="asis">>=
-print(xtable(sort(table(iga$ACTIVn, useNA = "always")[-11], decreasing = T)), include.colnames = F)
-xtable(round(prop.table(sort(table(iga$ACTIVn), decreasing = T))*100,1), digits = 1)
+x <- left_join(tidy(sort(table(iga$ACTIVn, useNA = "always")[-11], decreasing = T)), tidy(round(prop.table(sort(table(iga$ACTIVn), decreasing = T))*100,1)), by = "Var1")
+colnames(x) <- c("Activité","Fréquence","Pourcentage")
+print(xtable(x), include.rownames = F, table.placement = "H")
 @
 
   \subsection{Devenir des patients après la mise en dialyse}
   
   \subsection{Analyse de la survie patient avec comme outcome le décès}
   
-  On a \Sexpr{table(iga$dc)[2]} (\Sexpr{round(table(iga$dc)[2]/nrow(iga)*100,1)}\%) patients qui sont décédés. On a la date de décès pour \Sexpr{table(!is.na(iga$ddc))[2]} (\Sexpr{round(table(!is.na(iga$ddc))[2]/nrow(iga)*100,1)}\%) patients.
-
-<<>>=
-print("En ligne : décédé ; en colonne : présence d'une date de décès")
-table(iga$dc, !is.na(iga$ddc), deparse.level = 2)
-@
+  On a la date de décès pour \Sexpr{table(!is.na(iga$ddc))[2]} (\Sexpr{round(table(!is.na(iga$ddc))[2]/nrow(iga)*100,1)}\%) patients.
 
   %\subsection{Recherche d’un lien entre les évènements infectieux saisonniers et la mise en route de la dialyse}
   
@@ -1132,9 +1194,13 @@ inc_greffe_iga[1,] <- c(52, 120, 153, 177, 204, 168)
 inc_greffe_iga[2,] <- c(50482295-52, 50701229-120, 50930784-153, 51192770-177, 51421008-204, 51676545-168)
 inc_greffe_iga[3,] <- c(50482295, 50701229, 50930784, 51192770, 51421008, 51676545)
 inc_greffe_iga[4,] <- round(prop.table(inc_greffe_iga[1:2,],2)*1000000,1)[1,]
-xtable(inc_greffe_iga, digits = 1) 
+print(xtable(inc_greffe_iga, digits = 1), table.placement = "H")
+@
+
+<<>>=
 chisq.test(inc_greffe_iga[1:2,], correct = F) 
 @
+
 
 <<results="asis">>=
 print("Greffe 1")
@@ -1153,15 +1219,20 @@ round(prop.table(table(global_greffe$annee2))*100,0)
 print("Greffe 1 (en mois)")
 summary(global_greffe$DELAIARF1)
 hist(global_greffe$DELAIARF1/12, main = "Temps entre la greffe 1 et l'arrêt du greffon", xlab = "Temps (en année)")
+ggplot(global_greffe, aes(DELAIARF1/12)) +
+  geom_density(fill = "red", alpha = 0.25, col = "red") +
+  labs(title = "Courbe de densité", x = "Temps (en années)")
 @
 Greffe 2 = 0 jour pour 2 patients
 ~\\
 
 Raisons de l'arrêt du greffon 1 :
-<<>>=
-sort(table(global_greffe$ECHEC1, useNA = "always"), decreasing = T)
-print("Pourcentage :")
-round(prop.table(sort(table(global_greffe$ECHEC1), decreasing = T))*100,1)
+<<results="asis">>=
+print(xtable(sort(table(global_greffe$ECHEC1, useNA = "always"), decreasing = T)[-1]), include.colnames =F, table.placement = "H")
+
+"Pourcentage :"
+
+print(xtable(round(prop.table(sort(table(global_greffe$ECHEC1), decreasing = T))*100,1)), include.colnames =F, table.placement = "H")
 @
 
 Raisons de l'arrêt du greffon 2 : Complications vasculaires du greffon  (pour 2 patients).
