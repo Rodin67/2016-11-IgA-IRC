@@ -1124,7 +1124,19 @@ xtable(round(prop.table(table(iga$METHOn, iga$anirt),2)*100,1), caption = "Pourc
 chisq.test(table(iga$METHOn, iga$anirt))
 @
 
-Nombre de greffé sans dialyse et nombre de dialysé après dialyse :
+<<results="asis">>=
+global$liste_longue <- factor(global$liste_longue)
+for (i in levels(global$liste_longue)) {
+  #print(xtable(addmargins(table(global$METHOn[global$liste_longue==i], global$anirt[global$liste_longue==i])), digits = 0, caption = i), table.placement="H")
+  print(xtable(round(prop.table(table(global$METHOn[global$liste_longue==i], global$anirt[global$liste_longue==i]),2)*100,1), caption = paste("Pourcentage",i), digits = 1), table.placement="H")
+} 
+@
+
+
+\textcolor{red}{Nombre de patients greffés direct n'ayant aucune info sur la greffe toute pathologies confondus) : \Sexpr{table(is.na(global_greffe$GRF1[global_greffe$METHOn=="Greffe"]))[2]} (\Sexpr{round(prop.table(table(is.na(global_greffe$GRF1[global_greffe$METHOn=="Greffe"])))*100,1)[2]}\%)}
+~\\
+
+\textcolor{red}{XXXXXX} Nombre de greffé sans dialyse et nombre de dialysé après dialyse :
 
 <<results="asis">>=
 x <- matrix(nrow = 2, ncol = 5, dimnames = list(c("Greffe sans dialyse","Greffe après dialyse"),c("2010","2011","2012","2013","2014")))
@@ -1134,7 +1146,7 @@ print(xtable(addmargins(x), digits = 0), table.placement = "H")
 print(xtable(prop.table(x,2)*100, digits = 1), table.placement = "H")
 @
 
-\textcolor{red}{Attention : le recul n'est pas le même pour ceux de 2010 et 2015, ce qui explique la différence.}
+\textcolor{red}{Attention : le recul n'est pas le même pour ceux de 2010 et 2014, ce qui explique la différence.}
 ~\\
 
 Nombre de dialyse (hémo + péritonéale) comparé aux dialysés totaux en France :
@@ -1164,7 +1176,7 @@ inc_greffe <- gather(inc_greffe, "annee","pourcentage",2:6)
 inc_greffe$pathologie <- factor(inc_greffe$pathologie, levels = c("Pourcentage diabète", "Pourcentage GNC", "Pourcentage PKRD","Pourcentage Berger"))
 ggplot(inc_greffe, aes(x = annee, y = pourcentage, fill = pathologie)) + 
   geom_bar(stat = "identity", position = position_dodge()) +
-  ggtitle("Pourcentage de greffe par année sur le nombre de greffe total en France")
+  ggtitle("Pourcentage de dialyse par année sur le nombre de dialyse total en France")
 @
 
     \subsubsection{Contexte de démarrage de dialyse}
@@ -1220,6 +1232,28 @@ print(xtable(x), include.rownames = F, table.placement = "H")
 \section{Greffe maladie de Berger}
 
 La table "greffe" contient \Sexpr{table(duplicated(greffe$NEFG))["FALSE"]} patients uniques après suppression de ceux qui n'avaient pas de maladie de Berger ou de néphropathie à IgA (si un patient avait les deux pathologies, la ligne ne coneant aucune information était supprimée), les patients sans date de greffe ont été supprimés. \Sexpr{length(intersect(global$RREC_COD,greffe$NEFG))} (\Sexpr{round(length(intersect(global$RREC_COD,greffe$NEFG))/table(duplicated(greffe$NEFG))["FALSE"]*100,1)}\%) sont en commun avec la table "globale" (= ceux qui ont été utilisés pour la suite des données). \Sexpr{length(intersect(global$RREC_COD[is.na(global$dgrf)],greffe$NEFG))} patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
+~\\
+
+Dans la table globale avec la table greffe :
+
+- étant considéré comme greffé (table globale) : \Sexpr{table(global_greffe$tx)[2]} (\Sexpr{round(table(global_greffe$tx)[2]/20455*100,1)}\%)
+
+- ayant une date de greffe (table globale) : \Sexpr{table(!is.na(global_greffe$dgrf))[2]} (\Sexpr{round(table(!is.na(global_greffe$dgrf))[2]/20455*100,1)}\%)
+
+\qquad - dont une greffe de 2010 à 2014 : \Sexpr{table(global_greffe$dgrf<as.Date("2015-01-01", origin ="1899-12-30"))[2]}
+
+- ayant eu une greffe sans dialyse (table greffe) : \Sexpr{table(global_greffe$METHOn=="Greffe")[2]} (\Sexpr{round(table(global_greffe$METHOn=="Greffe")[2]/20455*100,1)}\%)
+
+- ayant une date de greffe 1 (table greffe) : \Sexpr{table(!is.na(global_greffe$GRF1))[2]} (\Sexpr{round(table(!is.na(global_greffe$GRF1))[2]/20455*100,1)}\%)
+
+- ayant une date de greffe 2 (table greffe) : \Sexpr{table(!is.na(global_greffe$GRF2))[2]} (\Sexpr{round(table(!is.na(global_greffe$GRF2))[2]/20455*100,1)}\%)
+
+- ayant une date de greffe 1 et 2, considéré comme greffé et ayant une date de greffe : \Sexpr{table(global_greffe$greffe)[2]} (\Sexpr{round(table(global_greffe$greffe)[2]/20455*100,1)}\%)
+
+<<>>=
+table(global_greffe$greffe, !is.na(global_greffe$dgrf))
+@
+
 
   \subsection{Nombre de greffe par année}
 
@@ -1238,13 +1272,13 @@ chisq.test(inc_greffe_iga[1:2,], correct = F)
 
 
 <<results="asis">>=
-print("Greffe 1")
-print(xtable(addmargins(table(global_greffe$annee1)), digits = 1), table.placement = "H") # Nombre de greffe par année (1ère greffe)
-print(xtable(round(prop.table(table(global_greffe$annee1))*100,1), digits = 1), table.placement = "H")
+x <- left_join(tidy(addmargins(table(global_greffe$annee1))), tidy(round(prop.table(table(global_greffe$annee1))*100,1)), by = "Var1")
+colnames(x) <- c("Greffe 1","Fréquence","Pourcentage")
+print(xtable(x, digits = 1, auto = T), table.placement = "H")
 
-print("Greffe 2")
-addmargins(table(global_greffe$annee2)) # Nombre de greffe par année (2e greffe)
-round(prop.table(table(global_greffe$annee2))*100,0)
+x <- left_join(tidy(addmargins(table(global_greffe$annee2))), tidy(round(prop.table(table(global_greffe$annee2))*100,1)), by = "Var1")
+colnames(x) <- c("Greffe 2","Fréquence","Pourcentage")
+print(xtable(x, digits = 1, auto = T), table.placement = "H")
 @
 
 
@@ -1263,11 +1297,9 @@ Greffe 2 = 0 jour pour 2 patients
 
 Raisons de l'arrêt du greffon 1 :
 <<results="asis">>=
-print(xtable(sort(table(global_greffe$ECHEC1, useNA = "always"), decreasing = T)[-1]), include.colnames =F, table.placement = "H")
-
-"Pourcentage :"
-
-print(xtable(round(prop.table(sort(table(global_greffe$ECHEC1), decreasing = T))*100,1)), include.colnames =F, table.placement = "H")
+x <- full_join(tidy(sort(table(global_greffe$ECHEC1, useNA = "always"), decreasing = T)[-1]),tidy(round(prop.table(sort(table(global_greffe$ECHEC1), decreasing = T))*100,1)), by = "Var1")
+colnames(x) <- c("","Fréquence","Pourcentage")
+print(xtable(x), table.placement = "H", include.rownames = F)
 @
 
 Raisons de l'arrêt du greffon 2 : Complications vasculaires du greffon  (pour 2 patients).
