@@ -45,6 +45,7 @@ library("classInt", lib.loc="~/R/win-library/3.3")
 library("broom", lib.loc="~/R/win-library/3.3")
 library("ggplot2", lib.loc="~/R/win-library/3.3")
 library("gplots", lib.loc="~/R/win-library/3.3")
+library("lme4", lib.loc="~/R/win-library/3.3")
 @
 
 <<iga>>=
@@ -685,14 +686,14 @@ Dans l'article de Simon, on a une incidence de néphropathie à IgA (donc pas fo
 
 Tableau d'incidence selon la région par standardisation directe pour 1 million d'habitants de 2010 à 2014 (selon l'effectif français de 2013) :
 <<cache=FALSE, results="asis">>=
-print(xtable(standdirect[order(standdirect$Ratio.ajuste, decreasing = T),]*10), table.placement = "H")
+print(xtable(standdirect[order(standdirect$Ratio.ajuste, decreasing = T),]*10, digits = 1), table.placement = "H")
 @
 
 Tableau d'incidence selon le département par standardisation directe pour 1 million d'habitants de 2010 à 2014 (selon l'effectif français de 2013) :
 <<results="asis">>=
 x <- standdirect_dep[order(standdirect_dep$Ratio.ajuste, decreasing = T),]*10
-print(xtable(x[c(1:50),]), table.placement = "H")
-print(xtable(x[c(51:99),]), table.placement = "H")
+print(xtable(x[c(1:50),], digits = 1), table.placement = "H")
+print(xtable(x[c(51:99),], digits = 1), table.placement = "H")
 @
 
 
@@ -776,12 +777,14 @@ ggplot(iga, aes(x = age, fill = anirt, col = anirt)) + geom_density(alpha = 0.05
   
 Taille lors de l'IRCT :
   
-<<taille>>=
-summary(iga$TAIL)
+<<taille, results="asis">>=
+print(xtable(tidy(summary(iga$TAIL))), include.rownames = F)
 @
 
-<<poids>>=
-summary(iga$PDS)
+Poids lors de l'IRCT :
+
+<<poids, results="asis">>=
+print(xtable(tidy(summary(iga$PDS))), include.rownames = F)
 @
 
 BMI :
@@ -800,29 +803,57 @@ Age d'arrivée au stade d'IRT selon le BMI :
 print(xtable(do.call("rbind", tapply(iga$age, iga$gr_bmi, FUN = summary))), table.placement = "H")
 @
 
+Graphiques relation age - BMI :
+
 <<fig.height=5>>=
 ggplot(iga, aes(x = gr_bmi, y = age)) + 
   geom_boxplot(fill = "grey80", colour = "black") +
   xlab("BMI") +
   ylab("Âge lors de l'IRT pour la maladie de Berger")
 
-plotmeans(iga$age~iga$gr_bmi, gap=0, mean.labels= T, main = "Moyennes de l'âge avec intervalle de confiance - Maladie de Berger", xlab = "", ylab = "Âge")
+plotmeans(iga$age~iga$gr_bmi, gap=0, mean.labels= T, main = "Moyennes de l'âge avec intervalle de confiance - Maladie de Berger", xlab = "", ylab = "Âge d'IRCT")
 
 iga$gr_bmi <- relevel(iga$gr_bmi, ref = "18.5-24.9")
 summary(lm(iga$age~iga$gr_bmi))
+
+ggplot(iga, aes(x=bmi, y=age)) +
+  geom_smooth() +
+  labs(title = "Régression - maladie de Berger")
+summary(lm(iga$age~iga$bmi))
+
 
 global$gr_bmi<-cut(global$bmi, breaks = c(min(global$bmi,na.rm = T),18.5,25,30,35,40,max(global$bmi,na.rm = T)+1), right = F, labels = c("<18.5","18.5-24.9","25-29.9","30-34.9","35-39.9",">40"))
 ggplot(global, aes(x = gr_bmi, y = age)) + 
   geom_boxplot(fill = "grey80", colour = "black") +
   xlab("BMI") +
-  ylab("Âge lors de l'IRT pour toute cause")
+  ylab("Âge lors de l'IRT pour toute cause") +
+  ggtitle("Toute cause")
 
-plotmeans(global$age~global$gr_bmi, gap=0)
+plotmeans(global$age~global$gr_bmi, gap=0, xlab = "", ylab = "Age lors IRCT")
 
 global$gr_bmi <- relevel(global$gr_bmi, ref = "18.5-24.9")
 summary(lm(global$age~global$gr_bmi))
 @
 
+<<fig.height=3>>=
+ggplot(iga, aes(x=bmi, y=age)) +
+  geom_smooth() +
+  labs(title = "Régression - IgA")
+ggplot(diab[diab$bmi<60,], aes(x=bmi, y=age)) +
+  geom_smooth() +
+  labs(title = "Régression - diabète (bmi<60)")
+ggplot(pkrd[pkrd$bmi<60,], aes(x=bmi, y=age)) +
+  geom_smooth() +
+  labs(title = "Régression- pkrd (bmi<60)")
+
+gnc$liste_longue <- factor(gnc$liste_longue)
+for (i in levels(gnc$liste_longue)) {
+print(ggplot(gnc[gnc$liste_longue==i,], aes(x=bmi, y=age)) +
+  geom_smooth() +
+  labs(title = paste("Régression -",i)))
+}
+
+@
 
       \subsubsection{Ponction Biopsie Rénale}
 
@@ -835,7 +866,7 @@ x <- round(prop.table(table(global$liste_longue, global$PBRn),1)*100,1)
 print(xtable(x[order(x[,2], decreasing = T),], digits = 1), table.placement = "H")
 @
 
-\textcolor{red}{Commentaire : 25\% de ceux qui n'ont pas eu d'examen histologique ont été ponctionnés.}
+\textcolor{red}{Commentaire : 25\% de ceux qui n'ont pas eu d'examen histologique ont été biopsiés.}
 ~\\
 
 Pour le Berger par région :
@@ -865,6 +896,7 @@ Type de diabète :
 
 <<results="asis">>=
 xtable(addmargins(table(global$liste_longue[!global$TYPDIABn==0], global$TYPDIABn[!global$TYPDIABn==0], useNA = "no")), digits = 0)
+
 x <- round(prop.table(table(global$liste_longue[!global$TYPDIABn==0], global$TYPDIABn[!global$TYPDIABn==0]),1)*100,1)
 print(xtable(x[order(x[,2], decreasing = T),],digits = 1), table.placement = "H")
 @
@@ -872,13 +904,9 @@ print(xtable(x[order(x[,2], decreasing = T),],digits = 1), table.placement = "H"
 
 Cirrhose : \Sexpr{table(iga$CIRHn)[2]} (\Sexpr{round(prop.table(table(iga$CIRHn))*100,1)[2]}\%) NA = \Sexpr{table(iga$CIRHn, useNA = "always")[3]}
 
-<<>>=
-print("Cirrhose et VHB :")
-table(iga$VHBn[iga$CIRHn==1])
-print("Cirrhose et VHC :")
-table(iga$VHCn[iga$CIRHn==1])
-@
+Cirrhose et VHB : aucun
 
+Cirrhose et VHC : \Sexpr{table(iga$VHCn[iga$CIRHn==1])[2]}
 
 <<>>=
 addmargins(table(global$liste_longue, global$CIRHn, useNA = "always"))
@@ -946,17 +974,16 @@ x[order(x[,2], decreasing = T),]
 @
 ~\\
 
-Accident vasculaire cérébrale (AVC et AIT) :
-
 <<>>=
-addmargins(table(iga$AVCn, iga$AITn, useNA = "always", deparse.level = 2))
-round(prop.table(table(iga$AVCn, iga$AITn, deparse.level = 2))*100,1)
-global$avc_ait <- NA
-global$avc_ait <- ifelse(global$AVCn==1 | global$AITn==1, 1, 0)
-table(global$avc_ait, useNA = "always")
+iga$avc_ait <- NA
+iga$avc_ait <- ifelse(iga$AVCn==1 | iga$AITn==1, 1, 0)
 @
 
+Accident vasculaire cérébrale (AVC et/ou AIT) : \Sexpr{table(iga$avc_ait)[2]} (\Sexpr{round(prop.table(table(iga$avc_ait))*100,1)[2]}\%) NA = \Sexpr{table(iga$avc_ait, useNA = "always")[3]}
+
 <<>>=
+global$avc_ait <- NA
+global$avc_ait <- ifelse(global$AVCn==1 | global$AITn==1, 1, 0)
 addmargins(table(global$liste_longue, global$avc_ait, useNA = "always"))
 x <- round(prop.table(table(global$liste_longue, global$avc_ait),1)*100,1)
 x[order(x[,2], decreasing = T),]
@@ -995,9 +1022,9 @@ x[order(x[,2], decreasing = T),]
 
     \subsubsection{Statut Tabagique}
 
-<<>>=
-table(iga$TABACn, useNA = "always")
-round(prop.table(table(iga$TABACn))*100,1)
+<<results="asis">>=
+print(xtable(tidy(table(iga$TABACn, useNA = "always"))), include.rownames = F)
+xtable(round(prop.table(table(iga$TABACn))*100,1))
 @
 
 <<>>=
@@ -1029,7 +1056,10 @@ hist(iga$dfg, xlab = "DFG (ml/min)", main = "DFG Berger")
 On a \Sexpr{length(iga$dfg[iga$dfg=="123.02" & !is.na(iga$dfg)])} patient qui a un DFG supérieur à 120 ml/min. Aucun entre 40 et 120.
 
 <<results="asis">>=
-print(xtable(do.call("rbind", tapply(global$dfg, global$liste_longue, summary)), digits = 1), size = "small")
+x <- do.call("rbind", tapply(global$dfg, global$liste_longue, summary))
+x <- as.data.frame.matrix(x)
+x <- x[order(x$Mean, decreasing = T),]
+print(xtable(x, digits = 1), size = "small", table.placement = "H")
 @
 
 ~\\
@@ -1044,9 +1074,9 @@ hist(iga$ALBINI, xlab = "Albuminémie (U/L)", main = "Albuminémie", xlim = c(0,
 
 Méthode de mesure de l'albumine initiale :
 
-<<>>=
-table(iga$ALBI_MTH,useNA = "always")
-round(prop.table(table(iga$ALBI_MTH))*100,1)
+<<results="asis">>=
+print(xtable(tidy(table(iga$ALBI_MTH,useNA = "always"))), include.rownames = F, table.placement = "H")
+print(xtable(round(prop.table(table(iga$ALBI_MTH))*100,1)), table.placement = "H")
 @
 
 Hémoglobine :
@@ -1063,7 +1093,7 @@ x <- addmargins(table(iga$sex,iga$gr_HBINI, deparse.level = 2))
 colnames(x) <- c("Anémique","Non anémique",'Somme')
 rownames(x) <- c("Homme","Femme","Somme")
 xtable(x, digits = 0) # Nombre d'anémiques selon le sexe
-xtable(round(prop.table(x[,1:2],1)*100,1), caption = "Pourcentage", digits = 1)
+xtable(round(prop.table(x[,1:2],1)*100,1), caption = "Pourcentage", digits = 1) 
 @
 
 <<>>=
@@ -1071,9 +1101,14 @@ chisq.test(table(iga$sex,iga$gr_HBINI),correct = F) # Chi2 test
 @
 
 
-<<>>=
+<<results="asis">>=
 iga$gr_HBINI <- as.numeric(as.character(iga$gr_HBINI))
-summary(lm(iga$HBINI~iga$sex+iga$dfg))
+print(xtable(tidy(summary(lm(iga$HBINI~iga$sex+iga$dfg))), caption = "Régression linéaire simple (Hb selon le sexe et le DFG)", digits = 3), table.placement = "H")
+xtable(confint(lm(iga$HBINI~iga$sex+iga$dfg)), digits = 3)
+@
+
+<<>>=
+summary(lmer(HBINI ~ dfg + (1|sex), data = iga))
 @
 
 
@@ -1102,7 +1137,7 @@ print(xtable(prop.table(x,2)*100, digits = 1), table.placement = "H")
 \textcolor{red}{Attention : le recul n'est pas le même pour ceux de 2010 et 2015, ce qui explique la différence.}
 ~\\
 
-Nombre de dialyse pour maladie de Berger (hémo + péritonéale) comparé aux dialysés totaux en France :
+Nombre de dialyse (hémo + péritonéale) comparé aux dialysés totaux en France :
 
 <<results="asis", fig.height=3>>=
 inc_greffe <- matrix(nrow = 9, ncol = 5, dimnames = list(c("Total France","Berger","Pourcentage Berger","GNC","Pourcentage GNC","Diabète","Pourcentage diabète","PKRD","Pourcentage PKRD"),c("2010","2011","2012","2013","2014")))
