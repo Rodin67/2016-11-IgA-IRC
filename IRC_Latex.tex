@@ -106,8 +106,11 @@ Dans l'article de Simon, on a une incidence de néphropathie à IgA (donc pas fo
   \subsection{Incidence spatiale d'IRCT}
 
 Tableau d'incidence selon la région par standardisation directe pour 1 million d'habitants de 2010 à 2014 (selon l'effectif français de 2013) :
+
+   0    1 
+ 271 1199 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Dec 21 17:09:01 2016
+% Thu Dec 22 15:45:34 2016
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -2033,7 +2036,40 @@ Retraité & 458 & 37.40 \\
   
   \subsection{Analyse de la survie patient avec comme outcome le décès}
   
-  On a la date de décès pour 238 (13.8\%) patients.
+  On a la date de décès pour 238 (13.8\%) patients pour la maladie de Berger.
+  
+  On a la date de décès pour 4586 (41\%) patients pour le diabète.
+  
+  On a la date de décès pour 371 (11.8\%) patients pour la PKRD.
+  
+  On a la date de décès pour 1137 (25.7\%) patients pour la GNC.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+[1] "213 ( 18 %) : GN avec HSF"
+[1] "120 ( 27.5 %) : GN extra-membraneuse"
+[1] "130 ( 31.6 %) : GN extracapillaire ou endo/extracapillaire"
+[1] "61 ( 29.8 %) : GN membrano-proliférative type 1"
+[1] "14 ( 17.3 %) : GN membrano-proliférative type 2, dépôts denses"
+[1] "50 ( 20.5 %) : GN primitive avec autre diagnostic histologique"
+[1] "388 ( 31 %) : GN primitive sans examen histologique"
+[1] "107 ( 32.7 %) : Maladies systémiques autres"
+[1] "34 ( 16.4 %) : Néphropathie lupique"
+[1] "20 ( 28.2 %) : Purpura rhumatoïde"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-52-1} 
+
+\end{knitrout}
+
+
+Médiane de survie pour diablète : 5.5 ans [5.25-5.75]
 
   %\subsection{Recherche d’un lien entre les évènements infectieux saisonniers et la mise en route de la dialyse}
   
@@ -2058,26 +2094,12 @@ Dans la table globale avec la table greffe :
 
 - ayant une date de greffe 1 et 2, considéré comme greffé et ayant une date de greffe : 5268 (25.8\%)
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-   
-    FALSE  TRUE
-  0 15195  1488
-  1     0  3772
-   
-    FALSE  TRUE
-  0 16683     0
-  1  3759    13
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
-
+- ayant une date de greffe 1 et 2, considéré comme greffé et ayant une date de greffe de 2010 à 2014 : 3772 (18.4\%)
 
   \subsection{Nombre de greffe par année}
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Dec 21 17:05:16 2016
+% Thu Dec 22 15:25:13 2016
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrrr}
@@ -2107,7 +2129,7 @@ X-squared = 95.231, df = 5, p-value < 2.2e-16
 
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Dec 21 17:05:16 2016
+% Thu Dec 22 15:25:13 2016
 \begin{table}[H]
 \centering
 \begin{tabular}{llrr}
@@ -2126,7 +2148,7 @@ X-squared = 95.231, df = 5, p-value < 2.2e-16
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Dec 21 17:05:16 2016
+% Thu Dec 22 15:25:13 2016
 \begin{table}[H]
 \centering
 \begin{tabular}{llrr}
@@ -2146,26 +2168,23 @@ X-squared = 95.231, df = 5, p-value < 2.2e-16
 
 
   \subsection{Arrêt de fonction du greffon}
+
+Greffe 1 (en mois) :
   
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-[1] "Greffe 1 (en mois)"
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
   0.000   0.040   0.770   8.157  13.780  58.680   20413 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-55-1} 
-
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-55-2} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-56-1} 
 
 \end{knitrout}
-Greffe 2 = 0 jour pour 2 patients
-~\\
 
 Raisons de l'arrêt du greffon 1 :
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Dec 21 17:05:17 2016
+% Thu Dec 22 15:25:14 2016
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
@@ -2182,6 +2201,8 @@ Complications vasculaires du greffon &  23 & 54.80 \\
 \end{tabular}
 \end{table}
 
+
+Greffe 2 = 0 jour pour 2 patients
 
 Raisons de l'arrêt du greffon 2 : Complications vasculaires du greffon  (pour 2 patients).
 

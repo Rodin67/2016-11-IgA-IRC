@@ -598,6 +598,11 @@ global_greffe$ECHEC1 <- factor(global_greffe$ECHEC1)
 global_greffe$ECHEC1<-factor(global_greffe$ECHEC1, labels = c("Rejet aigu","Rejet chronique","Récidive de la maladie initiale","Complications vasculaires du greffon","Autres complications greffon","Autre infection déterminee"))
 global_greffe$ECHEC2<-factor(global_greffe$ECHEC2, labels = c("Complications vasculaires du greffon"))
 global_greffe$greffe <- ifelse(global_greffe$tx=="1" | !is.na(global_greffe$dgrf) | !is.na(global_greffe$GRF1) | !is.na(global_greffe$GRF2) | !is.na(global_greffe$GRF3),1,0)
+
+global_greffe$kmdc <- ifelse(is.na(global_greffe$ddc),0,1)
+global_greffe$kmdelaidc <- ifelse(is.na(global_greffe$ddc), as.Date(c("2016-11-01"), origin = "1899-12-30") - global_greffe$DDIRT, global_greffe$ddc-global_greffe$DDIRT)
+global_greffe$liste_longue <- factor(global_greffe$liste_longue)
+global_greffe$nephgp <- factor(global_greffe$nephgp)
 @
 
 La table "globale" contient \Sexpr{table(duplicated(global$RREC_COD))["FALSE"]} patients différents étant passés au stade d'IRCT dont \Sexpr{table(duplicated(iga$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(iga$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec maladie de Berger, \Sexpr{table(duplicated(diab$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(diab$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec une néphropathie diabétique, \Sexpr{table(duplicated(gnc$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(gnc$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec une glomérulonéphrite chronique et \Sexpr{table(duplicated(pkrd$RREC_COD))["FALSE"]} (\Sexpr{round(table(duplicated(pkrd$RREC_COD))["FALSE"]/table(duplicated(global$RREC_COD))["FALSE"]*100,1)}\%) avec une PKRD.
@@ -686,6 +691,7 @@ Dans l'article de Simon, on a une incidence de néphropathie à IgA (donc pas fo
 
 Tableau d'incidence selon la région par standardisation directe pour 1 million d'habitants de 2010 à 2014 (selon l'effectif français de 2013) :
 <<cache=FALSE, results="asis">>=
+table(iga$PBRn)
 print(xtable(standdirect[order(standdirect$Ratio.ajuste, decreasing = T),]*10, digits = 1), table.placement = "H")
 @
 
@@ -1225,7 +1231,31 @@ print(xtable(x), include.rownames = F, table.placement = "H")
   
   \subsection{Analyse de la survie patient avec comme outcome le décès}
   
-  On a la date de décès pour \Sexpr{table(!is.na(iga$ddc))[2]} (\Sexpr{round(table(!is.na(iga$ddc))[2]/nrow(iga)*100,1)}\%) patients.
+  On a la date de décès pour \Sexpr{table(!is.na(iga$ddc))[2]} (\Sexpr{round(table(!is.na(iga$ddc))[2]/nrow(iga)*100,1)}\%) patients pour la maladie de Berger.
+  
+  On a la date de décès pour \Sexpr{table(!is.na(diab$ddc))[2]} (\Sexpr{round(table(!is.na(diab$ddc))[2]/nrow(diab)*100,1)}\%) patients pour le diabète.
+  
+  On a la date de décès pour \Sexpr{table(!is.na(pkrd$ddc))[2]} (\Sexpr{round(table(!is.na(pkrd$ddc))[2]/nrow(pkrd)*100,1)}\%) patients pour la PKRD.
+  
+  On a la date de décès pour \Sexpr{table(!is.na(gnc$ddc))[2]} (\Sexpr{round(table(!is.na(gnc$ddc))[2]/nrow(gnc)*100,1)}\%) patients pour la GNC.
+
+<<>>=
+for (i in levels(gnc$liste_longue)) {
+  print(paste(table(!is.na(gnc$ddc[gnc$liste_longue==i]))[2], "(", round(table(!is.na(gnc$ddc[gnc$liste_longue==i]))[2]/nrow(gnc[gnc$liste_longue==i,])*100,1), "%) :", i))
+}
+@
+
+
+<<>>=
+par(mar = c(4,2,2,0) )
+plot(survfit(Surv(kmdelaidc/365.25, kmdc)~liste_longue, data = global_greffe),
+     main = "Courbe de survie univariée",
+     xlab = "Temps (année)", col = c("black",brewer.pal(n = 12, name = "Paired")))
+legend(x = 0, y = 0.5, legend = c(levels(global_greffe$liste_longue)), lty = 1, col = c("black",brewer.pal(n = 12, name = "Paired")), cex = 1)
+@
+
+
+Médiane de survie pour diablète : 5.5 ans [5.25-5.75]
 
   %\subsection{Recherche d’un lien entre les évènements infectieux saisonniers et la mise en route de la dialyse}
   
@@ -1250,10 +1280,7 @@ Dans la table globale avec la table greffe :
 
 - ayant une date de greffe 1 et 2, considéré comme greffé et ayant une date de greffe : \Sexpr{table(global_greffe$greffe)[2]} (\Sexpr{round(table(global_greffe$greffe)[2]/20455*100,1)}\%)
 
-<<>>=
-table(global_greffe$greffe, !is.na(global_greffe$dgrf))
-@
-
+- ayant une date de greffe 1 et 2, considéré comme greffé et ayant une date de greffe de 2010 à 2014 : \Sexpr{table(global_greffe$greffe[global_greffe$dgrf<as.Date("2015-01-01", origin ="1899-12-30")])} (\Sexpr{round(table(global_greffe$greffe[global_greffe$dgrf<as.Date("2015-01-01", origin ="1899-12-30")])/20455*100,1)}\%)
 
   \subsection{Nombre de greffe par année}
 
@@ -1283,17 +1310,17 @@ print(xtable(x, digits = 1, auto = T), table.placement = "H")
 
 
   \subsection{Arrêt de fonction du greffon}
+
+Greffe 1 (en mois) :
   
-<<fig.height=4>>=
-print("Greffe 1 (en mois)")
+<<fig.height=7>>=
 summary(global_greffe$DELAIARF1)
-hist(global_greffe$DELAIARF1/12, main = "Temps entre la greffe 1 et l'arrêt du greffon", xlab = "Temps (en année)")
-ggplot(global_greffe, aes(DELAIARF1/12)) +
+
+ggplot(global_greffe, aes(DELAIARF1/12)) + 
+  geom_histogram(aes(y=..density..), fill = "white", col = "black", bins = 13) +
   geom_density(fill = "red", alpha = 0.25, col = "red") +
-  labs(title = "Courbe de densité", x = "Temps (en années)")
+  labs(x = 'Temps (en année)', title = "Temps entre la greffe 1 et l'arrêt du greffon") 
 @
-Greffe 2 = 0 jour pour 2 patients
-~\\
 
 Raisons de l'arrêt du greffon 1 :
 <<results="asis">>=
@@ -1302,11 +1329,13 @@ colnames(x) <- c("","Fréquence","Pourcentage")
 print(xtable(x), table.placement = "H", include.rownames = F)
 @
 
+Greffe 2 = 0 jour pour 2 patients
+
 Raisons de l'arrêt du greffon 2 : Complications vasculaires du greffon  (pour 2 patients).
 
   \subsection{Décès au cours de la greffe}
 
-\Sexpr{length(global_greffe$DECES1[!is.na(global_greffe$DECES1)])} (\Sexpr{round(length(global_greffe$DECES1[!is.na(global_greffe$DECES1)])/length(intersect(global$RREC_COD,greffe$NEFG))*100,1)}\%) patients sont décédés au cours de la greffe 1 et \Sexpr{length(global_greffe$DECES2[!is.na(global_greffe$DECES2)])} au cours de la 2e.
+\Sexpr{length(global_greffe$DECES1[!is.na(global_greffe$DECES1)])} (\Sexpr{round(length(global_greffe$DECES1[!is.na(global_greffe$DECES1)])/length(intersect(global$RREC_COD, greffe$NEFG))*100,1)}\%) patients sont décédés au cours de la greffe 1 et \Sexpr{length(global_greffe$DECES2[!is.na(global_greffe$DECES2)])} au cours de la 2e.
 
 
 
