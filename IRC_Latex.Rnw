@@ -195,7 +195,7 @@ greffe$NOUV2<-factor(greffe$NOUV2)
 greffe$ECHEC1<-factor(greffe$ECHEC1)
 greffe$ECHEC2<-factor(greffe$ECHEC2)
 greffe$kmdc<-ifelse(is.na(greffe$DECES1),0,1) # Pour faire un Kaplan-Meier
-greffe$kmdelaidc<- ifelse(is.na(greffe$DECES1),as.Date(c("2016-11-01"), origin = "1899-12-30")-greffe$GRF1,greffe$DECES1-greffe$GRF1) # Pour faire un Kaplan-Meier : délai avant évènement (ou suivi jusqu'au 1-11-2016)
+greffe$kmdelaidc<- ifelse(is.na(greffe$DECES1), as.Date(c("2016-11-01"), origin = "1899-12-30")-greffe$GRF1, greffe$DELAIDC1) # Pour faire un Kaplan-Meier : délai avant évènement (ou suivi jusqu'au 1-11-2016)
 greffe <- greffe[!((greffe$NEFG==178144 | greffe$NEFG==194055 | greffe$NEFG==208156) & greffe$LMALADI=="Maladie de Berger"),]
 greffe <- greffe[!is.na(greffe$GRF1),]
 @
@@ -691,7 +691,6 @@ Dans l'article de Simon, on a une incidence de néphropathie à IgA (donc pas fo
 
 Tableau d'incidence selon la région par standardisation directe pour 1 million d'habitants de 2010 à 2014 (selon l'effectif français de 2013) :
 <<cache=FALSE, results="asis">>=
-table(iga$PBRn)
 print(xtable(standdirect[order(standdirect$Ratio.ajuste, decreasing = T),]*10, digits = 1), table.placement = "H")
 @
 
@@ -835,10 +834,14 @@ ggplot(global, aes(x = gr_bmi, y = age)) +
   ylab("Âge lors de l'IRT pour toute cause") +
   ggtitle("Toute cause")
 
-plotmeans(global$age~global$gr_bmi, gap=0, xlab = "", ylab = "Age lors IRCT")
+plotmeans(global$age~global$gr_bmi, gap=0, xlab = "", ylab = "Age lors IRCT", main = "Moyennes de l'âge avec intervalle de confiance - Toute cause")
+@
 
+$lm(global\mathdollar age\sim global\mathdollar gr\mathunderscore bmi)$ :
+
+<<results="asis">>=
 global$gr_bmi <- relevel(global$gr_bmi, ref = "18.5-24.9")
-summary(lm(global$age~global$gr_bmi))
+print(xtable(tidy(summary(lm(global$age~global$gr_bmi))$coefficients), digits = 3), table.placement = "H")
 @
 
 <<fig.height=3>>=
@@ -1033,10 +1036,11 @@ print(xtable(tidy(table(iga$TABACn, useNA = "always"))), include.rownames = F)
 xtable(round(prop.table(table(iga$TABACn))*100,1))
 @
 
-<<>>=
-addmargins(table(global$liste_longue, global$TABACn, useNA = "always"))
+<<results="asis">>=
+print(xtable(addmargins(table(global$liste_longue, global$TABACn, useNA = "always"))[-14,], digits = 0), table.placement ="H")
 x <- round(prop.table(table(global$liste_longue, global$TABACn),1)*100,1)
-x[order(x[,2], decreasing = T),]
+print(xtable(x[order(x[,1]),], digits = 1), table.placement ="H")
+chisq.test(x, correct = F)
 @
 
     \subsubsection{Créatinine, albumine et hémoglobine}
@@ -1057,7 +1061,11 @@ iga$dfg <- ifelse(iga$sex==1,
                   round(186.3*(iga$CREATINI/88.4)^-1.154 * (iga$age)^-0.203,2), 
                   round(186.3*(iga$CREATINI/88.4)^-1.154 * (iga$age)^-0.203 * 0.742,2))
 summary(iga$dfg)
-hist(iga$dfg, xlab = "DFG (ml/min)", main = "DFG Berger")
+
+ggplot(iga[iga$dfg<50,], aes(dfg)) +
+  geom_histogram(aes(y = ..density..), fill = "white", col = "black") +
+  geom_density(fill = "red", alpha = 0.3) +
+  labs(title = "DFG pour Berger")
 @
 On a \Sexpr{length(iga$dfg[iga$dfg=="123.02" & !is.na(iga$dfg)])} patient qui a un DFG supérieur à 120 ml/min. Aucun entre 40 et 120.
 
@@ -1106,7 +1114,7 @@ xtable(round(prop.table(x[,1:2],1)*100,1), caption = "Pourcentage", digits = 1)
 chisq.test(table(iga$sex,iga$gr_HBINI),correct = F) # Chi2 test
 @
 
-
+Régression liénaire de l'Hb selon le sexe et le DFG :
 <<results="asis">>=
 iga$gr_HBINI <- as.numeric(as.character(iga$gr_HBINI))
 print(xtable(tidy(summary(lm(iga$HBINI~iga$sex+iga$dfg))), caption = "Régression linéaire simple (Hb selon le sexe et le DFG)", digits = 3), table.placement = "H")
@@ -1142,18 +1150,18 @@ for (i in levels(global$liste_longue)) {
 \textcolor{red}{Nombre de patients greffés direct n'ayant aucune info sur la greffe toute pathologies confondus) : \Sexpr{table(is.na(global_greffe$GRF1[global_greffe$METHOn=="Greffe"]))[2]} (\Sexpr{round(prop.table(table(is.na(global_greffe$GRF1[global_greffe$METHOn=="Greffe"])))*100,1)[2]}\%)}
 ~\\
 
-\textcolor{red}{XXXXXX} Nombre de greffé sans dialyse et nombre de dialysé après dialyse :
+%\textcolor{red}{XXXXXX} Nombre de greffé sans dialyse et nombre de dialysé après dialyse :
 
-<<results="asis">>=
-x <- matrix(nrow = 2, ncol = 5, dimnames = list(c("Greffe sans dialyse","Greffe après dialyse"),c("2010","2011","2012","2013","2014")))
-x[1,] <- c(29,34,33,31,40)
-x[2,] <- c(187-29,192-34,155-33,108-31,64-40)
-print(xtable(addmargins(x), digits = 0), table.placement = "H")
-print(xtable(prop.table(x,2)*100, digits = 1), table.placement = "H")
-@
+%<<results="asis">>=
+%x <- matrix(nrow = 2, ncol = 5, dimnames = list(c("Greffe sans dialyse","Greffe après dialyse"),c("2010","2011","2012","2013","2014")))
+%x[1,] <- c(29,34,33,31,40)
+%x[2,] <- c(187-29,192-34,155-33,108-31,64-40)
+%print(xtable(addmargins(x), digits = 0), table.placement = "H")
+%print(xtable(prop.table(x,2)*100, digits = 1), table.placement = "H")
+%@
 
-\textcolor{red}{Attention : le recul n'est pas le même pour ceux de 2010 et 2014, ce qui explique la différence.}
-~\\
+%\textcolor{red}{Attention : le recul n'est pas le même pour ceux de 2010 et 2014, ce qui explique la différence.}
+%~\\
 
 Nombre de dialyse (hémo + péritonéale) comparé aux dialysés totaux en France :
 
@@ -1247,7 +1255,7 @@ for (i in levels(gnc$liste_longue)) {
 
 
 <<>>=
-par(mar = c(4,2,2,0) )
+par(mar = c(4,2,2,0))
 plot(survfit(Surv(kmdelaidc/365.25, kmdc)~liste_longue, data = global_greffe),
      main = "Courbe de survie univariée",
      xlab = "Temps (année)", col = c("black",brewer.pal(n = 12, name = "Paired")))
@@ -1265,6 +1273,14 @@ La table "greffe" contient \Sexpr{table(duplicated(greffe$NEFG))["FALSE"]} patie
 ~\\
 
 Dans la table globale avec la table greffe :
+
+<<results="asis">>=
+x <- global_greffe %>% group_by(tx, !is.na(dgrf),dgrf<as.Date("2015-01-01", origin ="1899-12-30") ,METHOn=="Greffe", !is.na(GRF1), !is.na(GRF2)) %>% summarise(n())
+x <- as.data.frame(x)
+colnames(x) <- c("Greffé", "Date de greffe", "Date 2010-2014","Greffe sans dialyse","Greffe 1", "Greffe 2","Total")
+print(xtable(x, digits = 0, align = c("c","c","c","c","c","c","c","c")), table.placement = "H", include.rownames = F)
+@
+
 
 - étant considéré comme greffé (table globale) : \Sexpr{table(global_greffe$tx)[2]} (\Sexpr{round(table(global_greffe$tx)[2]/20455*100,1)}\%)
 
