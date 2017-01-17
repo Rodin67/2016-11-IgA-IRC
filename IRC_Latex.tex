@@ -93,6 +93,8 @@
 
 
 
+
+
 La table "globale" contient 20455 patients différents étant passés au stade d'IRCT dont 1720 (8.4\%) avec maladie de Berger, 11174 (54.6\%) avec une néphropathie diabétique, 4417 (21.6\%) avec une glomérulonéphrite chronique et 3144 (15.4\%) avec une PKRD.
 
 \section{Incidence IRCT maladie de Berger}
@@ -107,7 +109,7 @@ Dans l'article de Simon, on a une incidence de néphropathie à IgA (donc pas fo
 
 Tableau d'incidence selon la région par standardisation directe pour 1 million d'habitants de 2010 à 2014 (selon l'effectif français de 2013) :
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 15:58:22 2016
+% Tue Jan 17 10:42:14 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -274,6 +276,13 @@ Dordogne & 31.6 & 32.3 & 15.9 & 61.1 & 6.5 \\
 \includegraphics[width=\maxwidth]{figure/unnamed-chunk-5-1} 
 
 \end{knitrout}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{C:/Users/Rodolphe/Documents/IRC/carte_densite}
+	\caption{Densité néphrologues}
+	\label{fig:cartedensite}
+\end{figure}
 
   \subsection{Incidence temporelle d'IRCT}
 
@@ -856,50 +865,62 @@ Cirrhose et VHB : aucun
 
 Cirrhose et VHC : 4
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-                                                 
-                                                      0     1  <NA>   Sum
-  Diabète                                         10417   233   524 11174
-  GN avec HSF                                      1087    19    78  1184
-  GN extra-membraneuse                              399     3    35   437
-  GN extracapillaire ou endo/extracapillaire        377    10    24   411
-  GN membrano-proliférative type 1                  184     9    12   205
-  GN membrano-proliférative type 2, dépôts denses    67     7     7    81
-  GN primitive avec autre diagnostic histologique   212     7    25   244
-  GN primitive sans examen histologique            1120    32    98  1250
-  Maladies systémiques autres                       318     2     7   327
-  Néphropathie à dépôts d'IgA                      1414    98   208  1720
-  Néphropathie lupique                              183     4    20   207
-  Polykystose rénale de l adulte                   2706    15   423  3144
-  Purpura rhumatoïde                                 63     5     3    71
-  <NA>                                                0     0     0     0
-  Sum                                             18547   444  1464 20455
-                                                 
-                                                     0    1
-  GN membrano-proliférative type 2, dépôts denses 90.5  9.5
-  Purpura rhumatoïde                              92.6  7.4
-  Néphropathie à dépôts d'IgA                     93.5  6.5
-  GN membrano-proliférative type 1                95.3  4.7
-  GN primitive avec autre diagnostic histologique 96.8  3.2
-  GN primitive sans examen histologique           97.2  2.8
-  GN extracapillaire ou endo/extracapillaire      97.4  2.6
-  Diabète                                         97.8  2.2
-  Néphropathie lupique                            97.9  2.1
-  GN avec HSF                                     98.3  1.7
-  GN extra-membraneuse                            99.3  0.7
-  Maladies systémiques autres                     99.4  0.6
-  Polykystose rénale de l adulte                  99.4  0.6
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:38:14 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+  \hline
+ & 0 & 1 & NA & Sum \\ 
+  \hline
+Diabète & 10417 & 233 & 524 & 11174 \\ 
+  GN avec HSF & 1087 & 19 & 78 & 1184 \\ 
+  GN extra-membraneuse & 399 & 3 & 35 & 437 \\ 
+  GN extracapillaire ou endo/extracapillaire & 377 & 10 & 24 & 411 \\ 
+  GN membrano-proliférative type 1 & 184 & 9 & 12 & 205 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 67 & 7 & 7 & 81 \\ 
+  GN primitive avec autre diagnostic histologique & 212 & 7 & 25 & 244 \\ 
+  GN primitive sans examen histologique & 1120 & 32 & 98 & 1250 \\ 
+  Maladies systémiques autres & 318 & 2 & 7 & 327 \\ 
+  Néphropathie à dépôts d'IgA & 1414 & 98 & 208 & 1720 \\ 
+  Néphropathie lupique & 183 & 4 & 20 & 207 \\ 
+  Polykystose rénale de l adulte & 2706 & 15 & 423 & 3144 \\ 
+  Purpura rhumatoïde & 63 & 5 & 3 & 71 \\ 
+  Sum & 18547 & 444 & 1464 & 20455 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:38:14 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrr}
+  \hline
+ & 0 & 1 \\ 
+  \hline
+GN membrano-proliférative type 2, dépôts denses & 90.5 & 9.5 \\ 
+  Purpura rhumatoïde & 92.6 & 7.4 \\ 
+  Néphropathie à dépôts d'IgA & 93.5 & 6.5 \\ 
+  GN membrano-proliférative type 1 & 95.3 & 4.7 \\ 
+  GN primitive avec autre diagnostic histologique & 96.8 & 3.2 \\ 
+  GN primitive sans examen histologique & 97.2 & 2.8 \\ 
+  GN extracapillaire ou endo/extracapillaire & 97.4 & 2.6 \\ 
+  Diabète & 97.8 & 2.2 \\ 
+  Néphropathie lupique & 97.9 & 2.1 \\ 
+  GN avec HSF & 98.3 & 1.7 \\ 
+  GN extra-membraneuse & 99.3 & 0.7 \\ 
+  Maladies systémiques autres & 99.4 & 0.6 \\ 
+  Polykystose rénale de l adulte & 99.4 & 0.6 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
 
 Stade de la cirrhose :
 
-- 1 : 30 (38\%)
+- Child A : 30 (38\%)
 
-- 2 : 49 (62\%)
+- Child B-C : 49 (62\%)
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -943,393 +964,501 @@ Stade de la cirrhose :
 
 Infarctus du myocarde : 60 (4\%) NA = 207
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-                                                 
-                                                      0     1  <NA>   Sum
-  Diabète                                          9175  1452   547 11174
-  GN avec HSF                                      1049    61    74  1184
-  GN extra-membraneuse                              374    27    36   437
-  GN extracapillaire ou endo/extracapillaire        370    20    21   411
-  GN membrano-proliférative type 1                  185     9    11   205
-  GN membrano-proliférative type 2, dépôts denses    68     7     6    81
-  GN primitive avec autre diagnostic histologique   198    21    25   244
-  GN primitive sans examen histologique            1064    97    89  1250
-  Maladies systémiques autres                       302    15    10   327
-  Néphropathie à dépôts d'IgA                      1453    60   207  1720
-  Néphropathie lupique                              176    12    19   207
-  Polykystose rénale de l adulte                   2554   153   437  3144
-  Purpura rhumatoïde                                 61     7     3    71
-  <NA>                                                0     0     0     0
-  Sum                                             17029  1941  1485 20455
-                                                 
-                                                     0    1
-  Diabète                                         86.3 13.7
-  Purpura rhumatoïde                              89.7 10.3
-  GN primitive avec autre diagnostic histologique 90.4  9.6
-  GN membrano-proliférative type 2, dépôts denses 90.7  9.3
-  GN primitive sans examen histologique           91.6  8.4
-  GN extra-membraneuse                            93.3  6.7
-  Néphropathie lupique                            93.6  6.4
-  Polykystose rénale de l adulte                  94.3  5.7
-  GN avec HSF                                     94.5  5.5
-  GN extracapillaire ou endo/extracapillaire      94.9  5.1
-  Maladies systémiques autres                     95.3  4.7
-  GN membrano-proliférative type 1                95.4  4.6
-  Néphropathie à dépôts d'IgA                     96.0  4.0
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:38:15 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+  \hline
+ & 0 & 1 & NA & Sum \\ 
+  \hline
+Diabète & 9175 & 1452 & 547 & 11174 \\ 
+  GN avec HSF & 1049 & 61 & 74 & 1184 \\ 
+  GN extra-membraneuse & 374 & 27 & 36 & 437 \\ 
+  GN extracapillaire ou endo/extracapillaire & 370 & 20 & 21 & 411 \\ 
+  GN membrano-proliférative type 1 & 185 & 9 & 11 & 205 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 68 & 7 & 6 & 81 \\ 
+  GN primitive avec autre diagnostic histologique & 198 & 21 & 25 & 244 \\ 
+  GN primitive sans examen histologique & 1064 & 97 & 89 & 1250 \\ 
+  Maladies systémiques autres & 302 & 15 & 10 & 327 \\ 
+  Néphropathie à dépôts d'IgA & 1453 & 60 & 207 & 1720 \\ 
+  Néphropathie lupique & 176 & 12 & 19 & 207 \\ 
+  Polykystose rénale de l adulte & 2554 & 153 & 437 & 3144 \\ 
+  Purpura rhumatoïde & 61 & 7 & 3 & 71 \\ 
+  Sum & 17029 & 1941 & 1485 & 20455 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:38:15 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrr}
+  \hline
+ & 0 & 1 \\ 
+  \hline
+Diabète & 86.3 & 13.7 \\ 
+  Purpura rhumatoïde & 89.7 & 10.3 \\ 
+  GN primitive avec autre diagnostic histologique & 90.4 & 9.6 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 90.7 & 9.3 \\ 
+  GN primitive sans examen histologique & 91.6 & 8.4 \\ 
+  GN extra-membraneuse & 93.3 & 6.7 \\ 
+  Néphropathie lupique & 93.6 & 6.4 \\ 
+  Polykystose rénale de l adulte & 94.3 & 5.7 \\ 
+  GN avec HSF & 94.5 & 5.5 \\ 
+  GN extracapillaire ou endo/extracapillaire & 94.9 & 5.1 \\ 
+  Maladies systémiques autres & 95.3 & 4.7 \\ 
+  GN membrano-proliférative type 1 & 95.4 & 4.6 \\ 
+  Néphropathie à dépôts d'IgA & 96.0 & 4.0 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
 
 Insuffisance cardiaque : 149 (9.8\%) NA = 206
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-                                                 
-                                                      0     1  <NA>   Sum
-  Diabète                                          7348  3301   525 11174
-  GN avec HSF                                       978   134    72  1184
-  GN extra-membraneuse                              348    55    34   437
-  GN extracapillaire ou endo/extracapillaire        335    54    22   411
-  GN membrano-proliférative type 1                  156    37    12   205
-  GN membrano-proliférative type 2, dépôts denses    62    13     6    81
-  GN primitive avec autre diagnostic histologique   183    36    25   244
-  GN primitive sans examen histologique             924   247    79  1250
-  Maladies systémiques autres                       277    42     8   327
-  Néphropathie à dépôts d'IgA                      1365   149   206  1720
-  Néphropathie lupique                              167    22    18   207
-  Polykystose rénale de l adulte                   2457   262   425  3144
-  Purpura rhumatoïde                                 59    10     2    71
-  <NA>                                                0     0     0     0
-  Sum                                             14659  4362  1434 20455
-                                                 
-                                                     0    1
-  Diabète                                         69.0 31.0
-  GN primitive sans examen histologique           78.9 21.1
-  GN membrano-proliférative type 1                80.8 19.2
-  GN membrano-proliférative type 2, dépôts denses 82.7 17.3
-  GN primitive avec autre diagnostic histologique 83.6 16.4
-  Purpura rhumatoïde                              85.5 14.5
-  GN extracapillaire ou endo/extracapillaire      86.1 13.9
-  GN extra-membraneuse                            86.4 13.6
-  Maladies systémiques autres                     86.8 13.2
-  GN avec HSF                                     87.9 12.1
-  Néphropathie lupique                            88.4 11.6
-  Néphropathie à dépôts d'IgA                     90.2  9.8
-  Polykystose rénale de l adulte                  90.4  9.6
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:38:15 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+  \hline
+ & 0 & 1 & NA & Sum \\ 
+  \hline
+Diabète & 7348 & 3301 & 525 & 11174 \\ 
+  GN avec HSF & 978 & 134 & 72 & 1184 \\ 
+  GN extra-membraneuse & 348 & 55 & 34 & 437 \\ 
+  GN extracapillaire ou endo/extracapillaire & 335 & 54 & 22 & 411 \\ 
+  GN membrano-proliférative type 1 & 156 & 37 & 12 & 205 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 62 & 13 & 6 & 81 \\ 
+  GN primitive avec autre diagnostic histologique & 183 & 36 & 25 & 244 \\ 
+  GN primitive sans examen histologique & 924 & 247 & 79 & 1250 \\ 
+  Maladies systémiques autres & 277 & 42 & 8 & 327 \\ 
+  Néphropathie à dépôts d'IgA & 1365 & 149 & 206 & 1720 \\ 
+  Néphropathie lupique & 167 & 22 & 18 & 207 \\ 
+  Polykystose rénale de l adulte & 2457 & 262 & 425 & 3144 \\ 
+  Purpura rhumatoïde & 59 & 10 & 2 & 71 \\ 
+  Sum & 14659 & 4362 & 1434 & 20455 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:38:15 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrr}
+  \hline
+ & 0 & 1 \\ 
+  \hline
+Diabète & 69.0 & 31.0 \\ 
+  GN primitive sans examen histologique & 78.9 & 21.1 \\ 
+  GN membrano-proliférative type 1 & 80.8 & 19.2 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 82.7 & 17.3 \\ 
+  GN primitive avec autre diagnostic histologique & 83.6 & 16.4 \\ 
+  Purpura rhumatoïde & 85.5 & 14.5 \\ 
+  GN extracapillaire ou endo/extracapillaire & 86.1 & 13.9 \\ 
+  GN extra-membraneuse & 86.4 & 13.6 \\ 
+  Maladies systémiques autres & 86.8 & 13.2 \\ 
+  GN avec HSF & 87.9 & 12.1 \\ 
+  Néphropathie lupique & 88.4 & 11.6 \\ 
+  Néphropathie à dépôts d'IgA & 90.2 & 9.8 \\ 
+  Polykystose rénale de l adulte & 90.4 & 9.6 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
 
 Stade de l’IC :
 
-- 1 : 99 (71.7\%)
+- I-II : 99 (71.7\%)
 
-- 2 : 39 (28.3\%)
+- III-IV : 39 (28.3\%)
 ~\\
 
-Artériopathie des membres inférieurs : 112 (7.4\%) NA = 212
+Artérite des membres inférieurs : 112 (7.4\%) NA = 212
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-                                                 
-                                                      0     1  <NA>   Sum
-  Diabète                                          7032  3530   612 11174
-  GN avec HSF                                      1008    98    78  1184
-  GN extra-membraneuse                              345    52    40   437
-  GN extracapillaire ou endo/extracapillaire        351    35    25   411
-  GN membrano-proliférative type 1                  175    18    12   205
-  GN membrano-proliférative type 2, dépôts denses    71     4     6    81
-  GN primitive avec autre diagnostic histologique   195    23    26   244
-  GN primitive sans examen histologique             995   160    95  1250
-  Maladies systémiques autres                       289    27    11   327
-  Néphropathie à dépôts d'IgA                      1396   112   212  1720
-  Néphropathie lupique                              182     8    17   207
-  Polykystose rénale de l adulte                   2545   160   439  3144
-  Purpura rhumatoïde                                 56    10     5    71
-  <NA>                                                0     0     0     0
-  Sum                                             14640  4237  1578 20455
-                                                 
-                                                     0    1
-  Diabète                                         66.6 33.4
-  Purpura rhumatoïde                              84.8 15.2
-  GN primitive sans examen histologique           86.1 13.9
-  GN extra-membraneuse                            86.9 13.1
-  GN primitive avec autre diagnostic histologique 89.4 10.6
-  GN membrano-proliférative type 1                90.7  9.3
-  GN extracapillaire ou endo/extracapillaire      90.9  9.1
-  GN avec HSF                                     91.1  8.9
-  Maladies systémiques autres                     91.5  8.5
-  Néphropathie à dépôts d'IgA                     92.6  7.4
-  Polykystose rénale de l adulte                  94.1  5.9
-  GN membrano-proliférative type 2, dépôts denses 94.7  5.3
-  Néphropathie lupique                            95.8  4.2
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:39:21 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+  \hline
+ & 0 & 1 & NA & Sum \\ 
+  \hline
+Diabète & 7032 & 3530 & 612 & 11174 \\ 
+  GN avec HSF & 1008 & 98 & 78 & 1184 \\ 
+  GN extra-membraneuse & 345 & 52 & 40 & 437 \\ 
+  GN extracapillaire ou endo/extracapillaire & 351 & 35 & 25 & 411 \\ 
+  GN membrano-proliférative type 1 & 175 & 18 & 12 & 205 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 71 & 4 & 6 & 81 \\ 
+  GN primitive avec autre diagnostic histologique & 195 & 23 & 26 & 244 \\ 
+  GN primitive sans examen histologique & 995 & 160 & 95 & 1250 \\ 
+  Maladies systémiques autres & 289 & 27 & 11 & 327 \\ 
+  Néphropathie à dépôts d'IgA & 1396 & 112 & 212 & 1720 \\ 
+  Néphropathie lupique & 182 & 8 & 17 & 207 \\ 
+  Polykystose rénale de l adulte & 2545 & 160 & 439 & 3144 \\ 
+  Purpura rhumatoïde & 56 & 10 & 5 & 71 \\ 
+  Sum & 14640 & 4237 & 1578 & 20455 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:39:21 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrr}
+  \hline
+ & 0 & 1 \\ 
+  \hline
+Diabète & 66.6 & 33.4 \\ 
+  Purpura rhumatoïde & 84.8 & 15.2 \\ 
+  GN primitive sans examen histologique & 86.1 & 13.9 \\ 
+  GN extra-membraneuse & 86.9 & 13.1 \\ 
+  GN primitive avec autre diagnostic histologique & 89.4 & 10.6 \\ 
+  GN membrano-proliférative type 1 & 90.7 & 9.3 \\ 
+  GN extracapillaire ou endo/extracapillaire & 90.9 & 9.1 \\ 
+  GN avec HSF & 91.1 & 8.9 \\ 
+  Maladies systémiques autres & 91.5 & 8.5 \\ 
+  Néphropathie à dépôts d'IgA & 92.6 & 7.4 \\ 
+  Polykystose rénale de l adulte & 94.1 & 5.9 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 94.7 & 5.3 \\ 
+  Néphropathie lupique & 95.8 & 4.2 \\ 
+   \hline
+\end{tabular}
+\end{table}
 
-Stade de l’AOMI : 
 
-- 1 : 71 (67.6\%)
+Stade de l’AMI : 
 
-- 2 : 34 (32.4\%)
+- I-II : 71 (67.6\%)
+
+- III-IV : 34 (32.4\%)
 ~\\
 
 Amputation : 9 (0.6\%) NA = 247
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-                                                 
-                                                      0     1  <NA>   Sum
-  Diabète                                          9650   471  1053 11174
-  GN avec HSF                                      1069     5   110  1184
-  GN extra-membraneuse                              389     2    46   437
-  GN extracapillaire ou endo/extracapillaire        369     3    39   411
-  GN membrano-proliférative type 1                  185     3    17   205
-  GN membrano-proliférative type 2, dépôts denses    72     1     8    81
-  GN primitive avec autre diagnostic histologique   208     0    36   244
-  GN primitive sans examen histologique            1118     6   126  1250
-  Maladies systémiques autres                       312     4    11   327
-  Néphropathie à dépôts d'IgA                      1464     9   247  1720
-  Néphropathie lupique                              182     1    24   207
-  Polykystose rénale de l adulte                   2653     3   488  3144
-  Purpura rhumatoïde                                 67     1     3    71
-  <NA>                                                0     0     0     0
-  Sum                                             17738   509  2208 20455
-                                                 
-                                                      0     1
-  Diabète                                          95.3   4.7
-  GN membrano-proliférative type 1                 98.4   1.6
-  Purpura rhumatoïde                               98.5   1.5
-  GN membrano-proliférative type 2, dépôts denses  98.6   1.4
-  Maladies systémiques autres                      98.7   1.3
-  GN extracapillaire ou endo/extracapillaire       99.2   0.8
-  Néphropathie à dépôts d'IgA                      99.4   0.6
-  GN avec HSF                                      99.5   0.5
-  GN extra-membraneuse                             99.5   0.5
-  GN primitive sans examen histologique            99.5   0.5
-  Néphropathie lupique                             99.5   0.5
-  Polykystose rénale de l adulte                   99.9   0.1
-  GN primitive avec autre diagnostic histologique 100.0   0.0
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:39:21 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+  \hline
+ & 0 & 1 & NA & Sum \\ 
+  \hline
+Diabète & 9650 & 471 & 1053 & 11174 \\ 
+  GN avec HSF & 1069 & 5 & 110 & 1184 \\ 
+  GN extra-membraneuse & 389 & 2 & 46 & 437 \\ 
+  GN extracapillaire ou endo/extracapillaire & 369 & 3 & 39 & 411 \\ 
+  GN membrano-proliférative type 1 & 185 & 3 & 17 & 205 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 72 & 1 & 8 & 81 \\ 
+  GN primitive avec autre diagnostic histologique & 208 & 0 & 36 & 244 \\ 
+  GN primitive sans examen histologique & 1118 & 6 & 126 & 1250 \\ 
+  Maladies systémiques autres & 312 & 4 & 11 & 327 \\ 
+  Néphropathie à dépôts d'IgA & 1464 & 9 & 247 & 1720 \\ 
+  Néphropathie lupique & 182 & 1 & 24 & 207 \\ 
+  Polykystose rénale de l adulte & 2653 & 3 & 488 & 3144 \\ 
+  Purpura rhumatoïde & 67 & 1 & 3 & 71 \\ 
+  Sum & 17738 & 509 & 2208 & 20455 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:39:21 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrr}
+  \hline
+ & 0 & 1 \\ 
+  \hline
+Diabète & 95.3 & 4.7 \\ 
+  GN membrano-proliférative type 1 & 98.4 & 1.6 \\ 
+  Purpura rhumatoïde & 98.5 & 1.5 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 98.6 & 1.4 \\ 
+  Maladies systémiques autres & 98.7 & 1.3 \\ 
+  GN extracapillaire ou endo/extracapillaire & 99.2 & 0.8 \\ 
+  Néphropathie à dépôts d'IgA & 99.4 & 0.6 \\ 
+  GN avec HSF & 99.5 & 0.5 \\ 
+  GN extra-membraneuse & 99.5 & 0.5 \\ 
+  GN primitive sans examen histologique & 99.5 & 0.5 \\ 
+  Néphropathie lupique & 99.5 & 0.5 \\ 
+  Polykystose rénale de l adulte & 99.9 & 0.1 \\ 
+  GN primitive avec autre diagnostic histologique & 100.0 & 0.0 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
 ~\\
 
+Accident vasculaire cérébrale (AVC et/ou AIT) : NA (NA\%) NA = NA
 
 
-Accident vasculaire cérébrale (AVC et/ou AIT) : 63 (4.3\%) NA = 239
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-                                                 
-                                                      0     1  <NA>   Sum
-  Diabète                                          9060  1447   667 11174
-  GN avec HSF                                      1023    67    94  1184
-  GN extra-membraneuse                              368    25    44   437
-  GN extracapillaire ou endo/extracapillaire        356    28    27   411
-  GN membrano-proliférative type 1                  177    11    17   205
-  GN membrano-proliférative type 2, dépôts denses    69     5     7    81
-  GN primitive avec autre diagnostic histologique   202    17    25   244
-  GN primitive sans examen histologique            1041   112    97  1250
-  Maladies systémiques autres                       292    25    10   327
-  Néphropathie à dépôts d'IgA                      1418    63   239  1720
-  Néphropathie lupique                              173    15    19   207
-  Polykystose rénale de l adulte                   2474   181   489  3144
-  Purpura rhumatoïde                                 63     6     2    71
-  <NA>                                                0     0     0     0
-  Sum                                             16716  2002  1737 20455
-                                                 
-                                                     0    1
-  Diabète                                         86.2 13.8
-  GN primitive sans examen histologique           90.3  9.7
-  Purpura rhumatoïde                              91.3  8.7
-  Néphropathie lupique                            92.0  8.0
-  Maladies systémiques autres                     92.1  7.9
-  GN primitive avec autre diagnostic histologique 92.2  7.8
-  GN extracapillaire ou endo/extracapillaire      92.7  7.3
-  GN membrano-proliférative type 2, dépôts denses 93.2  6.8
-  Polykystose rénale de l adulte                  93.2  6.8
-  GN extra-membraneuse                            93.6  6.4
-  GN avec HSF                                     93.9  6.1
-  GN membrano-proliférative type 1                94.1  5.9
-  Néphropathie à dépôts d'IgA                     95.7  4.3
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:41:09 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+  \hline
+ & 0 & 1 & NA & Sum \\ 
+  \hline
+Diabète & 9060 & 1447 & 667 & 11174 \\ 
+  GN avec HSF & 1023 & 67 & 94 & 1184 \\ 
+  GN extra-membraneuse & 368 & 25 & 44 & 437 \\ 
+  GN extracapillaire ou endo/extracapillaire & 356 & 28 & 27 & 411 \\ 
+  GN membrano-proliférative type 1 & 177 & 11 & 17 & 205 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 69 & 5 & 7 & 81 \\ 
+  GN primitive avec autre diagnostic histologique & 202 & 17 & 25 & 244 \\ 
+  GN primitive sans examen histologique & 1041 & 112 & 97 & 1250 \\ 
+  Maladies systémiques autres & 292 & 25 & 10 & 327 \\ 
+  Néphropathie à dépôts d'IgA & 1418 & 63 & 239 & 1720 \\ 
+  Néphropathie lupique & 173 & 15 & 19 & 207 \\ 
+  Polykystose rénale de l adulte & 2474 & 181 & 489 & 3144 \\ 
+  Purpura rhumatoïde & 63 & 6 & 2 & 71 \\ 
+  Sum & 16716 & 2002 & 1737 & 20455 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:41:09 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrr}
+  \hline
+ & 0 & 1 \\ 
+  \hline
+Diabète & 86.2 & 13.8 \\ 
+  GN primitive sans examen histologique & 90.3 & 9.7 \\ 
+  Purpura rhumatoïde & 91.3 & 8.7 \\ 
+  Néphropathie lupique & 92.0 & 8.0 \\ 
+  Maladies systémiques autres & 92.1 & 7.9 \\ 
+  GN primitive avec autre diagnostic histologique & 92.2 & 7.8 \\ 
+  GN extracapillaire ou endo/extracapillaire & 92.7 & 7.3 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 93.2 & 6.8 \\ 
+  Polykystose rénale de l adulte & 93.2 & 6.8 \\ 
+  GN extra-membraneuse & 93.6 & 6.4 \\ 
+  GN avec HSF & 93.9 & 6.1 \\ 
+  GN membrano-proliférative type 1 & 94.1 & 5.9 \\ 
+  Néphropathie à dépôts d'IgA & 95.7 & 4.3 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
 
 VIH : 13 (0.9\%)
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-                                                 
-                                                      0     1  <NA>   Sum
-  Diabète                                         10585    42   547 11174
-  GN avec HSF                                      1054    53    77  1184
-  GN extra-membraneuse                              398     4    35   437
-  GN extracapillaire ou endo/extracapillaire        382     1    28   411
-  GN membrano-proliférative type 1                  190     4    11   205
-  GN membrano-proliférative type 2, dépôts denses    73     2     6    81
-  GN primitive avec autre diagnostic histologique   207    10    27   244
-  GN primitive sans examen histologique            1146    12    92  1250
-  Maladies systémiques autres                       320     0     7   327
-  Néphropathie à dépôts d'IgA                      1493    13   214  1720
-  Néphropathie lupique                              188     2    17   207
-  Polykystose rénale de l adulte                   2702     6   436  3144
-  Purpura rhumatoïde                                 68     1     2    71
-  <NA>                                                0     0     0     0
-  Sum                                             18806   150  1499 20455
-                                                 
-                                                      0     1
-  GN avec HSF                                      95.2   4.8
-  GN primitive avec autre diagnostic histologique  95.4   4.6
-  GN membrano-proliférative type 2, dépôts denses  97.3   2.7
-  GN membrano-proliférative type 1                 97.9   2.1
-  Purpura rhumatoïde                               98.6   1.4
-  Néphropathie lupique                             98.9   1.1
-  GN extra-membraneuse                             99.0   1.0
-  GN primitive sans examen histologique            99.0   1.0
-  Néphropathie à dépôts d'IgA                      99.1   0.9
-  Diabète                                          99.6   0.4
-  GN extracapillaire ou endo/extracapillaire       99.7   0.3
-  Polykystose rénale de l adulte                   99.8   0.2
-  Maladies systémiques autres                     100.0   0.0
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:42:17 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+  \hline
+ & 0 & 1 & NA & Sum \\ 
+  \hline
+Diabète & 10585 & 42 & 547 & 11174 \\ 
+  GN avec HSF & 1054 & 53 & 77 & 1184 \\ 
+  GN extra-membraneuse & 398 & 4 & 35 & 437 \\ 
+  GN extracapillaire ou endo/extracapillaire & 382 & 1 & 28 & 411 \\ 
+  GN membrano-proliférative type 1 & 190 & 4 & 11 & 205 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 73 & 2 & 6 & 81 \\ 
+  GN primitive avec autre diagnostic histologique & 207 & 10 & 27 & 244 \\ 
+  GN primitive sans examen histologique & 1146 & 12 & 92 & 1250 \\ 
+  Maladies systémiques autres & 320 & 0 & 7 & 327 \\ 
+  Néphropathie à dépôts d'IgA & 1493 & 13 & 214 & 1720 \\ 
+  Néphropathie lupique & 188 & 2 & 17 & 207 \\ 
+  Polykystose rénale de l adulte & 2702 & 6 & 436 & 3144 \\ 
+  Purpura rhumatoïde & 68 & 1 & 2 & 71 \\ 
+  Sum & 18806 & 150 & 1499 & 20455 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:42:17 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrr}
+  \hline
+ & 0 & 1 \\ 
+  \hline
+GN avec HSF & 95.2 & 4.8 \\ 
+  GN primitive avec autre diagnostic histologique & 95.4 & 4.6 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 97.3 & 2.7 \\ 
+  GN membrano-proliférative type 1 & 97.9 & 2.1 \\ 
+  Purpura rhumatoïde & 98.6 & 1.4 \\ 
+  Néphropathie lupique & 98.9 & 1.1 \\ 
+  GN extra-membraneuse & 99.0 & 1.0 \\ 
+  GN primitive sans examen histologique & 99.0 & 1.0 \\ 
+  Néphropathie à dépôts d'IgA & 99.1 & 0.9 \\ 
+  Diabète & 99.6 & 0.4 \\ 
+  GN extracapillaire ou endo/extracapillaire & 99.7 & 0.3 \\ 
+  Polykystose rénale de l adulte & 99.8 & 0.2 \\ 
+  Maladies systémiques autres & 100.0 & 0.0 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
 
 Dont stade SIDA : 1 (7.7\%)
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-                                                 
-                                                      0     1  <NA>   Sum
-  Diabète                                         10570     8   596 11174
-  GN avec HSF                                      1088    21    75  1184
-  GN extra-membraneuse                              396     2    39   437
-  GN extracapillaire ou endo/extracapillaire        382     2    27   411
-  GN membrano-proliférative type 1                  188     3    14   205
-  GN membrano-proliférative type 2, dépôts denses    75     0     6    81
-  GN primitive avec autre diagnostic histologique   214     3    27   244
-  GN primitive sans examen histologique            1144     6   100  1250
-  Maladies systémiques autres                       317     0    10   327
-  Néphropathie à dépôts d'IgA                      1501     1   218  1720
-  Néphropathie lupique                              189     0    18   207
-  Polykystose rénale de l adulte                   2706     0   438  3144
-  Purpura rhumatoïde                                 68     0     3    71
-  <NA>                                                0     0     0     0
-  Sum                                             18838    46  1571 20455
-                                                 
-                                                      0     1
-  GN avec HSF                                      98.1   1.9
-  GN membrano-proliférative type 1                 98.4   1.6
-  GN primitive avec autre diagnostic histologique  98.6   1.4
-  GN extra-membraneuse                             99.5   0.5
-  GN extracapillaire ou endo/extracapillaire       99.5   0.5
-  GN primitive sans examen histologique            99.5   0.5
-  Diabète                                          99.9   0.1
-  Néphropathie à dépôts d'IgA                      99.9   0.1
-  GN membrano-proliférative type 2, dépôts denses 100.0   0.0
-  Maladies systémiques autres                     100.0   0.0
-  Néphropathie lupique                            100.0   0.0
-  Polykystose rénale de l adulte                  100.0   0.0
-  Purpura rhumatoïde                              100.0   0.0
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:42:17 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+  \hline
+ & 0 & 1 & NA & Sum \\ 
+  \hline
+Diabète & 10570 & 8 & 596 & 11174 \\ 
+  GN avec HSF & 1088 & 21 & 75 & 1184 \\ 
+  GN extra-membraneuse & 396 & 2 & 39 & 437 \\ 
+  GN extracapillaire ou endo/extracapillaire & 382 & 2 & 27 & 411 \\ 
+  GN membrano-proliférative type 1 & 188 & 3 & 14 & 205 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 75 & 0 & 6 & 81 \\ 
+  GN primitive avec autre diagnostic histologique & 214 & 3 & 27 & 244 \\ 
+  GN primitive sans examen histologique & 1144 & 6 & 100 & 1250 \\ 
+  Maladies systémiques autres & 317 & 0 & 10 & 327 \\ 
+  Néphropathie à dépôts d'IgA & 1501 & 1 & 218 & 1720 \\ 
+  Néphropathie lupique & 189 & 0 & 18 & 207 \\ 
+  Polykystose rénale de l adulte & 2706 & 0 & 438 & 3144 \\ 
+  Purpura rhumatoïde & 68 & 0 & 3 & 71 \\ 
+  Sum & 18838 & 46 & 1571 & 20455 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:42:17 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrr}
+  \hline
+ & 0 & 1 \\ 
+  \hline
+GN avec HSF & 98.1 & 1.9 \\ 
+  GN membrano-proliférative type 1 & 98.4 & 1.6 \\ 
+  GN primitive avec autre diagnostic histologique & 98.6 & 1.4 \\ 
+  GN extra-membraneuse & 99.5 & 0.5 \\ 
+  GN extracapillaire ou endo/extracapillaire & 99.5 & 0.5 \\ 
+  GN primitive sans examen histologique & 99.5 & 0.5 \\ 
+  Diabète & 99.9 & 0.1 \\ 
+  Néphropathie à dépôts d'IgA & 99.9 & 0.1 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 100.0 & 0.0 \\ 
+  Maladies systémiques autres & 100.0 & 0.0 \\ 
+  Néphropathie lupique & 100.0 & 0.0 \\ 
+  Polykystose rénale de l adulte & 100.0 & 0.0 \\ 
+  Purpura rhumatoïde & 100.0 & 0.0 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
 ~\\
 
 Ag HBS positif : 12 (0.8\%) NA = 217
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-                                                 
-                                                      0     1  <NA>   Sum
-  Diabète                                         10575    86   513 11174
-  GN avec HSF                                      1086    25    73  1184
-  GN extra-membraneuse                              396     6    35   437
-  GN extracapillaire ou endo/extracapillaire        385     2    24   411
-  GN membrano-proliférative type 1                  190     4    11   205
-  GN membrano-proliférative type 2, dépôts denses    74     1     6    81
-  GN primitive avec autre diagnostic histologique   214     5    25   244
-  GN primitive sans examen histologique            1142     8   100  1250
-  Maladies systémiques autres                       315     3     9   327
-  Néphropathie à dépôts d'IgA                      1491    12   217  1720
-  Néphropathie lupique                              187     2    18   207
-  Polykystose rénale de l adulte                   2691    20   433  3144
-  Purpura rhumatoïde                                 69     0     2    71
-  <NA>                                                0     0     0     0
-  Sum                                             18815   174  1466 20455
-                                                 
-                                                      0     1
-  GN avec HSF                                      97.7   2.3
-  GN primitive avec autre diagnostic histologique  97.7   2.3
-  GN membrano-proliférative type 1                 97.9   2.1
-  GN extra-membraneuse                             98.5   1.5
-  GN membrano-proliférative type 2, dépôts denses  98.7   1.3
-  Néphropathie lupique                             98.9   1.1
-  Maladies systémiques autres                      99.1   0.9
-  Diabète                                          99.2   0.8
-  Néphropathie à dépôts d'IgA                      99.2   0.8
-  GN primitive sans examen histologique            99.3   0.7
-  Polykystose rénale de l adulte                   99.3   0.7
-  GN extracapillaire ou endo/extracapillaire       99.5   0.5
-  Purpura rhumatoïde                              100.0   0.0
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:42:17 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+  \hline
+ & 0 & 1 & NA & Sum \\ 
+  \hline
+Diabète & 10575 & 86 & 513 & 11174 \\ 
+  GN avec HSF & 1086 & 25 & 73 & 1184 \\ 
+  GN extra-membraneuse & 396 & 6 & 35 & 437 \\ 
+  GN extracapillaire ou endo/extracapillaire & 385 & 2 & 24 & 411 \\ 
+  GN membrano-proliférative type 1 & 190 & 4 & 11 & 205 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 74 & 1 & 6 & 81 \\ 
+  GN primitive avec autre diagnostic histologique & 214 & 5 & 25 & 244 \\ 
+  GN primitive sans examen histologique & 1142 & 8 & 100 & 1250 \\ 
+  Maladies systémiques autres & 315 & 3 & 9 & 327 \\ 
+  Néphropathie à dépôts d'IgA & 1491 & 12 & 217 & 1720 \\ 
+  Néphropathie lupique & 187 & 2 & 18 & 207 \\ 
+  Polykystose rénale de l adulte & 2691 & 20 & 433 & 3144 \\ 
+  Purpura rhumatoïde & 69 & 0 & 2 & 71 \\ 
+  Sum & 18815 & 174 & 1466 & 20455 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:42:17 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrr}
+  \hline
+ & 0 & 1 \\ 
+  \hline
+GN avec HSF & 97.7 & 2.3 \\ 
+  GN primitive avec autre diagnostic histologique & 97.7 & 2.3 \\ 
+  GN membrano-proliférative type 1 & 97.9 & 2.1 \\ 
+  GN extra-membraneuse & 98.5 & 1.5 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 98.7 & 1.3 \\ 
+  Néphropathie lupique & 98.9 & 1.1 \\ 
+  Maladies systémiques autres & 99.1 & 0.9 \\ 
+  Diabète & 99.2 & 0.8 \\ 
+  Néphropathie à dépôts d'IgA & 99.2 & 0.8 \\ 
+  GN primitive sans examen histologique & 99.3 & 0.7 \\ 
+  Polykystose rénale de l adulte & 99.3 & 0.7 \\ 
+  GN extracapillaire ou endo/extracapillaire & 99.5 & 0.5 \\ 
+  Purpura rhumatoïde & 100.0 & 0.0 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
 ~\\
 
 PCR VHC positif : 11 (0.7\%) NA = 224
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-                                                 
-                                                      0     1  <NA>   Sum
-  Diabète                                         10421   186   567 11174
-  GN avec HSF                                      1072    24    88  1184
-  GN extra-membraneuse                              395     5    37   437
-  GN extracapillaire ou endo/extracapillaire        379     6    26   411
-  GN membrano-proliférative type 1                  183    10    12   205
-  GN membrano-proliférative type 2, dépôts denses    68     6     7    81
-  GN primitive avec autre diagnostic histologique   210     7    27   244
-  GN primitive sans examen histologique            1119    21   110  1250
-  Maladies systémiques autres                       313     4    10   327
-  Néphropathie à dépôts d'IgA                      1485    11   224  1720
-  Néphropathie lupique                              184     3    20   207
-  Polykystose rénale de l adulte                   2680    19   445  3144
-  Purpura rhumatoïde                                 69     0     2    71
-  <NA>                                                0     0     0     0
-  Sum                                             18578   302  1575 20455
-                                                 
-                                                      0     1
-  GN membrano-proliférative type 2, dépôts denses  91.9   8.1
-  GN membrano-proliférative type 1                 94.8   5.2
-  GN primitive avec autre diagnostic histologique  96.8   3.2
-  GN avec HSF                                      97.8   2.2
-  Diabète                                          98.2   1.8
-  GN primitive sans examen histologique            98.2   1.8
-  GN extracapillaire ou endo/extracapillaire       98.4   1.6
-  Néphropathie lupique                             98.4   1.6
-  Maladies systémiques autres                      98.7   1.3
-  GN extra-membraneuse                             98.8   1.2
-  Néphropathie à dépôts d'IgA                      99.3   0.7
-  Polykystose rénale de l adulte                   99.3   0.7
-  Purpura rhumatoïde                              100.0   0.0
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:42:17 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+  \hline
+ & 0 & 1 & NA & Sum \\ 
+  \hline
+Diabète & 10421 & 186 & 567 & 11174 \\ 
+  GN avec HSF & 1072 & 24 & 88 & 1184 \\ 
+  GN extra-membraneuse & 395 & 5 & 37 & 437 \\ 
+  GN extracapillaire ou endo/extracapillaire & 379 & 6 & 26 & 411 \\ 
+  GN membrano-proliférative type 1 & 183 & 10 & 12 & 205 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 68 & 6 & 7 & 81 \\ 
+  GN primitive avec autre diagnostic histologique & 210 & 7 & 27 & 244 \\ 
+  GN primitive sans examen histologique & 1119 & 21 & 110 & 1250 \\ 
+  Maladies systémiques autres & 313 & 4 & 10 & 327 \\ 
+  Néphropathie à dépôts d'IgA & 1485 & 11 & 224 & 1720 \\ 
+  Néphropathie lupique & 184 & 3 & 20 & 207 \\ 
+  Polykystose rénale de l adulte & 2680 & 19 & 445 & 3144 \\ 
+  Purpura rhumatoïde & 69 & 0 & 2 & 71 \\ 
+  Sum & 18578 & 302 & 1575 & 20455 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 10:42:17 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{lrr}
+  \hline
+ & 0 & 1 \\ 
+  \hline
+GN membrano-proliférative type 2, dépôts denses & 91.9 & 8.1 \\ 
+  GN membrano-proliférative type 1 & 94.8 & 5.2 \\ 
+  GN primitive avec autre diagnostic histologique & 96.8 & 3.2 \\ 
+  GN avec HSF & 97.8 & 2.2 \\ 
+  Diabète & 98.2 & 1.8 \\ 
+  GN primitive sans examen histologique & 98.2 & 1.8 \\ 
+  GN extracapillaire ou endo/extracapillaire & 98.4 & 1.6 \\ 
+  Néphropathie lupique & 98.4 & 1.6 \\ 
+  Maladies systémiques autres & 98.7 & 1.3 \\ 
+  GN extra-membraneuse & 98.8 & 1.2 \\ 
+  Néphropathie à dépôts d'IgA & 99.3 & 0.7 \\ 
+  Polykystose rénale de l adulte & 99.3 & 0.7 \\ 
+  Purpura rhumatoïde & 100.0 & 0.0 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
 
     \subsubsection{Statut Tabagique}
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:26 2016
+% Tue Jan 17 10:38:16 2017
 \begin{table}[ht]
 \centering
 \begin{tabular}{lr}
@@ -1344,7 +1473,7 @@ NF & 755 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:26 2016
+% Tue Jan 17 10:38:16 2017
 \begin{table}[ht]
 \centering
 \begin{tabular}{rr}
@@ -1360,7 +1489,7 @@ NF & 57.00 \\
 
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:48:16 2016
+% Tue Jan 17 10:38:16 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1385,7 +1514,7 @@ Diabète & 5470 & 922 & 2650 & 2132 & 11174 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:48:16 2016
+% Tue Jan 17 10:38:16 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -1447,32 +1576,31 @@ DFG initial :
 On a 1 patient qui a un DFG supérieur à 120 ml/min. Aucun entre 40 et 120.
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:26 2016
+% Tue Jan 17 10:38:17 2017
 \begin{table}[H]
 \centering
 \begingroup\small
-\begin{tabular}{rrrrrrrr}
+\begin{tabular}{lrrrrrrr}
   \hline
  & Min. & 1st Qu. & Median & Mean & 3rd Qu. & Max. & NA's \\ 
   \hline
-GN membrano-proliférative type 1 & 2.4 & 5.8 & 8.7 & 10.3 & 12.5 & 100.7 & 49.0 \\ 
-  Diabète & 1.6 & 7.0 & 9.2 & 10.2 & 12.0 & 184.2 & 3236.0 \\ 
-  GN membrano-proliférative type 2, dépôts denses & 4.0 & 6.8 & 8.7 & 9.9 & 11.4 & 25.2 & 24.0 \\ 
-  GN extra-membraneuse & 1.5 & 6.2 & 8.4 & 9.7 & 11.1 & 80.5 & 121.0 \\ 
-  GN primitive avec autre diagnostic histologique & 1.5 & 6.0 & 8.1 & 9.6 & 10.4 & 114.5 & 72.0 \\ 
-  Néphropathie lupique & 2.4 & 5.6 & 7.8 & 9.0 & 10.9 & 43.1 & 60.0 \\ 
-  GN avec HSF & 1.5 & 5.9 & 7.9 & 9.0 & 10.5 & 115.2 & 304.0 \\ 
-  GN primitive sans examen histologique & 1.4 & 5.9 & 8.2 & 9.0 & 10.8 & 62.7 & 380.0 \\ 
-  Néphropathie à dépôts d'IgA & 1.6 & 5.9 & 7.8 & 8.5 & 10.1 & 123.0 & 526.0 \\ 
-  Polykystose rénale de l adulte & 1.4 & 6.2 & 7.9 & 8.4 & 10.0 & 77.2 & 1056.0 \\ 
-  Purpura rhumatoïde & 2.8 & 5.7 & 7.9 & 8.4 & 10.5 & 21.4 & 21.0 \\ 
-  Maladies systémiques autres & 1.3 & 5.3 & 7.1 & 8.4 & 9.8 & 71.3 & 78.0 \\ 
-  GN extracapillaire ou endo/extracapillaire & 1.4 & 5.4 & 7.2 & 7.8 & 9.3 & 42.6 & 79.0 \\ 
+GN membrano-proliférative type 1 & 2.4 & 5.8 & 8.7 & 10.3 & 12.5 & 100.7 & 49 \\ 
+  Diabète & 1.6 & 7.0 & 9.2 & 10.2 & 12.0 & 184.2 & 3236 \\ 
+  GN membrano-proliférative type 2, dépôts denses & 4.0 & 6.8 & 8.7 & 9.9 & 11.4 & 25.2 & 24 \\ 
+  GN extra-membraneuse & 1.5 & 6.2 & 8.4 & 9.7 & 11.1 & 80.5 & 121 \\ 
+  GN primitive avec autre diagnostic histologique & 1.5 & 6.0 & 8.1 & 9.6 & 10.4 & 114.5 & 72 \\ 
+  Néphropathie lupique & 2.4 & 5.6 & 7.8 & 9.0 & 10.9 & 43.1 & 60 \\ 
+  GN avec HSF & 1.5 & 5.9 & 7.9 & 9.0 & 10.5 & 115.2 & 304 \\ 
+  GN primitive sans examen histologique & 1.4 & 5.9 & 8.2 & 9.0 & 10.8 & 62.7 & 380 \\ 
+  Néphropathie à dépôts d'IgA & 1.6 & 5.9 & 7.8 & 8.5 & 10.1 & 123.0 & 526 \\ 
+  Polykystose rénale de l adulte & 1.4 & 6.2 & 7.9 & 8.4 & 10.0 & 77.2 & 1056 \\ 
+  Purpura rhumatoïde & 2.8 & 5.7 & 7.9 & 8.4 & 10.5 & 21.4 & 21 \\ 
+  Maladies systémiques autres & 1.3 & 5.3 & 7.1 & 8.4 & 9.8 & 71.3 & 78 \\ 
+  GN extracapillaire ou endo/extracapillaire & 1.4 & 5.4 & 7.2 & 7.8 & 9.3 & 42.6 & 79 \\ 
    \hline
 \end{tabular}
 \endgroup
 \end{table}
-
 
 ~\\
 
@@ -1493,7 +1621,7 @@ Albuminémie initiale :
 Méthode de mesure de l'albumine initiale :
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:26 2016
+% Tue Jan 17 10:38:17 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lr}
@@ -1510,7 +1638,7 @@ Automate & 141 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:26 2016
+% Tue Jan 17 10:38:17 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rr}
@@ -1543,7 +1671,7 @@ Hémoglobine :
 Nombres d'anémiques :
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:26 2016
+% Tue Jan 17 10:38:17 2017
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -1557,7 +1685,7 @@ Homme & 956 & 56 & 1012 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:26 2016
+% Tue Jan 17 10:38:17 2017
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrr}
@@ -1587,7 +1715,7 @@ X-squared = 16.528, df = 1, p-value = 4.793e-05
 
 Régression liénaire de l'Hb selon le sexe et le DFG :
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:26 2016
+% Tue Jan 17 10:38:17 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rlrrrr}
@@ -1602,7 +1730,7 @@ Régression liénaire de l'Hb selon le sexe et le DFG :
 \caption{Régression linéaire simple (Hb selon le sexe et le DFG)} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:26 2016
+% Tue Jan 17 10:38:17 2017
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrr}
@@ -1620,7 +1748,8 @@ Régression liénaire de l'Hb selon le sexe et le DFG :
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-Linear mixed model fit by REML ['lmerMod']
+Linear mixed model fit by REML t-tests use Satterthwaite approximations
+  to degrees of freedom [lmerMod]
 Formula: HBINI ~ dfg + (1 | sex)
    Data: iga
 
@@ -1637,9 +1766,11 @@ Random effects:
 Number of obs: 1138, groups:  sex, 2
 
 Fixed effects:
-            Estimate Std. Error t value
-(Intercept) 9.499546   0.142084   66.86
-dfg         0.078199   0.009865    7.93
+             Estimate Std. Error        df t value Pr(>|t|)    
+(Intercept) 9.500e+00  1.421e-01 2.100e+00  66.859 0.000142 ***
+dfg         7.820e-02  9.865e-03 1.135e+03   7.927 5.33e-15 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
     (Intr)
@@ -1651,35 +1782,37 @@ dfg -0.584
 
     \subsubsection{Traitement de suppléance}
 
+Date = soit date de d'IRCT sinon date de greffe 1. 
+
+Greffe = patients noté comme étant greffé en 1ère suppléance et ceux n'étant que dans la table greffe.
+
+Pour Berger :
+
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:27 2016
-\begin{table}[ht]
+% Tue Jan 17 10:38:18 2017
+\begin{table}[H]
 \centering
-\begin{tabular}{rrrrrrr}
+\begin{tabular}{lrrrrr}
   \hline
- & 2010 & 2011 & 2012 & 2013 & 2014 & Sum \\ 
+ & 2010 & 2011 & 2012 & 2013 & 2014 \\ 
   \hline
-Hémodialyse & 236 & 251 & 268 & 267 & 235 & 1257 \\ 
-  Dialyse péritonéale & 57 & 62 & 57 & 62 & 58 & 296 \\ 
-  Greffe sans dialyse & 29 & 34 & 33 & 31 & 40 & 167 \\ 
-  Sum & 322 & 347 & 358 & 360 & 333 & 1720 \\ 
+Dialyse & 293 & 313 & 325 & 329 & 293 \\ 
+  Greffe & 29 & 34 & 33 & 31 & 40 \\ 
    \hline
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:27 2016
-\begin{table}[ht]
+% Tue Jan 17 10:38:18 2017
+\begin{table}[H]
 \centering
-\begin{tabular}{rrrrrr}
+\begin{tabular}{lrrrrr}
   \hline
  & 2010 & 2011 & 2012 & 2013 & 2014 \\ 
   \hline
-Hémodialyse & 73.3 & 72.3 & 74.9 & 74.2 & 70.6 \\ 
-  Dialyse péritonéale & 17.7 & 17.9 & 15.9 & 17.2 & 17.4 \\ 
-  Greffe sans dialyse & 9.0 & 9.8 & 9.2 & 8.6 & 12.0 \\ 
+Dialyse & 91 & 90.2 & 90.8 & 91.4 & 88 \\ 
+  Greffe & 9 & 9.8 & 9.2 & 8.6 & 12 \\ 
    \hline
 \end{tabular}
-\caption{Pourcentage} 
 \end{table}
 
 
@@ -1689,14 +1822,22 @@ Hémodialyse & 73.3 & 72.3 & 74.9 & 74.2 & 70.6 \\
 
 	Pearson's Chi-squared test
 
-data:  table(iga$METHOn, iga$anirt)
-X-squared = 3.5363, df = 8, p-value = 0.8964
+data:  x
+X-squared = 2.7927, df = 4, p-value = 0.5931
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
 
+\textcolor{red}{Attention, pas le même recul pour 2014 (nombre de patients ayant eu une greffe après dialyse plus faible)}
+~\\
+
+Sur tous les patients ayant eu une greffe, pourcentage de patients ayant eu une greffe comme premier traitement de suppléance :
+
+
+Premier traitement de suppléance par pathologie (sans la table greffe) :
+
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:27 2016
+% Tue Jan 17 10:38:18 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1711,7 +1852,7 @@ Hémodialyse & 89.1 & 89.8 & 89.6 & 89.7 & 89.8 \\
 \caption{Pourcentage Diabète} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:27 2016
+% Tue Jan 17 10:38:18 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1726,7 +1867,7 @@ Hémodialyse & 83.2 & 84.0 & 85.4 & 80.8 & 82.4 \\
 \caption{Pourcentage GN avec HSF} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:27 2016
+% Tue Jan 17 10:38:18 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1741,7 +1882,7 @@ Hémodialyse & 82.6 & 80.6 & 85.1 & 78.3 & 80.5 \\
 \caption{Pourcentage GN extra-membraneuse} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:27 2016
+% Tue Jan 17 10:38:18 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1756,7 +1897,7 @@ Hémodialyse & 92.0 & 93.8 & 96.2 & 94.4 & 92.0 \\
 \caption{Pourcentage GN extracapillaire ou endo/extracapillaire} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:27 2016
+% Tue Jan 17 10:38:18 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1771,7 +1912,7 @@ Hémodialyse & 92.1 & 87.8 & 92.1 & 87.5 & 93.8 \\
 \caption{Pourcentage GN membrano-proliférative type 1} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:27 2016
+% Tue Jan 17 10:38:19 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1786,7 +1927,7 @@ Hémodialyse & 90.0 & 84.6 & 88.9 & 83.3 & 85.7 \\
 \caption{Pourcentage GN membrano-proliférative type 2, dépôts denses} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:27 2016
+% Tue Jan 17 10:38:19 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1801,7 +1942,7 @@ Hémodialyse & 73.9 & 84.9 & 72.7 & 87.0 & 75.0 \\
 \caption{Pourcentage GN primitive avec autre diagnostic histologique} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:27 2016
+% Tue Jan 17 10:38:19 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1816,7 +1957,7 @@ Hémodialyse & 83.7 & 87.0 & 84.2 & 84.6 & 85.7 \\
 \caption{Pourcentage GN primitive sans examen histologique} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:27 2016
+% Tue Jan 17 10:38:19 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1831,7 +1972,7 @@ Hémodialyse & 96.8 & 95.8 & 91.7 & 94.0 & 92.5 \\
 \caption{Pourcentage Maladies systémiques autres} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:27 2016
+% Tue Jan 17 10:38:19 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1846,7 +1987,7 @@ Hémodialyse & 73.3 & 72.3 & 74.9 & 74.2 & 70.6 \\
 \caption{Pourcentage Néphropathie à dépôts d'IgA} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:27 2016
+% Tue Jan 17 10:38:19 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1861,7 +2002,7 @@ Hémodialyse & 90.0 & 66.7 & 84.1 & 73.8 & 83.3 \\
 \caption{Pourcentage Néphropathie lupique} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:27 2016
+% Tue Jan 17 10:38:19 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1876,7 +2017,7 @@ Hémodialyse & 78.7 & 76.3 & 77.4 & 75.6 & 75.9 \\
 \caption{Pourcentage Polykystose rénale de l adulte} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 10:27:27 2016
+% Tue Jan 17 10:38:19 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1912,7 +2053,7 @@ Hémodialyse & 86.7 & 88.2 & 89.5 & 100.0 & 85.7 \\
 Nombre de dialyse (hémo + péritonéale) comparé aux dialysés totaux en France :
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 15:04:02 2016
+% Tue Jan 17 10:38:20 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1951,7 +2092,7 @@ Premier traitement en réanimation ou urgence PKRD :  352 (13.7\%) NA = 578
 
 Voie d’abord :
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 15:04:02 2016
+% Tue Jan 17 10:38:21 2017
 \begin{table}[ht]
 \centering
 \begin{tabular}{lrrrrr}
@@ -1963,7 +2104,7 @@ IgA & 715 & 405 &   7 &  69 & 524 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 15:04:03 2016
+% Tue Jan 17 10:38:21 2017
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrrr}
@@ -1983,7 +2124,7 @@ PKRD & 74.80 & 19.90 & 1.60 & 3.70 \\
     \subsubsection{Activité}
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 15:04:03 2016
+% Tue Jan 17 10:38:21 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
@@ -2048,33 +2189,38 @@ Médiane de survie pour diablète : 5.5 ans [5.25-5.75]
   
 \section{Greffe maladie de Berger}
 
+
+
+
 La table "greffe" contient 1152 patients uniques après suppression de ceux qui n'avaient pas de maladie de Berger ou de néphropathie à IgA (si un patient avait les deux pathologies, la ligne ne coneant aucune information était supprimée), les patients sans date de greffe ont été supprimés. 860 (74.7\%) sont en commun avec la table "globale" (= ceux qui ont été utilisés pour la suite des données). 8 patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
+~\\
+
+En considérant ceux qui ne sont pas en commun avec la table globale comme ayant eu une greffe sans dialyse et en prenant ceux de la table globale considéré comme greffé sans dialyse, on a 459 patients greffés sans dialyse (39.8\%).
 ~\\
 
 Dans la table globale avec la table greffe :
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 15:04:04 2016
+% Tue Jan 17 10:38:22 2017
 \begin{table}[H]
 \centering
-\begin{tabular}{ccccccc}
+\begin{tabular}{cccccccc}
   \hline
-Greffé & Date de greffe & Date 2010-2014 & Greffe sans dialyse & Greffe 1 & Greffe 2 & Total \\ 
+Greffé & Date de greffe & Date$<$2014 & Greffe sans dialyse & Greffe 1 & greffe1$<$2015 & Greffe 2 & Total \\ 
   \hline
-0 & FALSE &  & FALSE & FALSE & FALSE & 15187 \\ 
-  0 & FALSE &  & FALSE & TRUE & FALSE & 8 \\ 
-  0 & TRUE & FALSE & FALSE & FALSE & FALSE & 1270 \\ 
-  0 & TRUE & FALSE & FALSE & TRUE & FALSE & 218 \\ 
-  1 & TRUE & TRUE & FALSE & FALSE & FALSE & 2396 \\ 
-  1 & TRUE & TRUE & FALSE & TRUE & FALSE & 458 \\ 
-  1 & TRUE & TRUE & FALSE & TRUE & TRUE & 9 \\ 
-  1 & TRUE & TRUE & TRUE & FALSE & FALSE & 742 \\ 
-  1 & TRUE & TRUE & TRUE & TRUE & FALSE & 163 \\ 
-  1 & TRUE & TRUE & TRUE & TRUE & TRUE & 4 \\ 
+0 & FALSE &  & FALSE & FALSE &  & FALSE & 15187 \\ 
+  0 & FALSE &  & FALSE & TRUE & FALSE & FALSE & 8 \\ 
+  0 & TRUE & FALSE & FALSE & FALSE &  & FALSE & 1270 \\ 
+  0 & TRUE & FALSE & FALSE & TRUE & FALSE & FALSE & 218 \\ 
+  1 & TRUE & TRUE & FALSE & FALSE &  & FALSE & 2396 \\ 
+  1 & TRUE & TRUE & FALSE & TRUE & TRUE & FALSE & 458 \\ 
+  1 & TRUE & TRUE & FALSE & TRUE & TRUE & TRUE & 9 \\ 
+  1 & TRUE & TRUE & TRUE & FALSE &  & FALSE & 742 \\ 
+  1 & TRUE & TRUE & TRUE & TRUE & TRUE & FALSE & 163 \\ 
+  1 & TRUE & TRUE & TRUE & TRUE & TRUE & TRUE & 4 \\ 
    \hline
 \end{tabular}
 \end{table}
-
 
 
 - étant considéré comme greffé (table globale) : 3772 (18.4\%)
@@ -2087,26 +2233,30 @@ Greffé & Date de greffe & Date 2010-2014 & Greffe sans dialyse & Greffe 1 & Gre
 
 - ayant une date de greffe 1 (table greffe) : 860 (4.2\%)
 
+\qquad - dont une greffe de 2010 à 2014 : 634
+
 - ayant une date de greffe 2 (table greffe) : 13 (0.1\%)
+
+\qquad - dont une greffe de 2010 à 2014 : 6
 
 - ayant une date de greffe 1 et 2, considéré comme greffé et ayant une date de greffe : 5268 (25.8\%)
 
-- ayant une date de greffe 1 et 2, considéré comme greffé et ayant une date de greffe de 2010 à 2014 : 3772 (18.4\%)
+\qquad - dont une greffe de 2010 à 2014 : 3772 (18.4\%)
 
   \subsection{Nombre de greffe par année}
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 15:04:04 2016
+% Tue Jan 17 10:38:22 2017
 \begin{table}[H]
 \centering
-\begin{tabular}{rrrrrrr}
+\begin{tabular}{lrrrrrr}
   \hline
  & 2010 & 2011 & 2012 & 2013 & 2014 & 2015 \\ 
   \hline
-Greffe Berger & 52.0 & 120.0 & 153.0 & 177.0 & 204.0 & 168.0 \\ 
-  Pas de greffe Berger & 50482243.0 & 50701109.0 & 50930631.0 & 51192593.0 & 51420804.0 & 51676377.0 \\ 
-  Total France & 50482295.0 & 50701229.0 & 50930784.0 & 51192770.0 & 51421008.0 & 51676545.0 \\ 
-  Cas pour 1M d'hab & 1.0 & 2.4 & 3.0 & 3.5 & 4.0 & 3.3 \\ 
+Greffe Berger & 52 & 120.0 & 153 & 177.0 & 204 & 168.0 \\ 
+  Pas de greffe Berger & 50482243 & 50701109.0 & 50930631 & 51192593.0 & 51420804 & 51676377.0 \\ 
+  Total France & 50482295 & 50701229.0 & 50930784 & 51192770.0 & 51421008 & 51676545.0 \\ 
+  Cas pour 1M d'hab &  1 & 2.4 &  3 & 3.5 &  4 & 3.3 \\ 
    \hline
 \end{tabular}
 \end{table}
@@ -2126,38 +2276,38 @@ X-squared = 95.231, df = 5, p-value < 2.2e-16
 
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 15:04:04 2016
+% Tue Jan 17 10:38:22 2017
 \begin{table}[H]
 \centering
-\begin{tabular}{llrr}
+\begin{tabular}{lrr}
   \hline
- & Greffe 1 & Fréquence & Pourcentage \\ 
+Greffe 1 & Fréquence & Pourcentage \\ 
   \hline
-1 & 2010 & 48 & 5.6 \\ 
-  2 & 2011 & 114 & 13.3 \\ 
-  3 & 2012 & 141 & 16.4 \\ 
-  4 & 2013 & 155 & 18.0 \\ 
-  5 & 2014 & 176 & 20.5 \\ 
-  6 & 2015 & 152 & 17.7 \\ 
-  7 & 2016 & 74 & 8.6 \\ 
-  8 & Sum & 860 &  \\ 
+2010 & 48 & 5.6 \\ 
+  2011 & 114 & 13.3 \\ 
+  2012 & 141 & 16.4 \\ 
+  2013 & 155 & 18.0 \\ 
+  2014 & 176 & 20.5 \\ 
+  2015 & 152 & 17.7 \\ 
+  2016 & 74 & 8.6 \\ 
+  Sum & 860 &  \\ 
    \hline
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 15:04:04 2016
+% Tue Jan 17 10:38:22 2017
 \begin{table}[H]
 \centering
-\begin{tabular}{llrr}
+\begin{tabular}{lrr}
   \hline
- & Greffe 2 & Fréquence & Pourcentage \\ 
+Greffe 2 & Fréquence & Pourcentage \\ 
   \hline
-1 & 2012 &  2 & 15.4 \\ 
-  2 & 2013 &  2 & 15.4 \\ 
-  3 & 2014 &  2 & 15.4 \\ 
-  4 & 2015 &  3 & 23.1 \\ 
-  5 & 2016 &  4 & 30.8 \\ 
-  6 & Sum & 13 &  \\ 
+2012 &  2 & 15.4 \\ 
+  2013 &  2 & 15.4 \\ 
+  2014 &  2 & 15.4 \\ 
+  2015 &  3 & 23.1 \\ 
+  2016 &  4 & 30.8 \\ 
+  Sum & 13 &  \\ 
    \hline
 \end{tabular}
 \end{table}
@@ -2175,13 +2325,13 @@ Greffe 1 (en mois) :
   0.000   0.040   0.770   8.157  13.780  58.680   20413 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-57-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-58-1} 
 
 \end{knitrout}
 
 Raisons de l'arrêt du greffon 1 :
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Fri Dec 23 15:04:05 2016
+% Tue Jan 17 10:38:23 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
@@ -2202,13 +2352,79 @@ Complications vasculaires du greffon &  23 & 54.80 \\
 Greffe 2 = 0 jour pour 2 patients
 
 Raisons de l'arrêt du greffon 2 : Complications vasculaires du greffon  (pour 2 patients).
+~\\
+
+Pourcentage d'arrêt de greffon/greffe/an pour la table global :
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+FALSE  TRUE 
+  818    42 
+FALSE  TRUE 
+ 95.1   4.9 
+[1] 2010
+FALSE  TRUE 
+   94     6 
+[1] 2011
+FALSE  TRUE 
+ 93.8   6.2 
+[1] 2012
+FALSE  TRUE 
+ 95.3   4.7 
+[1] 2013
+FALSE  TRUE 
+ 96.1   3.9 
+[1] 2014
+FALSE  TRUE 
+ 97.2   2.8 
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Pourcentage d'arrêt de greffon/greffe/an pour la table greffe :
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+      
+       FALSE TRUE
+  TRUE  1080   72
+      
+       FALSE TRUE
+  TRUE  93.8  6.2
+[1] 2010
+FALSE  TRUE 
+ 90.6   9.4 
+[1] 2011
+FALSE  TRUE 
+ 93.8   6.2 
+[1] 2012
+FALSE  TRUE 
+ 95.6   4.4 
+[1] 2013
+FALSE  TRUE 
+ 96.1   3.9 
+[1] 2014
+FALSE  TRUE 
+ 96.4   3.6 
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
   \subsection{Décès au cours de la greffe}
 
-13 (1.5\%) patients sont décédés au cours de la greffe 1 et 0 au cours de la 2e.
+Table globale : 13 patients sont décédés au cours de la greffe 1 et 0 au cours de la 2e.
 
+Table greffe : 27 patients sont décédés au cours de la greffe 1 et 0 au cours de la 2e.
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-62-1} 
 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-62-2} 
+
+\end{knitrout}
 
 
 
