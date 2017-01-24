@@ -1167,13 +1167,6 @@ summary(iga$ALBINI)
 hist(iga$ALBINI, xlab = "Albuminémie (U/L)", main = "Albuminémie", xlim = c(0,60))
 @
 
-Méthode de mesure de l'albumine initiale :
-
-<<results="asis">>=
-print(xtable(tidy(table(iga$ALBI_MTH,useNA = "always"))), include.rownames = F, table.placement = "H")
-print(xtable(round(prop.table(table(iga$ALBI_MTH))*100,1)), table.placement = "H")
-@
-
 Hémoglobine :
 
 <<fig.height=3.8>>=
@@ -1320,14 +1313,6 @@ x[3,] <- round(prop.table(table(diab$VAVn))*100,1)
 x[4,] <- round(prop.table(table(gnc$VAVn))*100,1)
 x[1,] <- round(prop.table(table(pkrd$VAVn))*100,1)
 xtable(x, caption = "Pourcentage")
-@
-
-    \subsubsection{Activité}
-
-<<results="asis">>=
-x <- left_join(tidy(sort(table(iga$ACTIVn, useNA = "always")[-11], decreasing = T)), tidy(round(prop.table(sort(table(iga$ACTIVn), decreasing = T))*100,1)), by = "Var1")
-colnames(x) <- c("Activité","Fréquence","Pourcentage")
-print(xtable(x), include.rownames = F, table.placement = "H")
 @
 
   \subsection{Devenir des patients après la mise en dialyse}
