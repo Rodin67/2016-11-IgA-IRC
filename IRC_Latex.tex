@@ -109,7 +109,7 @@ Dans l'article de Simon, on a une incidence de néphropathie à IgA (donc pas fo
 
 Tableau d'incidence selon la région par standardisation directe pour 1 million d'habitants de 2010 à 2014 (selon l'effectif français de 2013) :
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Tue Jan 17 10:42:14 2017
+% Tue Jan 24 13:38:59 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -2182,8 +2182,77 @@ Retraité & 458 & 37.40 \\
 
 \end{knitrout}
 
-
 Médiane de survie pour diablète : 5.5 ans [5.25-5.75]
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-53-1} 
+
+\end{knitrout}
+
+Cox sur age + sexe :
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 12:12:36 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{rrrrrr}
+  \hline
+ & coef & exp(coef) & se(coef) & z & p \\ 
+  \hline
+age & 0.08 & 1.08 & 0.01 & 15.76 & 0.00 \\ 
+  sex & -0.02 & 0.98 & 0.16 & -0.10 & 0.92 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 12:12:36 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{rrrrr}
+  \hline
+ & exp(coef) & exp(-coef) & lower .95 & upper .95 \\ 
+  \hline
+age & 1.08 & 0.92 & 1.07 & 1.09 \\ 
+  sex & 0.98 & 1.02 & 0.72 & 1.34 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+Cox sur age + sexe + dfg (sans le outlier de 120) :
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 12:35:24 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{rrrrrr}
+  \hline
+ & coef & exp(coef) & se(coef) & z & p \\ 
+  \hline
+age & 0.08 & 1.08 & 0.01 & 12.82 & 0.00 \\ 
+  sex & -0.02 & 0.98 & 0.19 & -0.12 & 0.90 \\ 
+  dfg & 0.02 & 1.02 & 0.02 & 1.14 & 0.26 \\ 
+   \hline
+\end{tabular}
+\end{table}
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Tue Jan 17 12:35:24 2017
+\begin{table}[H]
+\centering
+\begin{tabular}{rrrrr}
+  \hline
+ & exp(coef) & exp(-coef) & lower .95 & upper .95 \\ 
+  \hline
+age & 1.08 & 0.93 & 1.07 & 1.09 \\ 
+  sex & 0.98 & 1.02 & 0.67 & 1.42 \\ 
+  dfg & 1.02 & 0.98 & 0.98 & 1.06 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+Non significatif avec le log du DFG avec ou sans l'outlier.
+
+L'outlier a comme numéro 228497, un DFG à 123.02, 72.8 ans, sexe 2, pour Glomérulo-néphrite à dépôts mésangiaux d'IgA avec lésions segmentaires et focales et syndrome de néphrop... , une créatinine 46, traité par hémodialyse, un poids de 53kg, une taille de 169cm, Motif de non inscription sur liste d'attente de greffe : CI médicale, année d'IRCT 2012.
 
   %\subsection{Recherche d’un lien entre les évènements infectieux saisonniers et la mise en route de la dialyse}
   
@@ -2201,7 +2270,7 @@ En considérant ceux qui ne sont pas en commun avec la table globale comme ayant
 Dans la table globale avec la table greffe :
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Tue Jan 17 10:38:22 2017
+% Tue Jan 17 12:47:14 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{cccccccc}
@@ -2246,7 +2315,7 @@ Greffé & Date de greffe & Date$<$2014 & Greffe sans dialyse & Greffe 1 & greffe
   \subsection{Nombre de greffe par année}
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Tue Jan 17 10:38:22 2017
+% Tue Jan 17 12:47:15 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrrrrrr}
@@ -2276,7 +2345,7 @@ X-squared = 95.231, df = 5, p-value < 2.2e-16
 
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Tue Jan 17 10:38:22 2017
+% Tue Jan 17 12:47:15 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
@@ -2295,7 +2364,7 @@ Greffe 1 & Fréquence & Pourcentage \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Tue Jan 17 10:38:22 2017
+% Tue Jan 17 12:47:15 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
@@ -2325,13 +2394,13 @@ Greffe 1 (en mois) :
   0.000   0.040   0.770   8.157  13.780  58.680   20413 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-58-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-61-1} 
 
 \end{knitrout}
 
 Raisons de l'arrêt du greffon 1 :
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Tue Jan 17 10:38:23 2017
+% Tue Jan 17 12:47:16 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
@@ -2420,9 +2489,9 @@ Table greffe : 27 patients sont décédés au cours de la greffe 1 et 0 au cours
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-62-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-65-1} 
 
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-62-2} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-65-2} 
 
 \end{knitrout}
 

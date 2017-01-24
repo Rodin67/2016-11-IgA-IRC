@@ -1357,8 +1357,31 @@ plot(survfit(Surv(kmdelaidc/365.25, kmdc)~liste_longue, data = global_greffe),
 legend(x = 0, y = 0.5, legend = c(levels(global_greffe$liste_longue)), lty = 1, col = c("black",brewer.pal(n = 12, name = "Paired")), cex = 1 )
 @
 
-
 Médiane de survie pour diablète : 5.5 ans [5.25-5.75]
+
+<<fig.height=3.5>>=
+par(mar = c(2,2,2,0))
+survfit <- survfit(Surv(kmdelaidc/365.25, kmdc)~1, data = global_greffe[global_greffe$liste_longue=="Néphropathie à dépôts d'IgA",])
+plot(survfit, ylim = c(0.8,1), main = "Courbe de survie Berger")
+@
+
+Cox sur age + sexe :
+<<results="asis">>=
+x <- coxph(Surv(kmdelaidc/365.25, kmdc)~age+sex, data = global_greffe[global_greffe$liste_longue=="Néphropathie à dépôts d'IgA",])
+print(xtable(x), table.placement = "H")
+print(xtable(summary(x)$conf.int), table.placement = "H")
+@
+
+Cox sur age + sexe + dfg (sans le outlier de 120) :
+<<results="asis">>=
+x <- coxph(Surv(kmdelaidc/365.25, kmdc)~age+sex+dfg, data = global_greffe[global_greffe$liste_longue=="Néphropathie à dépôts d'IgA" & !global_greffe$dfg==123.02,])
+print(xtable(x), table.placement = "H")
+print(xtable(summary(x)$conf.int), table.placement = "H")
+@
+
+Non significatif avec le log du DFG avec ou sans l'outlier.
+
+L'outlier a comme numéro \Sexpr{global_greffe[global_greffe$dfg==123.02 & !is.na(global_greffe$dfg), "RREC_COD"]}, un DFG à \Sexpr{global_greffe[global_greffe$dfg==123.02 & !is.na(global_greffe$dfg), "dfg"]}, \Sexpr{global_greffe[global_greffe$dfg==123.02 & !is.na(global_greffe$dfg), "age"]} ans, sexe \Sexpr{global_greffe[global_greffe$dfg==123.02 & !is.na(global_greffe$dfg), "sex"]}, pour Glomérulo-néphrite à dépôts mésangiaux d'IgA avec lésions segmentaires et focales et syndrome de néphrop... , une créatinine \Sexpr{global_greffe[global_greffe$dfg==123.02 & !is.na(global_greffe$dfg), "CREATINI"]}, traité par hémodialyse, un poids de \Sexpr{global_greffe[global_greffe$dfg==123.02 & !is.na(global_greffe$dfg), "PDS"]}kg, une taille de \Sexpr{global_greffe[global_greffe$dfg==123.02 & !is.na(global_greffe$dfg), "TAIL"]}cm, Motif de non inscription sur liste d'attente de greffe : CI médicale, année d'IRCT 2012.
 
   %\subsection{Recherche d’un lien entre les évènements infectieux saisonniers et la mise en route de la dialyse}
   
