@@ -176,10 +176,14 @@ iga$dfg <-ifelse(iga$sex==1,
                  round(186.3*(iga$CREATINI/88.4)^-1.154 * (iga$age)^-0.203 * 0.742,2))
 iga$urg_rea<-NA
 iga$urg_rea<-ifelse(iga$URGn==1 | iga$REAn==1, 1, 0)
+iga$PBRn <- ifelse(iga$PBRn==0 | is.na(iga$PBRn), 0, 1)
+iga$VHBn <- ifelse(iga$VHBn==0 | is.na(iga$VHBn), 0, 1)
+iga$VHCn <- ifelse(iga$VHCn==0 | is.na(iga$VHCn), 0, 1)
+iga$VIHn <- ifelse(iga$VIHn==0 | is.na(iga$VIHn), 0, 1)
+iga$SIDAn <- ifelse(iga$SIDAn==0 | is.na(iga$SIDAn), 0, 1)
 @
 
 <<greffe>>=
-## _greffe----
 greffe <- read_excel("~/IRC/dataIgA/greffe IgA.xlsx", col_types = c("numeric", "text", "date", "date", "date", "date", "date", "numeric", "numeric",
                                                                     "date", "date", "text", "text", "numeric", "text", "text", "text", "text",
                                                                     "text", "text", "numeric"))
@@ -225,7 +229,6 @@ greffe <- greffe[!is.na(greffe$GRF1),]
 @
 
 <<gnc>>=
-## _gnc----
 gnc <- read_excel("~/IRC/dataIgA/donnees GNC.xlsx", 
                   col_types = c("text", "text", "text", 
                                 "text", "numeric", "text", "numeric", 
@@ -340,10 +343,14 @@ gnc$dfg <-ifelse(gnc$sex==1,
 gnc$NOINSCn <- factor(gnc$NOINSCn, labels = c("CI médicale","Refus patient","autre/non décrit","Bilan pré_greffe en cours"))
 gnc$urg_rea <- NA
 gnc$urg_rea <- ifelse(gnc$URGn==1 | gnc$REAn==1, 1, 0)
+gnc$PBRn <- ifelse(gnc$PBRn==0 | is.na(gnc$PBRn), 0, 1)
+gnc$VHBn <- ifelse(gnc$VHBn==0 | is.na(gnc$VHBn), 0, 1)
+gnc$VHCn <- ifelse(gnc$VHCn==0 | is.na(gnc$VHCn), 0, 1)
+gnc$VIHn <- ifelse(gnc$VIHn==0 | is.na(gnc$VIHn), 0, 1)
+gnc$SIDAn <- ifelse(gnc$SIDAn==0 | is.na(gnc$SIDAn), 0, 1)
 @
 
 <<diab>>=
-## _diab----
 diab <- read_excel("~/IRC/dataIgA/donneesdiabete.xlsx", 
                    col_types = c("text", "text", "text", 
                                  "text", "numeric", "text", "numeric", 
@@ -458,10 +465,14 @@ diab$dfg <-ifelse(diab$sex==1,
 diab$NOINSCn <- factor(diab$NOINSCn, labels = c("CI médicale","Refus patient","autre/non décrit","Bilan pré_greffe en cours"))
 diab$urg_rea <- NA
 diab$urg_rea <- ifelse(diab$URGn==1 | diab$REAn==1, 1, 0)
+diab$PBRn <- ifelse(diab$PBRn==0 | is.na(diab$PBRn), 0, 1)
+diab$VHBn <- ifelse(diab$VHBn==0 | is.na(diab$VHBn), 0, 1)
+diab$VHCn <- ifelse(diab$VHCn==0 | is.na(diab$VHCn), 0, 1)
+diab$VIHn <- ifelse(diab$VIHn==0 | is.na(diab$VIHn), 0, 1)
+diab$SIDAn <- ifelse(diab$SIDAn==0 | is.na(diab$SIDAn), 0, 1)
 @
 
 <<pkrd>>=
-## _pkrd ----
 pkrd <- read_excel("~/IRC/dataIgA/donnes PKRD.xlsx", 
                   col_types = c("text", "text", "text", 
                                 "text", "numeric", "text", "numeric", 
@@ -579,10 +590,14 @@ pkrd$dfg <-ifelse(pkrd$sex==1,
 pkrd$NOINSCn <- factor(pkrd$NOINSCn, labels = c("CI médicale","Refus patient","autre/non décrit","Bilan pré_greffe en cours"))
 pkrd$urg_rea <- NA
 pkrd$urg_rea <- ifelse(pkrd$URGn==1 | pkrd$REAn==1, 1, 0)
+pkrd$PBRn <- ifelse(pkrd$PBRn==0 | is.na(pkrd$PBRn), 0, 1)
+pkrd$VHBn <- ifelse(pkrd$VHBn==0 | is.na(pkrd$VHBn), 0, 1)
+pkrd$VHCn <- ifelse(pkrd$VHCn==0 | is.na(pkrd$VHCn), 0, 1)
+pkrd$VIHn <- ifelse(pkrd$VIHn==0 | is.na(pkrd$VIHn), 0, 1)
+pkrd$SIDAn <- ifelse(pkrd$SIDAn==0 | is.na(pkrd$SIDAn), 0, 1)
 @
 
 <<global>>=
-## _global----
 # On créé un fichier contenant les tableaux iga, diab et gnc (greffe est à part et pkrd n'est pas exploitable en l'état)
 global<-bind_rows(iga, gnc, diab, pkrd)
 global$DATE_EVT<-as.Date(global$DATE_EVT, origin = "1899-12-30")
@@ -656,7 +671,6 @@ global$dfg <- ifelse(global$sex==1,
 @
 
 <<global_greffe>>=
-## _global_greffe ----
 global_greffe <- left_join(global, greffe, by = c("RREC_COD" = "NEFG"))
 global_greffe$ECHEC1 <- factor(global_greffe$ECHEC1)
 global_greffe$ECHEC1<-factor(global_greffe$ECHEC1, labels = c("Rejet aigu","Rejet chronique","Récidive de la maladie initiale","Complications vasculaires du greffon","Autres complications greffon","Autre infection déterminee"))
@@ -676,6 +690,8 @@ global_greffe$gr_METHOn <- NA
 global_greffe$gr_METHOn <- ifelse((global_greffe$METHOn=="Hémodialyse" | global_greffe$METHOn=="Dialyse péritonéale"), "Dialyse", "Greffe")
 global_greffe$gr_METHOn <- factor(global_greffe$gr_METHOn)
 
+global_greffe$greffe_METHOn <- NA
+global_greffe$greffe_METHOn <- ifelse((global_greffe$gr_METHOn=="Greffe" | global_greffe$delaitx<12) & !is.na(global_greffe$delaitx), "Greffe", "Dialyse")
 
 global_greffe2 <- full_join(global, greffe, by = c("RREC_COD" = "NEFG"))
 global_greffe2$ECHEC1 <- factor(global_greffe2$ECHEC1)
@@ -784,12 +800,37 @@ On a \Sexpr{nrow(iga)} patients qui ont eu une première suppléance. L'incidenc
 
 Dans l'article de Simon, on a une incidence de néphropathie à IgA (donc pas forcément au stade d'IRCT) de 26/million d'habitants/an (20-90+ ans) durant la période 1996-2002 en Côte d'Armor (ici pour cette région on a 6.2 cas pour 1M/an d'IRCT). %Sachant que l’incidence de la Maladie de Berger varie de 10 à 40 nouveaux cas/million d’habitants/an et que 25 à 50\% des cas développent une IRCT.
 
-  \subsection{Incidence spatiale d'IRCT}
+  \subsection{Incidence spatiale d'IRCT - Berger}
 
-Tableau d'incidence selon la région par standardisation directe pour 1 million d'habitants de 2010 à 2014 (selon l'effectif français de 2013) :
-<<cache=FALSE, results="asis">>=
+Tableau d'incidence selon la région par standardisation directe pour 1 million d'habitants de 2010 à 2014 (selon l'effectif français de 2013) pour le 1er traitement de suppléance entre 2010 et 2014 :
+<<results="asis">>=
 print(xtable(standdirect[order(standdirect$Ratio.ajuste, decreasing = T),]*10, digits = 1), table.placement = "H")
 @
+
+
+<<results="asis">>=
+x <- table(global$PBRn[global$liste_longue=="Néphropathie à dépôts d'IgA"], global$RES_REG_LIB[global$liste_longue=="Néphropathie à dépôts d'IgA"])
+x <- as.data.frame.matrix(x)
+x <- t(x)
+x <- round(prop.table(x[,1:2],1)*100,1)
+colnames(x) <- c("0 %", "1 %")
+x <- tidy(x)
+
+y <- table(global$PBRn[global$liste_longue=="Néphropathie à dépôts d'IgA"], global$RES_REG_LIB[global$liste_longue=="Néphropathie à dépôts d'IgA"], useNA = "always")
+y <- as.data.frame.matrix(y)
+y <- t(y)
+y <- y[1:29,]
+colnames(y)[3] <- "NA"
+y <- tidy(y)
+
+x <- full_join(y,x)
+colnames(x) <- c("Région","0","1","NA","0%","1%")
+x <- x[order(x$`1%`, decreasing = T),]
+
+print(xtable(x, auto = T, caption = "Nombre de PBR par région"), table.placement = "H", include.rownames = F)
+@
+
+~\\
 
 Tableau d'incidence selon le département par standardisation directe pour 1 million d'habitants de 2010 à 2014 (selon l'effectif français de 2013) :
 <<results="asis">>=
@@ -818,7 +859,7 @@ legend("bottomleft", legend = legende, fill = palette, cex=0.95, title = "Incide
 	\label{fig:cartedensite}
 \end{figure}
 
-  \subsection{Incidence temporelle d'IRCT}
+  \subsection{Incidence temporelle d'IRCT - Berger (année 1er ttt de suppléance)}
 
 Pour 1 000 000 d'habitants français (\textgreater 15 ans) :
 
@@ -834,6 +875,53 @@ print(xtable(inc_iga, auto = T), table.placement = "H")
 <<>>=
 chisq.test(inc_iga[1:2,], correct = F)
 @
+
+<<results="asis">>=
+x <- round(prop.table(table(global$anirt[global$liste_longue=="Néphropathie à dépôts d'IgA"], global$PBRn[global$liste_longue=="Néphropathie à dépôts d'IgA"]),1)*100,1)
+x <- as.data.frame.matrix(x)
+colnames(x) <- c("0 %", "1 %")
+x <- tidy(as.matrix(x))
+
+y <- table(global$anirt[global$liste_longue=="Néphropathie à dépôts d'IgA"], global$PBRn[global$liste_longue=="Néphropathie à dépôts d'IgA"], useNA = "always")
+y <- as.data.frame.matrix(y)
+colnames(y)[3] <- "NA"
+y <- y[-6,]
+y <- tidy(as.matrix(y))
+
+x <- full_join(y,x)
+colnames(x) <- c("Année","0","1","NA","0%","1%")
+
+print(xtable(x, auto = T, caption = "Nombre de PBR par année"), table.placement = "H", include.rownames = F)
+@
+
+<<>>=
+chisq.test(x[,2:3], correct = F)
+@
+
+<<>>=
+iga <- separate(iga, DDIRT, c("DDIRT.annee","DDIRT.mois","DDIRT.jour"), remove = F)
+@
+
+
+Mise en dialyse selon le mois de l'année pour les prises en charge en urgence (n = \Sexpr{length(iga$DDIRT.mois[iga$urg_rea==1 & !is.na(iga$urg_rea)])}) - Berger:
+
+<<fig.height=4>>=
+ggplot(iga[iga$urg_rea==1 & !is.na(iga$urg_rea),], aes(x=DDIRT.mois)) +
+  geom_bar() +
+  labs(x = "mois", y = "Fréquence")
+@
+
+<<fig.height=7>>==
+ggplot(iga[iga$urg_rea==1 & !is.na(iga$urg_rea),], aes(x=DDIRT.mois)) +
+  geom_bar() +
+  labs(x = "mois", y = "Fréquence") +
+  facet_grid(anirt~.)
+@
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.65\linewidth]{C:/Users/Rodolphe/Documents/IRC/Documents/4580745_5_04d3_l-episode-grippal-le-plus-important-de-la_dab3b851eb989de590256fa527ffc1b6}
+\end{figure}
 
 \section{Etude des caractéristiques cliniques et du devenir de ces patients}
 
@@ -867,7 +955,7 @@ print(xtable(x), table.placement = "H")
 
 Distribution des âges :
 
-<<fig.height=6>>=
+<<fig.height=5>>=
 ggplot(iga, aes(age)) +
   geom_histogram(aes(y=..density..), fill = "white", col = "black", bins = 30) +
   geom_density(alpha = 0.2, fill = "#FF6666")
@@ -881,6 +969,19 @@ for(i in 2010:2014) plot(density(iga$age[iga$anirt==i]), main = i)
 <<fig.height=3>>=
 ggplot(iga, aes(x = age, fill = anirt, col = anirt)) + geom_density(alpha = 0.05)
 @
+
+Entrée en urgence selon l'âge :
+
+<<results="asis">>=
+iga$gr_age_2 <- cut(iga$age, breaks = c(0, 40, 99))
+print(xtable(round(prop.table(table(iga$gr_age_2, iga$urg_rea), 1)*100,1)), table.placement = "H")
+@
+
+<<>>=
+chisq.test(table(iga$gr_age_2, iga$urg_rea), correct = F)
+@
+
+La différence entre les 2 groupes d'âge n'est plus significative à 50 ans.
 
     \subsubsection{Taille, poids et BMI}
   
@@ -923,12 +1024,12 @@ ggplot(iga, aes(x = gr_bmi, y = age)) +
 plotmeans(iga$age~iga$gr_bmi, gap=0, mean.labels= T, main = "Moyennes de l'âge avec intervalle de confiance - Maladie de Berger", xlab = "", ylab = "Âge d'IRCT")
 
 iga$gr_bmi <- relevel(iga$gr_bmi, ref = "18.5-24.9")
-summary(lm(iga$age~iga$gr_bmi))
+summary(lm(age ~ gr_bmi + PDS + DIABn + IDMn + AMIn + sex, data = iga))
 
-ggplot(iga, aes(x=bmi, y=age)) +
+ggplot(iga[iga$bmi<46 & iga$bmi>13,], aes(x=bmi, y=age)) +
   geom_smooth() +
   labs(title = "Régression - maladie de Berger")
-summary(lm(iga$age~iga$bmi))
+summary(lm(age ~ bmi + PDS + DIABn + IDMn + AMIn + sex, data = iga))
 
 
 global$gr_bmi<-cut(global$bmi, breaks = c(min(global$bmi,na.rm = T),18.5,25,30,35,40,max(global$bmi,na.rm = T)+1), right = F, labels = c("<18.5","18.5-24.9","25-29.9","30-34.9","35-39.9",">40"))
@@ -949,19 +1050,19 @@ print(xtable(tidy(summary(lm(global$age~global$gr_bmi))$coefficients), digits = 
 @
 
 <<fig.height=3>>=
-ggplot(iga, aes(x=bmi, y=age)) +
+ggplot(iga[iga$bmi<46 & iga$bmi>13,], aes(x=bmi, y=age)) +
   geom_smooth() +
   labs(title = "Régression - IgA")
-ggplot(diab[diab$bmi<60,], aes(x=bmi, y=age)) +
+ggplot(diab[diab$bmi<46 & diab$bmi>13,], aes(x=bmi, y=age)) +
   geom_smooth() +
-  labs(title = "Régression - diabète (bmi<60)")
-ggplot(pkrd[pkrd$bmi<60,], aes(x=bmi, y=age)) +
+  labs(title = "Régression - diabète (bmi<46)")
+ggplot(pkrd[pkrd$bmi<46 & pkrd$bmi>13,], aes(x=bmi, y=age)) +
   geom_smooth() +
-  labs(title = "Régression- pkrd (bmi<60)")
+  labs(title = "Régression- pkrd (bmi<46)")
 
 gnc$liste_longue <- factor(gnc$liste_longue)
 for (i in levels(gnc$liste_longue)) {
-print(ggplot(gnc[gnc$liste_longue==i,], aes(x=bmi, y=age)) +
+print(ggplot(gnc[gnc$liste_longue==i & gnc$bmi<46 & gnc$bmi>13,], aes(x=bmi, y=age)) +
   geom_smooth() +
   labs(title = paste("Régression -",i)))
 }
@@ -989,7 +1090,6 @@ print(xtable(addmargins(table(iga$RES_REG_LIB, iga$PBRn, useNA = "ifany")), digi
 x <- round(prop.table(table(iga$RES_REG_LIB, iga$PBRn),1)*100,1)
 print(xtable(x[order(x[,2], decreasing = T),], caption = "Pourcentage", digits = 1), table.placement = "H")
 @
-
 
       \subsubsection{Co-morbidités}
 
@@ -1031,10 +1131,11 @@ Stade de la cirrhose :
 
 - Child B-C : \Sexpr{table(iga$STDCIRHn,useNA = "always")[3]} (\Sexpr{round(prop.table(table(iga$STDCIRHn[!iga$STDCIRHn==0]))*100,1)[2]}\%)
 
-<<>>=
-addmargins(table(global$liste_longue[!global$STDCIRHn==0], global$STDCIRHn[!global$STDCIRHn==0], useNA = "always"))
+<<results="asis">>=
+print(xtable(addmargins(table(global$liste_longue[!global$STDCIRHn==0], global$STDCIRHn[!global$STDCIRHn==0], useNA = "no")), digits = 0), table.placement = "H")
+
 x <- round(prop.table(table(global$liste_longue[!global$STDCIRHn==0], global$STDCIRHn[!global$STDCIRHn==0]),1)*100,1)
-x[order(x[,2], decreasing = T),]
+print(xtable(x[order(x[,2], decreasing = T),],digits = 1), table.placement = "H")
 @
 ~\\
 
@@ -1095,7 +1196,10 @@ descr_global("liste_longue", "VIHn")
 
 Dont stade SIDA : \Sexpr{table(iga$SIDAn)[2]} (\Sexpr{round(table(iga$SIDAn)[2]/table(iga$VIHn)[2]*100,1)}\%)
 <<results="asis">>=
-descr_global("liste_longue", "SIDAn")
+print(xtable(as.data.frame.matrix(addmargins(table(global$liste_longue[global$VIHn==1], global$SIDAn[global$VIHn==1], useNA = "ifany"))), auto = T), table.placement = "H")
+
+x <- round(prop.table(table(global$liste_longue[global$VIHn==1], global$SIDAn[global$VIHn==1]),1)*100,1)
+print(xtable(x[order(x[,2], decreasing = T),],digits = 1), table.placement = "H")
 @
 ~\\
 

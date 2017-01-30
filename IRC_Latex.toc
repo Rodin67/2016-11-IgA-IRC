@@ -1,20 +1,20 @@
 \select@language {french}
 \contentsline {section}{\numberline {1}Incidence IRCT maladie de Berger}{2}
-\contentsline {subsection}{\numberline {1.1}Incidence spatiale d'IRCT}{2}
-\contentsline {subsection}{\numberline {1.2}Incidence temporelle d'IRCT}{6}
-\contentsline {section}{\numberline {2}Etude des caract\IeC {\'e}ristiques cliniques et du devenir de ces patients}{7}
-\contentsline {subsection}{\numberline {2.1}Caract\IeC {\'e}ristiques cliniques des patients au stade d\IeC {\textquoteright }IRCT}{7}
-\contentsline {subsubsection}{\numberline {2.1.1}Sexe et \IeC {\^a}ge au stade d\IeC {\textquoteright }IRCT (1\IeC {\`e}re suppl\IeC {\'e}ance)}{7}
-\contentsline {subsubsection}{\numberline {2.1.2}Taille, poids et BMI}{9}
-\contentsline {subsubsection}{\numberline {2.1.3}Ponction Biopsie R\IeC {\'e}nale}{17}
-\contentsline {subsubsection}{\numberline {2.1.4}Co-morbidit\IeC {\'e}s}{20}
-\contentsline {subsubsection}{\numberline {2.1.5}Statut Tabagique}{29}
-\contentsline {subsubsection}{\numberline {2.1.6}Cr\IeC {\'e}atinine, albumine et h\IeC {\'e}moglobine}{30}
-\contentsline {subsubsection}{\numberline {2.1.7}Traitement de suppl\IeC {\'e}ance}{34}
-\contentsline {subsubsection}{\numberline {2.1.8}Contexte de d\IeC {\'e}marrage de dialyse}{37}
-\contentsline {subsection}{\numberline {2.2}Devenir des patients apr\IeC {\`e}s la mise en dialyse}{37}
-\contentsline {subsection}{\numberline {2.3}Analyse de la survie patient avec comme outcome le d\IeC {\'e}c\IeC {\`e}s}{37}
-\contentsline {section}{\numberline {3}Greffe maladie de Berger}{39}
-\contentsline {subsection}{\numberline {3.1}Nombre de greffe par ann\IeC {\'e}e}{40}
-\contentsline {subsection}{\numberline {3.2}Arr\IeC {\^e}t de fonction du greffon}{41}
-\contentsline {subsection}{\numberline {3.3}D\IeC {\'e}c\IeC {\`e}s au cours de la greffe}{43}
+\contentsline {subsection}{\numberline {1.1}Incidence spatiale d'IRCT - Berger}{2}
+\contentsline {subsection}{\numberline {1.2}Incidence temporelle d'IRCT - Berger (ann\IeC {\'e}e 1er ttt de suppl\IeC {\'e}ance)}{7}
+\contentsline {section}{\numberline {2}Etude des caract\IeC {\'e}ristiques cliniques et du devenir de ces patients}{10}
+\contentsline {subsection}{\numberline {2.1}Caract\IeC {\'e}ristiques cliniques des patients au stade d\IeC {\textquoteright }IRCT}{10}
+\contentsline {subsubsection}{\numberline {2.1.1}Sexe et \IeC {\^a}ge au stade d\IeC {\textquoteright }IRCT (1\IeC {\`e}re suppl\IeC {\'e}ance)}{10}
+\contentsline {subsubsection}{\numberline {2.1.2}Taille, poids et BMI}{12}
+\contentsline {subsubsection}{\numberline {2.1.3}Ponction Biopsie R\IeC {\'e}nale}{21}
+\contentsline {subsubsection}{\numberline {2.1.4}Co-morbidit\IeC {\'e}s}{23}
+\contentsline {subsubsection}{\numberline {2.1.5}Statut Tabagique}{32}
+\contentsline {subsubsection}{\numberline {2.1.6}Cr\IeC {\'e}atinine, albumine et h\IeC {\'e}moglobine}{33}
+\contentsline {subsubsection}{\numberline {2.1.7}Traitement de suppl\IeC {\'e}ance}{36}
+\contentsline {subsubsection}{\numberline {2.1.8}Contexte de d\IeC {\'e}marrage de dialyse}{39}
+\contentsline {subsection}{\numberline {2.2}Devenir des patients apr\IeC {\`e}s la mise en dialyse}{40}
+\contentsline {subsection}{\numberline {2.3}Analyse de la survie patient avec comme outcome le d\IeC {\'e}c\IeC {\`e}s}{40}
+\contentsline {section}{\numberline {3}Greffe maladie de Berger}{42}
+\contentsline {subsection}{\numberline {3.1}Nombre de greffe par ann\IeC {\'e}e}{43}
+\contentsline {subsection}{\numberline {3.2}Arr\IeC {\^e}t de fonction du greffon}{44}
+\contentsline {subsection}{\numberline {3.3}D\IeC {\'e}c\IeC {\`e}s au cours de la greffe}{46}
