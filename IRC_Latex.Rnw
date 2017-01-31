@@ -181,6 +181,9 @@ iga$VHBn <- ifelse(iga$VHBn==0 | is.na(iga$VHBn), 0, 1)
 iga$VHCn <- ifelse(iga$VHCn==0 | is.na(iga$VHCn), 0, 1)
 iga$VIHn <- ifelse(iga$VIHn==0 | is.na(iga$VIHn), 0, 1)
 iga$SIDAn <- ifelse(iga$SIDAn==0 | is.na(iga$SIDAn), 0, 1)
+iga$AMPn <- ifelse(iga$AMPn==0 | is.na(iga$AMPn), 0, 1)
+iga$gr_bmi<-cut(iga$bmi, breaks = c(min(iga$bmi,na.rm = T),18.5,25,30,35,max(iga$bmi,na.rm = T)+1), right = F, labels = c("<18.5","18.5-24.9","25-29.9","30-34.9",">35"))
+iga$gr_bmi <- relevel(iga$gr_bmi, ref = "18.5-24.9")
 @
 
 <<greffe>>=
@@ -348,6 +351,9 @@ gnc$VHBn <- ifelse(gnc$VHBn==0 | is.na(gnc$VHBn), 0, 1)
 gnc$VHCn <- ifelse(gnc$VHCn==0 | is.na(gnc$VHCn), 0, 1)
 gnc$VIHn <- ifelse(gnc$VIHn==0 | is.na(gnc$VIHn), 0, 1)
 gnc$SIDAn <- ifelse(gnc$SIDAn==0 | is.na(gnc$SIDAn), 0, 1)
+gnc$AMPn <- ifelse(gnc$AMPn==0 | is.na(gnc$AMPn), 0, 1)
+gnc$gr_bmi<-cut(gnc$bmi, breaks = c(min(gnc$bmi,na.rm = T),18.5,25,30,35,max(gnc$bmi,na.rm = T)+1), right = F, labels = c("<18.5","18.5-24.9","25-29.9","30-34.9",">35"))
+gnc$gr_bmi <- relevel(gnc$gr_bmi, ref = "18.5-24.9")
 @
 
 <<diab>>=
@@ -470,6 +476,9 @@ diab$VHBn <- ifelse(diab$VHBn==0 | is.na(diab$VHBn), 0, 1)
 diab$VHCn <- ifelse(diab$VHCn==0 | is.na(diab$VHCn), 0, 1)
 diab$VIHn <- ifelse(diab$VIHn==0 | is.na(diab$VIHn), 0, 1)
 diab$SIDAn <- ifelse(diab$SIDAn==0 | is.na(diab$SIDAn), 0, 1)
+diab$AMPn <- ifelse(diab$AMPn==0 | is.na(diab$AMPn), 0, 1)
+diab$gr_bmi<-cut(diab$bmi, breaks = c(min(diab$bmi,na.rm = T),18.5,25,30,35,max(diab$bmi,na.rm = T)+1), right = F, labels = c("<18.5","18.5-24.9","25-29.9","30-34.9",">35"))
+diab$gr_bmi <- relevel(diab$gr_bmi, ref = "18.5-24.9")
 @
 
 <<pkrd>>=
@@ -595,6 +604,9 @@ pkrd$VHBn <- ifelse(pkrd$VHBn==0 | is.na(pkrd$VHBn), 0, 1)
 pkrd$VHCn <- ifelse(pkrd$VHCn==0 | is.na(pkrd$VHCn), 0, 1)
 pkrd$VIHn <- ifelse(pkrd$VIHn==0 | is.na(pkrd$VIHn), 0, 1)
 pkrd$SIDAn <- ifelse(pkrd$SIDAn==0 | is.na(pkrd$SIDAn), 0, 1)
+pkrd$AMPn <- ifelse(pkrd$AMPn==0 | is.na(pkrd$AMPn), 0, 1)
+pkrd$gr_bmi<-cut(pkrd$bmi, breaks = c(min(pkrd$bmi,na.rm = T),18.5,25,30,35,max(pkrd$bmi,na.rm = T)+1), right = F, labels = c("<18.5","18.5-24.9","25-29.9","30-34.9",">35"))
+pkrd$gr_bmi <- relevel(pkrd$gr_bmi, ref = "18.5-24.9")
 @
 
 <<global>>=
@@ -1000,9 +1012,8 @@ print(xtable(tidy(summary(iga$PDS))), include.rownames = F)
 BMI :
 
 <<bmi, results="asis">>=
-iga$gr_bmi<-cut(iga$bmi, breaks = c(min(iga$bmi,na.rm = T),18.5,25,30,35,40,max(iga$bmi,na.rm = T)+1), right = F, labels = c("<18.5","18.5-24.9","25-29.9","30-34.9","35-39.9",">40"))
 x <- do.call("rbind", list(table(iga$gr_bmi, useNA = "always"),round(prop.table(table(iga$gr_bmi))*100,1)))
-x[2,7] <- NA
+x[2,6] <- NA
 rownames(x) <-  c("","Pourcentage")
 print(xtable(x, digits = 1), table.placement = "H")
 @
@@ -1023,13 +1034,14 @@ ggplot(iga, aes(x = gr_bmi, y = age)) +
 
 plotmeans(iga$age~iga$gr_bmi, gap=0, mean.labels= T, main = "Moyennes de l'âge avec intervalle de confiance - Maladie de Berger", xlab = "", ylab = "Âge d'IRCT")
 
-iga$gr_bmi <- relevel(iga$gr_bmi, ref = "18.5-24.9")
-summary(lm(age ~ gr_bmi + PDS + DIABn + IDMn + AMIn + sex, data = iga))
+summary(lm(age ~ gr_bmi + DIABn + IDMn + AMIn + ICn + dfg + sex, data = iga))
+
+
 
 ggplot(iga[iga$bmi<46 & iga$bmi>13,], aes(x=bmi, y=age)) +
   geom_smooth() +
   labs(title = "Régression - maladie de Berger")
-summary(lm(age ~ bmi + PDS + DIABn + IDMn + AMIn + sex, data = iga))
+summary(lm(age ~ gr_bmi + DIABn + IDMn + AMIn + ICn + dfg + sex, data = iga))
 
 
 global$gr_bmi<-cut(global$bmi, breaks = c(min(global$bmi,na.rm = T),18.5,25,30,35,40,max(global$bmi,na.rm = T)+1), right = F, labels = c("<18.5","18.5-24.9","25-29.9","30-34.9","35-39.9",">40"))
@@ -1080,8 +1092,6 @@ x <- round(prop.table(table(global$liste_longue, global$PBRn),1)*100,1)
 print(xtable(x[order(x[,2], decreasing = T),], digits = 1), table.placement = "H")
 @
 
-\textcolor{red}{Commentaire : 25\% de ceux qui n'ont pas eu d'examen histologique ont été biopsiés.}
-~\\
 
 Pour le Berger par région :
 
@@ -1095,23 +1105,32 @@ print(xtable(x[order(x[,2], decreasing = T),], caption = "Pourcentage", digits =
 
 Diabète : \Sexpr{table(iga$DIABn)[2]} (\Sexpr{round(prop.table(table(iga$DIABn))*100,1)[2]}\%) NA = \Sexpr{table(iga$DIABn, useNA = "always")[3]}
 
+La prévalence du diabète traité pharmacologiquement en France est estimée à 4,6\% en 2012, tous régimes d’Assurance maladie confondus, 5\% en 2015 (\textit{InVS - SPF}).
+
 <<results="asis">>=
 xtable(addmargins(table(global$liste_longue, global$DIABn, useNA = "ifany")), digits = 0)
 x <- round(prop.table(table(global$liste_longue, global$DIABn),1)*100,1)
 print(xtable(x[order(x[,2], decreasing = T),], digits = 1), table.placement = "H")
 @
+% 
+% Type de diabète : 
+% 
+% - 1 : \Sexpr{table(iga$TYPDIABn,useNA = "always")[2]} (\Sexpr{round(prop.table(table(iga$TYPDIABn[!iga$TYPDIABn==0]))*100,1)[1]}\%)
+% 
+% - 2 : \Sexpr{table(iga$TYPDIABn,useNA = "always")[3]} (\Sexpr{round(prop.table(table(iga$TYPDIABn[!iga$TYPDIABn==0]))*100,1)[2]}\%)
+% 
+% <<results="asis">>=
+% xtable(addmargins(table(global$liste_longue[!global$TYPDIABn==0], global$TYPDIABn[!global$TYPDIABn==0], useNA = "no")), digits = 0)
+% 
+% x <- round(prop.table(table(global$liste_longue[!global$TYPDIABn==0], global$TYPDIABn[!global$TYPDIABn==0]),1)*100,1)
+% print(xtable(x[order(x[,2], decreasing = T),],digits = 1), table.placement = "H")
+% @
+~\\
 
-Type de diabète : 
+Diabète Berger selon le 1er traitement de suppléance :
 
-- 1 : \Sexpr{table(iga$TYPDIABn,useNA = "always")[2]} (\Sexpr{round(prop.table(table(iga$TYPDIABn[!iga$TYPDIABn==0]))*100,1)[1]}\%)
+<<>>=
 
-- 2 : \Sexpr{table(iga$TYPDIABn,useNA = "always")[3]} (\Sexpr{round(prop.table(table(iga$TYPDIABn[!iga$TYPDIABn==0]))*100,1)[2]}\%)
-
-<<results="asis">>=
-xtable(addmargins(table(global$liste_longue[!global$TYPDIABn==0], global$TYPDIABn[!global$TYPDIABn==0], useNA = "no")), digits = 0)
-
-x <- round(prop.table(table(global$liste_longue[!global$TYPDIABn==0], global$TYPDIABn[!global$TYPDIABn==0]),1)*100,1)
-print(xtable(x[order(x[,2], decreasing = T),],digits = 1), table.placement = "H")
 @
 ~\\
 
@@ -1124,6 +1143,9 @@ Cirrhose et VHC : \Sexpr{table(iga$VHCn[iga$CIRHn==1])[2]}
 <<results="asis">>=
 descr_global("liste_longue", "CIRHn")
 @
+
+GNMP type 2 : cirrhose influence arrivée en IRCT.
+~\\
 
 Stade de la cirrhose :
 
@@ -1144,6 +1166,7 @@ Infarctus du myocarde : \Sexpr{table(iga$IDMn)[2]} (\Sexpr{round(prop.table(tabl
 <<results="asis">>=
 descr_global("liste_longue", "IDMn")
 @
+
 
 Insuffisance cardiaque : \Sexpr{table(iga$ICn)[2]} (\Sexpr{round(prop.table(table(iga$ICn))*100,1)[2]}\%) NA = \Sexpr{table(iga$ICn, useNA = "always")[3]}
 
@@ -1242,10 +1265,6 @@ DFG initial :
 
 
 <<fig.height=5>>=
-iga$dfg <- NA
-iga$dfg <- ifelse(iga$sex==1, 
-                  round(186.3*(iga$CREATINI/88.4)^-1.154 * (iga$age)^-0.203,2), 
-                  round(186.3*(iga$CREATINI/88.4)^-1.154 * (iga$age)^-0.203 * 0.742,2))
 summary(iga$dfg)
 
 ggplot(iga[iga$dfg<50,], aes(dfg)) +
@@ -1253,7 +1272,7 @@ ggplot(iga[iga$dfg<50,], aes(dfg)) +
   geom_density(fill = "red", alpha = 0.3) +
   labs(title = "DFG pour Berger")
 @
-On a \Sexpr{length(iga$dfg[iga$dfg=="123.02" & !is.na(iga$dfg)])} patient qui a un DFG supérieur à 120 ml/min. Aucun entre 40 et 120.
+On a \Sexpr{length(iga$dfg[iga$dfg=="123.02" & !is.na(iga$dfg)])} patient qui a un DFG supérieur à 120 ml/min qui sera supprimé. Aucun entre 40 et 120.
 
 <<results="asis">>=
 x <- do.call("rbind", tapply(global$dfg, global$liste_longue, summary))
