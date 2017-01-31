@@ -166,14 +166,41 @@ iga$CAUSDCP_LIB<-as.factor(iga$CAUSDCP_LIB)
 iga$CAUSDCP_COD<-as.factor(iga$CAUSDCP_COD)
 iga$CAUSEDCP_A_LIB<-as.factor(iga$CAUSEDCP_A_LIB)
 iga$CAUSEDCP_A_COD<-as.factor(iga$CAUSEDCP_A_COD)
-iga$TABACn <- factor(iga$TABACn, labels = c("NF","Fumeur","EX Fumeur"))
-iga$METHOn<-factor(iga$METHOn, labels = c("Hémodialyse","Dialyse péritonéale","Greffe"))
-iga$VAVn <- factor(iga$VAVn, labels = c("FAV native","Cathéter tunnélisé","Pontage","Autre"))
-iga$ACTIVn<-factor(iga$ACTIVn, labels = c("Actif temps plein","Actif temps partiel","Actif en milieu protégé","Retraité","Au chômage","Au foyer","Scolarisé, étudiant","Arrêt longue maladie","Inactif en invalidité","Inactif autre"))
-iga$NOINSCn <- factor(iga$NOINSCn, labels = c("CI médicale","Refus patient","autre/non décrit","Bilan pré_greffe en cours"))
+iga$TABACn <- factor(iga$TABACn, 
+                     labels = c("NF",
+                                "Fumeur",
+                                "EX Fumeur"))
+iga$METHOn<-factor(iga$METHOn, 
+                   labels = c("Hémodialyse",
+                              "Dialyse péritonéale",
+                              "Greffe"))
+iga$VAVn <- factor(iga$VAVn, 
+                   labels = c("FAV native",
+                              "Cathéter tunnélisé",
+                              "Pontage",
+                              "Autre"))
+iga$ACTIVn<-factor(iga$ACTIVn, 
+                   labels = c("Actif temps plein",
+                              "Actif temps partiel",
+                              "Actif en milieu protégé",
+                              "Retraité",
+                              "Au chômage",
+                              "Au foyer",
+                              "Scolarisé, étudiant",
+                              "Arrêt longue maladie",
+                              "Inactif en invalidité",
+                              "Inactif autre"))
+iga$NOINSCn <- factor(iga$NOINSCn, 
+                      labels = c("CI médicale",
+                                 "Refus patient",
+                                 "autre/non décrit",
+                                 "Bilan pré_greffe en cours"))
 iga$dfg <-ifelse(iga$sex==1, 
                  round(186.3*(iga$CREATINI/88.4)^-1.154 * (iga$age)^-0.203,2), 
                  round(186.3*(iga$CREATINI/88.4)^-1.154 * (iga$age)^-0.203 * 0.742,2))
+iga$CREATINI[iga$dfg>20] <- NA
+iga$dfg[is.na(iga$CREATINI)] <- NA
+
 iga$urg_rea<-NA
 iga$urg_rea<-ifelse(iga$URGn==1 | iga$REAn==1, 1, 0)
 iga$PBRn <- ifelse(iga$PBRn==0 | is.na(iga$PBRn), 0, 1)
@@ -343,6 +370,9 @@ gnc$dfg <- NA
 gnc$dfg <-ifelse(gnc$sex==1, 
                  round(186.3*(gnc$CREATINI/88.4)^-1.154 * (gnc$age)^-0.203,2), 
                  round(186.3*(gnc$CREATINI/88.4)^-1.154 * (gnc$age)^-0.203 * 0.742,2))
+gnc$CREATINI[gnc$dfg>20] <- NA
+gnc$dfg[is.na(gnc$CREATINI)] <- NA
+
 gnc$NOINSCn <- factor(gnc$NOINSCn, labels = c("CI médicale","Refus patient","autre/non décrit","Bilan pré_greffe en cours"))
 gnc$urg_rea <- NA
 gnc$urg_rea <- ifelse(gnc$URGn==1 | gnc$REAn==1, 1, 0)
@@ -468,6 +498,9 @@ diab$dfg <- NA
 diab$dfg <-ifelse(diab$sex==1, 
                   round(186.3*(diab$CREATINI/88.4)^-1.154 * (diab$age)^-0.203,2), 
                   round(186.3*(diab$CREATINI/88.4)^-1.154 * (diab$age)^-0.203 * 0.742,2))
+diab$CREATINI[diab$dfg>20] <- NA
+diab$dfg[is.na(diab$CREATINI)] <- NA
+
 diab$NOINSCn <- factor(diab$NOINSCn, labels = c("CI médicale","Refus patient","autre/non décrit","Bilan pré_greffe en cours"))
 diab$urg_rea <- NA
 diab$urg_rea <- ifelse(diab$URGn==1 | diab$REAn==1, 1, 0)
@@ -596,6 +629,9 @@ pkrd$dfg <- NA
 pkrd$dfg <-ifelse(pkrd$sex==1, 
                   round(186.3*(pkrd$CREATINI/88.4)^-1.154 * (pkrd$age)^-0.203,2), 
                   round(186.3*(pkrd$CREATINI/88.4)^-1.154 * (pkrd$age)^-0.203 * 0.742,2))
+pkrd$CREATINI[pkrd$dfg>20] <- NA
+pkrd$dfg[is.na(pkrd$CREATINI)] <- NA
+
 pkrd$NOINSCn <- factor(pkrd$NOINSCn, labels = c("CI médicale","Refus patient","autre/non décrit","Bilan pré_greffe en cours"))
 pkrd$urg_rea <- NA
 pkrd$urg_rea <- ifelse(pkrd$URGn==1 | pkrd$REAn==1, 1, 0)
@@ -1254,15 +1290,19 @@ chisq.test(x, correct = F)
 
     \subsubsection{Créatinine, albumine et hémoglobine}
 
+Les patients ayant un DFG\textgreater20 : DFG et créatinine considérés comme données manquantes.
+~\\
+
 Créatininémie initiale :
 
 <<fig.height=3.5>>=
 summary(iga$CREATINI)
-hist(iga$CREATINI, xlab = "Créatininémie (micromol/l)", main = "Créatininémie", xlim = c(0,3000))
+ggplot(iga, aes(x = CREATINI)) +
+  geom_histogram(col = "black", fill = "white") +
+  labs(x = "Créatininémie (micromol/l)")
 @
 
 DFG initial :
-
 
 <<fig.height=5>>=
 summary(iga$dfg)
@@ -1272,7 +1312,7 @@ ggplot(iga[iga$dfg<50,], aes(dfg)) +
   geom_density(fill = "red", alpha = 0.3) +
   labs(title = "DFG pour Berger")
 @
-On a \Sexpr{length(iga$dfg[iga$dfg=="123.02" & !is.na(iga$dfg)])} patient qui a un DFG supérieur à 120 ml/min qui sera supprimé. Aucun entre 40 et 120.
+
 
 <<results="asis">>=
 x <- do.call("rbind", tapply(global$dfg, global$liste_longue, summary))
@@ -1284,43 +1324,53 @@ print(xtable(x, digits = 1, auto = T), size = "small", table.placement = "H")
 
 Albuminémie initiale :
 
-
 <<fig.height=3.5>>=
 summary(iga$ALBINI)
-hist(iga$ALBINI, xlab = "Albuminémie (U/L)", main = "Albuminémie", xlim = c(0,60))
+ggplot(iga, aes(x = ALBINI)) +
+  geom_histogram(col = "black", fill = "white") +
+  labs(x = "Albuminémie (U/L)")
 @
 
 Hémoglobine :
 
-<<fig.height=3.8>>=
+<<fig.height=3>>=
 summary(iga$HBINI)
-hist(iga$HBINI, xlab = "Hémoglobinémie (g/l)", main = "Hémoglobinémie", xlim = c(4,18))
+ggplot(iga, aes(x = HBINI)) +
+  geom_histogram(col = "black", fill = "white") +
+  labs(x = "Hémoglobinémie (g/L)")
 @
-
-Nombres d'anémiques :
 
 <<results="asis">>=
-x <- addmargins(table(iga$sex,iga$gr_HBINI, deparse.level = 2))
-colnames(x) <- c("Anémique","Non anémique",'Somme')
-rownames(x) <- c("Homme","Femme","Somme")
-xtable(x, digits = 0) # Nombre d'anémiques selon le sexe
-xtable(round(prop.table(x[,1:2],1)*100,1), caption = "Pourcentage", digits = 1) 
+x <- do.call("rbind", tapply(global$HBINI, global$liste_longue, summary))
+x <- as.data.frame.matrix(x)
+print(xtable(x, auto = T, digits = 1), pable.placement = "H")
 @
 
-<<>>=
-chisq.test(table(iga$sex,iga$gr_HBINI),correct = F) # Chi2 test
-@
 
-Régression liénaire de l'Hb selon le sexe et le DFG :
-<<results="asis">>=
-iga$gr_HBINI <- as.numeric(as.character(iga$gr_HBINI))
-print(xtable(tidy(summary(lm(iga$HBINI~iga$sex+iga$dfg))), caption = "Régression linéaire simple (Hb selon le sexe et le DFG)", digits = 3), table.placement = "H")
-xtable(confint(lm(iga$HBINI~iga$sex+iga$dfg)), digits = 3)
-@
-
-<<>>=
-summary(lmer(HBINI ~ dfg + (1|sex), data = iga) )
-@
+% Nombres d'anémiques :
+% 
+% <<results="asis">>=
+% x <- addmargins(table(iga$sex,iga$gr_HBINI, deparse.level = 2))
+% colnames(x) <- c("Anémique","Non anémique",'Somme')
+% rownames(x) <- c("Homme","Femme","Somme")
+% xtable(x, digits = 0) # Nombre d'anémiques selon le sexe
+% xtable(round(prop.table(x[,1:2],1)*100,1), caption = "Pourcentage", digits = 1) 
+% @
+% 
+% <<>>=
+% chisq.test(table(iga$sex,iga$gr_HBINI),correct = F) # Chi2 test
+% @
+% 
+% Régression liénaire de l'Hb selon le sexe et le DFG :
+% <<results="asis">>=
+% iga$gr_HBINI <- as.numeric(as.character(iga$gr_HBINI))
+% print(xtable(tidy(summary(lm(iga$HBINI~iga$sex+iga$dfg))), caption = "Régression linéaire simple (Hb selon le sexe et le DFG)", digits = 3), table.placement = "H")
+% xtable(confint(lm(iga$HBINI~iga$sex+iga$dfg)), digits = 3)
+% @
+% 
+% <<>>=
+% summary(lmer(HBINI ~ dfg + (1|sex), data = iga) )
+% @
 
 
     \subsubsection{Traitement de suppléance}
