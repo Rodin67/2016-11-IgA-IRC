@@ -384,6 +384,7 @@ gnc$SIDAn <- ifelse(gnc$SIDAn==0 | is.na(gnc$SIDAn), 0, 1)
 gnc$AMPn <- ifelse(gnc$AMPn==0 | is.na(gnc$AMPn), 0, 1)
 gnc$gr_bmi<-cut(gnc$bmi, breaks = c(min(gnc$bmi,na.rm = T),18.5,25,30,35,max(gnc$bmi,na.rm = T)+1), right = F, labels = c("<18.5","18.5-24.9","25-29.9","30-34.9",">35"))
 gnc$gr_bmi <- relevel(gnc$gr_bmi, ref = "18.5-24.9")
+gnc <- gnc[!(gnc$liste_longue=="GN primitive avec autre diagnostic histologique" | gnc$liste_longue=="Maladies systémiques autres"),]
 @
 
 <<diab>>=
@@ -741,6 +742,11 @@ global_greffe$gr_METHOn <- factor(global_greffe$gr_METHOn)
 global_greffe$greffe_METHOn <- NA
 global_greffe$greffe_METHOn <- ifelse((global_greffe$gr_METHOn=="Greffe" | global_greffe$delaitx<12) & !is.na(global_greffe$delaitx), "Greffe", "Dialyse")
 
+global_greffe$date_greffe <- NA
+global_greffe$date_greffe <- ifelse(!is.na(global_greffe$anirt), as.numeric(as.character(global_greffe$anirt)), global_greffe$annee1)
+
+
+
 global_greffe2 <- full_join(global, greffe, by = c("RREC_COD" = "NEFG"))
 global_greffe2$ECHEC1 <- factor(global_greffe2$ECHEC1)
 global_greffe2$ECHEC1 <-factor(global_greffe2$ECHEC1, labels = c("Défaillance primaire", "Rejet aigu","Rejet chronique","Récidive de la maladie initiale","Complications vasculaires du greffon","Complications urologiques greffon", "Autres complications greffon","Hémorragie au niveau du transplant", "Insuffisance rénale chronique", "Autre infection déterminee","Myélome", "Autre complication déterminée", "Cause inconnue"))
@@ -761,7 +767,7 @@ global_greffe2$gr_METHOn <- ifelse((global_greffe2$METHOn=="Hémodialyse" | glob
 global_greffe2$gr_METHOn <- factor(global_greffe2$gr_METHOn)
 
 global_greffe2$greffe_METHOn <- NA
-global_greffe2$greffe_METHOn <- ifelse(global_greffe2$gr_METHOn=="Greffe" | is.na(global_greffe2$liste_longue), "Greffe", "Dialyse")
+global_greffe2$greffe_METHOn <- ifelse((global_greffe2$gr_METHOn=="Greffe" | global_greffe2$delaitx<12) & !is.na(global_greffe2$delaitx), "Greffe", "Dialyse")
 
 global_greffe2$date_greffe <- ifelse(!is.na(global_greffe2$anirt), as.numeric(as.character(global_greffe2$anirt)), global_greffe2$annee1)
 @
@@ -1018,19 +1024,6 @@ for(i in 2010:2014) plot(density(iga$age[iga$anirt==i]), main = i)
 ggplot(iga, aes(x = age, fill = anirt, col = anirt)) + geom_density(alpha = 0.05)
 @
 
-Entrée en urgence selon l'âge :
-
-<<results="asis">>=
-iga$gr_age_2 <- cut(iga$age, breaks = c(0, 40, 99))
-print(xtable(round(prop.table(table(iga$gr_age_2, iga$urg_rea), 1)*100,1)), table.placement = "H")
-@
-
-<<>>=
-chisq.test(table(iga$gr_age_2, iga$urg_rea), correct = F)
-@
-
-La différence entre les 2 groupes d'âge n'est plus significative à 50 ans.
-
     \subsubsection{Taille, poids et BMI}
   
 Taille lors de l'IRCT :
@@ -1122,7 +1115,7 @@ print(ggplot(gnc[gnc$liste_longue==i & gnc$bmi<46 & gnc$bmi>13,], aes(x=bmi, y=a
 Pour le Berger : \Sexpr{table(iga$PBRn)[2]} (\Sexpr{round(prop.table(table(iga$PBRn))*100,1)[2]}\%) NA = \Sexpr{table(iga$PBRn, useNA = "always")[3]}
 
 <<results="asis">>=
-print(xtable(addmargins(table(global$liste_longue, global$PBRn, useNA = "always")[-14,]), digits = 0), table.placement = "H")
+print(xtable(addmargins(table(global$liste_longue, global$PBRn, useNA = "ifany")[-14,]), digits = 0), table.placement = "H")
 
 x <- round(prop.table(table(global$liste_longue, global$PBRn),1)*100,1)
 print(xtable(x[order(x[,2], decreasing = T),], digits = 1), table.placement = "H")
@@ -1282,7 +1275,7 @@ xtable(round(prop.table(table(iga$TABACn))*100,1))
 @
 
 <<results="asis">>=
-print(xtable(addmargins(table(global$liste_longue, global$TABACn, useNA = "always"))[-14,], digits = 0), table.placement ="H")
+print(xtable(addmargins(table(global$liste_longue, global$TABACn, useNA = "ifany"))[-14,], digits = 0), table.placement ="H")
 x <- round(prop.table(table(global$liste_longue, global$TABACn),1)*100,1)
 print(xtable(x[order(x[,1]),], digits = 1), table.placement ="H")
 chisq.test(x, correct = F)
@@ -1373,42 +1366,38 @@ print(xtable(x, auto = T, digits = 1), pable.placement = "H")
 % @
 
 
-    \subsubsection{Traitement de suppléance}
+    \subsubsection{1er traitement de suppléance}
 
 Date = soit date de d'IRCT sinon date de greffe 1. 
 
-Greffe = patients noté comme étant greffé en 1ère suppléance et ceux n'étant que dans la table greffe.
+Greffe = patients noté comme étant greffé en 1ère suppléance, ceux n'étant que dans la table greffe et ceux ayant eu une greffe dans la 1ère année suivant la 1ère dialyse.
+~\\
 
-Pour Berger :
+Pour tous les patients :
 
 <<results="asis">>=
-x <- table(global_greffe2$greffe_METHOn[global_greffe2$liste_longue=="Néphropathie à dépôts d'IgA"], global_greffe2$date_greffe[global_greffe2$liste_longue=="Néphropathie à dépôts d'IgA"])
+x <- table(global_greffe2$greffe_METHOn, global_greffe2$date_greffe)
 print(xtable(as.data.frame.matrix(x[,1:5]), auto = T), table.placement = "H")
-print(xtable(as.data.frame.matrix(round(prop.table(x[,1:5],2)*100,1)), auto = T), table.placement = "H")
+print(xtable(as.data.frame.matrix(round(prop.table(x[,1:5],2)*100,1)), auto = T), table.placement = "H" )
 @
 
 <<>>=
 chisq.test(x, correct = F)
 @
 
-\textcolor{red}{Attention, pas le même recul pour 2014 (nombre de patients ayant eu une greffe après dialyse plus faible)}
-~\\
 
-Sur tous les patients ayant eu une greffe, pourcentage de patients ayant eu une greffe comme premier traitement de suppléance :
-
-
-Premier traitement de suppléance par pathologie (sans la table greffe) :
+Par pathologie :
 
 <<results="asis">>=
 global$liste_longue <- factor(global$liste_longue)
-for (i in levels(global$liste_longue)) {
+for (i in levels(global_greffe2$liste_longue)) {
   #print(xtable(addmargins(table(global$METHOn[global$liste_longue==i], global$anirt[global$liste_longue==i])), digits = 0, caption = i), table.placement="H")
-  print(xtable(round(prop.table(table(global$METHOn[global$liste_longue==i], global$anirt[global$liste_longue==i]),2)*100,1), caption = paste("Pourcentage",i), digits = 1), table.placement="H")
+  print(xtable(round(prop.table(table(global_greffe2$greffe_METHOn[global_greffe2$liste_longue==i], global_greffe2$anirt[global_greffe2$liste_longue==i]),2)*100,1), caption = paste("Pourcentage",i), digits = 1), table.placement="H")
 }
 @
 
 
-\textcolor{red}{Nombre de patients greffés direct n'ayant aucune info sur la greffe toute pathologies confondus) : \Sexpr{table(is.na(global_greffe$GRF1[global_greffe$METHOn=="Greffe"]))[2]} (\Sexpr{round(prop.table(table(is.na(global_greffe$GRF1[global_greffe$METHOn=="Greffe"])))*100,1)[2]}\%)}
+\textcolor{red}{Nombre de patients greffés direct n'ayant aucune info sur la greffe toute pathologies confondus : \Sexpr{table(is.na(global_greffe$GRF1[global_greffe$greffe_METHOn=="Greffe"]))[2]} (\Sexpr{round(table(is.na(global_greffe$GRF1[global_greffe$greffe_METHOn=="Greffe"]))[2] / length(global_greffe$GRF1[global_greffe$greffe_METHOn=="Greffe"]) *100,1)}\%)}
 ~\\
 
 %\textcolor{red}{XXXXXX} Nombre de greffé sans dialyse et nombre de dialysé après dialyse :
@@ -1424,37 +1413,50 @@ for (i in levels(global$liste_longue)) {
 %\textcolor{red}{Attention : le recul n'est pas le même pour ceux de 2010 et 2014, ce qui explique la différence.}
 %~\\
 
-Nombre de dialyse (hémo + péritonéale) comparé aux dialysés totaux en France :
+Nombre de dialyse (hémo + péritonéale) comparé aux dialysés totaux en France : (à refaire XXXXX)
 
 <<results="asis", fig.height=3>>=
-inc_greffe <- matrix(nrow = 9, ncol = 5, dimnames = list(c("Total France","Berger","Pourcentage Berger","GNC","Pourcentage GNC","Diabète","Pourcentage diabète","PKRD","Pourcentage PKRD"),c("2010","2011","2012","2013","2014")))
-inc_greffe[1,] <- c(37296, 39158, 40893, 42506, 44281)
-inc_greffe[2,] <- apply(table(iga$METHOn, iga$anirt)[1:2,], 2 ,sum)
-inc_greffe[3,] <- inc_greffe[1,]-inc_greffe[2,]
-inc_greffe[3,] <- round(prop.table(inc_greffe[2:3,],2)*100,2)[1,]
-inc_greffe[4,] <- apply(table(gnc$METHOn, gnc$anirt)[1:2,], 2 ,sum)
-inc_greffe[5,] <- inc_greffe[1,]-inc_greffe[4,]
-inc_greffe[5,] <- round(prop.table(inc_greffe[4:5,],2)*100,2)[1,]
-inc_greffe[6,] <- apply(table(diab$METHOn, diab$anirt)[1:2,], 2 ,sum)
-inc_greffe[7,] <- inc_greffe[1,]-inc_greffe[6,]
-inc_greffe[7,] <- round(prop.table(inc_greffe[6:7,],2)*100,2)[1,]
-inc_greffe[8,] <- apply(table(pkrd$METHOn, pkrd$anirt)[1:2,], 2 ,sum)
-inc_greffe[9,] <- inc_greffe[1,]-inc_greffe[8,]
-inc_greffe[9,] <- round(prop.table(inc_greffe[8:9,],2)*100,2)[1,]
-
-print(xtable(inc_greffe, digits = 2), table.placement = "H")
-
-inc_greffe <- as.data.frame(inc_greffe[c(3,5,7,9),])
-inc_greffe$pathologie <- c(rownames(inc_greffe))
-inc_greffe <- inc_greffe[,c(6,1:5)]
-inc_greffe <- gather(inc_greffe, "annee","pourcentage",2:6)
-inc_greffe$pathologie <- factor(inc_greffe$pathologie, levels = c("Pourcentage diabète", "Pourcentage GNC", "Pourcentage PKRD","Pourcentage Berger"))
-ggplot(inc_greffe, aes(x = annee, y = pourcentage, fill = pathologie)) + 
-  geom_bar(stat = "identity", position = position_dodge()) +
-  ggtitle("Pourcentage de dialyse par année sur le nombre de dialyse total en France")
+# inc_greffe <- matrix(nrow = 9, 
+#                      ncol = 5, 
+#                      dimnames = list(c("Total France",
+#                                        "Berger",
+#                                        "Pourcentage Berger",
+#                                        "GNC",
+#                                        "Pourcentage GNC",
+#                                        "Diabète",
+#                                        "Pourcentage diabète",
+#                                        "PKRD",
+#                                        "Pourcentage PKRD"),
+#                                      c("2010","2011","2012","2013","2014")))
+# inc_greffe[1,] <- c(37296, 39158, 40893, 42506, 44281)
+# inc_greffe[2,] <- apply(table(iga$METHOn, iga$anirt)[1:2,], 2 ,sum)
+# inc_greffe[3,] <- inc_greffe[1,]-inc_greffe[2,]
+# inc_greffe[3,] <- round(prop.table(inc_greffe[2:3,],2)*100,2)[1,]
+# inc_greffe[4,] <- apply(table(gnc$METHOn, gnc$anirt)[1:2,], 2 ,sum)
+# inc_greffe[5,] <- inc_greffe[1,]-inc_greffe[4,]
+# inc_greffe[5,] <- round(prop.table(inc_greffe[4:5,],2)*100,2)[1,]
+# inc_greffe[6,] <- apply(table(diab$METHOn, diab$anirt)[1:2,], 2 ,sum)
+# inc_greffe[7,] <- inc_greffe[1,]-inc_greffe[6,]
+# inc_greffe[7,] <- round(prop.table(inc_greffe[6:7,],2)*100,2)[1,]
+# inc_greffe[8,] <- apply(table(pkrd$METHOn, pkrd$anirt)[1:2,], 2 ,sum)
+# inc_greffe[9,] <- inc_greffe[1,]-inc_greffe[8,]
+# inc_greffe[9,] <- round(prop.table(inc_greffe[8:9,],2)*100,2)[1,]
+# 
+# print(xtable(inc_greffe, digits = 2), table.placement = "H")
+# 
+# inc_greffe <- as.data.frame(inc_greffe[c(3,5,7,9),])
+# inc_greffe$pathologie <- c(rownames(inc_greffe))
+# inc_greffe <- inc_greffe[,c(6,1:5)]
+# inc_greffe <- gather(inc_greffe, "annee","pourcentage",2:6)
+# inc_greffe$pathologie <- factor(inc_greffe$pathologie, levels = c("Pourcentage diabète", "Pourcentage GNC", "Pourcentage PKRD","Pourcentage Berger"))
+# ggplot(inc_greffe, aes(x = annee, y = pourcentage, fill = pathologie)) + 
+#   geom_bar(stat = "identity", position = position_dodge()) +
+#   ggtitle("Pourcentage de dialyse par année sur le nombre de dialyse total en France")
 @
 
     \subsubsection{Contexte de démarrage de dialyse}
+
+  \subsubsection*{Urgence}
 
 <<>>=
 iga$urg_rea<-NA
@@ -1466,12 +1468,31 @@ Premier traitement en réanimation ou urgence IgA :  \Sexpr{table(iga$urg_rea)[2
 
 Premier traitement en réanimation ou urgence diabète :  \Sexpr{table(diab$urg_rea)[2]} (\Sexpr{round(prop.table(table(diab$urg_rea))*100,1)[2]}\%) NA = \Sexpr{table(diab$urg_rea, useNA = "always")[3]}
 
+Premier traitement en réanimation ou urgence PKRD :  \Sexpr{table(pkrd$urg_rea)[2]} (\Sexpr{round(prop.table(table(pkrd$urg_rea))*100,1)[2]}\%) NA = \Sexpr{table(pkrd$urg_rea, useNA = "always")[3]}
+
 Premier traitement en réanimation ou urgence GNC :  \Sexpr{table(gnc$urg_rea)[2]} (\Sexpr{round(prop.table(table(gnc$urg_rea))*100,1)[2]}\%) NA = \Sexpr{table(gnc$urg_rea, useNA = "always")[3]}
 
-Premier traitement en réanimation ou urgence PKRD :  \Sexpr{table(pkrd$urg_rea)[2]} (\Sexpr{round(prop.table(table(pkrd$urg_rea))*100,1)[2]}\%) NA = \Sexpr{table(pkrd$urg_rea, useNA = "always")[3]}
-~\\
+<<>>=
+for (i in levels(gnc$liste_longue)) {
+  print(paste(table(gnc$urg_rea[gnc$liste_longue==i])[2], "(", round(table(gnc$urg_rea[gnc$liste_longue==i])[2]/nrow(gnc[gnc$liste_longue==i,])*100,1), "%) :", i))
+}
+@
 
-Voie d’abord :
+Entrée en urgence selon l'âge :
+
+<<results="asis">>=
+iga$gr_age_2 <- cut(iga$age, breaks = c(0, 40, 99))
+print(xtable(round(prop.table(table(iga$gr_age_2, iga$urg_rea), 1)*100,1)), table.placement = "H")
+@
+
+<<>>=
+chisq.test(table(iga$gr_age_2, iga$urg_rea), correct = F)
+@
+
+La différence entre les 2 groupes d'âge n'est plus significative à 50 ans.
+
+  \subsubsection*{Voie d’abord}
+
 <<results="asis">>=
 x <- t(table(iga$VAVn, useNA = "always"))
 x <- as.data.frame.matrix(x)
@@ -1487,6 +1508,30 @@ x[4,] <- round(prop.table(table(gnc$VAVn))*100,1)
 x[1,] <- round(prop.table(table(pkrd$VAVn))*100,1)
 xtable(x, caption = "Pourcentage")
 @
+
+<<results="asis">>=
+.prop <- function(x) round(prop.table(table(x))*100,1)
+x <- do.call("rbind", tapply(gnc$VAVn, gnc$liste_longue, .prop))
+x %>% tidy() %>% xtable() %>% print(include.rownames = F, table.placement ="H")
+@
+
+Selon l'âge :
+
+<<results="asis">>=
+global_greffe$gr_age_2 <- cut(global_greffe$age, breaks = c(0, 40, 99))
+for (i in levels(global_greffe$liste_longue)) {
+  print(xtable(as.data.frame.matrix(round(prop.table(table(global_greffe$VAVn[global_greffe$liste_longue==i], global_greffe$gr_age_2[global_greffe$liste_longue==i]),2)*100,1)), caption = i), table.placement = "H")
+}
+@
+
+Selon l'urgence :
+
+<<results="asis">>=
+for (i in levels(global_greffe$liste_longue)) {
+  print(xtable(as.data.frame.matrix(round(prop.table(table(global_greffe$VAVn[global_greffe$liste_longue==i], global_greffe$urg_rea[global_greffe$liste_longue==i]),2)*100,1)), caption = i), table.placement = "H")
+}
+@
+
 
   \subsection{Devenir des patients après la mise en dialyse}
   
@@ -1512,7 +1557,7 @@ par(mar = c(4,2,2,0))
 plot(survfit(Surv(kmdelaidc/365.25, kmdc)~liste_longue, data = global_greffe),
      main = "Courbe de survie univariée",
      xlab = "Temps (année)", col = c("black",brewer.pal(n = 12, name = "Paired")))
-legend(x = 0, y = 0.5, legend = c(levels(global_greffe$liste_longue)), lty = 1, col = c("black",brewer.pal(n = 12, name = "Paired")), cex = 1 )
+legend("bottomleft", legend = c(levels(global_greffe$liste_longue)), lty = 1, col = c("black",brewer.pal(n = 12, name = "Paired")), cex = 1 )
 @
 
 Médiane de survie pour diablète : 5.5 ans [5.25-5.75]

@@ -6,15 +6,15 @@
 \contentsline {subsection}{\numberline {2.1}Caract\IeC {\'e}ristiques cliniques des patients au stade d\IeC {\textquoteright }IRCT}{10}
 \contentsline {subsubsection}{\numberline {2.1.1}Sexe et \IeC {\^a}ge au stade d\IeC {\textquoteright }IRCT (1\IeC {\`e}re suppl\IeC {\'e}ance)}{10}
 \contentsline {subsubsection}{\numberline {2.1.2}Taille, poids et BMI}{12}
-\contentsline {subsubsection}{\numberline {2.1.3}Ponction Biopsie R\IeC {\'e}nale}{21}
+\contentsline {subsubsection}{\numberline {2.1.3}Ponction Biopsie R\IeC {\'e}nale}{20}
 \contentsline {subsubsection}{\numberline {2.1.4}Co-morbidit\IeC {\'e}s}{23}
-\contentsline {subsubsection}{\numberline {2.1.5}Statut Tabagique}{32}
-\contentsline {subsubsection}{\numberline {2.1.6}Cr\IeC {\'e}atinine, albumine et h\IeC {\'e}moglobine}{33}
-\contentsline {subsubsection}{\numberline {2.1.7}Traitement de suppl\IeC {\'e}ance}{36}
-\contentsline {subsubsection}{\numberline {2.1.8}Contexte de d\IeC {\'e}marrage de dialyse}{39}
-\contentsline {subsection}{\numberline {2.2}Devenir des patients apr\IeC {\`e}s la mise en dialyse}{39}
-\contentsline {subsection}{\numberline {2.3}Analyse de la survie patient avec comme outcome le d\IeC {\'e}c\IeC {\`e}s}{39}
-\contentsline {section}{\numberline {3}Greffe maladie de Berger}{41}
-\contentsline {subsection}{\numberline {3.1}Nombre de greffe par ann\IeC {\'e}e}{42}
-\contentsline {subsection}{\numberline {3.2}Arr\IeC {\^e}t de fonction du greffon}{43}
-\contentsline {subsection}{\numberline {3.3}D\IeC {\'e}c\IeC {\`e}s au cours de la greffe}{45}
+\contentsline {subsubsection}{\numberline {2.1.5}Statut Tabagique}{31}
+\contentsline {subsubsection}{\numberline {2.1.6}Cr\IeC {\'e}atinine, albumine et h\IeC {\'e}moglobine}{32}
+\contentsline {subsubsection}{\numberline {2.1.7}1er traitement de suppl\IeC {\'e}ance}{35}
+\contentsline {subsubsection}{\numberline {2.1.8}Contexte de d\IeC {\'e}marrage de dialyse}{37}
+\contentsline {subsection}{\numberline {2.2}Devenir des patients apr\IeC {\`e}s la mise en dialyse}{42}
+\contentsline {subsection}{\numberline {2.3}Analyse de la survie patient avec comme outcome le d\IeC {\'e}c\IeC {\`e}s}{42}
+\contentsline {section}{\numberline {3}Greffe maladie de Berger}{44}
+\contentsline {subsection}{\numberline {3.1}Nombre de greffe par ann\IeC {\'e}e}{45}
+\contentsline {subsection}{\numberline {3.2}Arr\IeC {\^e}t de fonction du greffon}{46}
+\contentsline {subsection}{\numberline {3.3}D\IeC {\'e}c\IeC {\`e}s au cours de la greffe}{48}
