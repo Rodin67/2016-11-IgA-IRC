@@ -198,6 +198,7 @@ iga$dfg <-ifelse(iga$sex==1,
                  round(186.3*(iga$CREATINI/88.4)^-1.154 * (iga$age)^-0.203,2), 
                  round(186.3*(iga$CREATINI/88.4)^-1.154 * (iga$age)^-0.203 * 0.742,2))
 iga$CREATINI[iga$dfg>20] <- NA
+iga$CREATINI[iga$ICn==0 & iga$dfg>15] <- NA
 iga$dfg[is.na(iga$CREATINI)] <- NA
 
 iga$urg_rea<-NA
@@ -401,6 +402,7 @@ gnc$dfg <-ifelse(gnc$sex==1,
                  round(186.3*(gnc$CREATINI/88.4)^-1.154 * (gnc$age)^-0.203,2), 
                  round(186.3*(gnc$CREATINI/88.4)^-1.154 * (gnc$age)^-0.203 * 0.742,2))
 gnc$CREATINI[gnc$dfg>20] <- NA
+gnc$CREATINI[gnc$ICn==0 & gnc$dfg>15] <- NA
 gnc$dfg[is.na(gnc$CREATINI)] <- NA
 
 gnc$NOINSCn <- factor(gnc$NOINSCn, labels = c("CI médicale","Refus patient","autre/non décrit","Bilan pré_greffe en cours"))
@@ -531,6 +533,7 @@ diab$dfg <-ifelse(diab$sex==1,
                   round(186.3*(diab$CREATINI/88.4)^-1.154 * (diab$age)^-0.203,2), 
                   round(186.3*(diab$CREATINI/88.4)^-1.154 * (diab$age)^-0.203 * 0.742,2))
 diab$CREATINI[diab$dfg>20] <- NA
+diab$CREATINI[diab$ICn==0 & diab$dfg>15] <- NA
 diab$dfg[is.na(diab$CREATINI)] <- NA
 
 diab$NOINSCn <- factor(diab$NOINSCn, labels = c("CI médicale","Refus patient","autre/non décrit","Bilan pré_greffe en cours"))
@@ -662,6 +665,7 @@ pkrd$dfg <-ifelse(pkrd$sex==1,
                   round(186.3*(pkrd$CREATINI/88.4)^-1.154 * (pkrd$age)^-0.203,2), 
                   round(186.3*(pkrd$CREATINI/88.4)^-1.154 * (pkrd$age)^-0.203 * 0.742,2))
 pkrd$CREATINI[pkrd$dfg>20] <- NA
+pkrd$CREATINI[pkrd$ICn==0 & pkrd$dfg>15] <- NA
 pkrd$dfg[is.na(pkrd$CREATINI)] <- NA
 
 pkrd$NOINSCn <- factor(pkrd$NOINSCn, labels = c("CI médicale","Refus patient","autre/non décrit","Bilan pré_greffe en cours"))
@@ -748,6 +752,9 @@ global$dfg <- NA
 global$dfg <- ifelse(global$sex==1, 
                   round(186.3*(global$CREATINI/88.4)^-1.154 * (global$age)^-0.203,2), 
                   round(186.3*(global$CREATINI/88.4)^-1.154 * (global$age)^-0.203 * 0.742,2))
+global$CREATINI[global$dfg>20] <- NA
+global$CREATINI[global$ICn==0 & global$dfg>15] <- NA
+global$dfg[is.na(global$CREATINI)] <- NA
 @
 
 <<global_greffe>>=
@@ -1101,6 +1108,13 @@ Poids lors de l'IRCT :
 print(xtable(tidy(summary(iga$PDS))), include.rownames = F)
 @
 
+<<>>=
+ggplot(iga, aes(x = PDS, y = dfg)) +
+  geom_point() +
+  geom_smooth(method = "lm",se = FALSE)
+@
+
+
 BMI :
 
 <<bmi, results="asis">>=
@@ -1142,12 +1156,12 @@ ggplot(iga[iga$bmi<46 & iga$bmi>13,], aes(x=bmi, y=age)) +
 @
 
 <<fig.height=4>>=
-global$gr_bmi<-cut(global$bmi, breaks = c(min(global$bmi,na.rm = T),18.5,25,30,35,40,max(global$bmi,na.rm = T)+1), right = F, labels = c("<18.5","18.5-24.9","25-29.9","30-34.9","35-39.9",">40"))
-ggplot(global, aes(x = gr_bmi, y = age)) + 
-  geom_boxplot(fill = "grey80", colour = "black") +
-  xlab("BMI") +
-  ylab("Âge lors de l'IRT pour toute cause") +
-  ggtitle("Toute cause")
+ global$gr_bmi<-cut(global$bmi, breaks = c(min(global$bmi,na.rm = T),18.5,25,30,35,40,max(global$bmi,na.rm = T)+1), right = F, labels = c("<18.5","18.5-24.9","25-29.9","30-34.9","35-39.9",">40"))
+# ggplot(global, aes(x = gr_bmi, y = age)) + 
+  # geom_boxplot(fill = "grey80", colour = "black") +
+  # xlab("BMI") +
+  # ylab("Âge lors de l'IRT pour toute cause") +
+  # ggtitle("Toute cause")
 @
 
 <<fig.height=5>>=
@@ -1163,7 +1177,7 @@ print(xtable(tidy(summary(lm(age ~ gr_bmi + DIABn + IDMn + AMIn + ICn + dfg + se
 
 \subsubsection*{Par pathologie (BMI entre 13 et 46)}
 
-<<fig.height=3>>=
+<<fig.height=2.5>>=
 ggplot(iga[iga$bmi<46 & iga$bmi>13,], aes(x=bmi, y=age)) +
   geom_smooth() +
   labs(title = "Régression - IgA")
@@ -1234,7 +1248,6 @@ print(xtable(x[order(x[,2], decreasing = T),], digits = 1), table.placement = "H
 % x <- round(prop.table(table(global$liste_longue[!global$TYPDIABn==0], global$TYPDIABn[!global$TYPDIABn==0]),1)*100,1)
 % print(xtable(x[order(x[,2], decreasing = T),],digits = 1), table.placement = "H")
 % @
-~\\
 
 Diabète Berger selon le 1er traitement de suppléance :
 
@@ -1254,7 +1267,7 @@ Cirrhose et VHC : \Sexpr{table(iga$VHCn[iga$CIRHn==1])[2]}
 descr_global("liste_longue", "CIRHn")
 @
 
-GNMP type 2 : cirrhose influence arrivée en IRCT.
+\textit{(Remarque : GNMP type 2 : cirrhose influence arrivée en IRCT.)}
 ~\\
 
 Stade de la cirrhose :
@@ -1351,8 +1364,19 @@ descr_global("liste_longue", "VHCn")
     \subsubsection{Statut Tabagique}
 
 <<results="asis">>=
-print(xtable(tidy(table(iga$TABACn, useNA = "always"))), include.rownames = F)
-xtable(round(prop.table(table(iga$TABACn))*100,1))
+x <- iga$TABACn %>%
+  table(useNA = "always") %>%
+  tidy()
+y <- iga$TABACn %>%
+  table() %>%
+  prop.table() %>%
+  "*"(100) %>%
+  round(1) %>%
+  tidy()
+full_join(x,y, by=".") %>%
+  rename(Effectif = Freq.x, Pourcentage = Freq.y) %>%
+  xtable() %>%
+  print(include.rownames = F)
 @
 
 <<results="asis">>=
@@ -1361,6 +1385,12 @@ x <- round(prop.table(table(global$liste_longue, global$TABACn),1)*100,1)
 print(xtable(x[order(x[,1]),], digits = 1), table.placement ="H")
 chisq.test(x, correct = F)
 @
+
+Pour le syndrome de Goodpasture
+<<>>=
+select(gnc, TABACn, NEPH_LIB) %>% View
+@
+
 
     \subsubsection{Créatinine, albumine et hémoglobine}
 
@@ -1562,12 +1592,17 @@ for (i in levels(gnc$liste_longue)) {
 Entrée en urgence selon l'âge :
 
 <<results="asis">>=
-iga$gr_age_2 <- cut(iga$age, breaks = c(0, 40, 99))
-print(xtable(round(prop.table(table(iga$gr_age_2, iga$urg_rea), 1)*100,1)), table.placement = "H")
+x <- mutate(iga, gr_age_2 = cut(iga$age, breaks = c(0, 40, 99)))
+table(x$gr_age_2, x$urg_rea) %>%
+  prop.table(1) %>%
+  "*"(100) %>%
+  round(1) %>%
+  xtable() %>%
+  print(table.placement = "H")
 @
 
 <<>>=
-chisq.test(table(iga$gr_age_2, iga$urg_rea), correct = F)
+chisq.test(table(x$gr_age_2, x$urg_rea), correct = F)
 @
 
 La différence entre les 2 groupes d'âge n'est plus significative à 50 ans.
@@ -1599,9 +1634,9 @@ x %>% tidy() %>% xtable() %>% print(include.rownames = F, table.placement ="H")
 Selon l'âge :
 
 <<results="asis">>=
-global_greffe$gr_age_2 <- cut(global_greffe$age, breaks = c(0, 40, 99))
+x <- mutate(global_greffe, gr_age_2 = cut(global_greffe$age, breaks = c(0, 40, 99)))
 for (i in levels(global_greffe$liste_longue)) {
-  print(xtable(as.data.frame.matrix(round(prop.table(table(global_greffe$VAVn[global_greffe$liste_longue==i], global_greffe$gr_age_2[global_greffe$liste_longue==i]),2)*100,1)), caption = i), table.placement = "H")
+  print(xtable(as.data.frame.matrix(round(prop.table(table(x$VAVn[x$liste_longue==i], x$gr_age_2[x$liste_longue==i]),2)*100,1)), caption = i), table.placement = "H")
 }
 @
 
