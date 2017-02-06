@@ -70,9 +70,7 @@
 \maketitle
 
 \tableofcontents
-
-\newpage
-
+~\\
 
 
 
@@ -95,7 +93,25 @@
 
 
 
-La table "globale" contient 19884 patients différents étant passés au stade d'IRCT dont 1720 (8.7\%) avec maladie de Berger, 11174 (56.2\%) avec une néphropathie diabétique, 3846 (19.3\%) avec une glomérulonéphrite chronique et 3144 (15.8\%) avec une PKRD.
+
+Au total, nous avons 19884 patients différents (\textgreater 16ans, entre 2010 et 2014) étant passés au stade d'IRCT dont 1720 (8.7\%) avec maladie de Berger, 11174 (56.2\%) avec une néphropathie diabétique, 3846 (19.3\%) avec une glomérulonéphrite chronique et 3144 (15.8\%) avec une PKRD.
+
+Nombre de patients par GNC (ont été supprimé les pathologies "GN primitive avec autre diagnostic histologique" et "Maladies systémiques autres") :
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+[1] "GN avec HSF : 1184 (6%)"
+[1] "GN extra-membraneuse : 437 (2.2%)"
+[1] "GN extracapillaire ou endo/extracapillaire : 411 (2.1%)"
+[1] "GN membrano-proliférative type 1 : 205 (1%)"
+[1] "GN membrano-proliférative type 2, dépôts denses : 81 (0.4%)"
+[1] "GN primitive sans examen histologique : 1250 (6.3%)"
+[1] "Néphropathie lupique : 207 (1%)"
+[1] "Purpura rhumatoïde : 71 (0.4%)"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 \section{Incidence IRCT maladie de Berger}
 
@@ -103,15 +119,17 @@ La table "globale" contient 19884 patients différents étant passés au stade d
 
 On a 1720 patients qui ont eu une première suppléance. L'incidence était de 3.4 cas pour 100 000 habitants de 2010 à 2014, soit en moyenne \textbf{6.7 nouveau cas d'IRCT/million d'habitants/an}. 
 
-Dans l'article de Simon, on a une incidence de néphropathie à IgA (donc pas forcément au stade d'IRCT) de 26/million d'habitants/an (20-90+ ans) durant la période 1996-2002 en Côte d'Armor (ici pour cette région on a 6.2 cas pour 1M/an d'IRCT). %Sachant que l’incidence de la Maladie de Berger varie de 10 à 40 nouveaux cas/million d’habitants/an et que 25 à 50\% des cas développent une IRCT.
+Dans l'article de Simon, on a une incidence de néphropathie à IgA (donc pas forcément au stade d'IRCT) de 26/million d'habitants/an (\textgreater 20 ans) durant la période 1996-2002 en Côte d'Armor (ici pour cette région on a 6.2 cas pour 1M/an d'IRCT). %Sachant que l’incidence de la Maladie de Berger varie de 10 à 40 nouveaux cas/million d’habitants/an et que 25 à 50\% des cas développent une IRCT.
 
-  \subsection{Incidence spatiale d'IRCT - Berger}
+  \subsection{Incidence spatiale d'IRCT}
 
 Tableau d'incidence selon la région par standardisation directe pour 1 million d'habitants de 2010 à 2014 (selon l'effectif français de 2013) pour le 1er traitement de suppléance entre 2010 et 2014 :
+
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:19 2017
+% Mon Feb 06 11:38:39 2017
 \begin{table}[H]
 \centering
+\begingroup\small
 \begin{tabular}{rrrrrr}
   \hline
  & Ratio.brut & Ratio.ajuste & IC.inf & IC.sup & annuel \\ 
@@ -122,35 +140,39 @@ Reunion & 56.6 & 57.9 & 39.5 & 88.0 & 11.6 \\
   Nord.Pas.de.Calais & 40.5 & 42.3 & 35.3 & 50.5 & 8.5 \\ 
   Bretagne & 39.7 & 39.0 & 31.8 & 47.3 & 7.8 \\ 
   Midi.Pyrénées & 38.1 & 37.7 & 30.4 & 46.3 & 7.5 \\ 
-  Pays.de.la.Loire & 36.6 & 36.4 & 29.8 & 44.0 & 7.3 \\ 
   Centre & 37.3 & 36.3 & 28.6 & 45.4 & 7.3 \\ 
+  Pays.de.la.Loire & 36.6 & 36.4 & 29.8 & 44.0 & 7.3 \\ 
   Champagne.Ardenne & 36.2 & 36.2 & 25.7 & 49.5 & 7.2 \\ 
   Franche.Comté & 36.1 & 35.4 & 24.5 & 49.6 & 7.1 \\ 
   Rhône.Alpes & 34.6 & 35.1 & 30.1 & 40.7 & 7.0 \\ 
   Bourgogne & 35.8 & 33.5 & 24.7 & 44.8 & 6.7 \\ 
-  Languedoc.Roussillon & 32.4 & 32.4 & 25.3 & 41.0 & 6.5 \\ 
   Basse.Normandie & 32.6 & 32.3 & 23.0 & 44.4 & 6.5 \\ 
+  Languedoc.Roussillon & 32.4 & 32.4 & 25.3 & 41.0 & 6.5 \\ 
   Picardie & 29.6 & 29.2 & 21.3 & 39.3 & 5.8 \\ 
   Ile.de.France & 28.0 & 28.3 & 25.0 & 32.1 & 5.7 \\ 
   Haute.Normandie & 27.9 & 28.0 & 20.1 & 38.2 & 5.6 \\ 
   Aquitaine & 27.2 & 27.2 & 21.4 & 34.3 & 5.4 \\ 
   Lorraine & 27.3 & 27.2 & 20.3 & 35.9 & 5.4 \\ 
   Limousin & 26.1 & 26.3 & 14.8 & 43.8 & 5.3 \\ 
+  Guadeloupe & 9.6 & 10.5 & 2.0 & 34.1 & 5.2 \\ 
   Poitou.Charentes & 24.6 & 24.3 & 17.0 & 33.8 & 4.9 \\ 
   Provence.Alpes.Côte.d.Azur & 23.5 & 23.1 & 18.7 & 28.3 & 4.6 \\ 
+  Martinique & 6.5 & 7.1 & 0.8 & 29.7 & 3.6 \\ 
   Corse & 15.0 & 15.1 & 4.1 & 40.5 & 3.0 \\ 
-  Guadeloupe & 9.6 & 10.5 & 2.0 & 34.1 & 2.1 \\ 
-  Martinique & 6.5 & 7.1 & 0.8 & 29.7 & 1.4 \\ 
    \hline
 \end{tabular}
+\endgroup
 \end{table}
 
 
 
+\textcolor{red}{Pour la Guadeloupe et la Martinique, remplissage de la base qu'à partir de 2013}
+
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:19 2017
+% Mon Feb 06 11:38:40 2017
 \begin{table}[H]
 \centering
+\begingroup\small
 \begin{tabular}{lrrrrr}
   \hline
 Région & 0 & 1 & NA & 0\% & 1\% \\ 
@@ -186,17 +208,24 @@ Martinique & 0 & 2 & 0 & 0.0 & 100.0 \\
   Guyane & 0 & 0 & 0 &  &  \\ 
    \hline
 \end{tabular}
+\endgroup
 \caption{Nombre de PBR par région} 
 \end{table}
 
 
-~\\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-5-1} 
+
+\end{knitrout}
+
 
 Tableau d'incidence selon le département par standardisation directe pour 1 million d'habitants de 2010 à 2014 (selon l'effectif français de 2013) :
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:19 2017
+% Mon Feb 06 11:38:41 2017
 \begin{table}[H]
 \centering
+\begingroup\small
 \begin{tabular}{rrrrrr}
   \hline
  & Ratio.brut & Ratio.ajuste & IC.inf & IC.sup & annuel \\ 
@@ -216,10 +245,10 @@ Bas.Rhin & 68.9 & 70.3 & 53.9 & 90.9 & 14.1 \\
   Puy.de.Dôme & 47.4 & 47.0 & 30.4 & 69.7 & 9.4 \\ 
   Tarn & 48.1 & 46.7 & 25.8 & 79.8 & 9.3 \\ 
   Indre & 47.6 & 46.2 & 20.8 & 94.0 & 9.2 \\ 
-  Loire & 47.8 & 45.5 & 30.5 & 65.8 & 9.1 \\ 
   Gers & 50.7 & 45.4 & 19.1 & 100.8 & 9.1 \\ 
-  Sarthe & 46.4 & 44.7 & 27.7 & 69.0 & 8.9 \\ 
+  Loire & 47.8 & 45.5 & 30.5 & 65.8 & 9.1 \\ 
   Aude & 47.0 & 44.4 & 24.0 & 77.6 & 8.9 \\ 
+  Sarthe & 46.4 & 44.7 & 27.7 & 69.0 & 8.9 \\ 
   Meuse & 45.1 & 44.0 & 17.6 & 93.9 & 8.8 \\ 
   Lozère & 47.3 & 43.0 & 8.6 & 143.7 & 8.6 \\ 
   Jura & 43.0 & 41.7 & 19.0 & 82.7 & 8.3 \\ 
@@ -232,16 +261,16 @@ Bas.Rhin & 68.9 & 70.3 & 53.9 & 90.9 & 14.1 \\
   Rhône & 37.5 & 39.2 & 29.3 & 51.5 & 7.8 \\ 
   Aveyron & 39.1 & 38.6 & 17.4 & 78.9 & 7.7 \\ 
   Doubs & 37.6 & 37.5 & 21.5 & 61.5 & 7.5 \\ 
-  Var & 38.9 & 37.0 & 25.3 & 52.7 & 7.4 \\ 
-  Vosges & 36.1 & 37.0 & 18.3 & 67.9 & 7.4 \\ 
   Orne & 38.4 & 36.9 & 16.7 & 73.0 & 7.4 \\ 
   Seine.Saint.Denis & 35.6 & 36.8 & 26.3 & 51.4 & 7.4 \\ 
   Val.de.Marne & 36.5 & 36.8 & 26.1 & 51.0 & 7.4 \\ 
+  Var & 38.9 & 37.0 & 25.3 & 52.7 & 7.4 \\ 
+  Vosges & 36.1 & 37.0 & 18.3 & 67.9 & 7.4 \\ 
   Hérault & 34.8 & 35.7 & 24.2 & 50.8 & 7.1 \\ 
-  Paris & 33.6 & 35.2 & 26.9 & 45.5 & 7.0 \\ 
   Ain & 35.1 & 35.0 & 20.3 & 56.9 & 7.0 \\ 
   Calvados & 34.3 & 34.8 & 20.9 & 54.5 & 7.0 \\ 
   Drôme & 35.5 & 34.8 & 19.0 & 59.4 & 7.0 \\ 
+  Paris & 33.6 & 35.2 & 26.9 & 45.5 & 7.0 \\ 
   Allier & 35.2 & 34.6 & 16.3 & 66.9 & 6.9 \\ 
   Finistère & 35.4 & 34.5 & 22.5 & 51.1 & 6.9 \\ 
   Mayenne & 37.2 & 34.4 & 15.6 & 67.9 & 6.9 \\ 
@@ -253,11 +282,13 @@ Bas.Rhin & 68.9 & 70.3 & 53.9 & 90.9 & 14.1 \\
   Lot.et.Garonne & 29.2 & 32.9 & 14.1 & 66.7 & 6.6 \\ 
    \hline
 \end{tabular}
+\endgroup
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:19 2017
+% Mon Feb 06 11:38:41 2017
 \begin{table}[H]
 \centering
+\begingroup\small
 \begin{tabular}{rrrrrr}
   \hline
  & Ratio.brut & Ratio.ajuste & IC.inf & IC.sup & annuel \\ 
@@ -267,23 +298,24 @@ Dordogne & 31.6 & 32.3 & 15.9 & 61.1 & 6.5 \\
   Seine.Maritime & 30.9 & 31.6 & 21.4 & 44.9 & 6.3 \\ 
   Côtes.d.Armor & 33.1 & 30.9 & 17.6 & 52.3 & 6.2 \\ 
   Landes & 30.8 & 30.3 & 14.4 & 59.1 & 6.1 \\ 
-  Yonne & 32.7 & 29.7 & 13.5 & 59.8 & 5.9 \\ 
   Haute.Garonne & 28.6 & 29.5 & 19.8 & 42.4 & 5.9 \\ 
   Meurthe.et.Moselle & 28.7 & 29.4 & 17.1 & 47.7 & 5.9 \\ 
-  Loir.et.Cher & 29.8 & 29.2 & 12.5 & 60.5 & 5.8 \\ 
-  Seine.et.Marne & 28.5 & 28.9 & 19.4 & 42.3 & 5.8 \\ 
+  Yonne & 32.7 & 29.7 & 13.5 & 59.8 & 5.9 \\ 
   Deux.Sèvres & 30.0 & 28.8 & 13.1 & 57.4 & 5.8 \\ 
   Hauts.de.Seine & 27.8 & 28.8 & 19.9 & 40.6 & 5.8 \\ 
+  Loir.et.Cher & 29.8 & 29.2 & 12.5 & 60.5 & 5.8 \\ 
+  Seine.et.Marne & 28.5 & 28.9 & 19.4 & 42.3 & 5.8 \\ 
   Maine.et.Loire & 28.6 & 28.5 & 16.9 & 45.2 & 5.7 \\ 
   Saône.et.Loire & 28.6 & 27.3 & 14.4 & 48.9 & 5.5 \\ 
   Loiret & 26.6 & 26.3 & 14.4 & 44.3 & 5.3 \\ 
-  Vaucluse & 27.2 & 26.1 & 13.4 & 46.3 & 5.2 \\ 
+  Guadeloupe & 9.6 & 10.5 & 2.0 & 34.1 & 5.2 \\ 
   Manche & 27.1 & 26.0 & 12.9 & 48.4 & 5.2 \\ 
+  Vaucluse & 27.2 & 26.1 & 13.4 & 46.3 & 5.2 \\ 
   Isère & 25.7 & 25.7 & 16.6 & 38.3 & 5.1 \\ 
   Gard & 25.4 & 25.0 & 13.9 & 41.9 & 5.0 \\ 
+  Aisne & 25.7 & 24.3 & 12.1 & 44.5 & 4.9 \\ 
   Pas.de.Calais & 24.3 & 24.7 & 16.4 & 36.2 & 4.9 \\ 
   Val.d.Oise & 25.1 & 24.5 & 15.5 & 38.1 & 4.9 \\ 
-  Aisne & 25.7 & 24.3 & 12.1 & 44.5 & 4.9 \\ 
   Hautes.Alpes & 26.5 & 23.9 & 4.9 & 83.6 & 4.8 \\ 
   Pyrénées.Orientales & 23.9 & 23.9 & 10.9 & 46.9 & 4.8 \\ 
   Lot & 20.6 & 22.9 & 4.5 & 78.0 & 4.6 \\ 
@@ -291,51 +323,51 @@ Dordogne & 31.6 & 32.3 & 15.9 & 61.1 & 6.5 \\
   Nièvre & 27.8 & 21.3 & 6.9 & 58.5 & 4.3 \\ 
   Eure & 21.5 & 20.8 & 10.0 & 39.5 & 4.2 \\ 
   Aube & 20.4 & 20.6 & 6.7 & 48.7 & 4.1 \\ 
-  Cher & 23.4 & 20.4 & 7.5 & 48.4 & 4.1 \\ 
   Bouches.du.Rhône & 19.9 & 20.3 & 13.9 & 28.6 & 4.1 \\ 
+  Cher & 23.4 & 20.4 & 7.5 & 48.4 & 4.1 \\ 
   Corrèze & 19.9 & 19.4 & 5.1 & 56.4 & 3.9 \\ 
   Eure.et.Loir & 20.5 & 19.4 & 7.8 & 41.5 & 3.9 \\ 
   Moselle & 19.9 & 19.4 & 11.3 & 32.4 & 3.9 \\ 
+  Martinique & 6.5 & 7.1 & 0.8 & 29.7 & 3.6 \\ 
   Territoire.de.Belfort & 17.4 & 17.8 & 2.2 & 68.2 & 3.6 \\ 
   Somme & 17.5 & 17.7 & 7.6 & 35.2 & 3.5 \\ 
   Vienne & 17.1 & 17.7 & 6.5 & 38.9 & 3.5 \\ 
   Charente.Maritime & 17.2 & 16.8 & 7.6 & 33.3 & 3.4 \\ 
   Indre.et.Loire & 16.5 & 16.7 & 7.2 & 33.3 & 3.3 \\ 
-  Yvelines & 15.4 & 15.4 & 9.0 & 25.3 & 3.1 \\ 
   Corse.du.Sud & 16.1 & 15.3 & 1.8 & 61.3 & 3.1 \\ 
+  Yvelines & 15.4 & 15.4 & 9.0 & 25.3 & 3.1 \\ 
   Essonne & 15.4 & 15.2 & 8.5 & 26.1 & 3.0 \\ 
-  Haute.Corse & 14.0 & 14.6 & 1.8 & 56.1 & 2.9 \\ 
   Alpes.de.Haute.Provence & 15.1 & 14.4 & 1.7 & 62.8 & 2.9 \\ 
   Alpes.Maritimes & 14.5 & 14.4 & 7.6 & 24.9 & 2.9 \\ 
-  Guadeloupe & 9.6 & 10.5 & 2.0 & 34.1 & 2.1 \\ 
+  Haute.Corse & 14.0 & 14.6 & 1.8 & 56.1 & 2.9 \\ 
   Haute.Savoie & 9.8 & 10.3 & 3.7 & 23.4 & 2.1 \\ 
-  Martinique & 6.5 & 7.1 & 0.8 & 29.7 & 1.4 \\ 
   Mayotte &  &  &  &  &  \\ 
    \hline
 \end{tabular}
+\endgroup
 \end{table}
 
 
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-6-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-7-1} 
 
 \end{knitrout}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\linewidth]{C:/Users/Rodolphe/Documents/IRC/carte_densite}
+	\includegraphics[width=0.75\linewidth]{C:/Users/Rodolphe/Documents/IRC/carte_densite}
 	\caption{Densité néphrologues}
 	\label{fig:cartedensite}
 \end{figure}
 
-  \subsection{Incidence temporelle d'IRCT - Berger (année 1er ttt de suppléance)}
+  \subsection{Incidence temporelle d'IRCT (année du 1er traitement de suppléance)}
 
 Pour 1 000 000 d'habitants français (\textgreater 15 ans) :
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:21 2017
+% Mon Feb 06 11:38:42 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrrrrr}
@@ -343,7 +375,6 @@ Pour 1 000 000 d'habitants français (\textgreater 15 ans) :
  & 2010 & 2011 & 2012 & 2013 & 2014 \\ 
   \hline
 Berger & 322.0 & 347.0 & 358 & 360 & 333.0 \\ 
-  Non Berger & 50481973.0 & 50700882.0 & 50930426 & 51192410 & 51420675.0 \\ 
   Total France & 50482295.0 & 50701229.0 & 50930784 & 51192770 & 51421008.0 \\ 
   Cas pour 1M d'hab & 6.4 & 6.8 & 7 & 7 & 6.5 \\ 
    \hline
@@ -357,14 +388,14 @@ Berger & 322.0 & 347.0 & 358 & 360 & 333.0 \\
 
 	Pearson's Chi-squared test
 
-data:  inc_iga[1:2, ]
+data:  inc_iga
 X-squared = 2.8618, df = 4, p-value = 0.5812
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:21 2017
+% Mon Feb 06 11:38:43 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrrrrr}
@@ -395,19 +426,19 @@ X-squared = 4.7175, df = 4, p-value = 0.3175
 \end{knitrout}
 
 
+Mise en dialyse selon le mois de l'année pour les prises en charge en urgence (n = 0) - Berger:
 
 
-Mise en dialyse selon le mois de l'année pour les prises en charge en urgence (n = 336) - Berger:
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-12-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-13-1} 
 
 \end{knitrout}
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-13-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-14-1} 
 
 \end{knitrout}
 
@@ -422,7 +453,9 @@ Mise en dialyse selon le mois de l'année pour les prises en charge en urgence (
   
     \subsubsection{Sexe et âge au stade d’IRCT (1ère suppléance)}
 
-Sexe (2010-2014) : Hommes 1325 (77\%), femmes 395 (23\%)
+\subsubsection*{Sexe (2010-2014)}
+
+Hommes 1325 (77\%), femmes 395 (23\%)
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
 % Wed Feb 01 11:32:23 2017
 \begin{table}[ht]
@@ -463,7 +496,7 @@ X-squared = 1.8385, df = 4, p-value = 0.7654
 \end{kframe}
 \end{knitrout}
 
-Âge :
+\subsubsection*{Âge}
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
 % Wed Feb 01 11:32:23 2017
@@ -499,21 +532,21 @@ Distribution des âges :
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-15-1} 
-
-\end{knitrout}
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 \includegraphics[width=\maxwidth]{figure/unnamed-chunk-16-1} 
-
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-16-2} 
 
 \end{knitrout}
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 \includegraphics[width=\maxwidth]{figure/unnamed-chunk-17-1} 
+
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-17-2} 
+
+\end{knitrout}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-18-1} 
 
 \end{knitrout}
 
@@ -571,7 +604,7 @@ BMI :
 Age d'arrivée au stade d'IRT selon le BMI :
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:24 2017
+% Mon Feb 06 11:38:46 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrrr}
@@ -592,124 +625,120 @@ Graphiques relation age - BMI :
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-19-1} 
-
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-19-2} 
-\begin{kframe}\begin{verbatim}
-
-Call:
-lm(formula = age ~ gr_bmi + DIABn + IDMn + AMIn + ICn + dfg + 
-    sex, data = iga)
-
-Residuals:
-   Min     1Q Median     3Q    Max 
--37.35 -11.57  -0.26  11.14  41.49 
-
-Coefficients:
-              Estimate Std. Error t value Pr(>|t|)    
-(Intercept)    42.4703     2.1740  19.536  < 2e-16 ***
-gr_bmi<18.5    -7.0746     2.4710  -2.863 0.004287 ** 
-gr_bmi25-29.9   3.6445     1.1589   3.145 0.001714 ** 
-gr_bmi30-34.9   3.4459     1.7513   1.968 0.049403 *  
-gr_bmi>35       0.3049     2.5153   0.121 0.903539    
-DIABn           7.6214     1.6578   4.597 4.85e-06 ***
-IDMn            6.5077     2.5162   2.586 0.009847 ** 
-AMIn            9.8223     1.8922   5.191 2.56e-07 ***
-ICn             6.6078     1.8022   3.667 0.000259 ***
-dfg             0.8400     0.1643   5.112 3.86e-07 ***
-sex             0.3011     1.2442   0.242 0.808840    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 15.62 on 956 degrees of freedom
-  (753 observations deleted due to missingness)
-Multiple R-squared:  0.1686,	Adjusted R-squared:  0.1599 
-F-statistic: 19.39 on 10 and 956 DF,  p-value: < 2.2e-16
-\end{verbatim}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-19-3} 
-\begin{kframe}\begin{verbatim}
-
-Call:
-lm(formula = age ~ gr_bmi + DIABn + IDMn + AMIn + ICn + dfg + 
-    sex, data = iga)
-
-Residuals:
-   Min     1Q Median     3Q    Max 
--37.35 -11.57  -0.26  11.14  41.49 
-
-Coefficients:
-              Estimate Std. Error t value Pr(>|t|)    
-(Intercept)    42.4703     2.1740  19.536  < 2e-16 ***
-gr_bmi<18.5    -7.0746     2.4710  -2.863 0.004287 ** 
-gr_bmi25-29.9   3.6445     1.1589   3.145 0.001714 ** 
-gr_bmi30-34.9   3.4459     1.7513   1.968 0.049403 *  
-gr_bmi>35       0.3049     2.5153   0.121 0.903539    
-DIABn           7.6214     1.6578   4.597 4.85e-06 ***
-IDMn            6.5077     2.5162   2.586 0.009847 ** 
-AMIn            9.8223     1.8922   5.191 2.56e-07 ***
-ICn             6.6078     1.8022   3.667 0.000259 ***
-dfg             0.8400     0.1643   5.112 3.86e-07 ***
-sex             0.3011     1.2442   0.242 0.808840    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 15.62 on 956 degrees of freedom
-  (753 observations deleted due to missingness)
-Multiple R-squared:  0.1686,	Adjusted R-squared:  0.1599 
-F-statistic: 19.39 on 10 and 956 DF,  p-value: < 2.2e-16
-\end{verbatim}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-19-4} 
-
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-19-5} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-20-1} 
 
 \end{knitrout}
 
-$lm(global\mathdollar age\sim global\mathdollar gr\mathunderscore bmi)$ :
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-21-1} 
+
+\end{knitrout}
+
+\begin{figure}[H]
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+
+Call:
+lm(formula = age ~ gr_bmi + DIABn + IDMn + AMIn + ICn + dfg + 
+    sex, data = iga)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-37.35 -11.57  -0.26  11.14  41.49 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)    42.4703     2.1740  19.536  < 2e-16 ***
+gr_bmi<18.5    -7.0746     2.4710  -2.863 0.004287 ** 
+gr_bmi25-29.9   3.6445     1.1589   3.145 0.001714 ** 
+gr_bmi30-34.9   3.4459     1.7513   1.968 0.049403 *  
+gr_bmi>35       0.3049     2.5153   0.121 0.903539    
+DIABn           7.6214     1.6578   4.597 4.85e-06 ***
+IDMn            6.5077     2.5162   2.586 0.009847 ** 
+AMIn            9.8223     1.8922   5.191 2.56e-07 ***
+ICn             6.6078     1.8022   3.667 0.000259 ***
+dfg             0.8400     0.1643   5.112 3.86e-07 ***
+sex             0.3011     1.2442   0.242 0.808840    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 15.62 on 956 degrees of freedom
+  (753 observations deleted due to missingness)
+Multiple R-squared:  0.1686,	Adjusted R-squared:  0.1599 
+F-statistic: 19.39 on 10 and 956 DF,  p-value: < 2.2e-16
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{figure}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-23-1} 
+
+\end{knitrout}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-24-1} 
+
+\end{knitrout}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-25-1} 
+
+\end{knitrout}
+
+$lm(global\mathdollar age\sim gr\_bmi + DIABn + IDMn + AMIn + ICn + dfg + sex)$ :
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:26 2017
+% Mon Feb 06 11:51:28 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rlrrrr}
   \hline
  & .rownames & Estimate & Std..Error & t.value & Pr...t.. \\ 
   \hline
-1 & (Intercept) & 62.102 & 0.201 & 308.379 & 0.000 \\ 
-  2 & global\$gr\_bmi$<$18.5 & -4.712 & 0.703 & -6.706 & 0.000 \\ 
-  3 & global\$gr\_bmi25-29.9 & 4.273 & 0.292 & 14.632 & 0.000 \\ 
-  4 & global\$gr\_bmi30-34.9 & 4.941 & 0.344 & 14.353 & 0.000 \\ 
-  5 & global\$gr\_bmi35-39.9 & 3.360 & 0.469 & 7.163 & 0.000 \\ 
-  6 & global\$gr\_bmi$>$40 & 1.437 & 0.621 & 2.316 & 0.021 \\ 
+1 & (Intercept) & 47.959 & 0.571 & 83.983 & 0.000 \\ 
+  2 & gr\_bmi$<$18.5 & -3.761 & 0.761 & -4.945 & 0.000 \\ 
+  3 & gr\_bmi25-29.9 & 2.707 & 0.319 & 8.496 & 0.000 \\ 
+  4 & gr\_bmi30-34.9 & 1.697 & 0.385 & 4.409 & 0.000 \\ 
+  5 & gr\_bmi35-39.9 & -0.837 & 0.527 & -1.589 & 0.112 \\ 
+  6 & gr\_bmi$>$40 & -3.632 & 0.687 & -5.289 & 0.000 \\ 
+  7 & DIABn & 8.196 & 0.298 & 27.490 & 0.000 \\ 
+  8 & IDMn & 1.747 & 0.442 & 3.956 & 0.000 \\ 
+  9 & AMIn & 2.126 & 0.329 & 6.463 & 0.000 \\ 
+  10 & ICn & 4.709 & 0.329 & 14.321 & 0.000 \\ 
+  11 & dfg & 0.682 & 0.039 & 17.531 & 0.000 \\ 
+  12 & sex & 1.762 & 0.274 & 6.435 & 0.000 \\ 
    \hline
 \end{tabular}
 \end{table}
 
 
+\subsubsection*{Par pathologie (BMI entre 13 et 46)}
+
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-21-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-27-1} 
 
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-21-2} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-27-2} 
 
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-21-3} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-27-3} 
 
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-21-4} 
+\end{knitrout}
 
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-21-5} 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-28-1} 
 
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-21-6} 
+\end{knitrout}
 
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-21-7} 
-
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-21-8} 
-
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-21-9} 
-
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-21-10} 
-
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-21-11} 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-29-1} 
 
 \end{knitrout}
 
@@ -718,7 +747,7 @@ $lm(global\mathdollar age\sim global\mathdollar gr\mathunderscore bmi)$ :
 Pour le Berger : 1199 (69.7\%) NA = 0
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:34:16 2017
+% Mon Feb 06 11:38:54 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -741,7 +770,7 @@ Diabète & 10301 & 873 & 11174 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:34:16 2017
+% Mon Feb 06 11:38:54 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -764,99 +793,16 @@ GN membrano-proliférative type 1 & 17.6 & 82.4 \\
 \end{table}
 
 
-
-Pour le Berger par région :
-
-% latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:31 2017
-\begin{table}[H]
-\centering
-\begin{tabular}{rrrr}
-  \hline
- & 0 & 1 & Sum \\ 
-  \hline
-Alsace & 28 & 54 & 82 \\ 
-  Aquitaine & 20 & 54 & 74 \\ 
-  Auvergne & 17 & 35 & 52 \\ 
-  Basse-Normandie & 11 & 28 & 39 \\ 
-  Bourgogne & 14 & 34 & 48 \\ 
-  Bretagne & 18 & 86 & 104 \\ 
-  Centre & 28 & 49 & 77 \\ 
-  Champagne-Ardenne & 9 & 30 & 39 \\ 
-  Corse & 2 & 2 & 4 \\ 
-  ETRANGER & 1 & 0 & 1 \\ 
-  Franche-Comté & 13 & 21 & 34 \\ 
-  Guadeloupe & 1 & 2 & 3 \\ 
-  Haute-Normandie & 11 & 30 & 41 \\ 
-  Ile-de-France & 98 & 166 & 264 \\ 
-  Languedoc-Roussillon & 36 & 36 & 72 \\ 
-  Limousin & 3 & 13 & 16 \\ 
-  Lorraine & 9 & 43 & 52 \\ 
-  Martinique & 0 & 2 & 2 \\ 
-  Mayotte & 1 & 0 & 1 \\ 
-  Midi-Pyrénées & 26 & 66 & 92 \\ 
-  Nord-Pas-de-Calais & 36 & 93 & 129 \\ 
-  Pays de la Loire & 39 & 67 & 106 \\ 
-  Picardie & 7 & 38 & 45 \\ 
-  Poitou-Charentes & 7 & 29 & 36 \\ 
-  POLYNESIE FRANCAISE & 1 & 0 & 1 \\ 
-  Provence-Alpes-Côte d'Azur & 48 & 47 & 95 \\ 
-  Reunion & 15 & 20 & 35 \\ 
-  Rhône-Alpes & 22 & 154 & 176 \\ 
-  Sum & 521 & 1199 & 1720 \\ 
-   \hline
-\end{tabular}
-\end{table}
-% latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:31 2017
-\begin{table}[H]
-\centering
-\begin{tabular}{rrr}
-  \hline
- & 0 & 1 \\ 
-  \hline
-Martinique & 0.0 & 100.0 \\ 
-  Rhône-Alpes & 12.5 & 87.5 \\ 
-  Picardie & 15.6 & 84.4 \\ 
-  Bretagne & 17.3 & 82.7 \\ 
-  Lorraine & 17.3 & 82.7 \\ 
-  Limousin & 18.8 & 81.2 \\ 
-  Poitou-Charentes & 19.4 & 80.6 \\ 
-  Champagne-Ardenne & 23.1 & 76.9 \\ 
-  Haute-Normandie & 26.8 & 73.2 \\ 
-  Aquitaine & 27.0 & 73.0 \\ 
-  Nord-Pas-de-Calais & 27.9 & 72.1 \\ 
-  Basse-Normandie & 28.2 & 71.8 \\ 
-  Midi-Pyrénées & 28.3 & 71.7 \\ 
-  Bourgogne & 29.2 & 70.8 \\ 
-  Auvergne & 32.7 & 67.3 \\ 
-  Guadeloupe & 33.3 & 66.7 \\ 
-  Alsace & 34.1 & 65.9 \\ 
-  Centre & 36.4 & 63.6 \\ 
-  Pays de la Loire & 36.8 & 63.2 \\ 
-  Ile-de-France & 37.1 & 62.9 \\ 
-  Franche-Comté & 38.2 & 61.8 \\ 
-  Reunion & 42.9 & 57.1 \\ 
-  Corse & 50.0 & 50.0 \\ 
-  Languedoc-Roussillon & 50.0 & 50.0 \\ 
-  Provence-Alpes-Côte d'Azur & 50.5 & 49.5 \\ 
-  ETRANGER & 100.0 & 0.0 \\ 
-  Mayotte & 100.0 & 0.0 \\ 
-  POLYNESIE FRANCAISE & 100.0 & 0.0 \\ 
-   \hline
-\end{tabular}
-\caption{Pourcentage} 
-\end{table}
-
-
       \subsubsection{Co-morbidités}
 
-Diabète : 193 (11.3\%) NA = 15
+\subsubsection*{Diabète}
+
+193 (11.3\%) NA = 15
 
 La prévalence du diabète traité pharmacologiquement en France est estimée à 4,6\% en 2012, tous régimes d’Assurance maladie confondus, 5\% en 2015 (\textit{InVS - SPF}).
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:31 2017
+% Mon Feb 06 11:38:54 2017
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrrr}
@@ -879,7 +825,7 @@ Diabète & 0 & 11174 & 0 & 11174 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:31 2017
+% Mon Feb 06 11:38:54 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -919,16 +865,17 @@ Diabète & 0.0 & 100.0 \\
 Diabète Berger selon le 1er traitement de suppléance :
 
 
-~\\
 
-Cirrhose : 98 (6.5\%) NA = 208
+\subsubsection*{Cirrhose}
+
+98 (6.5\%) NA = 208
 
 Cirrhose et VHB : aucun
 
 Cirrhose et VHC : 4
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:31 2017
+% Mon Feb 06 11:38:54 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrrrr}
@@ -951,7 +898,7 @@ Diabète & 10417 & 233 & 524 & 11174 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:31 2017
+% Mon Feb 06 11:38:54 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
@@ -984,7 +931,7 @@ Stade de la cirrhose :
 - Child B-C : 49 (62\%)
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:31 2017
+% Mon Feb 06 11:38:54 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -1007,7 +954,7 @@ Diabète & 82 & 77 & 159 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:31 2017
+% Mon Feb 06 11:38:54 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -1034,7 +981,7 @@ Néphropathie lupique & 0.0 & 100.0 \\
 Infarctus du myocarde : 60 (4\%) NA = 207
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:31 2017
+% Mon Feb 06 11:38:55 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrrrr}
@@ -1057,7 +1004,7 @@ Diabète & 9175 & 1452 & 547 & 11174 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:31 2017
+% Mon Feb 06 11:38:55 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
@@ -1084,7 +1031,7 @@ Diabète & 86.3 & 13.7 \\
 Insuffisance cardiaque : 149 (9.8\%) NA = 206
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:31 2017
+% Mon Feb 06 11:38:55 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrrrr}
@@ -1107,7 +1054,7 @@ Diabète & 7348 & 3301 & 525 & 11174 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:32 2017
+% Mon Feb 06 11:38:55 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
@@ -1140,7 +1087,7 @@ Stade de l’IC :
 Artérite des membres inférieurs : 112 (7.4\%) NA = 212
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:32 2017
+% Mon Feb 06 11:38:55 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrrrr}
@@ -1163,7 +1110,7 @@ Diabète & 7032 & 3530 & 612 & 11174 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:32 2017
+% Mon Feb 06 11:38:55 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
@@ -1196,7 +1143,7 @@ Stade de l’AMI :
 Amputation : 9 (0.5\%) NA = 0
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:32 2017
+% Mon Feb 06 11:38:55 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrrr}
@@ -1219,7 +1166,7 @@ Diabète & 10703 & 471 & 11174 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:32 2017
+% Mon Feb 06 11:38:55 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
@@ -1248,7 +1195,7 @@ Accident vasculaire cérébrale (AVC et/ou AIT) : NA (NA\%) NA = NA
 
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:33 2017
+% Mon Feb 06 11:38:56 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrrrr}
@@ -1271,7 +1218,7 @@ Diabète & 9060 & 1447 & 667 & 11174 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:33 2017
+% Mon Feb 06 11:38:56 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
@@ -1296,7 +1243,7 @@ Diabète & 86.2 & 13.8 \\
 
 VIH : 13 (0.8\%)
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:33 2017
+% Mon Feb 06 11:38:56 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrrr}
@@ -1319,7 +1266,7 @@ Diabète & 11132 & 42 & 11174 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:33 2017
+% Mon Feb 06 11:38:56 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
@@ -1344,7 +1291,7 @@ GN avec HSF & 95.5 & 4.5 \\
 
 Dont stade SIDA : 1 (7.7\%)
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:33 2017
+% Mon Feb 06 11:38:56 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrrr}
@@ -1367,7 +1314,7 @@ Diabète & 35 & 7 & 42 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:33 2017
+% Mon Feb 06 11:38:56 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -1394,7 +1341,7 @@ GN extracapillaire ou endo/extracapillaire & 0.0 & 100.0 \\
 Ag HBS positif : 12 (0.7\%) NA = 0
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:33 2017
+% Mon Feb 06 11:38:56 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrrr}
@@ -1417,7 +1364,7 @@ Diabète & 11088 & 86 & 11174 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:33 2017
+% Mon Feb 06 11:38:56 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
@@ -1443,7 +1390,7 @@ GN avec HSF & 97.9 & 2.1 \\
 
 PCR VHC positif : 11 (0.6\%) NA = 0
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:33 2017
+% Mon Feb 06 11:38:56 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrrr}
@@ -1466,7 +1413,7 @@ Diabète & 10988 & 186 & 11174 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:33 2017
+% Mon Feb 06 11:38:56 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
@@ -1492,7 +1439,7 @@ GN membrano-proliférative type 2, dépôts denses & 92.6 & 7.4 \\
     \subsubsection{Statut Tabagique}
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:33 2017
+% Mon Feb 06 11:38:56 2017
 \begin{table}[ht]
 \centering
 \begin{tabular}{lr}
@@ -1507,7 +1454,7 @@ NF & 755 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:33 2017
+% Mon Feb 06 11:38:56 2017
 \begin{table}[ht]
 \centering
 \begin{tabular}{rr}
@@ -1523,7 +1470,7 @@ NF & 57.00 \\
 
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:35:01 2017
+% Mon Feb 06 11:38:57 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1546,7 +1493,7 @@ Diabète & 5470 & 922 & 2650 & 2132 & 11174 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:35:01 2017
+% Mon Feb 06 11:38:57 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrr}
@@ -1589,7 +1536,7 @@ Créatininémie initiale :
   251.0   521.8   652.5   726.9   850.0  2793.0     544 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-40-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-47-1} 
 
 \end{knitrout}
 
@@ -1602,13 +1549,13 @@ DFG initial :
   1.600   5.838   7.800   8.146   9.892  19.770     544 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-41-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-48-1} 
 
 \end{knitrout}
 
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:34 2017
+% Mon Feb 06 11:38:58 2017
 \begin{table}[H]
 \centering
 \begingroup\small
@@ -1643,7 +1590,7 @@ Albuminémie initiale :
    9.00   30.00   34.60   34.05   38.60   58.00     707 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-43-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-50-1} 
 
 \end{knitrout}
 
@@ -1656,12 +1603,12 @@ Hémoglobine :
    4.70    9.10   10.30   10.26   11.40   17.60     400 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-44-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-51-1} 
 
 \end{knitrout}
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:35 2017
+% Mon Feb 06 11:38:58 2017
 \begin{table}[ht]
 \centering
 \begin{tabular}{lrrrrrrr}
@@ -1721,7 +1668,7 @@ Greffe = patients noté comme étant greffé en 1ère suppléance, ceux n'étant
 Pour tous les patients :
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:35 2017
+% Mon Feb 06 11:38:59 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrrrrr}
@@ -1734,7 +1681,7 @@ Dialyse & 3480 & 3489 & 3626 & 3761 & 3831 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:35 2017
+% Mon Feb 06 11:38:59 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrrrrr}
@@ -1764,7 +1711,7 @@ X-squared = 10.309, df = 6, p-value = 0.1122
 Par pathologie :
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:35 2017
+% Mon Feb 06 11:38:59 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1778,7 +1725,7 @@ Dialyse & 95.6 & 96.8 & 97.3 & 96.3 & 96.4 \\
 \caption{Pourcentage Diabète} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:35 2017
+% Mon Feb 06 11:38:59 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1792,7 +1739,7 @@ Dialyse & 85.1 & 85.4 & 90.0 & 85.5 & 90.0 \\
 \caption{Pourcentage GN avec HSF} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:35 2017
+% Mon Feb 06 11:38:59 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1806,7 +1753,7 @@ Dialyse & 88.0 & 87.1 & 88.5 & 83.1 & 90.2 \\
 \caption{Pourcentage GN extra-membraneuse} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:35 2017
+% Mon Feb 06 11:38:59 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1820,7 +1767,7 @@ Dialyse & 90.7 & 97.5 & 94.9 & 100.0 & 90.9 \\
 \caption{Pourcentage GN extracapillaire ou endo/extracapillaire} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:35 2017
+% Mon Feb 06 11:38:59 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1834,7 +1781,7 @@ Dialyse & 89.5 & 82.9 & 89.5 & 91.1 & 93.8 \\
 \caption{Pourcentage GN membrano-proliférative type 1} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:35 2017
+% Mon Feb 06 11:38:59 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1848,7 +1795,7 @@ Dialyse & 75.0 & 84.6 & 77.8 & 72.2 & 85.7 \\
 \caption{Pourcentage GN membrano-proliférative type 2, dépôts denses} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:35 2017
+% Mon Feb 06 11:38:59 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1862,7 +1809,7 @@ Dialyse & 91.6 & 86.5 & 88.2 & 88.6 & 93.9 \\
 \caption{Pourcentage GN primitive sans examen histologique} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:35 2017
+% Mon Feb 06 11:38:59 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1876,7 +1823,7 @@ Dialyse & 76.1 & 71.2 & 76.3 & 78.1 & 72.1 \\
 \caption{Pourcentage Néphropathie à dépôts d'IgA} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:35 2017
+% Mon Feb 06 11:38:59 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1890,7 +1837,7 @@ Dialyse & 82.5 & 86.7 & 93.2 & 85.7 & 88.9 \\
 \caption{Pourcentage Néphropathie lupique} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:35 2017
+% Mon Feb 06 11:38:59 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1904,7 +1851,7 @@ Dialyse & 77.4 & 76.1 & 78.3 & 75.0 & 78.2 \\
 \caption{Pourcentage Polykystose rénale de l adulte} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:35 2017
+% Mon Feb 06 11:38:59 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -1973,7 +1920,7 @@ Premier traitement en réanimation ou urgence GNC :  1101 (32\%) NA = 405
 Entrée en urgence selon l'âge :
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:36 2017
+% Mon Feb 06 11:39:00 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2004,7 +1951,7 @@ La différence entre les 2 groupes d'âge n'est plus significative à 50 ans.
   \subsubsection*{Voie d’abord}
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:36 2017
+% Mon Feb 06 11:39:00 2017
 \begin{table}[ht]
 \centering
 \begin{tabular}{lrrrrr}
@@ -2016,7 +1963,7 @@ IgA & 715 & 405 &   7 &  69 & 524 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:36 2017
+% Mon Feb 06 11:39:00 2017
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrrr}
@@ -2034,7 +1981,7 @@ PKRD & 74.80 & 19.90 & 1.60 & 3.70 \\
 
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:36 2017
+% Mon Feb 06 11:39:00 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrrrr}
@@ -2057,7 +2004,7 @@ GN avec HSF & 56.80 & 36.50 & 1.30 & 5.40 \\
 Selon l'âge :
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:36 2017
+% Mon Feb 06 11:39:00 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2073,7 +2020,7 @@ FAV native & 45.20 & 49.20 \\
 \caption{Diabète} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:36 2017
+% Mon Feb 06 11:39:00 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2089,7 +2036,7 @@ FAV native & 53.60 & 57.50 \\
 \caption{GN avec HSF} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:36 2017
+% Mon Feb 06 11:39:00 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2105,7 +2052,7 @@ FAV native & 38.50 & 50.80 \\
 \caption{GN extra-membraneuse} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:36 2017
+% Mon Feb 06 11:39:00 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2121,7 +2068,7 @@ FAV native & 21.40 & 32.80 \\
 \caption{GN extracapillaire ou endo/extracapillaire} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:36 2017
+% Mon Feb 06 11:39:00 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2137,7 +2084,7 @@ FAV native & 58.60 & 35.90 \\
 \caption{GN membrano-proliférative type 1} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:36 2017
+% Mon Feb 06 11:39:00 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2153,7 +2100,7 @@ FAV native & 28.60 & 44.30 \\
 \caption{GN membrano-proliférative type 2, dépôts denses} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:37 2017
+% Mon Feb 06 11:39:00 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2169,7 +2116,7 @@ FAV native & 42.60 & 52.80 \\
 \caption{GN primitive sans examen histologique} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:37 2017
+% Mon Feb 06 11:39:00 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2185,7 +2132,7 @@ FAV native & 49.80 & 62.50 \\
 \caption{Néphropathie à dépôts d'IgA} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:37 2017
+% Mon Feb 06 11:39:00 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2201,7 +2148,7 @@ FAV native & 34.40 & 39.20 \\
 \caption{Néphropathie lupique} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:37 2017
+% Mon Feb 06 11:39:00 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2217,7 +2164,7 @@ FAV native & 67.30 & 75.20 \\
 \caption{Polykystose rénale de l adulte} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:37 2017
+% Mon Feb 06 11:39:00 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2237,7 +2184,7 @@ FAV native & 33.30 & 33.30 \\
 Selon l'urgence :
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:37 2017
+% Mon Feb 06 11:39:01 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2253,7 +2200,7 @@ FAV native & 61.10 & 25.80 \\
 \caption{Diabète} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:37 2017
+% Mon Feb 06 11:39:02 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2269,7 +2216,7 @@ FAV native & 71.00 & 22.50 \\
 \caption{GN avec HSF} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:37 2017
+% Mon Feb 06 11:39:02 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2285,7 +2232,7 @@ FAV native & 60.40 & 26.40 \\
 \caption{GN extra-membraneuse} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:37 2017
+% Mon Feb 06 11:39:02 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2301,7 +2248,7 @@ FAV native & 50.60 & 13.10 \\
 \caption{GN extracapillaire ou endo/extracapillaire} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:37 2017
+% Mon Feb 06 11:39:02 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2317,7 +2264,7 @@ FAV native & 52.50 & 19.00 \\
 \caption{GN membrano-proliférative type 1} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:37 2017
+% Mon Feb 06 11:39:02 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2333,7 +2280,7 @@ FAV native & 53.30 & 18.20 \\
 \caption{GN membrano-proliférative type 2, dépôts denses} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:37 2017
+% Mon Feb 06 11:39:02 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2349,7 +2296,7 @@ FAV native & 68.50 & 20.00 \\
 \caption{GN primitive sans examen histologique} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:37 2017
+% Mon Feb 06 11:39:02 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2365,7 +2312,7 @@ FAV native & 74.60 & 18.40 \\
 \caption{Néphropathie à dépôts d'IgA} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:37 2017
+% Mon Feb 06 11:39:02 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2381,7 +2328,7 @@ FAV native & 51.20 & 15.30 \\
 \caption{Néphropathie lupique} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:38 2017
+% Mon Feb 06 11:39:02 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2397,7 +2344,7 @@ FAV native & 82.10 & 35.50 \\
 \caption{Polykystose rénale de l adulte} 
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:38 2017
+% Mon Feb 06 11:39:02 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrr}
@@ -2445,7 +2392,7 @@ FAV native & 48.30 & 11.10 \\
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-59-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-66-1} 
 
 \end{knitrout}
 
@@ -2453,13 +2400,13 @@ Médiane de survie pour diablète : 5.5 ans [5.25-5.75]
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-60-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-67-1} 
 
 \end{knitrout}
 
 Cox sur age + sexe :
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:38 2017
+% Mon Feb 06 11:39:03 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -2472,7 +2419,7 @@ age & 0.08 & 1.08 & 0.01 & 15.76 & 0.00 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:38 2017
+% Mon Feb 06 11:39:03 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrr}
@@ -2488,7 +2435,7 @@ age & 1.08 & 0.92 & 1.07 & 1.09 \\
 
 Cox sur age + sexe + dfg (sans le outlier de 120) :
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:39 2017
+% Mon Feb 06 11:39:03 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrrr}
@@ -2502,7 +2449,7 @@ age & 0.08 & 1.08 & 0.01 & 12.85 & 0.00 \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:39 2017
+% Mon Feb 06 11:39:03 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{rrrrr}
@@ -2528,16 +2475,16 @@ L'outlier a comme numéro character(0), un DFG à numeric(0), numeric(0) ans, se
 
 
 
-La table "greffe" contient 1152 patients uniques après suppression de ceux qui n'avaient pas de maladie de Berger ou de néphropathie à IgA (si un patient avait les deux pathologies, la ligne ne coneant aucune information était supprimée), les patients sans date de greffe ont été supprimés. 860 (74.7\%) sont en commun avec la table "globale" (= ceux qui ont été utilisés pour la suite des données). 8 patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
+La table "greffe" contient 7326 patients uniques après suppression de ceux qui n'avaient pas de maladie de Berger ou de néphropathie à IgA (si un patient avait les deux pathologies, la ligne ne coneant aucune information était supprimée), les patients sans date de greffe ont été supprimés. 4998 (68.2\%) sont en commun avec la table "globale" (= ceux qui ont été utilisés pour la suite des données). 192 patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
 ~\\
 
-En considérant ceux qui ne sont pas en commun avec la table globale comme ayant eu une greffe sans dialyse et en prenant ceux de la table globale considéré comme greffé sans dialyse, on a 459 patients greffés sans dialyse (39.8\%).
+En considérant ceux qui ne sont pas en commun avec la table globale comme ayant eu une greffe sans dialyse et en prenant ceux de la table globale considéré comme greffé sans dialyse, on a 3214 patients greffés sans dialyse (279\%).
 ~\\
 
 Dans la table globale avec la table greffe :
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:39 2017
+% Mon Feb 06 11:39:04 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{cccccccc}
@@ -2582,7 +2529,7 @@ Greffé & Date de greffe & Date$<$2014 & Greffe sans dialyse & Greffe 1 & greffe
   \subsection{Nombre de greffe par année}
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:40 2017
+% Mon Feb 06 11:39:04 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrrrrrr}
@@ -2612,7 +2559,7 @@ X-squared = 95.231, df = 5, p-value < 2.2e-16
 
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:40 2017
+% Mon Feb 06 11:39:04 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
@@ -2631,7 +2578,7 @@ Greffe 1 & Fréquence & Pourcentage \\
 \end{tabular}
 \end{table}
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:40 2017
+% Mon Feb 06 11:39:04 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
@@ -2661,13 +2608,13 @@ Greffe 1 (en mois) :
   0.000   0.040   0.770   8.157  13.780  58.680   19842 
 \end{verbatim}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-68-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-75-1} 
 
 \end{knitrout}
 
 Raisons de l'arrêt du greffon 1 :
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Wed Feb 01 11:32:40 2017
+% Mon Feb 06 11:39:05 2017
 \begin{table}[H]
 \centering
 \begin{tabular}{lrr}
@@ -2725,25 +2672,25 @@ Pourcentage d'arrêt de greffon/greffe/an pour la table greffe :
 \begin{verbatim}
       
        FALSE TRUE
-  TRUE  1080   72
+  TRUE  6795  531
       
        FALSE TRUE
-  TRUE  93.8  6.2
+  TRUE  92.8  7.2
 [1] 2010
 FALSE  TRUE 
- 90.6   9.4 
+ 91.1   8.9 
 [1] 2011
 FALSE  TRUE 
  93.8   6.2 
 [1] 2012
 FALSE  TRUE 
- 95.6   4.4 
+ 94.1   5.9 
 [1] 2013
 FALSE  TRUE 
- 96.1   3.9 
+ 94.5   5.5 
 [1] 2014
 FALSE  TRUE 
- 96.4   3.6 
+ 92.2   7.8 
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -2752,13 +2699,13 @@ FALSE  TRUE
 
 Table globale : 13 patients sont décédés au cours de la greffe 1 et 0 au cours de la 2e.
 
-Table greffe : 27 patients sont décédés au cours de la greffe 1 et 0 au cours de la 2e.
+Table greffe : 377 patients sont décédés au cours de la greffe 1 et 2 au cours de la 2e.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-72-1} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-79-1} 
 
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-72-2} 
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-79-2} 
 
 \end{knitrout}
 

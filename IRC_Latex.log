@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6210 64-bit) (preloaded format=pdflatex 2017.1.30)  1 FEB 2017 11:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6210 64-bit) (preloaded format=pdflatex 2017.1.30)  6 FEB 2017 11:53
 entering extended mode
 **./IRC_Latex.tex
 (IRC_Latex.tex
@@ -719,74 +719,89 @@ LaTeX Warning: No \author given.
 \tf@toc=\write3
 \openout3 = `IRC_Latex.toc'.
 
- [1
 
-{C:/Users/Rodolphe/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
-Underfull \hbox (badness 10000) in paragraph at lines 193--194
+Underfull \hbox (badness 10000) in paragraph at lines 73--74
 
  []
 
-[3] [4]
-Package color Info: Redefining color shadecolor on input line 321.
- <figure/unnamed-chunk-6-1.pdf, id=21, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-6-1.pdf Graphic file (type pdf)
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 97.
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\omlcmr.fd"
+File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 97.
+Package color Info: Redefining color shadecolor on input line 102.
+ [1
 
-<use figure/unnamed-chunk-6-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-6-1.pdf used on input line 322.
-(pdftex.def)             Requested size: 483.69687pt x 483.70361pt.
+{C:/Users/Rodolphe/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
+Package color Info: Redefining color shadecolor on input line 217.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 322--323
+<figure/unnamed-chunk-5-1.pdf, id=15, 505.89pt x 353.32pt>
+File: figure/unnamed-chunk-5-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-5-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-5-1.pdf used on input line 218.
+(pdftex.def)             Requested size: 483.69687pt x 337.82475pt.
+
+Overfull \hbox (17.0pt too wide) in paragraph at lines 218--219
+[][] 
+ []
+
+[3 <./figure/unnamed-chunk-5-1.pdf>] [4]
+Package color Info: Redefining color shadecolor on input line 353.
+
+<figure/unnamed-chunk-7-1.pdf, id=28, 505.89pt x 397.485pt>
+File: figure/unnamed-chunk-7-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-7-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-7-1.pdf used on input line 354.
+(pdftex.def)             Requested size: 483.69687pt x 380.05284pt.
+
+Overfull \hbox (17.0pt too wide) in paragraph at lines 354--355
 [][] 
  []
 
 
-<C:/Users/Rodolphe/Documents/IRC/carte_densite.png, id=22, 603.0028pt x 502.125
+<C:/Users/Rodolphe/Documents/IRC/carte_densite.png, id=29, 603.0028pt x 502.125
 93pt>
 File: C:/Users/Rodolphe/Documents/IRC/carte_densite.png Graphic file (type png)
 
  <use C:/Users/Rodolphe/Documents/IRC/carte_densite.png>
 Package pdftex.def Info: C:/Users/Rodolphe/Documents/IRC/carte_densite.png used
- on input line 328.
-(pdftex.def)             Requested size: 483.69687pt x 402.77394pt.
- [5] [6 <./figure/unnamed-chunk-6-1.pdf>]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 335.
-
- ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omlcmr.fd"
-File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 335.
-Package color Info: Redefining color shadecolor on input line 355.
- [7 <C:/Users/Rodolphe/Documents/IRC/carte_densite.png>]
+ on input line 360.
+(pdftex.def)             Requested size: 362.77264pt x 302.08237pt.
+ [5] [6 <./figure/unnamed-chunk-7-1.pdf> <C:/Users/Rodolphe/Documents/IRC/carte
+_densite.png>]
 Package color Info: Redefining color shadecolor on input line 386.
-Package color Info: Redefining color shadecolor on input line 403.
+Package color Info: Redefining color shadecolor on input line 417.
+Package color Info: Redefining color shadecolor on input line 434.
 
-<figure/unnamed-chunk-12-1.pdf, id=43, 505.89pt x 289.08pt>
-File: figure/unnamed-chunk-12-1.pdf Graphic file (type pdf)
-
-<use figure/unnamed-chunk-12-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-12-1.pdf used on input line 404.
-(pdftex.def)             Requested size: 483.69687pt x 276.40207pt.
-
-Overfull \hbox (17.0pt too wide) in paragraph at lines 404--405
-[][] 
- []
-
-Package color Info: Redefining color shadecolor on input line 409.
-<figure/unnamed-chunk-13-1.pdf, id=44, 505.89pt x 505.89pt>
+<figure/unnamed-chunk-13-1.pdf, id=44, 505.89pt x 289.08pt>
 File: figure/unnamed-chunk-13-1.pdf Graphic file (type pdf)
 
 <use figure/unnamed-chunk-13-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-13-1.pdf used on input line 410.
+Package pdftex.def Info: figure/unnamed-chunk-13-1.pdf used on input line 435.
+(pdftex.def)             Requested size: 483.69687pt x 276.40207pt.
+
+Overfull \hbox (17.0pt too wide) in paragraph at lines 435--436
+[][] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 440.
+<figure/unnamed-chunk-14-1.pdf, id=45, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-14-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-14-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-14-1.pdf used on input line 441.
 (pdftex.def)             Requested size: 483.69687pt x 483.70361pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 410--411
+Overfull \hbox (17.0pt too wide) in paragraph at lines 441--442
 [][] 
  []
 
 
 <C:/Users/Rodolphe/Documents/IRC/Documents/4580745_5_04d3_l-episode-grippal-le-
-plus-important-de-la_dab3b851eb989de590256fa527ffc1b6.png, id=45, 536.0025pt x 
+plus-important-de-la_dab3b851eb989de590256fa527ffc1b6.png, id=46, 536.0025pt x 
 401.5pt>
 File: C:/Users/Rodolphe/Documents/IRC/Documents/4580745_5_04d3_l-episode-grippa
 l-le-plus-important-de-la_dab3b851eb989de590256fa527ffc1b6.png Graphic file (ty
@@ -796,495 +811,435 @@ pe png)
 -le-plus-important-de-la_dab3b851eb989de590256fa527ffc1b6.png>
 Package pdftex.def Info: C:/Users/Rodolphe/Documents/IRC/Documents/4580745_5_04
 d3_l-episode-grippal-le-plus-important-de-la_dab3b851eb989de590256fa527ffc1b6.p
-ng used on input line 416.
+ng used on input line 447.
 (pdftex.def)             Requested size: 314.40001pt x 235.5045pt.
- [8 <./figure/unnamed-chunk-12-1.pdf>] [9 <./figure/unnamed-chunk-13-1.pdf> <C:
+ [7 <./figure/unnamed-chunk-13-1.pdf>] [8 <./figure/unnamed-chunk-14-1.pdf> <C:
 /Users/Rodolphe/Documents/IRC/Documents/4580745_5_04d3_l-episode-grippal-le-plu
 s-important-de-la_dab3b851eb989de590256fa527ffc1b6.png>]
-Package color Info: Redefining color shadecolor on input line 455.
-Package color Info: Redefining color shadecolor on input line 501.
+Package color Info: Redefining color shadecolor on input line 488.
+Package color Info: Redefining color shadecolor on input line 534.
 
-<figure/unnamed-chunk-15-1.pdf, id=63, 505.89pt x 361.35pt>
-File: figure/unnamed-chunk-15-1.pdf Graphic file (type pdf)
-
-<use figure/unnamed-chunk-15-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-15-1.pdf used on input line 502.
-(pdftex.def)             Requested size: 483.69687pt x 345.5026pt.
-
-Overfull \hbox (17.0pt too wide) in paragraph at lines 502--503
-[][] 
- []
-
-Package color Info: Redefining color shadecolor on input line 507.
-<figure/unnamed-chunk-16-1.pdf, id=64, 505.89pt x 144.54pt> [10]
+<figure/unnamed-chunk-16-1.pdf, id=65, 505.89pt x 216.81pt>
 File: figure/unnamed-chunk-16-1.pdf Graphic file (type pdf)
 
 <use figure/unnamed-chunk-16-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-16-1.pdf used on input line 508.
-(pdftex.def)             Requested size: 483.69687pt x 138.20102pt.
+Package pdftex.def Info: figure/unnamed-chunk-16-1.pdf used on input line 535.
+(pdftex.def)             Requested size: 483.69687pt x 207.30154pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 508--509
+Overfull \hbox (17.0pt too wide) in paragraph at lines 535--536
 [][] 
  []
 
-<figure/unnamed-chunk-16-2.pdf, id=68, 505.89pt x 144.54pt>
-File: figure/unnamed-chunk-16-2.pdf Graphic file (type pdf)
-
-<use figure/unnamed-chunk-16-2.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-16-2.pdf used on input line 510.
-(pdftex.def)             Requested size: 483.69687pt x 138.20102pt.
-
-Overfull \hbox (17.0pt too wide) in paragraph at lines 510--511
-[][] 
- []
-
-Package color Info: Redefining color shadecolor on input line 515.
-<figure/unnamed-chunk-17-1.pdf, id=69, 505.89pt x 216.81pt>
+Package color Info: Redefining color shadecolor on input line 540.
+<figure/unnamed-chunk-17-1.pdf, id=66, 505.89pt x 144.54pt>
 File: figure/unnamed-chunk-17-1.pdf Graphic file (type pdf)
 
 <use figure/unnamed-chunk-17-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-17-1.pdf used on input line 516.
+Package pdftex.def Info: figure/unnamed-chunk-17-1.pdf used on input line 541.
+(pdftex.def)             Requested size: 483.69687pt x 138.20102pt.
+
+Overfull \hbox (17.0pt too wide) in paragraph at lines 541--542
+[][] 
+ []
+
+<figure/unnamed-chunk-17-2.pdf, id=67, 505.89pt x 144.54pt> [9 <./figure/unname
+d-chunk-16-1.pdf>]
+File: figure/unnamed-chunk-17-2.pdf Graphic file (type pdf)
+ <use figure/unnamed-chunk-17-2.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-17-2.pdf used on input line 543.
+(pdftex.def)             Requested size: 483.69687pt x 138.20102pt.
+
+Overfull \hbox (17.0pt too wide) in paragraph at lines 543--544
+[][] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 548.
+<figure/unnamed-chunk-18-1.pdf, id=79, 505.89pt x 216.81pt>
+File: figure/unnamed-chunk-18-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-18-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-18-1.pdf used on input line 549.
 (pdftex.def)             Requested size: 483.69687pt x 207.30154pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 516--517
+Overfull \hbox (17.0pt too wide) in paragraph at lines 549--550
 [][] 
  []
 
-[11 <./figure/unnamed-chunk-15-1.pdf> <./figure/unnamed-chunk-16-1.pdf> <./figu
-re/unnamed-chunk-16-2.pdf>]
-Package color Info: Redefining color shadecolor on input line 594.
+[10 <./figure/unnamed-chunk-17-1.pdf> <./figure/unnamed-chunk-17-2.pdf> <./figu
+re/unnamed-chunk-18-1.pdf>]
+Package color Info: Redefining color shadecolor on input line 627.
 
-<figure/unnamed-chunk-19-1.pdf, id=93, 505.89pt x 361.35pt>
-File: figure/unnamed-chunk-19-1.pdf Graphic file (type pdf)
+<figure/unnamed-chunk-20-1.pdf, id=103, 505.89pt x 216.81pt>
+File: figure/unnamed-chunk-20-1.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-19-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-19-1.pdf used on input line 595.
-(pdftex.def)             Requested size: 483.69687pt x 345.5026pt.
+<use figure/unnamed-chunk-20-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-20-1.pdf used on input line 628.
+(pdftex.def)             Requested size: 483.69687pt x 207.30154pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 595--596
+Overfull \hbox (17.0pt too wide) in paragraph at lines 628--629
 [][] 
  []
 
-<figure/unnamed-chunk-19-2.pdf, id=94, 505.89pt x 361.35pt> [12 <./figure/unnam
-ed-chunk-17-1.pdf>]
-File: figure/unnamed-chunk-19-2.pdf Graphic file (type pdf)
- <use figure/unnamed-chunk-19-2.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-19-2.pdf used on input line 597.
-(pdftex.def)             Requested size: 483.69687pt x 345.5026pt.
-
-Overfull \hbox (17.0pt too wide) in paragraph at lines 597--598
-[][] 
- []
-
-[13 <./figure/unnamed-chunk-19-1.pdf> <./figure/unnamed-chunk-19-2.pdf>]
-<figure/unnamed-chunk-19-3.pdf, id=121, 505.89pt x 361.35pt>
-File: figure/unnamed-chunk-19-3.pdf Graphic file (type pdf)
-
-<use figure/unnamed-chunk-19-3.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-19-3.pdf used on input line 630.
-(pdftex.def)             Requested size: 483.69687pt x 345.5026pt.
-
-Overfull \hbox (17.0pt too wide) in paragraph at lines 630--631
-[][] 
- []
-
-[14]
-Underfull \vbox (badness 3199) detected at line 662
- []
-
-[15 <./figure/unnamed-chunk-19-3.pdf>]
-<figure/unnamed-chunk-19-4.pdf, id=136, 505.89pt x 361.35pt>
-File: figure/unnamed-chunk-19-4.pdf Graphic file (type pdf)
-
-<use figure/unnamed-chunk-19-4.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-19-4.pdf used on input line 663.
-(pdftex.def)             Requested size: 483.69687pt x 345.5026pt.
-
-Overfull \hbox (17.0pt too wide) in paragraph at lines 663--664
-[][] 
- []
-
-<figure/unnamed-chunk-19-5.pdf, id=137, 505.89pt x 361.35pt>
-File: figure/unnamed-chunk-19-5.pdf Graphic file (type pdf)
-
-<use figure/unnamed-chunk-19-5.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-19-5.pdf used on input line 665.
-(pdftex.def)             Requested size: 483.69687pt x 345.5026pt.
-
-Overfull \hbox (17.0pt too wide) in paragraph at lines 665--666
-[][] 
- []
-
-[16 <./figure/unnamed-chunk-19-4.pdf> <./figure/unnamed-chunk-19-5.pdf>]
-Package color Info: Redefining color shadecolor on input line 691.
-
-<figure/unnamed-chunk-21-1.pdf, id=152, 505.89pt x 216.81pt>
+Package color Info: Redefining color shadecolor on input line 633.
+<figure/unnamed-chunk-21-1.pdf, id=104, 505.89pt x 361.35pt>
 File: figure/unnamed-chunk-21-1.pdf Graphic file (type pdf)
 
 <use figure/unnamed-chunk-21-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-21-1.pdf used on input line 692.
-(pdftex.def)             Requested size: 483.69687pt x 207.30154pt.
+Package pdftex.def Info: figure/unnamed-chunk-21-1.pdf used on input line 634.
+(pdftex.def)             Requested size: 483.69687pt x 345.5026pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 692--693
+Overfull \hbox (17.0pt too wide) in paragraph at lines 634--635
 [][] 
  []
 
-<figure/unnamed-chunk-21-2.pdf, id=153, 505.89pt x 216.81pt>
-File: figure/unnamed-chunk-21-2.pdf Graphic file (type pdf)
+Package color Info: Redefining color shadecolor on input line 640.
+[11 <./figure/unnamed-chunk-20-1.pdf> <./figure/unnamed-chunk-21-1.pdf>]
+Package color Info: Redefining color shadecolor on input line 677.
 
-<use figure/unnamed-chunk-21-2.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-21-2.pdf used on input line 694.
-(pdftex.def)             Requested size: 483.69687pt x 207.30154pt.
+<figure/unnamed-chunk-23-1.pdf, id=119, 505.89pt x 289.08pt>
+File: figure/unnamed-chunk-23-1.pdf Graphic file (type pdf)
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 694--695
+<use figure/unnamed-chunk-23-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-23-1.pdf used on input line 678.
+(pdftex.def)             Requested size: 483.69687pt x 276.40207pt.
+
+Overfull \hbox (17.0pt too wide) in paragraph at lines 678--679
 [][] 
  []
 
-<figure/unnamed-chunk-21-3.pdf, id=154, 505.89pt x 216.81pt>
-File: figure/unnamed-chunk-21-3.pdf Graphic file (type pdf)
+Package color Info: Redefining color shadecolor on input line 683.
+<figure/unnamed-chunk-24-1.pdf, id=120, 505.89pt x 289.08pt>
+File: figure/unnamed-chunk-24-1.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-21-3.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-21-3.pdf used on input line 696.
-(pdftex.def)             Requested size: 483.69687pt x 207.30154pt.
+<use figure/unnamed-chunk-24-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-24-1.pdf used on input line 684.
+(pdftex.def)             Requested size: 483.69687pt x 276.40207pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 696--697
+Overfull \hbox (17.0pt too wide) in paragraph at lines 684--685
 [][] 
  []
 
-<figure/unnamed-chunk-21-4.pdf, id=155, 505.89pt x 216.81pt> [17 <./figure/unna
-med-chunk-21-1.pdf> <./figure/unnamed-chunk-21-2.pdf>]
-File: figure/unnamed-chunk-21-4.pdf Graphic file (type pdf)
+Package color Info: Redefining color shadecolor on input line 689.
+<figure/unnamed-chunk-25-1.pdf, id=121, 505.89pt x 361.35pt> [12 <./figure/unna
+med-chunk-23-1.pdf>]
+File: figure/unnamed-chunk-25-1.pdf Graphic file (type pdf)
+ <use figure/unnamed-chunk-25-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-25-1.pdf used on input line 690.
+(pdftex.def)             Requested size: 483.69687pt x 345.5026pt.
 
-<use figure/unnamed-chunk-21-4.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-21-4.pdf used on input line 698.
-(pdftex.def)             Requested size: 483.69687pt x 207.30154pt.
-
-Overfull \hbox (17.0pt too wide) in paragraph at lines 698--699
+Overfull \hbox (17.0pt too wide) in paragraph at lines 690--691
 [][] 
  []
 
-<figure/unnamed-chunk-21-5.pdf, id=176, 505.89pt x 216.81pt>
-File: figure/unnamed-chunk-21-5.pdf Graphic file (type pdf)
+[13 <./figure/unnamed-chunk-24-1.pdf> <./figure/unnamed-chunk-25-1.pdf>]
+Package color Info: Redefining color shadecolor on input line 724.
 
-<use figure/unnamed-chunk-21-5.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-21-5.pdf used on input line 700.
+<figure/unnamed-chunk-27-1.pdf, id=149, 505.89pt x 216.81pt>
+File: figure/unnamed-chunk-27-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-27-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-27-1.pdf used on input line 725.
 (pdftex.def)             Requested size: 483.69687pt x 207.30154pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 700--701
+Overfull \hbox (17.0pt too wide) in paragraph at lines 725--726
 [][] 
  []
 
-<figure/unnamed-chunk-21-6.pdf, id=177, 505.89pt x 216.81pt>
-File: figure/unnamed-chunk-21-6.pdf Graphic file (type pdf)
+<figure/unnamed-chunk-27-2.pdf, id=150, 505.89pt x 216.81pt>
+File: figure/unnamed-chunk-27-2.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-21-6.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-21-6.pdf used on input line 702.
+<use figure/unnamed-chunk-27-2.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-27-2.pdf used on input line 727.
 (pdftex.def)             Requested size: 483.69687pt x 207.30154pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 702--703
+Overfull \hbox (17.0pt too wide) in paragraph at lines 727--728
 [][] 
  []
 
-<figure/unnamed-chunk-21-7.pdf, id=178, 505.89pt x 216.81pt> [18 <./figure/unna
-med-chunk-21-3.pdf> <./figure/unnamed-chunk-21-4.pdf> <./figure/unnamed-chunk-2
-1-5.pdf>]
-File: figure/unnamed-chunk-21-7.pdf Graphic file (type pdf)
- <use figure/unnamed-chunk-21-7.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-21-7.pdf used on input line 704.
+<figure/unnamed-chunk-27-3.pdf, id=151, 505.89pt x 216.81pt>
+File: figure/unnamed-chunk-27-3.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-27-3.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-27-3.pdf used on input line 729.
 (pdftex.def)             Requested size: 483.69687pt x 207.30154pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 704--705
+Overfull \hbox (17.0pt too wide) in paragraph at lines 729--730
 [][] 
  []
 
-<figure/unnamed-chunk-21-8.pdf, id=206, 505.89pt x 216.81pt>
-File: figure/unnamed-chunk-21-8.pdf Graphic file (type pdf)
+Package color Info: Redefining color shadecolor on input line 734.
+<figure/unnamed-chunk-28-1.pdf, id=152, 505.89pt x 794.97pt> [14 <./figure/unna
+med-chunk-27-1.pdf> <./figure/unnamed-chunk-27-2.pdf>]
+File: figure/unnamed-chunk-28-1.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-21-8.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-21-8.pdf used on input line 706.
-(pdftex.def)             Requested size: 483.69687pt x 207.30154pt.
+<use figure/unnamed-chunk-28-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-28-1.pdf used on input line 735.
+(pdftex.def)             Requested size: 483.69687pt x 760.10571pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 706--707
+Overfull \hbox (17.0pt too wide) in paragraph at lines 735--736
 [][] 
  []
 
-<figure/unnamed-chunk-21-9.pdf, id=207, 505.89pt x 216.81pt>
-File: figure/unnamed-chunk-21-9.pdf Graphic file (type pdf)
+Package color Info: Redefining color shadecolor on input line 740.
+<figure/unnamed-chunk-29-1.pdf, id=172, 505.89pt x 794.97pt> [15 <./figure/unna
+med-chunk-27-3.pdf>]
+Overfull \vbox (28.86987pt too high) has occurred while \output is active []
 
-<use figure/unnamed-chunk-21-9.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-21-9.pdf used on input line 708.
-(pdftex.def)             Requested size: 483.69687pt x 207.30154pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 708--709
+[16 <./figure/unnamed-chunk-28-1.pdf>]
+File: figure/unnamed-chunk-29-1.pdf Graphic file (type pdf)
+ <use figure/unnamed-chunk-29-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-29-1.pdf used on input line 741.
+(pdftex.def)             Requested size: 483.69687pt x 760.10571pt.
+
+Overfull \hbox (17.0pt too wide) in paragraph at lines 741--742
 [][] 
  []
 
-<figure/unnamed-chunk-21-10.pdf, id=208, 505.89pt x 216.81pt> [19 <./figure/unn
-amed-chunk-21-6.pdf> <./figure/unnamed-chunk-21-7.pdf> <./figure/unnamed-chunk-
-21-8.pdf>]
-File: figure/unnamed-chunk-21-10.pdf Graphic file (type pdf)
- <use figure/unnamed-chunk-21-10.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-21-10.pdf used on input line 710.
 
-(pdftex.def)             Requested size: 483.69687pt x 207.30154pt.
+Overfull \vbox (28.86987pt too high) has occurred while \output is active []
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 710--711
+
+[17 <./figure/unnamed-chunk-29-1.pdf>] [18]
+Underfull \hbox (badness 10000) in paragraph at lines 863--864
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 924--926
+
+ []
+
+[19]
+Underfull \hbox (badness 10000) in paragraph at lines 979--980
+
+ []
+
+[20]
+Underfull \hbox (badness 10000) in paragraph at lines 1084--1086
+
+ []
+
+[21]
+Underfull \hbox (badness 10000) in paragraph at lines 1140--1142
+
+ []
+
+[22]
+Underfull \hbox (badness 10000) in paragraph at lines 1191--1192
+
+ []
+
+[23] [24]
+Underfull \hbox (badness 10000) in paragraph at lines 1339--1340
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1389--1390
+
+ []
+
+[25] [26]
+Underfull \hbox (badness 10000) in paragraph at lines 1527--1529
+
+ []
+
+Package color Info: Redefining color shadecolor on input line 1533.
+<figure/unnamed-chunk-47-1.pdf, id=236, 505.89pt x 252.945pt>
+File: figure/unnamed-chunk-47-1.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-47-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-47-1.pdf used on input line 1539.
+
+(pdftex.def)             Requested size: 483.69687pt x 241.8518pt.
+
+Overfull \hbox (17.0pt too wide) in paragraph at lines 1539--1540
 [][] 
- []
-
-<figure/unnamed-chunk-21-11.pdf, id=237, 505.89pt x 216.81pt>
-File: figure/unnamed-chunk-21-11.pdf Graphic file (type pdf)
-
-<use figure/unnamed-chunk-21-11.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-21-11.pdf used on input line 712.
-
-(pdftex.def)             Requested size: 483.69687pt x 207.30154pt.
-
-Overfull \hbox (17.0pt too wide) in paragraph at lines 712--713
-[][] 
- []
-
-[20 <./figure/unnamed-chunk-21-9.pdf> <./figure/unnamed-chunk-21-10.pdf> <./fig
-ure/unnamed-chunk-21-11.pdf>] [21] [22] [23]
-Underfull \hbox (badness 10000) in paragraph at lines 917--918
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 922--923
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 977--979
-
- []
-
-[24]
-Underfull \hbox (badness 10000) in paragraph at lines 1032--1033
-
- []
-
-[25]
-Underfull \hbox (badness 10000) in paragraph at lines 1137--1139
-
- []
-
-[26]
-Underfull \hbox (badness 10000) in paragraph at lines 1193--1195
-
  []
 
 [27]
-Underfull \hbox (badness 10000) in paragraph at lines 1244--1245
+Package color Info: Redefining color shadecolor on input line 1546.
+ <figure/unnamed-chunk-48-1.pdf, id=240, 505.89pt x 361.35pt>
+File: figure/unnamed-chunk-48-1.pdf Graphic file (type pdf)
 
- []
-
-[28] [29]
-Underfull \hbox (badness 10000) in paragraph at lines 1392--1393
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1442--1443
-
- []
-
-[30] [31]
-Underfull \hbox (badness 10000) in paragraph at lines 1580--1582
-
- []
-
-Package color Info: Redefining color shadecolor on input line 1586.
-<figure/unnamed-chunk-40-1.pdf, id=301, 505.89pt x 252.945pt>
-File: figure/unnamed-chunk-40-1.pdf Graphic file (type pdf)
-
-<use figure/unnamed-chunk-40-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-40-1.pdf used on input line 1592.
-
-(pdftex.def)             Requested size: 483.69687pt x 241.8518pt.
-
-Overfull \hbox (17.0pt too wide) in paragraph at lines 1592--1593
-[][] 
- []
-
-[32]
-Package color Info: Redefining color shadecolor on input line 1599.
- <figure/unnamed-chunk-41-1.pdf, id=305, 505.89pt x 361.35pt>
-File: figure/unnamed-chunk-41-1.pdf Graphic file (type pdf)
-
-<use figure/unnamed-chunk-41-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-41-1.pdf used on input line 1605.
+<use figure/unnamed-chunk-48-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-48-1.pdf used on input line 1552.
 
 (pdftex.def)             Requested size: 483.69687pt x 345.5026pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 1605--1606
+Overfull \hbox (17.0pt too wide) in paragraph at lines 1552--1553
 [][] 
  []
 
 
-Overfull \hbox (16.37352pt too wide) in paragraph at lines 1615--1633
+Overfull \hbox (16.37352pt too wide) in paragraph at lines 1562--1580
  [][] 
  []
 
-[33 <./figure/unnamed-chunk-40-1.pdf> <./figure/unnamed-chunk-41-1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 1635--1636
+[28 <./figure/unnamed-chunk-47-1.pdf> <./figure/unnamed-chunk-48-1.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 1582--1583
 
  []
 
-Package color Info: Redefining color shadecolor on input line 1640.
-<figure/unnamed-chunk-43-1.pdf, id=322, 505.89pt x 252.945pt>
-File: figure/unnamed-chunk-43-1.pdf Graphic file (type pdf)
+Package color Info: Redefining color shadecolor on input line 1587.
+<figure/unnamed-chunk-50-1.pdf, id=257, 505.89pt x 252.945pt>
+File: figure/unnamed-chunk-50-1.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-43-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-43-1.pdf used on input line 1646.
+<use figure/unnamed-chunk-50-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-50-1.pdf used on input line 1593.
 
 (pdftex.def)             Requested size: 483.69687pt x 241.8518pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 1646--1647
+Overfull \hbox (17.0pt too wide) in paragraph at lines 1593--1594
 [][] 
  []
 
-Package color Info: Redefining color shadecolor on input line 1653.
-<figure/unnamed-chunk-44-1.pdf, id=323, 505.89pt x 216.81pt>
-File: figure/unnamed-chunk-44-1.pdf Graphic file (type pdf)
+Package color Info: Redefining color shadecolor on input line 1600.
+<figure/unnamed-chunk-51-1.pdf, id=258, 505.89pt x 216.81pt>
+File: figure/unnamed-chunk-51-1.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-44-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-44-1.pdf used on input line 1659.
+<use figure/unnamed-chunk-51-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-51-1.pdf used on input line 1606.
 
 (pdftex.def)             Requested size: 483.69687pt x 207.30154pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 1659--1660
+Overfull \hbox (17.0pt too wide) in paragraph at lines 1606--1607
 [][] 
  []
 
 
-Overfull \hbox (54.75987pt too wide) in paragraph at lines 1667--1684
+Overfull \hbox (54.75987pt too wide) in paragraph at lines 1614--1631
  [][] 
  []
 
-[34 <./figure/unnamed-chunk-43-1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 1718--1720
+[29 <./figure/unnamed-chunk-50-1.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 1665--1667
 
  []
 
-Package color Info: Redefining color shadecolor on input line 1752.
-[35 <./figure/unnamed-chunk-44-1.pdf>] [36]
-Underfull \hbox (badness 10000) in paragraph at lines 1923--1925
+Package color Info: Redefining color shadecolor on input line 1699.
+[30 <./figure/unnamed-chunk-51-1.pdf>] [31]
+Underfull \hbox (badness 10000) in paragraph at lines 1870--1872
 
  []
 
-Package color Info: Redefining color shadecolor on input line 1959.
-Package color Info: Redefining color shadecolor on input line 1991.
-[37]
-Overfull \hbox (21.16266pt too wide) in paragraph at lines 2040--2054
+Package color Info: Redefining color shadecolor on input line 1906.
+Package color Info: Redefining color shadecolor on input line 1938.
+[32]
+Overfull \hbox (21.16266pt too wide) in paragraph at lines 1987--2001
  [][] 
  []
 
-[38] [39] [40] [41]
-Package color Info: Redefining color shadecolor on input line 2431.
-Package color Info: Redefining color shadecolor on input line 2447.
+[33] [34] [35] [36]
+Package color Info: Redefining color shadecolor on input line 2378.
+Package color Info: Redefining color shadecolor on input line 2394.
 
-<figure/unnamed-chunk-59-1.pdf, id=359, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-59-1.pdf Graphic file (type pdf)
+<figure/unnamed-chunk-66-1.pdf, id=294, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-66-1.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-59-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-59-1.pdf used on input line 2448.
+<use figure/unnamed-chunk-66-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-66-1.pdf used on input line 2395.
 
 (pdftex.def)             Requested size: 483.69687pt x 483.70361pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 2448--2449
+Overfull \hbox (17.0pt too wide) in paragraph at lines 2395--2396
 [][] 
  []
 
-[42]
-Package color Info: Redefining color shadecolor on input line 2455.
- <figure/unnamed-chunk-60-1.pdf, id=363, 505.89pt x 252.945pt>
-File: figure/unnamed-chunk-60-1.pdf Graphic file (type pdf)
+[37]
+Package color Info: Redefining color shadecolor on input line 2402.
+ <figure/unnamed-chunk-67-1.pdf, id=299, 505.89pt x 252.945pt>
+File: figure/unnamed-chunk-67-1.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-60-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-60-1.pdf used on input line 2456.
+<use figure/unnamed-chunk-67-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-67-1.pdf used on input line 2403.
 
 (pdftex.def)             Requested size: 483.69687pt x 241.8518pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 2456--2457
+Overfull \hbox (17.0pt too wide) in paragraph at lines 2403--2404
 [][] 
  []
 
-[43 <./figure/unnamed-chunk-59-1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 2531--2533
-
- []
-
-[44 <./figure/unnamed-chunk-60-1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 2534--2536
+[38 <./figure/unnamed-chunk-66-1.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 2478--2480
 
  []
 
 
-Overfull \hbox (16.29779pt too wide) in paragraph at lines 2543--2559
+Underfull \hbox (badness 10000) in paragraph at lines 2478--2480
+
+ []
+
+[39 <./figure/unnamed-chunk-67-1.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 2481--2483
+
+ []
+
+
+Overfull \hbox (16.29779pt too wide) in paragraph at lines 2490--2506
  [][] 
  []
 
-Package color Info: Redefining color shadecolor on input line 2602.
-[45]
-Package color Info: Redefining color shadecolor on input line 2658.
- <figure/unnamed-chunk-68-1.pdf, id=386, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-68-1.pdf Graphic file (type pdf)
+Package color Info: Redefining color shadecolor on input line 2549.
+[40]
+Package color Info: Redefining color shadecolor on input line 2605.
+ <figure/unnamed-chunk-75-1.pdf, id=321, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-75-1.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-68-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-68-1.pdf used on input line 2664.
+<use figure/unnamed-chunk-75-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-75-1.pdf used on input line 2611.
 
 (pdftex.def)             Requested size: 483.69687pt x 483.70361pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 2664--2665
+Overfull \hbox (17.0pt too wide) in paragraph at lines 2611--2612
 [][] 
  []
 
-[46]
-Underfull \hbox (badness 10000) in paragraph at lines 2690--2692
+[41]
+Underfull \hbox (badness 10000) in paragraph at lines 2637--2639
 
  []
 
-Package color Info: Redefining color shadecolor on input line 2696.
-[47 <./figure/unnamed-chunk-68-1.pdf>]
-Package color Info: Redefining color shadecolor on input line 2724.
-Package color Info: Redefining color shadecolor on input line 2758.
+Package color Info: Redefining color shadecolor on input line 2643.
+[42 <./figure/unnamed-chunk-75-1.pdf>]
+Package color Info: Redefining color shadecolor on input line 2671.
+Package color Info: Redefining color shadecolor on input line 2705.
 
-<figure/unnamed-chunk-72-1.pdf, id=401, 505.89pt x 361.35pt>
-File: figure/unnamed-chunk-72-1.pdf Graphic file (type pdf)
+<figure/unnamed-chunk-79-1.pdf, id=336, 505.89pt x 361.35pt>
+File: figure/unnamed-chunk-79-1.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-72-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-72-1.pdf used on input line 2759.
+<use figure/unnamed-chunk-79-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-79-1.pdf used on input line 2706.
 
 (pdftex.def)             Requested size: 483.69687pt x 345.5026pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 2759--2760
+Overfull \hbox (17.0pt too wide) in paragraph at lines 2706--2707
 [][] 
  []
 
-<figure/unnamed-chunk-72-2.pdf, id=402, 505.89pt x 361.35pt> [48]
-File: figure/unnamed-chunk-72-2.pdf Graphic file (type pdf)
+<figure/unnamed-chunk-79-2.pdf, id=337, 505.89pt x 361.35pt> [43]
+File: figure/unnamed-chunk-79-2.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-72-2.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-72-2.pdf used on input line 2761.
+<use figure/unnamed-chunk-79-2.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-79-2.pdf used on input line 2708.
 
 (pdftex.def)             Requested size: 483.69687pt x 345.5026pt.
 
-Overfull \hbox (17.0pt too wide) in paragraph at lines 2761--2762
+Overfull \hbox (17.0pt too wide) in paragraph at lines 2708--2709
 [][] 
  []
 
-[49 <./figure/unnamed-chunk-72-1.pdf> <./figure/unnamed-chunk-72-2.pdf>]
+[44 <./figure/unnamed-chunk-79-1.pdf> <./figure/unnamed-chunk-79-2.pdf>]
 (IRC_Latex.aux) ) 
 Here is how much of TeX's memory you used:
- 4875 strings out of 493367
- 68653 string characters out of 3139899
- 175538 words of memory out of 3000000
- 8244 multiletter control sequences out of 15000+200000
+ 4848 strings out of 493367
+ 67824 string characters out of 3139899
+ 166538 words of memory out of 3000000
+ 8223 multiletter control sequences out of 15000+200000
  13866 words of font info for 54 fonts, out of 3000000 for 9000
  1127 hyphenation exceptions out of 8191
- 39i,10n,30p,543b,439s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 39i,10n,30p,546b,439s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
 bx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Pr
@@ -1292,13 +1247,12 @@ ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTe
 X 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
-public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/ams
-fonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
-/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.
-pfb>
-Output written on IRC_Latex.pdf (49 pages, 1638839 bytes).
+public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
+msfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmtt10.pfb>
+Output written on IRC_Latex.pdf (44 pages, 1750537 bytes).
 PDF statistics:
- 459 PDF objects out of 1000 (max. 8388607)
+ 391 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 171 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 146 words of extra memory for PDF output out of 10000 (max. 10000000)
 
