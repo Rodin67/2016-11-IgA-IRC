@@ -765,8 +765,42 @@ global <- global %>%
 <<global_greffe>>=
 global_greffe <- left_join(global, greffe, by = c("RREC_COD" = "NEFG"))
 global_greffe$ECHEC1 <- factor(global_greffe$ECHEC1)
-global_greffe$ECHEC1<-factor(global_greffe$ECHEC1, labels = c("Rejet aigu","Rejet chronique","Récidive de la maladie initiale","Complications vasculaires du greffon","Autres complications greffon","Autre infection déterminee"))
-global_greffe$ECHEC2<-factor(global_greffe$ECHEC2, labels = c("Complications vasculaires du greffon"))
+global_greffe$ECHEC1<-factor(global_greffe$ECHEC1, 
+                             labels = c("000",
+                                          "Défaillance primaire", 
+                                          "Rejet hyperaigu",
+                                          "Rejet aigu",
+                                          "Rejet chronique",
+                                          "Infection du greffon",
+                                          "Récidive de la maladie initiale",
+                                          "Complications vasculaires du greffon",
+                                          "Complications urologiques greffon",
+                                          "Défaillance non spécifique du greffon",
+                                          "Autres complications greffon",
+                                          "Perte d'un greffon sur Bigreffe",
+                                          "Ischémie myocardique ou infarctus",
+                                          "Hémorragie d'origine chirurgicale",
+                                          "Hémorragie au niveau du transplant",
+                                          "Maladie kystique du foie",
+                                          "Défaillance hépatique de cause inconnue",
+                                          "Péritonite",
+                                          "Insuffisance rénale aigue",
+                                          "Insuffisance rénale chronique",
+                                          "Patient refusant de poursuivre son traitement",
+                                          "Infection bactérienne pulmonaire (sauf tuberculose)",
+                                          "Infection fongique ou à protozoaire pulmonaire",
+                                          "Infection virale d'autres organes (sauf hépatite virale)",
+                                          "Infection fongique ou à protozoaire d'autres organes",
+                                          "Septicémie",
+                                          "Autre infection déterminee",
+                                          "Cachexie",
+                                          "Autre complication non déterminée",
+                                          "Autre complication déterminée",
+                                          "Cause inconnue"))
+global_greffe$ECHEC2<-factor(global_greffe$ECHEC2, 
+                             labels = c("Défaillance primaire",
+                                        "Rejet aigu",
+                                        "Complications vasculaires du greffon"))
 global_greffe$greffe <- ifelse(global_greffe$tx=="1" | !is.na(global_greffe$dgrf) | !is.na(global_greffe$GRF1) | !is.na(global_greffe$GRF2) | !is.na(global_greffe$GRF3),1,0)
 
 global_greffe$kmdc <- ifelse(is.na(global_greffe$ddc),0,1)
@@ -793,20 +827,47 @@ global_greffe$date_greffe <- ifelse(!is.na(global_greffe$anirt), as.numeric(as.c
 global_greffe2 <- full_join(global, greffe, by = c("RREC_COD" = "NEFG"))
 global_greffe2$ECHEC1 <- factor(global_greffe2$ECHEC1)
 global_greffe2$ECHEC1 <-factor(global_greffe2$ECHEC1, 
-                               labels = c("Défaillance primaire", 
+                               labels = c("000",
+                                          "Défaillance primaire", 
+                                          "Rejet hyperaigu",
                                           "Rejet aigu",
                                           "Rejet chronique",
+                                          "Infection du greffon",
                                           "Récidive de la maladie initiale",
                                           "Complications vasculaires du greffon",
                                           "Complications urologiques greffon",
+                                          "Défaillance non spécifique du greffon",
                                           "Autres complications greffon",
+                                          "Perte d'un greffon sur Bigreffe",
+                                          "Ischémie myocardique ou infarctus",
+                                          "Autres causes d'insuffisance cardiaque",
+                                          "Hémorragie d'origine chirurgicale",
                                           "Hémorragie au niveau du transplant",
+                                          "Maladie kystique du foie",
+                                          "Défaillance hépatique de cause inconnue",
+                                          "Péritonite",
+                                          "Insuffisance rénale aigue",
                                           "Insuffisance rénale chronique",
+                                          "Patient refusant de poursuivre son traitement",
+                                          "Traitement cessé pour autres raisons",
+                                          "Infection bactérienne pulmonaire (sauf tuberculose)",
+                                          "Infection fongique ou à protozoaire pulmonaire",
+                                          "Infection virale d'autres organes (sauf hépatite virale)",
+                                          "Infection fongique ou à protozoaire d'autres organes",
+                                          "Septicémie",
+                                          "Infection virale généralisée",
                                           "Autre infection déterminee",
                                           "Myélome",
+                                          "Complications liées au traitement immunosuppresseur",
+                                          "Défaillance multi-organes",
+                                          "Cachexie",
+                                          "Autre complication non déterminée",
                                           "Autre complication déterminée",
                                           "Cause inconnue"))
-global_greffe2$ECHEC2<-factor(global_greffe2$ECHEC2, labels = c("Complications vasculaires du greffon"))
+global_greffe2$ECHEC2<-factor(global_greffe2$ECHEC2, 
+                              labels = c("Défaillance primaire",
+                                         "Rejet aigu",
+                                         "Complications vasculaires du greffon"))
 global_greffe2$greffe <- ifelse(global_greffe2$tx=="1" | !is.na(global_greffe2$dgrf) | !is.na(global_greffe2$GRF1) | !is.na(global_greffe2$GRF2) | !is.na(global_greffe2$GRF3),1,0)
 
 global_greffe2$kmdc <- ifelse(is.na(global_greffe2$ddc),0,1)
@@ -1829,23 +1890,32 @@ print(ggplot(global_greffe[global_greffe$liste_longue==i,], aes(DELAIARF1/12)) +
 }
 @
 
-    \subsubsection{Raison de l'arrêt du greffon 1}
+    \subsubsection{Raison de l'arrêt du greffon}
+
+\subsubsection*{Greffon 1}
 
 <<results="asis">>=
 for (i in levels(global_greffe$liste_longue)) {
-x <- full_join(
-  tidy(sort(table(global_greffe$ECHEC1[global_greffe$liste_longue=="Diabète"], useNA = "always"), decreasing = T)[-1]), tidy(round(prop.table(sort(table(global_greffe$ECHEC1[global_greffe$liste_longue=="Diabète"]), decreasing = T))*100,1)), by = "Var1")
-colnames(x) <- c(i,"Fréquence","Pourcentage")
-print(xtable(x), table.placement = "H", include.rownames = F)
+x <- full_join(tidy(sort(table(global_greffe$ECHEC1[global_greffe$liste_longue==i], useNA = "always"), decreasing = T)[-1]), tidy(round(prop.table(sort(table(global_greffe$ECHEC1[global_greffe$liste_longue==i]), decreasing = T))*100,1)), by = "Var1")
+colnames(x) <- c(i,"Frequence","Pourcentage")
+x <- x[x$Frequence!=0,]
+print(xtable(x, auto = T), table.placement = "H", include.rownames = F)
 }
 @
 
-Greffe 2 = 0 jour pour 2 patients
+\subsubsection*{Greffon 2}
 
-Raisons de l'arrêt du greffon 2 : Complications vasculaires du greffon  (pour 2 patients).
-~\\
+<<results="asis">>=
+table(global_greffe$liste_longue, global_greffe$ECHEC2) %>%
+  as.data.frame.matrix() %>%
+  rename(`Compli vasc greffon` = `Complications vasculaires du greffon`) %>%
+  xtable() %>%
+  print(table.placement="H")
+@
 
-Pourcentage d'arrêt de greffon/greffe/an maladie de Berger : \Sexpr{table(!is.na(global_greffe$GRF1[global_greffe$iga==1]), !is.na(global_greffe$ARF1[global_greffe$iga==1]))[2,2]} (\Sexpr{round(prop.table(table(!is.na(global_greffe$GRF1[global_greffe$iga==1]), !is.na(global_greffe$ARF1[global_greffe$iga==1]))[2,])*100,1)[2]}\%)
+    \subsubsection{Pourcentage d'arrêt de greffon/greffe/an}
+
+Maladie de Berger : \Sexpr{table(!is.na(global_greffe$GRF1[global_greffe$iga==1]), !is.na(global_greffe$ARF1[global_greffe$iga==1]))[2,2]} (\Sexpr{round(prop.table(table(!is.na(global_greffe$GRF1[global_greffe$iga==1]), !is.na(global_greffe$ARF1[global_greffe$iga==1]))[2,])*100,1)[2]}\%)
 
 <<results="asis">>=
 global_greffe %>% 
@@ -1860,7 +1930,7 @@ global_greffe %>%
   print(include.rownames = F, table.placement = "H")
 @
 
-Pourcentage d'arrêt de greffon/greffe/an pour la table global : \Sexpr{table(!is.na(global_greffe$GRF1), !is.na(global_greffe$ARF1))[2,2]} (\Sexpr{round(prop.table(table(!is.na(global_greffe$GRF1), !is.na(global_greffe$ARF1))[2,])*100,1)[2]}\%)
+Toutes les pathologies : \Sexpr{table(!is.na(global_greffe$GRF1), !is.na(global_greffe$ARF1))[2,2]} (\Sexpr{round(prop.table(table(!is.na(global_greffe$GRF1), !is.na(global_greffe$ARF1))[2,])*100,1)[2]}\%)
 
 <<results="asis">>=
 global_greffe %>% 
@@ -1875,8 +1945,17 @@ global_greffe %>%
   print(include.rownames = F, table.placement = "H")
 @
 
-\textcolor{red}{Moins de recul plus on avance}
+\textcolor{red}{Mais de moins en moins de recul}
 
+    \subsubsection{Temps d'arrêt du greffon selon la raison d'arrêt (en mois)}
+
+Maladie de Berger
+
+<<results="asis">>=
+do.call("rbind", tapply(global_greffe$DELAIARF1[global_greffe$iga==1], global_greffe$ECHEC1[global_greffe$iga==1], summary)) %>%
+  xtable(digits = 1, auto = T) %>%
+  print(table.placement = "H")
+@
 
 
 % Pourcentage d'arrêt de greffon/greffe/an pour la table greffe : \Sexpr{table(!is.na(greffe$GRF1), !is.na(greffe$ARF1))[2]} (\Sexpr{round(prop.table(table(!is.na(greffe$GRF1), !is.na(greffe$ARF1)))*100,1)[2]}\%)
@@ -1887,6 +1966,25 @@ global_greffe %>%
 %   print(round(prop.table(table(!is.na(greffe$GRF1[global_greffe$anirt==i]), !is.na(greffe$ARF1[global_greffe$anirt==i]))[2,])*100,1))
 % }
 % @
+
+  \subsection{Inscription liste de greffe}
+
+Deux variables : "date d'inscription sur liset d'attente greffe" et "Inscription sur liste d'attente (selon REIN)" avec incohérences (certains patients avec une date et considérés comme non inscrit).
+
+Nombre de patients ayant une date de greffe (Berger) : \Sexpr{table(!is.na(global_greffe$DINSCMED[global_greffe$iga==1]))[2]} (\Sexpr{round(prop.table(table(!is.na(global_greffe$DINSCMED[global_greffe$iga==1])))*100,1)[2]}\%)
+
+<<results="asis">>=
+for (i in levels(global_greffe$liste_longue)) {
+table(!is.na(global_greffe$DINSCMED[global_greffe$liste_longue==i]), global_greffe$greffe[global_greffe$liste_longue==i]) %>%
+  prop.table(.,1) %>%
+  `*`(100) %>%
+  as.data.frame.matrix(row.names = c("Non inscrit","Inscrit")) %>%
+  rename(`Non greffé` = `0`, `Greffé` = `1`)  %>%
+  xtable(digits = 1, auto = T, caption = i) %>%
+  print(table.placement = "H")
+}
+@
+
 
   \subsection{Décès au cours de la greffe}
 
@@ -1901,7 +1999,9 @@ plot(survfit(Surv(kmdelaidc1/365, kmdc1)~1, data = global_greffe),
      xlab = "Temps (années) après la greffe",
      ylab = "Pourcentage (!!! origine ordonnée)",
      ylim = c(0.9,1))
+@
 
+<<fig.height=5>>=
 plot(survfit(Surv(kmdelaidc1/365, kmdc1)~gr_METHOn, data = global_greffe),
      main = "Courbe de survie, décès au cours de la greffe 1 (table globale)\nnoir = dialyse, rouge = greffe sans dialyse",
      xlab = "Temps (années) après la greffe",

@@ -18,5 +18,8 @@
 \contentsline {subsection}{\numberline {3.1}Nombre de greffe par ann\IeC {\'e}e}{40}
 \contentsline {subsection}{\numberline {3.2}Arr\IeC {\^e}t de fonction du greffon}{41}
 \contentsline {subsubsection}{\numberline {3.2.1}Temps entre greffe et arr\IeC {\^e}t du greffon}{41}
-\contentsline {subsubsection}{\numberline {3.2.2}Raison de l'arr\IeC {\^e}t du greffon 1}{45}
-\contentsline {subsection}{\numberline {3.3}D\IeC {\'e}c\IeC {\`e}s au cours de la greffe}{55}
+\contentsline {subsubsection}{\numberline {3.2.2}Raison de l'arr\IeC {\^e}t du greffon}{45}
+\contentsline {subsubsection}{\numberline {3.2.3}Pourcentage d'arr\IeC {\^e}t de greffon/greffe/an}{47}
+\contentsline {subsubsection}{\numberline {3.2.4}Temps d'arr\IeC {\^e}t du greffon selon la raison d'arr\IeC {\^e}t (en mois)}{48}
+\contentsline {subsection}{\numberline {3.3}Inscription liste de greffe}{48}
+\contentsline {subsection}{\numberline {3.4}D\IeC {\'e}c\IeC {\`e}s au cours de la greffe}{49}
