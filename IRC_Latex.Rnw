@@ -1188,11 +1188,11 @@ print(xtable(tidy(summary(iga$PDS))), include.rownames = F)
 @
 
 <<fig.height=5>>=
-ggplot(iga, aes(x = dfg, y = PDS)) +
-  geom_point() +
-  geom_smooth(method = "lm",se = FALSE)
+ggplot(iga, aes(x = PDS, y = dfg)) +
+  geom_point(aes(col = as.factor(PBRn)), alpha = 0.6) +
+  geom_smooth(method = "lm",se = FALSE) +
+  theme(legend.position = "bottom")
 @
-
 
 BMI :
 
@@ -1759,38 +1759,43 @@ for (i in levels(gnc$liste_longue)) {
 @
 
 
-<<>>=
+<<fig.height=6.8>>=
 par(mar = c(4,2,2,0))
-plot(survfit(Surv(kmdelaidc/365.25, kmdc)~liste_longue, data = global_greffe),
-     main = "Courbe de survie univariée",
-     xlab = "Temps (année)", col = c("black",brewer.pal(n = 10, name = "Paired")))
-legend("bottomleft", legend = c(levels(global_greffe$liste_longue)), lty = 1, col = c("black",brewer.pal(n = 12, name = "Paired")), cex = 1 )
+global_greffe %>%
+  survfit(Surv(kmdelaidc/365.25, kmdc)~liste_longue, data = .) %>%
+  plot(main = "Courbe de survie", 
+       xlab = "Temps (année)", 
+       ylim = c(0.4,1),
+       col = c("black", brewer.pal(n = 10, name = "Paired")))
+
+legend("bottomleft", legend = c(levels(global_greffe$liste_longue)), lty = 1, col = c("black",brewer.pal(n = 12, name = "Paired")), cex = 1 , box.lwd = 0)
 @
 
 Médiane de survie pour diablète : 5.5 ans [5.25-5.75]
 
 <<fig.height=3.5>>=
 par(mar = c(2,2,2,0))
-survfit <- survfit(Surv(kmdelaidc/365.25, kmdc)~1, data = global_greffe[global_greffe$liste_longue=="Néphropathie à dépôts d'IgA",])
-plot(survfit, ylim = c(0.8,1), main = "Courbe de survie Berger")
+global_greffe[global_greffe$iga==1,] %>%
+  survfit(Surv(kmdelaidc/365.25, kmdc)~1, data = .) %>%
+  plot(ylim = c(0.8,1), main = "Courbe de survie Berger")
 @
 
 Cox sur age + sexe :
 <<results="asis">>=
-x <- coxph(Surv(kmdelaidc/365.25, kmdc)~age+sex, data = global_greffe[global_greffe$liste_longue=="Néphropathie à dépôts d'IgA",])
+x <- coxph(Surv(kmdelaidc/365.25, kmdc)~age+sex, data = global_greffe[global_greffe$iga==1,])
 print(xtable(x), table.placement = "H")
 print(xtable(summary(x)$conf.int), table.placement = "H")
 @
 
 Cox sur age + sexe + dfg :
 <<results="asis">>=
-x <- coxph(Surv(kmdelaidc/365.25, kmdc)~age+sex+dfg, data = global_greffe[global_greffe$liste_longue=="Néphropathie à dépôts d'IgA",])
+x <- coxph(Surv(kmdelaidc/365.25, kmdc)~age+sex+dfg, data = global_greffe[global_greffe$iga==1,])
 print(xtable(x), table.placement = "H")
 @
 
 Cox sur age + sexe + dfg + albini :
 <<results="asis">>=
-x <- coxph(Surv(kmdelaidc/365.25, kmdc)~age+sex+dfg+ALBINI, data = global_greffe[global_greffe$liste_longue=="Néphropathie à dépôts d'IgA",])
+x <- coxph(Surv(kmdelaidc/365.25, kmdc)~age+sex+dfg+ALBINI, data = global_greffe[global_greffe$iga==1,])
 print(xtable(x), table.placement = "H")
 @
 
@@ -1988,29 +1993,54 @@ table(!is.na(global_greffe$DINSCMED[global_greffe$liste_longue==i]), global_gref
 
   \subsection{Décès au cours de la greffe}
 
-Table globale : \Sexpr{length(global_greffe$DECES1[!is.na(global_greffe$DECES1)])} patients sont décédés au cours de la greffe 1 et \Sexpr{length(global_greffe$DECES2[!is.na(global_greffe$DECES2)])} au cours de la 2e.
+En prenant en compte les patients ayant une date de greffe :
 
-Table greffe : \Sexpr{length(greffe$DECES1[!is.na(greffe$DECES1)])} patients sont décédés au cours de la greffe 1 et \Sexpr{length(greffe$DECES2[!is.na(greffe$DECES2)])} au cours de la 2e.
+- Berger : \Sexpr{length(global_greffe$DECES1[!is.na(global_greffe$DECES1) & global_greffe$iga==1])}/\Sexpr{length(global_greffe$DECES1[global_greffe$iga==1 & !is.na(global_greffe$GRF1)])} (\Sexpr{round(length(global_greffe$DECES1[!is.na(global_greffe$DECES1) & global_greffe$iga==1])/length(global_greffe$DECES1[global_greffe$iga==1 & !is.na(global_greffe$GRF1)])*100,1)}\%) patients sont décédés au cours de la greffe 1.
+
+- Diabète : \Sexpr{length(global_greffe$DECES1[!is.na(global_greffe$DECES1) & global_greffe$diab==1])}/\Sexpr{length(global_greffe$DECES1[global_greffe$diab==1 & !is.na(global_greffe$GRF1)])} (\Sexpr{round(length(global_greffe$DECES1[!is.na(global_greffe$DECES1) & global_greffe$diab==1])/length(global_greffe$DECES1[global_greffe$diab==1 & !is.na(global_greffe$GRF1)])*100,1)}\%) patients sont décédés au cours de la greffe 1.
+
+- PKRD : \Sexpr{length(global_greffe$DECES1[!is.na(global_greffe$DECES1) & global_greffe$pkrd==1])}/\Sexpr{length(global_greffe$DECES1[global_greffe$pkrd==1 & !is.na(global_greffe$GRF1)])} (\Sexpr{round(length(global_greffe$DECES1[!is.na(global_greffe$DECES1) & global_greffe$pkrd==1])/length(global_greffe$DECES1[global_greffe$pkrd==1 & !is.na(global_greffe$GRF1)])*100,1)}\%) patients sont décédés au cours de la greffe 1.
+
+- GNC : choisir els pathologies intégrées
+%\Sexpr{length(global_greffe$DECES1[!is.na(global_greffe$DECES1) & global_greffe$gnc==1])}/\Sexpr{length(global_greffe$DECES1[global_greffe$gnc==1 & !is.na(global_greffe$GRF1)])} (\Sexpr{round(length(global_greffe$DECES1[!is.na(global_greffe$DECES1) & global_greffe$gnc==1])/length(global_greffe$DECES1[global_greffe$gnc==1 & !is.na(global_greffe$GRF1)])*100,1)}\%) patients sont décédés au cours de la greffe 1.
 
 <<fig.height=5>>=
 par(mar = c(4,4,2,0))
-plot(survfit(Surv(kmdelaidc1/365, kmdc1)~1, data = global_greffe),
-     main = "Courbe de survie, décès au cours de la greffe 1 avec intervalle de confiance",
-     xlab = "Temps (années) après la greffe",
-     ylab = "Pourcentage (!!! origine ordonnée)",
-     ylim = c(0.9,1))
+global_greffe[!global_greffe$gnc==1,] %>%
+  survfit(Surv(kmdelaidc1/365.25, kmdc1)~liste_longue, data = .) %>%
+  plot(main = "Courbe de survie", 
+       xlab = "Temps (année)", 
+       ylim = c(0.85,1),
+       col = c("black", brewer.pal(n = 2, name = "Paired")))
+
+legend("bottomleft", legend = c(levels(factor(global_greffe$liste_longue[!global_greffe$gnc==1]))), lty = 1, col = c("black",brewer.pal(n = 2, name = "Paired")), cex = 1 , box.lwd = 0)
 @
+
 
 <<fig.height=5>>=
-plot(survfit(Surv(kmdelaidc1/365, kmdc1)~gr_METHOn, data = global_greffe),
-     main = "Courbe de survie, décès au cours de la greffe 1 (table globale)\nnoir = dialyse, rouge = greffe sans dialyse",
-     xlab = "Temps (années) après la greffe",
-     ylab = "Pourcentage (!!! origine ordonnée)",
-     col = c("black","red"),
-     ylim = c(0.9,1))
+global_greffe %>%
+  survfit(Surv(kmdelaidc1/365, kmdc1)~gr_METHOn, data = .) %>%
+  plot(main = "Courbe de survie, décès au cours de la greffe 1 (toute pathologie)\n selon le premier traitement de suppléance",
+       xlab = "Temps (années) après la greffe",
+       ylab = "Pourcentage",
+       col = c("black","red"),
+       ylim = c(0.9,1))
+text(1,0.96, "Dialyse")
+text(3.5,0.98, "Greffe")
 @
 
 
+<<fig.height=5>>=
+global_greffe %>%
+  survfit(Surv(kmdelaidc1/365, kmdc1)~greffe_METHOn, data = .) %>%
+  plot(main = "Courbe de survie, décès au cours de la greffe 1 (toute pathologie)\n selon le premier traitement de suppléance",
+       xlab = "Temps (années) après la greffe",
+       ylab = "Pourcentage",
+       col = c("black","red"),
+       ylim = c(0.9,1))
+text(1,0.96, "Dialyse")
+text(4.5,0.98, "Greffe + greffe <1 an après dialyse")
+@
 
 
 
