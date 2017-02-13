@@ -2,24 +2,24 @@
 \contentsline {section}{\numberline {1}Incidence IRCT maladie de Berger}{2}
 \contentsline {subsection}{\numberline {1.1}Incidence spatiale d'IRCT}{2}
 \contentsline {subsection}{\numberline {1.2}Incidence temporelle d'IRCT (ann\IeC {\'e}e du 1er traitement de suppl\IeC {\'e}ance)}{7}
-\contentsline {section}{\numberline {2}Etude des caract\IeC {\'e}ristiques cliniques et du devenir de ces patients}{9}
+\contentsline {section}{\numberline {2}Etude des caract\IeC {\'e}ristiques cliniques et du devenir des patients}{9}
 \contentsline {subsection}{\numberline {2.1}Caract\IeC {\'e}ristiques cliniques des patients au stade d\IeC {\textquoteright }IRCT}{9}
 \contentsline {subsubsection}{\numberline {2.1.1}Sexe et \IeC {\^a}ge au stade d\IeC {\textquoteright }IRCT (1\IeC {\`e}re suppl\IeC {\'e}ance)}{9}
 \contentsline {subsubsection}{\numberline {2.1.2}Taille, poids et BMI}{10}
-\contentsline {subsubsection}{\numberline {2.1.3}Ponction Biopsie R\IeC {\'e}nale}{18}
-\contentsline {subsubsection}{\numberline {2.1.4}Co-morbidit\IeC {\'e}s}{18}
-\contentsline {subsubsection}{\numberline {2.1.5}Statut Tabagique}{26}
-\contentsline {subsubsection}{\numberline {2.1.6}Cr\IeC {\'e}atinine, albumine et h\IeC {\'e}moglobine}{27}
-\contentsline {subsubsection}{\numberline {2.1.7}1er traitement de suppl\IeC {\'e}ance}{31}
-\contentsline {subsubsection}{\numberline {2.1.8}Contexte de d\IeC {\'e}marrage de dialyse}{32}
-\contentsline {subsection}{\numberline {2.2}Devenir des patients apr\IeC {\`e}s la mise en dialyse}{37}
-\contentsline {subsection}{\numberline {2.3}Analyse de la survie patient avec comme outcome le d\IeC {\'e}c\IeC {\`e}s}{37}
-\contentsline {section}{\numberline {3}Greffe maladie de Berger}{39}
-\contentsline {subsection}{\numberline {3.1}Nombre de greffe par ann\IeC {\'e}e}{40}
-\contentsline {subsection}{\numberline {3.2}Arr\IeC {\^e}t de fonction du greffon}{41}
-\contentsline {subsubsection}{\numberline {3.2.1}Temps entre greffe et arr\IeC {\^e}t du greffon}{41}
-\contentsline {subsubsection}{\numberline {3.2.2}Raison de l'arr\IeC {\^e}t du greffon}{45}
-\contentsline {subsubsection}{\numberline {3.2.3}Pourcentage d'arr\IeC {\^e}t de greffon/greffe/an}{47}
-\contentsline {subsubsection}{\numberline {3.2.4}Temps d'arr\IeC {\^e}t du greffon selon la raison d'arr\IeC {\^e}t (en mois)}{48}
-\contentsline {subsection}{\numberline {3.3}Inscription liste de greffe}{48}
-\contentsline {subsection}{\numberline {3.4}D\IeC {\'e}c\IeC {\`e}s au cours de la greffe}{49}
+\contentsline {subsubsection}{\numberline {2.1.3}Ponction Biopsie R\IeC {\'e}nale}{17}
+\contentsline {subsubsection}{\numberline {2.1.4}Co-morbidit\IeC {\'e}s}{17}
+\contentsline {subsubsection}{\numberline {2.1.5}Statut Tabagique}{21}
+\contentsline {subsubsection}{\numberline {2.1.6}Cr\IeC {\'e}atinine, albumine et h\IeC {\'e}moglobine}{22}
+\contentsline {subsubsection}{\numberline {2.1.7}1er traitement de suppl\IeC {\'e}ance}{26}
+\contentsline {subsubsection}{\numberline {2.1.8}Contexte de d\IeC {\'e}marrage de dialyse}{28}
+\contentsline {subsection}{\numberline {2.2}Devenir des patients apr\IeC {\`e}s la mise en dialyse}{32}
+\contentsline {subsection}{\numberline {2.3}Analyse de la survie patient avec comme outcome le d\IeC {\'e}c\IeC {\`e}s}{32}
+\contentsline {section}{\numberline {3}Greffe maladie de Berger}{34}
+\contentsline {subsection}{\numberline {3.1}Nombre de greffe par ann\IeC {\'e}e}{35}
+\contentsline {subsection}{\numberline {3.2}Arr\IeC {\^e}t de fonction du greffon}{36}
+\contentsline {subsubsection}{\numberline {3.2.1}Temps entre greffe et arr\IeC {\^e}t du greffon}{36}
+\contentsline {subsubsection}{\numberline {3.2.2}Raison de l'arr\IeC {\^e}t du greffon}{40}
+\contentsline {subsubsection}{\numberline {3.2.3}Pourcentage d'arr\IeC {\^e}t de greffon/greffe/an}{42}
+\contentsline {subsubsection}{\numberline {3.2.4}Temps d'arr\IeC {\^e}t du greffon selon la raison d'arr\IeC {\^e}t (en mois)}{43}
+\contentsline {subsection}{\numberline {3.3}Inscription liste de greffe}{43}
+\contentsline {subsection}{\numberline {3.4}D\IeC {\'e}c\IeC {\`e}s au cours de la greffe}{44}
