@@ -10,16 +10,15 @@
 \contentsline {subsubsection}{\numberline {2.1.4}Co-morbidit\IeC {\'e}s}{17}
 \contentsline {subsubsection}{\numberline {2.1.5}Statut Tabagique}{21}
 \contentsline {subsubsection}{\numberline {2.1.6}Cr\IeC {\'e}atinine, albumine et h\IeC {\'e}moglobine}{22}
-\contentsline {subsubsection}{\numberline {2.1.7}1er traitement de suppl\IeC {\'e}ance}{26}
-\contentsline {subsubsection}{\numberline {2.1.8}Contexte de d\IeC {\'e}marrage de dialyse}{28}
-\contentsline {subsection}{\numberline {2.2}Devenir des patients apr\IeC {\`e}s la mise en dialyse}{32}
-\contentsline {subsection}{\numberline {2.3}Analyse de la survie patient avec comme outcome le d\IeC {\'e}c\IeC {\`e}s}{32}
-\contentsline {section}{\numberline {3}Greffe maladie de Berger}{34}
-\contentsline {subsection}{\numberline {3.1}Nombre de greffe par ann\IeC {\'e}e}{35}
-\contentsline {subsection}{\numberline {3.2}Arr\IeC {\^e}t de fonction du greffon}{36}
-\contentsline {subsubsection}{\numberline {3.2.1}Temps entre greffe et arr\IeC {\^e}t du greffon}{36}
-\contentsline {subsubsection}{\numberline {3.2.2}Raison de l'arr\IeC {\^e}t du greffon}{40}
-\contentsline {subsubsection}{\numberline {3.2.3}Pourcentage d'arr\IeC {\^e}t de greffon/greffe/an}{42}
-\contentsline {subsubsection}{\numberline {3.2.4}Temps d'arr\IeC {\^e}t du greffon selon la raison d'arr\IeC {\^e}t (en mois)}{43}
-\contentsline {subsection}{\numberline {3.3}Inscription liste de greffe}{43}
-\contentsline {subsection}{\numberline {3.4}D\IeC {\'e}c\IeC {\`e}s au cours de la greffe}{44}
+\contentsline {subsubsection}{\numberline {2.1.7}1er traitement de suppl\IeC {\'e}ance}{25}
+\contentsline {subsubsection}{\numberline {2.1.8}Contexte de d\IeC {\'e}marrage de dialyse}{26}
+\contentsline {subsection}{\numberline {2.2}Analyse de la survie patient avec comme outcome le d\IeC {\'e}c\IeC {\`e}s}{29}
+\contentsline {section}{\numberline {3}Greffe maladie de Berger}{31}
+\contentsline {subsection}{\numberline {3.1}Nombre de greffe par ann\IeC {\'e}e}{31}
+\contentsline {subsection}{\numberline {3.2}Arr\IeC {\^e}t de fonction du greffon}{32}
+\contentsline {subsubsection}{\numberline {3.2.1}Temps entre greffe et arr\IeC {\^e}t du greffon (sans les patients non en commun avec la table globale)}{32}
+\contentsline {subsubsection}{\numberline {3.2.2}Raison de l'arr\IeC {\^e}t du greffon}{35}
+\contentsline {subsubsection}{\numberline {3.2.3}Pourcentage d'arr\IeC {\^e}t de greffon/greffe/an}{37}
+\contentsline {subsubsection}{\numberline {3.2.4}Temps d'arr\IeC {\^e}t du greffon selon la raison d'arr\IeC {\^e}t (en mois)}{38}
+\contentsline {subsection}{\numberline {3.3}Inscription liste de greffe}{38}
+\contentsline {subsection}{\numberline {3.4}D\IeC {\'e}c\IeC {\`e}s au cours de la greffe}{39}

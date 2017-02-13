@@ -214,12 +214,12 @@ iga$gr_bmi <- relevel(iga$gr_bmi, ref = "18.5-24.9")
 @
 
 <<greffe>>=
-greffe <- read_excel("~/IRC/dataIgA/greffe IgA.xlsx", 
+greffe.iga <- read_excel("~/IRC/dataIgA/greffe IgA.xlsx", 
                      col_types = c("numeric", "text", "date", "date", "date", "date",
                                    "date", "text", "text", "date", "date", "text",
                                    "text", "numeric", "text", "text", "text", "text", 
                                    "text", "text", "numeric"))
-greffe<-greffe[greffe$LMALADI=="Néphro. à dépôts d'IgA (diagnostic prouvé par immunofluorescence)" | greffe$LMALADI=="Maladie de Berger",]
+greffe.iga <- greffe.iga[greffe.iga$LMALADI=="Néphro. à dépôts d'IgA (diagnostic prouvé par immunofluorescence)" | greffe.iga$LMALADI=="Maladie de Berger",]
 
 greffe.diab <- read_excel("~/IRC/dataIgA/grf_tem_diab.xlsx", 
                           col_types = c("numeric", "text", "date", "date", "date", "date",
@@ -228,7 +228,7 @@ greffe.diab <- read_excel("~/IRC/dataIgA/grf_tem_diab.xlsx",
                                         "text", "text", "text", "numeric"))
 greffe.diab <- greffe.diab[greffe.diab$LMALADI=="Diabète de type I (insulino-dépendant)" | greffe.diab$LMALADI=="Diabète type II (non insulino-dependant)",]
 
-greffe <- bind_rows(greffe, greffe.diab)
+greffe <- bind_rows(greffe.iga, greffe.diab)
 
 greffe.pkrd <- read_excel("~/IRC/dataIgA/grf_tem_pkr.xlsx", 
                           col_types = c("numeric", "text", "date", "date", "date", "date",
@@ -1384,15 +1384,12 @@ print(xtable(x[order(x[,6]),], digits = 1, auto = T), table.placement = "H", inc
 
 Stade de la cirrhose :
 
-- Child A : \Sexpr{table(iga$STDCIRHn,useNA = "always")[2]} (\Sexpr{round(prop.table(table(iga$STDCIRHn[!iga$STDCIRHn==0]))*100,1)[1]}\%)
-
-- Child B-C : \Sexpr{table(iga$STDCIRHn,useNA = "always")[3]} (\Sexpr{round(prop.table(table(iga$STDCIRHn[!iga$STDCIRHn==0]))*100,1)[2]}\%)
-
 <<results="asis">>=
-print(xtable(addmargins(table(global$liste_longue[!global$STDCIRHn==0], global$STDCIRHn[!global$STDCIRHn==0], useNA = "no")), digits = 0), table.placement = "H")
-
-x <- round(prop.table(table(global$liste_longue[!global$STDCIRHn==0], global$STDCIRHn[!global$STDCIRHn==0]),1)*100,1)
-print(xtable(x[order(x[,2], decreasing = T),],digits = 1), table.placement = "H")
+x <- addmargins(table(global$liste_longue[!global$STDCIRHn==0], global$STDCIRHn[!global$STDCIRHn==0], useNA = "no")) %>% as.data.frame.matrix()
+y <- round(prop.table(table(global$liste_longue[!global$STDCIRHn==0], global$STDCIRHn[!global$STDCIRHn==0]),1)*100,1) %>% as.data.frame.matrix()
+x <- merge(x,y,by = "row.names")
+colnames(x) <- c("Pathologie","Child A","Child B-C","Sum","Non%","Oui%")
+print(xtable(x[order(x[,5]),], digits = 1, auto = T), table.placement = "H", include.rownames = F)
 @
 
 \subsubsection*{Infarctus du myocarde}
@@ -1415,11 +1412,16 @@ colnames(x) <- c("Pathologie","Non","Oui","NA","Sum","Non%","Oui%")
 print(xtable(x[order(x[,6]),], digits = 1, auto = T), table.placement = "H", include.rownames = F)
 @
 
-Stade de l’IC :
+Stade de l’IC
 
-- I-II : \Sexpr{table(iga$STADICn,useNA = "always")[2]} (\Sexpr{round(prop.table(table(iga$STADICn[!iga$STADICn==0]))*100,1)[1]}\%)
+<<results="asis">>=
+x <- addmargins(table(global$liste_longue[!global$STADICn==0], global$STADICn[!global$STADICn==0], useNA = "no")) %>% as.data.frame.matrix()
+y <- round(prop.table(table(global$liste_longue[!global$STADICn==0], global$STADICn[!global$STADICn==0]),1)*100,1) %>% as.data.frame.matrix()
+x <- merge(x,y,by = "row.names")
+colnames(x) <- c("Pathologie","I-II","III-IV","Sum","I-II%","III-IV%")
+print(xtable(x[order(x[,5]),], digits = 1, auto = T), table.placement = "H", include.rownames = F)
+@
 
-- III-IV : \Sexpr{table(iga$STADICn,useNA = "always")[3]} (\Sexpr{round(prop.table(table(iga$STADICn[!iga$STADICn==0]))*100,1)[2]}\%)
 
 \subsubsection*{Artérite des membres inférieurs}
 
@@ -1431,11 +1433,15 @@ colnames(x) <- c("Pathologie","Non","Oui","NA","Sum","Non%","Oui%")
 print(xtable(x[order(x[,6]),], digits = 1, auto = T), table.placement = "H", include.rownames = F)
 @
 
-Stade de l’AMI : 
+Stade de l’AMI
 
-- I-II : \Sexpr{table(iga$STDAMIn,useNA = "always")[2]} (\Sexpr{round(prop.table(table(iga$STDAMIn[!iga$STDAMIn==0]))*100,1)[1]}\%)
-
-- III-IV : \Sexpr{table(iga$STDAMIn,useNA = "always")[3]} (\Sexpr{round(prop.table(table(iga$STDAMIn[!iga$STDAMIn==0]))*100,1)[2]}\%)
+<<results="asis">>=
+x <- addmargins(table(global$liste_longue[!global$STDAMIn==0], global$STDAMIn[!global$STDAMIn==0], useNA = "no")) %>% as.data.frame.matrix()
+y <- round(prop.table(table(global$liste_longue[!global$STDAMIn==0], global$STDAMIn[!global$STDAMIn==0]),1)*100,1) %>% as.data.frame.matrix()
+x <- merge(x,y,by = "row.names")
+colnames(x) <- c("Pathologie","I-II","III-IV","Sum","I-II%","III-IV%")
+print(xtable(x[order(x[,5]),], digits = 1, auto = T), table.placement = "H", include.rownames = F)
+@
 
 \subsubsection*{Amputation}
 
@@ -1472,12 +1478,14 @@ colnames(x) <- c("Pathologie","Non","Oui","Sum","Non%","Oui%")
 print(xtable(x[order(x[,5]),], digits = 1, auto = T), table.placement = "H", include.rownames = F)
 @
 
-Dont stade SIDA : \Sexpr{table(iga$SIDAn)[2]} (\Sexpr{round(table(iga$SIDAn)[2]/table(iga$VIHn)[2]*100,1)}\%)
-<<results="asis">>=
-print(xtable(as.data.frame.matrix(addmargins(table(global$liste_longue[global$VIHn==1], global$SIDAn[global$VIHn==1], useNA = "ifany"))), auto = T), table.placement = "H")
+Dont stade SIDA 
 
-x <- round(prop.table(table(global$liste_longue[global$VIHn==1], global$SIDAn[global$VIHn==1]),1)*100,1)
-print(xtable(x[order(x[,2], decreasing = T),],digits = 1), table.placement = "H")
+<<results="asis">>=
+x <- addmargins(table(global$liste_longue[!global$VIHn==0], global$SIDAn[!global$VIHn==0], useNA = "ifany")) %>% as.data.frame.matrix()
+y <- round(prop.table(table(global$liste_longue[!global$VIHn==0], global$SIDAn[!global$VIHn==0]),1)*100,1) %>% as.data.frame.matrix()
+x <- merge(x,y,by = "row.names")
+colnames(x) <- c("Pathologie","Non","Oui","Sum","Non%","Oui%")
+print(xtable(x[order(x[,5]),], digits = 1, auto = T), table.placement = "H", include.rownames = F)
 @
 
 \subsubsection*{Ag HBS positif}
@@ -1522,29 +1530,31 @@ full_join(x,y, by=".") %>%
 print(xtable(addmargins(table(global$liste_longue, global$TABACn, useNA = "ifany"))[-14,], digits = 0), table.placement ="H")
 x <- round(prop.table(table(global$liste_longue, global$TABACn),1)*100,1)
 print(xtable(x[order(x[,1]),], digits = 1), table.placement ="H")
+@
+
+<<>>=
 chisq.test(x, correct = F)
 @
 
-Pour le syndrome de Goodpasture ??
+Goodpasture : sur 28 cas, 12 NF, 3 fumeurs, 7 ex-fumeurs, 6 NA.
 
 
     \subsubsection{Créatinine, albumine et hémoglobine}
 
-Les patients ayant un DFG\textgreater15 ou \textgreater20 si IC : DFG et créatinine considérés comme données manquantes.
-~\\
+Pour les patients avec DFG\textgreater15 ou \textgreater20 si IC : suppression DFG et créatinine.
 
-Créatininémie initiale :
+\subsubsection*{Créatininémie initiale ($\mu$mol/l)}
 
-<<fig.height=3.5>>=
+<<fig.height=2>>=
 summary(iga$CREATINI)
 ggplot(iga, aes(x = CREATINI)) +
   geom_histogram(col = "black", fill = "white") +
   labs(x = "Créatininémie (micromol/l)")
 @
 
-DFG initial :
+\subsubsection*{DFG initial}
 
-<<fig.height=5>>=
+<<fig.height=3>>=
 summary(iga$dfg )
 
 ggplot(iga, aes(dfg)) +
@@ -1553,14 +1563,14 @@ ggplot(iga, aes(dfg)) +
   labs(title = "DFG pour Berger")
 @
 
-<<fig.height=5>>=
+<<fig.height=3>>=
 ggplot(iga, aes(dfg, fill = as.factor(PBRn))) +
   geom_histogram(position = "fill") +
   theme(legend.position = "bottom") +
   labs(fill = "PBR", x= "DFG")
 @
 
-<<fig.height=5>>=
+<<fig.height=3.5>>=
 ggplot(filter(global_greffe, liste_longue=="Néphropathie à dépôts d'IgA"), aes(dfg, age)) +
   geom_point() +
   geom_smooth() +
@@ -1575,7 +1585,7 @@ x <- x[order(x$Mean, decreasing = T),]
 print(xtable(x, digits = 1, auto = T), size = "small", table.placement = "H")
 @
 
-Albuminémie initiale :
+\subsubsection*{Albuminémie initiale}
 
 <<fig.height=3.5>>=
 summary(iga$ALBINI)
@@ -1586,9 +1596,9 @@ ggplot(iga[!is.na(iga$CIRHn),], aes(x = ALBINI)) +
   labs(x = "Albuminémie (U/L)", title = "Albumine selon la présence d'une cirrhose")
 @
 
-Hémoglobine :
+\subsubsection*{Hémoglobine}
 
-<<fig.height=3>>=
+<<fig.height=2>>=
 summary(iga$HBINI)
 ggplot(iga, aes(x = HBINI)) +
   geom_histogram(col = "black", fill = "white") +
@@ -1650,6 +1660,7 @@ chisq.test(x, correct = F)
 
 Par pathologie :
 
+\begin{multicols}{2}
 <<results="asis">>=
 global$liste_longue <- factor(global$liste_longue)
 for (i in levels(global_greffe2$liste_longue)) {
@@ -1657,7 +1668,7 @@ for (i in levels(global_greffe2$liste_longue)) {
   print(xtable(round(prop.table(table(global_greffe2$greffe_METHOn[global_greffe2$liste_longue==i], global_greffe2$anirt[global_greffe2$liste_longue==i]),2)*100,1), caption = paste("Pourcentage",i), digits = 1), table.placement="H")
 }
 @
-
+\end{multicols}
 
 \textcolor{red}{Nombre de patients greffés direct n'ayant aucune info sur la greffe toute pathologies confondus : \Sexpr{table(is.na(global_greffe$GRF1[global_greffe$greffe_METHOn=="Greffe"]))[2]} (\Sexpr{round(table(is.na(global_greffe$GRF1[global_greffe$greffe_METHOn=="Greffe"]))[2] / length(global_greffe$GRF1[global_greffe$greffe_METHOn=="Greffe"]) *100,1)}\%)}
 ~\\
@@ -1675,7 +1686,7 @@ for (i in levels(global_greffe2$liste_longue)) {
 %\textcolor{red}{Attention : le recul n'est pas le même pour ceux de 2010 et 2014, ce qui explique la différence.}
 %~\\
 
-Nombre de dialyse (hémo + péritonéale) comparé aux dialysés totaux en France : (à refaire XXXXX)
+%Nombre de dialyse (hémo + péritonéale) comparé aux dialysés totaux en France : (à refaire XXXXX)
 
 <<results="asis", fig.height=3>>=
 # inc_greffe <- matrix(nrow = 9, 
@@ -1724,7 +1735,6 @@ Nombre de dialyse (hémo + péritonéale) comparé aux dialysés totaux en Franc
 iga$urg_rea<-NA
 iga$urg_rea<-ifelse(iga$URGn==1 | iga$REAn==1, 1, 0)
 @
-
     
 Premier traitement en réanimation ou urgence IgA :  \Sexpr{table(iga$urg_rea)[2]} (\Sexpr{round(prop.table(table(iga$urg_rea))*100,1)[2]}\%) NA = \Sexpr{table(iga$urg_rea, useNA = "always")[3]}
 
@@ -1761,19 +1771,19 @@ La différence entre les 2 groupes d'âge n'est plus significative à 50 ans.
   \subsubsection*{Voie d’abord}
 
 <<results="asis">>=
-x <- t(table(iga$VAVn, useNA = "always"))
-x <- as.data.frame.matrix(x)
-x$Pathologie <- "IgA"
-colnames(x)[5] <- "NA"
-x <- x[, c(6,1:5)]
-x %>% xtable() %>% print(include.rownames = F)
+# x <- t(table(iga$VAVn, useNA = "always"))
+# x <- as.data.frame.matrix(x)
+# x$Pathologie <- "IgA"
+# colnames(x)[5] <- "NA"
+# x <- x[, c(6,1:5)]
+# x %>% xtable() %>% print(include.rownames = F)
 
 x <- matrix(ncol = 4, nrow = 4, dimnames = list(c("PKRD","IgA","Diabète","GNC"),c("FAV native","Cathéter tunnélisé","Pontage","Autre")))
 x[2,] <- round(prop.table(table(iga$VAVn))*100,1)
 x[3,] <- round(prop.table(table(diab$VAVn))*100,1)
 x[4,] <- round(prop.table(table(gnc$VAVn))*100,1)
 x[1,] <- round(prop.table(table(pkrd$VAVn))*100,1)
-xtable(x, caption = "Pourcentage")
+xtable(x, caption = "Pourcentage") %>% print(table.placement = "H")
 @
 
 <<results="asis">>=
@@ -1784,24 +1794,24 @@ x %>% tidy() %>% xtable() %>% print(include.rownames = F, table.placement ="H")
 
 Selon l'âge :
 
+\begin{multicols}{2}
 <<results="asis">>=
 x <- mutate(global_greffe, gr_age_2 = cut(global_greffe$age, breaks = c(0, 40, 99)))
 for (i in levels(global_greffe$liste_longue)) {
   print(xtable(as.data.frame.matrix(round(prop.table(table(x$VAVn[x$liste_longue==i], x$gr_age_2[x$liste_longue==i]),2)*100,1)), caption = i), table.placement = "H")
 }
 @
+\end{multicols}
 
 Selon l'urgence :
-
+\begin{multicols}{2}
 <<results="asis">>=
 for (i in levels(global_greffe$liste_longue)) {
   print(xtable(as.data.frame.matrix(round(prop.table(table(global_greffe$VAVn[global_greffe$liste_longue==i], global_greffe$urg_rea[global_greffe$liste_longue==i]),2)*100,1)), caption = i), table.placement = "H")
 }
 @
+\end{multicols}
 
-
-  \subsection{Devenir des patients après la mise en dialyse}
-  
   \subsection{Analyse de la survie patient avec comme outcome le décès}
   
   On a la date de décès pour \Sexpr{table(!is.na(iga$ddc))[2]} (\Sexpr{round(table(!is.na(iga$ddc))[2]/nrow(iga)*100,1)}\%) patients pour la maladie de Berger.
@@ -1844,7 +1854,6 @@ Cox sur age + sexe :
 <<results="asis">>=
 x <- coxph(Surv(kmdelaidc/365.25, kmdc)~age+sex, data = global_greffe[global_greffe$iga==1,])
 print(xtable(x), table.placement = "H")
-print(xtable(summary(x)$conf.int), table.placement = "H")
 @
 
 Cox sur age + sexe + dfg :
@@ -1873,71 +1882,71 @@ greffe$greffe_kmdelaidc1 <- ifelse(!is.na(greffe$DELAIDC1), greffe$DELAIDC1*30.4
 @
 
 
-La table "greffe" contient \Sexpr{table(duplicated(greffe$NEFG))["FALSE"]} patients uniques après suppression de ceux qui n'avaient pas de maladie de Berger ou de néphropathie à IgA (si un patient avait les deux pathologies, la ligne ne coneant aucune information était supprimée), les patients sans date de greffe ont été supprimés. \Sexpr{length(intersect(global$RREC_COD,greffe$NEFG))} (\Sexpr{round(length(intersect(global$RREC_COD,greffe$NEFG))/table(duplicated(greffe$NEFG))["FALSE"]*100,1)}\%) sont en commun avec la table "globale" (= ceux qui ont été utilisés pour la suite des données). \Sexpr{length(intersect(global$RREC_COD[is.na(global$dgrf)],greffe$NEFG))} patients sont dans la table "greffe" alors qu'ils n'ont pas de date de greffe dans la table "globale".
+La table "greffe" concernant la maladie de Berger contient \Sexpr{table(duplicated(greffe.iga$NEFG[!is.na(greffe.iga$GRF1)]))["FALSE"]} patients uniques après suppression de ceux qui n'avaient pas de maladie de Berger, de néphropathie à IgA ou de date de greffe. \Sexpr{length(intersect(global$RREC_COD,greffe.iga$NEFG[!is.na(greffe.iga$GRF1)]))} (\Sexpr{round(length(intersect(global$RREC_COD,greffe.iga$NEFG))/table(duplicated(greffe.iga$NEFG[!is.na(greffe.iga$GRF1)]))["FALSE"]*100,1)}\%) sont en commun avec la table "globale".
 ~\\
 
-En considérant ceux qui ne sont pas en commun avec la table globale comme ayant eu une greffe sans dialyse et en prenant ceux de la table globale considéré comme greffé sans dialyse, on a \Sexpr{table(greffe$greffe_METHOn)[2]} patients greffés sans dialyse (\Sexpr{round(table(greffe$greffe_METHOn)[2]/1152*100,1)}\%).
-~\\
-
-Dans la table globale avec la table greffe :
+Dans la table globale avec la table greffe pour le Berger :
 
 <<results="asis">>=
-x <- global_greffe %>% group_by(tx, !is.na(dgrf),dgrf<as.Date("2015-01-01", origin ="1899-12-30") ,METHOn=="Greffe", !is.na(GRF1), GRF1<as.Date("2015-01-01", origin ="1899-12-30"), !is.na(GRF2)) %>% summarise(n())
-x <- as.data.frame(x)
-colnames(x) <- c("Greffé", "Date de greffe", "Date<2014","Greffe sans dialyse","Greffe 1", "greffe1<2015", "Greffe 2","Total")
-print(xtable(x, digits = 0, align = c("c","c","c","c","c","c","c","c","c")), table.placement = "H", include.rownames = F)
+x <- global_greffe2[global_greffe2$iga==1 & !is.na(global_greffe2$iga),] %>% 
+  group_by(!is.na(dgrf),
+           !is.na(GRF1)) %>% 
+  summarise(n()) %>%
+  as.data.frame()
+colnames(x) <- c("Date de greffe (global)","Greffe 1 (table greffe)", "Total")
+print(xtable(x, digits = 0, align = c("c","c","c","c")), table.placement = "H", include.rownames = F)
 @
 
-- étant considéré comme greffé (table globale) : \Sexpr{table(global_greffe$tx)[2]} (\Sexpr{round(table(global_greffe$tx)[2]/20455*100,1)}\%)
-
-- ayant une date de greffe (table globale) : \Sexpr{table(!is.na(global_greffe$dgrf))[2]} (\Sexpr{round(table(!is.na(global_greffe$dgrf))[2]/20455*100,1)}\%)
-
-\qquad - dont une greffe de 2010 à 2014 : \Sexpr{table(global_greffe$dgrf<as.Date("2015-01-01", origin ="1899-12-30"))[2]}
-
-- ayant eu une greffe sans dialyse (table greffe) : \Sexpr{table(global_greffe$METHOn=="Greffe")[2]} (\Sexpr{round(table(global_greffe$METHOn=="Greffe")[2]/20455*100,1)}\%)
-
-- ayant une date de greffe 1 (table greffe) : \Sexpr{table(!is.na(global_greffe$GRF1))[2]} (\Sexpr{round(table(!is.na(global_greffe$GRF1))[2]/20455*100,1)}\%)
-
-\qquad - dont une greffe de 2010 à 2014 : \Sexpr{table(global_greffe$GRF1<as.Date("2015-01-01", origin ="1899-12-30"))[2]}
-
-- ayant une date de greffe 2 (table greffe) : \Sexpr{table(!is.na(global_greffe$GRF2))[2]} (\Sexpr{round(table(!is.na(global_greffe$GRF2))[2]/20455*100,1)}\%)
-
-\qquad - dont une greffe de 2010 à 2014 : \Sexpr{table(global_greffe$GRF2<as.Date("2015-01-01", origin ="1899-12-30"))[2]}
-
-- ayant une date de greffe 1 et 2, considéré comme greffé et ayant une date de greffe : \Sexpr{table(global_greffe$greffe)[2]} (\Sexpr{round(table(global_greffe$greffe)[2]/20455*100,1)}\%)
-
-\qquad - dont une greffe de 2010 à 2014 : \Sexpr{table(global_greffe$greffe[global_greffe$dgrf<as.Date("2015-01-01", origin ="1899-12-30")])} (\Sexpr{round(table(global_greffe$greffe[global_greffe$dgrf<as.Date("2015-01-01", origin ="1899-12-30")])/20455*100,1)}\%)
+% - étant considéré comme greffé (table globale) : \Sexpr{table(global_greffe$tx)[2]} (\Sexpr{round(table(global_greffe$tx)[2]/20455*100,1)}\%)
+% 
+% - ayant une date de greffe (table globale) : \Sexpr{table(!is.na(global_greffe$dgrf))[2]} (\Sexpr{round(table(!is.na(global_greffe$dgrf))[2]/20455*100,1)}\%)
+% 
+% \qquad - dont une greffe de 2010 à 2014 : \Sexpr{table(global_greffe$dgrf<as.Date("2015-01-01", origin ="1899-12-30"))[2]}
+% 
+% - ayant eu une greffe sans dialyse (table greffe) : \Sexpr{table(global_greffe$METHOn=="Greffe")[2]} (\Sexpr{round(table(global_greffe$METHOn=="Greffe")[2]/20455*100,1)}\%)
+% 
+% - ayant une date de greffe 1 (table greffe) : \Sexpr{table(!is.na(global_greffe$GRF1))[2]} (\Sexpr{round(table(!is.na(global_greffe$GRF1))[2]/20455*100,1)}\%)
+% 
+% \qquad - dont une greffe de 2010 à 2014 : \Sexpr{table(global_greffe$GRF1<as.Date("2015-01-01", origin ="1899-12-30"))[2]}
+% 
+% - ayant une date de greffe 2 (table greffe) : \Sexpr{table(!is.na(global_greffe$GRF2))[2]} (\Sexpr{round(table(!is.na(global_greffe$GRF2))[2]/20455*100,1)}\%)
+% 
+% \qquad - dont une greffe de 2010 à 2014 : \Sexpr{table(global_greffe$GRF2<as.Date("2015-01-01", origin ="1899-12-30"))[2]}
+% 
+% - ayant une date de greffe 1 et 2, considéré comme greffé et ayant une date de greffe : \Sexpr{table(global_greffe$greffe)[2]} (\Sexpr{round(table(global_greffe$greffe)[2]/20455*100,1)}\%)
+% 
+% \qquad - dont une greffe de 2010 à 2014 : \Sexpr{table(global_greffe$greffe[global_greffe$dgrf<as.Date("2015-01-01", origin ="1899-12-30")])} (\Sexpr{round(table(global_greffe$greffe[global_greffe$dgrf<as.Date("2015-01-01", origin ="1899-12-30")])/20455*100,1)}\%)
 
   \subsection{Nombre de greffe par année}
+% 
+% <<results="asis">>=
+% inc_greffe_iga <- matrix(nrow = 4, ncol = 6, dimnames = list(c("Greffe Berger","Pas de greffe Berger","Total France","Cas pour 1M d'hab"),c("2010","2011","2012","2013","2014","2015")))
+% inc_greffe_iga[1,] <- c(52, 120, 153, 177, 204, 168)
+% inc_greffe_iga[2,] <- c(50482295-52, 50701229-120, 50930784-153, 51192770-177, 51421008-204, 51676545-168)
+% inc_greffe_iga[3,] <- c(50482295, 50701229, 50930784, 51192770, 51421008, 51676545)
+% inc_greffe_iga[4,] <- round(prop.table(inc_greffe_iga[1:2,],2)*1000000,1)[1,]
+% print(xtable(inc_greffe_iga, digits = 1, auto = T), table.placement = "H")
+% @
+% 
+% <<>>=
+% chisq.test(inc_greffe_iga[1:2,], correct = F) 
+% @
 
+\begin{multicols}{2}
 <<results="asis">>=
-inc_greffe_iga <- matrix(nrow = 4, ncol = 6, dimnames = list(c("Greffe Berger","Pas de greffe Berger","Total France","Cas pour 1M d'hab"),c("2010","2011","2012","2013","2014","2015")))
-inc_greffe_iga[1,] <- c(52, 120, 153, 177, 204, 168)
-inc_greffe_iga[2,] <- c(50482295-52, 50701229-120, 50930784-153, 51192770-177, 51421008-204, 51676545-168)
-inc_greffe_iga[3,] <- c(50482295, 50701229, 50930784, 51192770, 51421008, 51676545)
-inc_greffe_iga[4,] <- round(prop.table(inc_greffe_iga[1:2,],2)*1000000,1)[1,]
-print(xtable(inc_greffe_iga, digits = 1, auto = T), table.placement = "H")
-@
-
-<<>>=
-chisq.test(inc_greffe_iga[1:2,], correct = F) 
-@
-
-
-<<results="asis">>=
-x <- left_join(tidy(addmargins(table(global_greffe$annee1))), tidy(round(prop.table(table(global_greffe$annee1))*100,1)), by = "Var1")
+x <- left_join(tidy(addmargins(table(global_greffe2$annee1[global_greffe2$iga==1 & !is.na(global_greffe2$iga)]))), tidy(round(prop.table(table(global_greffe2$annee1[global_greffe2$iga==1 & !is.na(global_greffe2$iga)]))*100,1)), by = "Var1")
 colnames(x) <- c("Greffe 1","Fréquence","Pourcentage")
 print(xtable(x, digits = 1, auto = T), table.placement = "H", include.rownames = F)
 
-x <- left_join(tidy(addmargins(table(global_greffe$annee2))), tidy(round(prop.table(table(global_greffe$annee2))*100,1)), by = "Var1")
+x <- left_join(tidy(addmargins(table(global_greffe2$annee2[global_greffe2$iga==1 & !is.na(global_greffe2$iga)]))), tidy(round(prop.table(table(global_greffe2$annee2[global_greffe2$iga==1 & !is.na(global_greffe2$iga)]))*100,1)), by = "Var1")
 colnames(x) <- c("Greffe 2","Fréquence","Pourcentage")
 print(xtable(x, digits = 1, auto = T), table.placement = "H", include.rownames = F)
 @
-
+\end{multicols}
 
   \subsection{Arrêt de fonction du greffon}
 
-    \subsubsection{Temps entre greffe et arrêt du greffon}
+    \subsubsection{Temps entre greffe et arrêt du greffon (sans les patients non en commun avec la table globale)}
 
 <<results="asis">>=
 do.call("rbind", tapply(global_greffe$DELAIARF1, global_greffe$liste_longue, summary)) %>%
@@ -1945,8 +1954,7 @@ do.call("rbind", tapply(global_greffe$DELAIARF1, global_greffe$liste_longue, sum
   print(table.placement = "H")
 @
 
-
-<<fig.height=3.5>>=
+<<fig.height=2>>=
 for (i in levels.default(global_greffe$liste_longue)) {
 print(ggplot(global_greffe[global_greffe$liste_longue==i,], aes(DELAIARF1/12)) + 
   geom_histogram(aes(y=..density..), fill = "white", col = "black", bins = 13) +
@@ -2034,10 +2042,11 @@ do.call("rbind", tapply(global_greffe$DELAIARF1[global_greffe$iga==1], global_gr
 
   \subsection{Inscription liste de greffe}
 
-Deux variables : "date d'inscription sur liset d'attente greffe" et "Inscription sur liste d'attente (selon REIN)" avec incohérences (certains patients avec une date et considérés comme non inscrit).
+Deux variables : "date d'inscription sur liste d'attente greffe" et "Inscription sur liste d'attente (selon REIN)" avec incohérences (certains patients avec une date et considérés comme non inscrit).
 
-Nombre de patients ayant une date de greffe (Berger) : \Sexpr{table(!is.na(global_greffe$DINSCMED[global_greffe$iga==1]))[2]} (\Sexpr{round(prop.table(table(!is.na(global_greffe$DINSCMED[global_greffe$iga==1])))*100,1)[2]}\%)
+Nombre de patients ayant une date d'inscription (Berger) : \Sexpr{table(!is.na(global_greffe$DINSCMED[global_greffe$iga==1]))[2]} (\Sexpr{round(prop.table(table(!is.na(global_greffe$DINSCMED[global_greffe$iga==1])))*100,1)[2]}\%)
 
+\begin{multicols}{2}
 <<results="asis">>=
 for (i in levels(global_greffe$liste_longue)) {
 table(!is.na(global_greffe$DINSCMED[global_greffe$liste_longue==i]), global_greffe$greffe[global_greffe$liste_longue==i]) %>%
@@ -2049,7 +2058,7 @@ table(!is.na(global_greffe$DINSCMED[global_greffe$liste_longue==i]), global_gref
   print(table.placement = "H")
 }
 @
-
+\end{multicols}
 
   \subsection{Décès au cours de la greffe}
 
