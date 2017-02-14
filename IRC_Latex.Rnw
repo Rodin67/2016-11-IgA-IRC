@@ -235,7 +235,7 @@ greffe.pkrd <- read_excel("~/IRC/dataIgA/grf_tem_pkr.xlsx",
                                         "date", "text", "text", "date", "date", "text",
                                         "text", "numeric", "text", "text", "text",
                                         "text", "text", "text", "numeric"))
-greffe.pkrd <- greffe.pkrd[greffe.pkrd$LMALADI=="Maladie kystique de la médullaire (néphronophtise incluse)" | greffe.pkrd$LMALADI=="Maladie polykystique rénale adulte (type dominant)" | greffe.pkrd$LMALADI=="Maladie polykystique rénale enfant (type récessif) (ça me fait me poser la question de ce qu'on fait des patients pour lesquels on a que des infos sur la greffe et dont on ne sait pas si ils ont plus ou moins de 15 ans)" | greffe.pkrd$LMALADI=="Reins polykystiques - autre variété reconnue" | greffe.pkrd$LMALADI=="Reins polykystiques - type non spécifié",]
+greffe.pkrd <- greffe.pkrd[greffe.pkrd$LMALADI=="Maladie polykystique rénale adulte (type dominant)",]
 
 greffe <- bind_rows(greffe, greffe.pkrd)
 
@@ -245,6 +245,16 @@ greffe.gnc <- read_excel("~/IRC/dataIgA/grf_tem_gnc.xlsx",
                                         "date", "date", "text", "text", "numeric", "text",
                                          "text","blank", "text", "text", "text", "text",
                                         "numeric"))
+greffe.gnc <- greffe.gnc[greffe.gnc$LMALADI=="Glomérulo. avec hyalinose segmentaire et focale de l'adulte (av.syndrome néphrotique)." | 
+                           greffe.gnc$LMALADI=="Synd. néphrotique sévère avec sclérose focale (Pédiatrique, GN avec hyalinose segment. et focale de l'enfant)" | 
+                           greffe.gnc$LMALADI=="Glomérulo. extra-membraneuse" | 
+                           greffe.gnc$LMALADI=="Glomérulo. membrano-prolif., type I (par immunofluo. et/ou microscopie électr. (hors codes 784 ou 789)" | 
+                           greffe.gnc$LMALADI=="Glomérulo. membrano-proliférative type II avec dépôts denses (prouvée par immunofluorescence et/ou microscopie électronique)" |
+                           greffe.gnc$LMALADI=="Syndrome de Goodpasture" |
+                           greffe.gnc$LMALADI=="Granulomatose de Wegener" |
+                           greffe.gnc$LMALADI=="Polyangéite microscopique et glomerulonephrite extracapillaires pauci-immune à ANCA" |
+                           greffe.gnc$LMALADI=="Lupus érythémateux" |
+                           greffe.gnc$LMALADI=="Purpura rhumatoide",]
                           
 
 greffe <- bind_rows(greffe, greffe.gnc)
@@ -416,7 +426,7 @@ gnc$SIDAn <- ifelse(gnc$SIDAn==0 | is.na(gnc$SIDAn), 0, 1)
 gnc$AMPn <- ifelse(gnc$AMPn==0 | is.na(gnc$AMPn), 0, 1)
 gnc$gr_bmi<-cut(gnc$bmi, breaks = c(min(gnc$bmi,na.rm = T),18.5,25,30,35,max(gnc$bmi,na.rm = T)+1), right = F, labels = c("<18.5","18.5-24.9","25-29.9","30-34.9",">35"))
 gnc$gr_bmi <- relevel(gnc$gr_bmi, ref = "18.5-24.9")
-gnc <- gnc[!(gnc$liste_longue=="GN primitive avec autre diagnostic histologique" | gnc$liste_longue=="Maladies systémiques autres"),]
+gnc <- gnc[!(gnc$liste_longue=="GN primitive avec autre diagnostic histologique" | gnc$liste_longue=="Maladies systémiques autres" | gnc$liste_longue=="GN primitive sans examen histologique"),]
 gnc$liste_longue <- factor(gnc$liste_longue)
 @
 
@@ -774,7 +784,6 @@ global_greffe$ECHEC1<-factor(global_greffe$ECHEC1,
                                           "Infection du greffon",
                                           "Récidive de la maladie initiale",
                                           "Complications vasculaires du greffon",
-                                          "Complications urologiques greffon",
                                           "Défaillance non spécifique du greffon",
                                           "Autres complications greffon",
                                           "Perte d'un greffon sur Bigreffe",
@@ -782,13 +791,11 @@ global_greffe$ECHEC1<-factor(global_greffe$ECHEC1,
                                           "Hémorragie d'origine chirurgicale",
                                           "Hémorragie au niveau du transplant",
                                           "Maladie kystique du foie",
-                                          "Défaillance hépatique de cause inconnue",
                                           "Péritonite",
                                           "Insuffisance rénale aigue",
                                           "Insuffisance rénale chronique",
                                           "Patient refusant de poursuivre son traitement",
                                           "Infection bactérienne pulmonaire (sauf tuberculose)",
-                                          "Infection fongique ou à protozoaire pulmonaire",
                                           "Infection virale d'autres organes (sauf hépatite virale)",
                                           "Infection fongique ou à protozoaire d'autres organes",
                                           "Septicémie",
@@ -844,22 +851,17 @@ global_greffe2$ECHEC1 <-factor(global_greffe2$ECHEC1,
                                           "Hémorragie d'origine chirurgicale",
                                           "Hémorragie au niveau du transplant",
                                           "Maladie kystique du foie",
-                                          "Défaillance hépatique de cause inconnue",
                                           "Péritonite",
                                           "Insuffisance rénale aigue",
                                           "Insuffisance rénale chronique",
                                           "Patient refusant de poursuivre son traitement",
-                                          "Traitement cessé pour autres raisons",
                                           "Infection bactérienne pulmonaire (sauf tuberculose)",
-                                          "Infection fongique ou à protozoaire pulmonaire",
                                           "Infection virale d'autres organes (sauf hépatite virale)",
                                           "Infection fongique ou à protozoaire d'autres organes",
                                           "Septicémie",
                                           "Infection virale généralisée",
                                           "Autre infection déterminee",
                                           "Myélome",
-                                          "Complications liées au traitement immunosuppresseur",
-                                          "Défaillance multi-organes",
                                           "Cachexie",
                                           "Autre complication non déterminée",
                                           "Autre complication déterminée",
@@ -1836,9 +1838,9 @@ global_greffe %>%
   plot(main = "Courbe de survie", 
        xlab = "Temps (année)", 
        ylim = c(0.4,1),
-       col = c("black", brewer.pal(n = 10, name = "Paired")))
+       col = c("black", brewer.pal(n = 9, name = "Paired")))
 
-legend("bottomleft", legend = c(levels(global_greffe$liste_longue)), lty = 1, col = c("black",brewer.pal(n = 12, name = "Paired")), cex = 1 , box.lwd = 0)
+legend("bottomleft", legend = c(levels(global_greffe$liste_longue)), lty = 1, col = c("black",brewer.pal(n = 9, name = "Paired")), cex = 1 , box.lwd = 0)
 @
 
 Médiane de survie pour diablète : 5.5 ans [5.25-5.75]
@@ -1968,7 +1970,7 @@ print(ggplot(global_greffe[global_greffe$liste_longue==i,], aes(DELAIARF1/12)) +
 \subsubsection*{Greffon 1}
 
 <<results="asis">>=
-for (i in levels(global_greffe$liste_longue)) {
+for (i in levels(global_greffe$liste_longue)){
 x <- full_join(tidy(sort(table(global_greffe$ECHEC1[global_greffe$liste_longue==i], useNA = "always"), decreasing = T)[-1]), tidy(round(prop.table(sort(table(global_greffe$ECHEC1[global_greffe$liste_longue==i]), decreasing = T))*100,1)), by = "Var1")
 colnames(x) <- c(i,"Frequence","Pourcentage")
 x <- x[x$Frequence!=0,]
